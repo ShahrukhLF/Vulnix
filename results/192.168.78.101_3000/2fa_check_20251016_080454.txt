@@ -1,0 +1,2 @@
+[-] No obvious 2FA text on main page.
+[+] 2FA-related text found on /account or settings page.

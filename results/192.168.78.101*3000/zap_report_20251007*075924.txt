@@ -1,1 +1,0 @@
-[!] zap.sh not found (check zaproxy installation). Skipping ZAP scan.

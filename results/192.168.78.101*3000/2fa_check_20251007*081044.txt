@@ -1,1 +1,0 @@
-[-] No visible 2FA indicators found on main page.

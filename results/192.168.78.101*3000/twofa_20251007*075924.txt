@@ -1,2 +1,0 @@
-No 2FA detected in login response.
-Rate limiting not observed in 3 attempts (limited test).

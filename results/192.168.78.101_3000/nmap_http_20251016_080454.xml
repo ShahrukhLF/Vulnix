@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Thu Oct 16 08:04:54 2025 as: /usr/lib/nmap/nmap -sV -p 80,443,3000,8080 -&#45;script http-title,http-headers,http-enum -oN results/192.168.78.101_3000/nmap_http_20251016_080454.txt -oX results/192.168.78.101_3000/nmap_http_20251016_080454.xml 192.168.78.101 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -p 80,443,3000,8080 -&#45;script http-title,http-headers,http-enum -oN results/192.168.78.101_3000/nmap_http_20251016_080454.txt -oX results/192.168.78.101_3000/nmap_http_20251016_080454.xml 192.168.78.101" start="1760616294" startstr="Thu Oct 16 08:04:54 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="4" services="80,443,3000,8080"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1760616294" endtime="1760616296"><status state="up" reason="localhost-response" reason_ttl="0"/>
+<address addr="192.168.78.101" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="reset" reason_ttl="64"/><service name="http-proxy" method="table" conf="3"/></port>
+</ports>
+<times srtt="66" rttvar="2837" to="100000"/>
+</host>
+<runstats><finished time="1760616296" timestr="Thu Oct 16 08:04:56 2025" summary="Nmap done at Thu Oct 16 08:04:56 2025; 1 IP address (1 host up) scanned in 1.83 seconds" elapsed="1.83" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
