@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sun Oct 19 12:12:00 2025 as: /usr/lib/nmap/nmap -sS -sV -O -T4 -&#45;script default,safe,smb-enum-shares,smb-vuln-ms08-067,ftp-anon,ssh-hostkey,mysql-empty-password,vnc-info,http-enum,http-methods -p 1-2000,3306,5432,8080,3000,2049,5900 -oX results/192.168.78.102/nmap_raw_20251019_121200.xml -oN results/192.168.78.102/nmap_raw_20251019_121200.txt 192.168.78.102 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sS -sV -O -T4 -&#45;script default,safe,smb-enum-shares,smb-vuln-ms08-067,ftp-anon,ssh-hostkey,mysql-empty-password,vnc-info,http-enum,http-methods -p 1-2000,3306,5432,8080,3000,2049,5900 -oX results/192.168.78.102/nmap_raw_20251019_121200.xml -oN results/192.168.78.102/nmap_raw_20251019_121200.txt 192.168.78.102" start="1760890320" startstr="Sun Oct 19 12:12:00 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="2006" services="1-2000,2049,3000,3306,5432,5900,8080"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<prescript><script id="broadcast-dhcp-discover" output="&#xa;  Response 1 of 2: &#xa;    Interface: eth1&#xa;    IP Offered: 192.168.78.102&#xa;    Server Identifier: 192.168.78.100&#xa;    Subnet Mask: 255.255.255.0&#xa;  Response 2 of 2: &#xa;    Interface: eth0&#xa;    IP Offered: 10.0.2.17&#xa;    Server Identifier: 10.0.2.2&#xa;    Subnet Mask: 255.255.255.0&#xa;    Router: 10.0.2.2&#xa;    Domain Name Server: 10.18.80.217"><table key="Response 1 of 2">
+<elem key="Interface">eth1</elem>
+<elem key="IP Offered">192.168.78.102</elem>
+<elem key="Server Identifier">192.168.78.100</elem>
+<elem key="Subnet Mask">255.255.255.0</elem>
+</table>
+<table key="Response 2 of 2">
+<elem key="Interface">eth0</elem>
+<elem key="IP Offered">10.0.2.17</elem>
+<elem key="Server Identifier">10.0.2.2</elem>
+<elem key="Subnet Mask">255.255.255.0</elem>
+<elem key="Router">10.0.2.2</elem>
+<elem key="Domain Name Server">10.18.80.217</elem>
+</table>
+</script><script id="hostmap-robtex" output="*TEMPORARILY DISABLED* due to changes in Robtex&apos;s API. See https://www.robtex.com/api/"/><script id="targets-asn" output="&#xa;  targets-asn.asn is a mandatory parameter&#xa;"/><script id="broadcast-igmp-discovery" output="&#xa;  192.168.78.1&#xa;    Interface: eth1&#xa;    Version: 2&#xa;    Group: 224.0.0.251&#xa;    Description: mDNS (rfc6762)&#xa;  192.168.78.1&#xa;    Interface: eth1&#xa;    Version: 2&#xa;    Group: 239.255.255.250&#xa;    Description: Organization-Local Scope (rfc2365)&#xa;  Use the newtargets script-arg to add the results as targets&#xa;"/><script id="eap-info" output="please specify an interface with -e"/><script id="http-robtex-shared-ns" output="*TEMPORARILY DISABLED* due to changes in Robtex&apos;s API. See https://www.robtex.com/api/"/><script id="multicast-profinet-discovery" output="0">0</script><script id="broadcast-listener" output="&#xa;  udp&#xa;      DHCP&#xa;        srv ip          cli ip          mask           gw  dns  vendor&#xa;        192.168.78.100  192.168.78.102  255.255.255.0  -   -    -&#xa;"/></prescript><hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1760890374" endtime="1760891835"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="closed" count="1988">
+<extrareasons reason="reset" count="1988" proto="tcp" ports="1-20,24,26-52,54-79,81-110,112-138,140-444,446-511,515-1098,1100-1523,1525-2000,3000,8080"/>
+</extraports>
+<port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="vsftpd" version="2.3.4" ostype="Unix" method="probed" conf="10"><cpe>cpe:/a:vsftpd:vsftpd:2.3.4</cpe></service><script id="ftp-anon" output="Anonymous FTP login allowed (FTP code 230)"/><script id="banner" output="220 (vsFTPd 2.3.4)"/><script id="ftp-syst" output="&#xa;  STAT: &#xa;FTP server status:&#xa;     Connected to 192.168.78.101&#xa;     Logged in as ftp&#xa;     TYPE: ASCII&#xa;     No session bandwidth limit&#xa;     Session timeout in seconds is 300&#xa;     Control connection is plain text&#xa;     Data connections will be plain text&#xa;     vsFTPd 2.3.4 - secure, fast, stable&#xa;End of status"><elem key="STAT">&#xa;FTP server status:&#xa;     Connected to 192.168.78.101&#xa;     Logged in as ftp&#xa;     TYPE: ASCII&#xa;     No session bandwidth limit&#xa;     Session timeout in seconds is 300&#xa;     Control connection is plain text&#xa;     Data connections will be plain text&#xa;     vsFTPd 2.3.4 - secure, fast, stable&#xa;End of status</elem>
+</script></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="4.7p1 Debian 8ubuntu1" extrainfo="protocol 2.0" ostype="Linux" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:4.7p1</cpe><cpe>cpe:/o:linux:linux_kernel</cpe></service><script id="ssh-hostkey" output="&#xa;  1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)&#xa;  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)"><table>
+<elem key="key">AAAAB3NzaC1kc3MAAACBALz4hsc8a2Srq4nlW960qV8xwBG0JC+jI7fWxm5METIJH4tKr/xUTwsTYEYnaZLzcOiy21D3ZvOwYb6AA3765zdgCd2Tgand7F0YD5UtXG7b7fbz99chReivL0SIWEG/E96Ai+pqYMP2WD5KaOJwSIXSUajnU5oWmY5x85sBw+XDAAAAFQDFkMpmdFQTF+oRqaoSNVU7Z+hjSwAAAIBCQxNKzi1TyP+QJIFa3M0oLqCVWI0We/ARtXrzpBOJ/dt0hTJXCeYisKqcdwdtyIn8OUCOyrIjqNuA2QW217oQ6wXpbFh+5AQm8Hl3b6C6o8lX3Ptw+Y4dp0lzfWHwZ/jzHwtuaDQaok7u1f971lEazeJLqfiWrAzoklqSWyDQJAAAAIA1lAD3xWYkeIeHv/R3P9i+XaoI7imFkMuYXCDTq843YU6Td+0mWpllCqAWUV/CQamGgQLtYy5S0ueoks01MoKdOMMhKVwqdr08nvCBdNKjIEd3gH6oBk/YRnjzxlEAYBsvCmM4a0jmhz0oNiRWlc/F+bkUeFKrBx/D2fdfZmhrGg==</elem>
+<elem key="fingerprint">600fcfe1c05f6a74d69024fac4d56ccd</elem>
+<elem key="bits">1024</elem>
+<elem key="type">ssh-dss</elem>
+</table>
+<table>
+<elem key="key">AAAAB3NzaC1yc2EAAAABIwAAAQEAstqnuFMBOZvO3WTEjP4TUdjgWkIVNdTq6kboEDjteOfc65TlI7sRvQBwqAhQjeeyyIk8T55gMDkOD0akSlSXvLDcmcdYfxeIF0ZSuT+nkRhij7XSSA/Oc5QSk3sJ/SInfb78e3anbRHpmkJcVgETJ5WhKObUNf1AKZW++4Xlc63M4KI5cjvMMIPEVOyR3AKmI78Fo3HJjYucg87JjLeC66I7+dlEYX6zT8i1XYwa/L1vZ3qSJISGVu8kRPikMv/cNSvki4j+qDYyZ2E5497W87+Ed46/8P42LNGoOV8OcX/ro6pAcbEPUdUEfkJrqi2YXbhvwIJ0gFMb6wfe5cnQew==</elem>
+<elem key="fingerprint">5656240f211ddea72bae61b1243de8f3</elem>
+<elem key="bits">2048</elem>
+<elem key="type">ssh-rsa</elem>
+</table>
+</script><script id="banner" output="SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1"/><script id="ssh2-enum-algos" output="&#xa;  kex_algorithms: (4)&#xa;  server_host_key_algorithms: (2)&#xa;  encryption_algorithms: (13)&#xa;  mac_algorithms: (7)&#xa;  compression_algorithms: (2)"><table key="kex_algorithms">
+<elem>diffie-hellman-group-exchange-sha256</elem>
+<elem>diffie-hellman-group-exchange-sha1</elem>
+<elem>diffie-hellman-group14-sha1</elem>
+<elem>diffie-hellman-group1-sha1</elem>
+</table>
+<table key="server_host_key_algorithms">
+<elem>ssh-rsa</elem>
+<elem>ssh-dss</elem>
+</table>
+<table key="encryption_algorithms">
+<elem>aes128-cbc</elem>
+<elem>3des-cbc</elem>
+<elem>blowfish-cbc</elem>
+<elem>cast128-cbc</elem>
+<elem>arcfour128</elem>
+<elem>arcfour256</elem>
+<elem>arcfour</elem>
+<elem>aes192-cbc</elem>
+<elem>aes256-cbc</elem>
+<elem>rijndael-cbc@lysator.liu.se</elem>
+<elem>aes128-ctr</elem>
+<elem>aes192-ctr</elem>
+<elem>aes256-ctr</elem>
+</table>
+<table key="mac_algorithms">
+<elem>hmac-md5</elem>
+<elem>hmac-sha1</elem>
+<elem>umac-64@openssh.com</elem>
+<elem>hmac-ripemd160</elem>
+<elem>hmac-ripemd160@openssh.com</elem>
+<elem>hmac-sha1-96</elem>
+<elem>hmac-md5-96</elem>
+</table>
+<table key="compression_algorithms">
+<elem>none</elem>
+<elem>zlib@openssh.com</elem>
+</table>
+</script></port>
+<port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="telnet" product="Linux telnetd" ostype="Linux" method="probed" conf="10"><cpe>cpe:/o:linux:linux_kernel</cpe></service><script id="banner" output="\xFF\xFD\x18\xFF\xFD \xFF\xFD#\xFF\xFD&apos;"/><script id="telnet-encryption" output="&#xa;  Telnet server does not support encryption"/></port>
+<port protocol="tcp" portid="25"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="smtp" product="Postfix smtpd" hostname=" metasploitable.localdomain" method="probed" conf="10"><cpe>cpe:/a:postfix:postfix</cpe></service><script id="ssl-cert" output="Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX&#xa;Not valid before: 2010-03-17T14:07:45&#xa;Not valid after:  2010-04-16T14:07:45"><table key="subject">
+<elem key="commonName">ubuntu804-base.localdomain</elem>
+<elem key="countryName">XX</elem>
+<elem key="emailAddress">root@ubuntu804-base.localdomain</elem>
+<elem key="localityName">Everywhere</elem>
+<elem key="organizationName">OCOSA</elem>
+<elem key="organizationalUnitName">Office for Complication of Otherwise Simple Affairs</elem>
+<elem key="stateOrProvinceName">There is no such thing outside US</elem>
+</table>
+<table key="issuer">
+<elem key="commonName">ubuntu804-base.localdomain</elem>
+<elem key="countryName">XX</elem>
+<elem key="emailAddress">root@ubuntu804-base.localdomain</elem>
+<elem key="localityName">Everywhere</elem>
+<elem key="organizationName">OCOSA</elem>
+<elem key="organizationalUnitName">Office for Complication of Otherwise Simple Affairs</elem>
+<elem key="stateOrProvinceName">There is no such thing outside US</elem>
+</table>
+<table key="pubkey">
+<elem key="type">rsa</elem>
+<elem key="bits">1024</elem>
+<elem key="modulus">D6B41336339A95717B1BDE7C8375DA71B13CA97FFEAD641B77E94FAEBECAD4F8CBEFAEBB43792473FF3CE59E3B6DFCC8B1ACFA4C4D5E9B4C99540BD7A84A50BAA9DE1D1FF4E46B02A3F46B45CD4CAF8D8962338F65BB36619FC42C73C14E2EA0A8144E98704661BBD1B931DF8C99EE756B793C40A0AE9700909DDC990D33A4B5</elem>
+<elem key="exponent">65537</elem>
+</table>
+<elem key="sig_algo">sha1WithRSAEncryption</elem>
+<table key="validity">
+<elem key="notBefore">2010-03-17T14:07:45</elem>
+<elem key="notAfter">2010-04-16T14:07:45</elem>
+</table>
+<elem key="md5">dcd9ad906c8f2f7374af383b25408828</elem>
+<elem key="sha1">ed093088706603bfd5dc237399b498da2d4d31c6</elem>
+<elem key="pem">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIDWzCCAsQCCQD6+TpMf7a5zDANBgkqhkiG9w0BAQUFADCB8TELMAkGA1UEBhMC&#xa;WFgxKjAoBgNVBAgTIVRoZXJlIGlzIG5vIHN1Y2ggdGhpbmcgb3V0c2lkZSBVUzET&#xa;MBEGA1UEBxMKRXZlcnl3aGVyZTEOMAwGA1UEChMFT0NPU0ExPDA6BgNVBAsTM09m&#xa;ZmljZSBmb3IgQ29tcGxpY2F0aW9uIG9mIE90aGVyd2lzZSBTaW1wbGUgQWZmYWly&#xa;czEjMCEGA1UEAxMadWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4xLjAsBgkqhkiG&#xa;9w0BCQEWH3Jvb3RAdWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4wHhcNMTAwMzE3&#xa;MTQwNzQ1WhcNMTAwNDE2MTQwNzQ1WjCB8TELMAkGA1UEBhMCWFgxKjAoBgNVBAgT&#xa;IVRoZXJlIGlzIG5vIHN1Y2ggdGhpbmcgb3V0c2lkZSBVUzETMBEGA1UEBxMKRXZl&#xa;cnl3aGVyZTEOMAwGA1UEChMFT0NPU0ExPDA6BgNVBAsTM09mZmljZSBmb3IgQ29t&#xa;cGxpY2F0aW9uIG9mIE90aGVyd2lzZSBTaW1wbGUgQWZmYWlyczEjMCEGA1UEAxMa&#xa;dWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4xLjAsBgkqhkiG9w0BCQEWH3Jvb3RA&#xa;dWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4wgZ8wDQYJKoZIhvcNAQEBBQADgY0A&#xa;MIGJAoGBANa0EzYzmpVxexvefIN12nGxPKl//q1kG3fpT66+ytT4y++uu0N5JHP/&#xa;POWeO238yLGs+kxNXptMmVQL16hKULqp3h0f9ORrAqP0a0XNTK+NiWIzj2W7NmGf&#xa;xCxzwU4uoKgUTphwRmG70bkx34yZ7nVreTxAoK6XAJCd3JkNM6S1AgMBAAEwDQYJ&#xa;KoZIhvcNAQEFBQADgYEAkqS0uBRVYyVRSgvDKiLPOvgXagzPZqqnZS9Ibc3jPlyf&#xa;d2zURFQfHoRPjtSN3awtiAkhqNpWLKkFPEloNRl1DNpTI4iIGS10JsEiZe4RaINq&#xa;U0qcJ8ugtOmNKQyyPBhcZ8xTph4w0Komex6uQLkpAWwuvKIZlHwVbo0wOPbKLnU=&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>
+</script><script id="sslv2" output="&#xa;  SSLv2 supported&#xa;  ciphers: &#xa;    SSL2_DES_64_CBC_WITH_MD5&#xa;    SSL2_RC2_128_CBC_WITH_MD5&#xa;    SSL2_RC2_128_CBC_EXPORT40_WITH_MD5&#xa;    SSL2_RC4_128_WITH_MD5&#xa;    SSL2_DES_192_EDE3_CBC_WITH_MD5&#xa;    SSL2_RC4_128_EXPORT40_WITH_MD5"><elem>SSLv2 supported</elem>
+<table key="ciphers">
+<elem>SSL2_DES_64_CBC_WITH_MD5</elem>
+<elem>SSL2_RC2_128_CBC_WITH_MD5</elem>
+<elem>SSL2_RC2_128_CBC_EXPORT40_WITH_MD5</elem>
+<elem>SSL2_RC4_128_WITH_MD5</elem>
+<elem>SSL2_DES_192_EDE3_CBC_WITH_MD5</elem>
+<elem>SSL2_RC4_128_EXPORT40_WITH_MD5</elem>
+</table>
+</script><script id="banner" output="220 metasploitable.localdomain ESMTP Postfix (Ubuntu)"/><script id="smtp-commands" output="SMTP: EHLO 421 4.4.2 metasploitable.localdomain Error: timeout exceeded&#xd;&#xa;"/></port>
+<port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="domain" product="ISC BIND" version="9.4.2" method="probed" conf="10"><cpe>cpe:/a:isc:bind:9.4.2</cpe></service><script id="dns-nsid" output="&#xa;  bind.version: 9.4.2"><elem key="bind.version">9.4.2</elem>
+</script></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.2.8" extrainfo="(Ubuntu) DAV/2" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.2.8</cpe></service><script id="http-date" output="Sun, 19 Oct 2025 16:29:06 GMT; +27s from local time."><elem key="date">2025-10-19T16:29:06+00:00</elem>
+<elem key="delta">27.0</elem>
+</script><script id="http-vuln-cve2017-1001000" output="ERROR: Script execution failed (use -d to debug)"/><script id="http-grep" output="&#xa;  (1) http://192.168.78.102:80/dav/: &#xa;    (1) ip: &#xa;      + 192.168.78.102&#xa;  (1) http://192.168.78.102:80/mutillidae/index.php?page=credits.php: &#xa;    (1) email: &#xa;      + mutillidae-development@gmail.com"><table key="(1) http://192.168.78.102:80/dav/">
+<table key="(1) ip">
+<elem>+ 192.168.78.102</elem>
+</table>
+</table>
+<table key="(1) http://192.168.78.102:80/mutillidae/index.php?page=credits.php">
+<table key="(1) email">
+<elem>+ mutillidae-development@gmail.com</elem>
+</table>
+</table>
+</script><script id="http-mobileversion-checker" output="No mobile version detected."/><script id="http-php-version" output="Versions from logo query (less accurate): 5.1.3 - 5.1.6, 5.2.0 - 5.2.17&#xa;Versions from credits query (more accurate): 5.2.3 - 5.2.5, 5.2.6RC3&#xa;Version from header x-powered-by: PHP/5.2.4-2ubuntu5.10"/><script id="http-apache-negotiation" output="mod_negotiation enabled."/><script id="http-title" output="Metasploitable2 - Linux"><elem key="title">Metasploitable2 - Linux</elem>
+</script><script id="http-referer-checker" output="Couldn&apos;t find any cross-domain scripts."/><script id="http-headers" output="&#xa;  Date: Sun, 19 Oct 2025 16:29:06 GMT&#xa;  Server: Apache/2.2.8 (Ubuntu) DAV/2&#xa;  X-Powered-By: PHP/5.2.4-2ubuntu5.10&#xa;  Connection: close&#xa;  Content-Type: text/html&#xa;  &#xa;  (Request type: HEAD)&#xa;"/><script id="http-security-headers" output=""></script><script id="http-fetch" output="Please enter the complete path of the directory to save data in."><elem key="ERROR">Please enter the complete path of the directory to save data in.</elem>
+</script><script id="http-useragent-tester" output="&#xa;  Status for browser useragent: 200&#xa;  Allowed User Agents: &#xa;    Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)&#xa;    libwww&#xa;    lwp-trivial&#xa;    libcurl-agent/1.0&#xa;    PHP/&#xa;    Python-urllib/2.5&#xa;    GT::WWW&#xa;    Snoopy&#xa;    MFC_Tear_Sample&#xa;    HTTP::Lite&#xa;    PHPCrawl&#xa;    URI::Fetch&#xa;    Zend_Http_Client&#xa;    http client&#xa;    PECL::HTTP&#xa;    Wget/1.13.4 (linux-gnu)&#xa;    WWW-Mechanize/1.34"><elem key="Status for browser useragent">200</elem>
+<table key="Allowed User Agents">
+<elem>Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)</elem>
+<elem>libwww</elem>
+<elem>lwp-trivial</elem>
+<elem>libcurl-agent/1.0</elem>
+<elem>PHP/</elem>
+<elem>Python-urllib/2.5</elem>
+<elem>GT::WWW</elem>
+<elem>Snoopy</elem>
+<elem>MFC_Tear_Sample</elem>
+<elem>HTTP::Lite</elem>
+<elem>PHPCrawl</elem>
+<elem>URI::Fetch</elem>
+<elem>Zend_Http_Client</elem>
+<elem>http client</elem>
+<elem>PECL::HTTP</elem>
+<elem>Wget/1.13.4 (linux-gnu)</elem>
+<elem>WWW-Mechanize/1.34</elem>
+</table>
+</script><script id="http-trace" output="TRACE is enabled"/><script id="http-slowloris-check" output="&#xa;  VULNERABLE:&#xa;  Slowloris DOS attack&#xa;    State: LIKELY VULNERABLE&#xa;    IDs:  CVE:CVE-2007-6750&#xa;      Slowloris tries to keep many connections to the target web server open and hold&#xa;      them open as long as possible.  It accomplishes this by opening connections to&#xa;      the target web server and sending a partial request. By doing so, it starves&#xa;      the http server&apos;s resources causing Denial Of Service.&#xa;      &#xa;    Disclosure date: 2009-09-17&#xa;    References:&#xa;      http://ha.ckers.org/slowloris/&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750&#xa;"><table key="CVE-2007-6750">
+<elem key="title">Slowloris DOS attack</elem>
+<elem key="state">LIKELY VULNERABLE</elem>
+<table key="ids">
+<elem>CVE:CVE-2007-6750</elem>
+</table>
+<table key="description">
+<elem>Slowloris tries to keep many connections to the target web server open and hold&#xa;them open as long as possible.  It accomplishes this by opening connections to&#xa;the target web server and sending a partial request. By doing so, it starves&#xa;the http server&apos;s resources causing Denial Of Service.&#xa;</elem>
+</table>
+<table key="dates">
+<table key="disclosure">
+<elem key="month">09</elem>
+<elem key="day">17</elem>
+<elem key="year">2009</elem>
+</table>
+</table>
+<elem key="disclosure">2009-09-17</elem>
+<table key="exploit_results">
+</table>
+<table key="refs">
+<elem>http://ha.ckers.org/slowloris/</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750</elem>
+</table>
+</table>
+</script><script id="http-server-header" output="Apache/2.2.8 (Ubuntu) DAV/2"><elem>Apache/2.2.8 (Ubuntu) DAV/2</elem>
+</script><script id="http-xssed" output="ERROR: Script execution failed (use -d to debug)"/><script id="http-auth-finder" output="&#xa;Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102&#xa;  url                                            method&#xa;  http://192.168.78.102:80/phpMyAdmin/           FORM&#xa;  http://192.168.78.102:80/dvwa/                 FORM&#xa;  http://192.168.78.102:80/phpMyAdmin/index.php  FORM&#xa;"/><script id="http-enum" output="&#xa;  /tikiwiki/: Tikiwiki&#xa;  /test/: Test page&#xa;  /phpinfo.php: Possible information file&#xa;  /phpMyAdmin/: phpMyAdmin&#xa;  /doc/: Potentially interesting directory w/ listing on &apos;apache/2.2.8 (ubuntu) dav/2&apos;&#xa;  /icons/: Potentially interesting folder w/ directory listing&#xa;  /index/: Potentially interesting folder&#xa;"/><script id="http-comments-displayer" output="&#xa;Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 121&#xa;    Comment: &#xa;         //end $headers.each()&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 82&#xa;    Comment: &#xa;         //insert shadow DIV and set it to parent node for the next shadow div&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 245&#xa;    Comment: &#xa;        /* IE doesnt handles &apos;pre&apos; right */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/index.php&#xa;    Line number: 66&#xa;    Comment: &#xa;        &#xa;        // &lt;![CDATA[&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 32&#xa;    Comment: &#xa;        &#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 504&#xa;    Comment: &#xa;        /* disabled text */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 616&#xa;    Comment: &#xa;        /* enabled hover/active tabs */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 702&#xa;    Comment: &#xa;        /* END server privileges */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 357&#xa;    Comment: &#xa;        /* no extra space in table cells */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 208&#xa;    Comment: &#xa;        /* marked table rows */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 164&#xa;    Comment: &#xa;        /* avoid a thick line since this should be used under another fieldset */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 2&#xa;    Comment: &#xa;        &#xa;        //** Script Download/ instructions page: http://www.dynamicdrive.com/dynamicindex1/ddlevelsmenu/&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/index.php&#xa;    Line number: 18&#xa;    Comment: &#xa;        &#xa;        //]]&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 153&#xa;    Comment: &#xa;         //end ddsmoothmenu variable&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 747&#xa;    Comment: &#xa;        /* user privileges */&#xa;    &#xa;    Path: http://192.168.78.102:80/dvwa/&#xa;    Line number: 57&#xa;    Comment: &#xa;        &lt;!-&#45; &lt;img src=&quot;dvwa/images/RandomStorm.png&quot; /&gt; -&#45;&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 645&#xa;    Comment: &#xa;        /* Calendar */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/?page=add-to-your-blog.php&#xa;    Line number: 492&#xa;    Comment: &#xa;        /* HTMLForm */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 696&#xa;    Comment: &#xa;        /* server privileges */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 551&#xa;    Comment: &#xa;        /* topmenu */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 542&#xa;    Comment: &#xa;        &lt;!-&#45; End Content -&#45;&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 33&#xa;    Comment: &#xa;        &#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/?page=add-to-your-blog.php&#xa;    Line number: 490&#xa;    Comment: &#xa;        &lt;!-&#45; BEGIN HTML OUTPUT  -&#45;&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 147&#xa;    Comment: &#xa;         //else if markup menu&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 13&#xa;    Comment: &#xa;        &#xa;        //** July 27th, 09&quot; (v1.31): Fixed bug so shadows can be disabled if desired.&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 144&#xa;    Comment: &#xa;         //if external ajax menu&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 120&#xa;    Comment: &#xa;         //end hover&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 522&#xa;    Comment: &#xa;        /**&#xa;         * login form&#xa;         */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 32&#xa;    Comment: &#xa;         //function to fetch external page containing the panel DIVs&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 62&#xa;    Comment: &#xa;         //loop through each LI header&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 897&#xa;    Comment: &#xa;        /* height: 100%; */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 631&#xa;    Comment: &#xa;        /* to be able to cancel the bottom border, use &lt;li class=&quot;active&quot;&gt; */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/index.php&#xa;    Line number: 79&#xa;    Comment: &#xa;        &#xa;        // ]]&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 23&#xa;    Comment: &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#x9;&#x9;***********************************************/&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 28&#xa;    Comment: &#xa;         //detect WebKit browsers (Safari, Chrome etc)&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 856&#xa;    Comment: &#xa;        /* querywindow */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 154&#xa;    Comment: &#xa;        /* classes */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 92&#xa;    Comment: &#xa;         //calculate this sub menu&apos;s offsets from its parent&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 134&#xa;    Comment: &#xa;         //override default menu colors (default/hover) with custom set?&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 584&#xa;    Comment: &#xa;        /* disabled drop/empty tabs */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 498&#xa;    Comment: &#xa;        /* forbidden, no privilegs */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 812&#xa;    Comment: &#xa;        /* serverstatus */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 215&#xa;    Comment: &#xa;        /* hovered items */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 11&#xa;    Comment: &#xa;        &#xa;        //** 2) In IE6, shadows are now always disabled&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 31&#xa;    Comment: &#xa;        /* general tags */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 674&#xa;    Comment: &#xa;        /* end Calendar */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 124&#xa;    Comment: &#xa;         //construct CSS3 box-shadow value&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 69&#xa;    Comment: &#xa;         //add arrow images&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 20&#xa;    Comment: &#xa;        &#xa;        //Specify full URL to down and right arrow images (23 is padding-right added to top level LIs with drop downs):&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 87&#xa;    Comment: &#xa;         //reference header LI as DOM object&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 122&#xa;    Comment: &#xa;         //if shadows enabled and browser supports CSS3 shadows&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 589&#xa;    Comment: &#xa;        /* enabled drop/empty tabs */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 143&#xa;    Comment: &#xa;         //ajax menu?&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 113&#xa;    Comment: &#xa;         //in WebKit browsers, set first child shadow&apos;s opacity to 0, as &quot;overflow:hidden&quot; doesn&apos;t work in them&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 36&#xa;    Comment: &#xa;         //path to external menu file&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 7&#xa;    Comment: &#xa;        &#xa;        //** Feb 11th, 09&quot; (v1.02): The currently active main menu item (LI A) now gets a CSS class of &quot;.selected&quot;, including sub menu items.&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 86&#xa;    Comment: &#xa;         //reference UL to reveal&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 75&#xa;    Comment: &#xa;         //store this shadow&apos;s offsets&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 131&#xa;    Comment: &#xa;        /* buttons in some browsers (eg. Konqueror) are block elements,&#xa;           this breaks design */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 31&#xa;    Comment: &#xa;        &#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 579&#xa;    Comment: &#xa;        /* disabled tabs */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 892&#xa;    Comment: &#xa;        /* height: 12em; */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 125&#xa;    Comment: &#xa;         //possible vendor specific CSS3 shadow properties&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 142&#xa;    Comment: &#xa;         //in IE6, always disable shadow&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 188&#xa;    Comment: &#xa;        /* odd items 1,3,5,7,... */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 367&#xa;    Comment: &#xa;        /* message boxes: warning, error, confirmation */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 51&#xa;    Comment: &#xa;         //reference main menu UL&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 194&#xa;    Comment: &#xa;        /* even items 2,4,6,8,... */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 98&#xa;    Comment: &#xa;         //in WebKit browsers, restore shadow&apos;s opacity to full&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 33&#xa;    Comment: &#xa;         //reference empty div on page that will hold menu&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 74&#xa;    Comment: &#xa;         //if shadows enabled and browser doesn&apos;t support CSS3 box shadows&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 26&#xa;    Comment: &#xa;        &#xa;        ///////Stop configuring beyond here///////////////////////////&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 24&#xa;    Comment: &#xa;         //set delay in milliseconds before sub menus appear and disappear, respectively&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/index.php&#xa;    Line number: 44&#xa;    Comment: &#xa;        &lt;!-&#45; Login form -&#45;&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 23&#xa;    Comment: &#xa;         //enable shadow?&#xa;    &#xa;    Path: http://192.168.78.102:80/dvwa/&#xa;    Line number: 61&#xa;    Comment: &#xa;        &lt;!-&#45; end align div -&#45;&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 22&#xa;    Comment: &#xa;         //duration of slide in/ out animation, in milliseconds&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 873&#xa;    Comment: &#xa;        /* END querywindow */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 351&#xa;    Comment: &#xa;        /* leave some space between icons and text */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 35&#xa;    Comment: &#xa;        &#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 178&#xa;    Comment: &#xa;        /* revert for Gecko */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 16&#xa;    Comment: &#xa;        &#xa;        //** Dec 17th, 10&quot; (v1.5): Updated menu shadow to use CSS3 box shadows when the browser is FF3.5+, IE9+, Opera9.5+, or Safari3+/Chrome. Only .js file changed.&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 854&#xa;    Comment: &#xa;        /* end serverstatus */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 876&#xa;    Comment: &#xa;        /* querybox */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 488&#xa;    Comment: &#xa;        &lt;!-&#45; Begin Content -&#45;&gt;&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 9&#xa;    Comment: &#xa;        &#xa;        //** May 1st, 09&quot; (v1.3):&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 706&#xa;    Comment: &#xa;        /* Heading */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 642&#xa;    Comment: &#xa;        /* end topmenu */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 571&#xa;    Comment: &#xa;        /* default tab styles */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 93&#xa;    Comment: &#xa;         //if 1 or less queued animations&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 677&#xa;    Comment: &#xa;        /* table stats */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 1024&#xa;    Comment: &#xa;        /* END iconic view for ul items */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 5&#xa;    Comment: &#xa;        &#xa;        //** Dec 12th, 08&quot; (v1.01): Fixed Shadow issue when multiple LIs within the same UL (level) contain sub menus: http://www.dynamicdrive.com/forums/showthread.php?t=39177&amp;highlight=smooth&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 953&#xa;    Comment: &#xa;        /* list-style-image: url(./themes/original/img/s_rights.png); */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 929&#xa;    Comment: &#xa;        /* iconic view for ul items */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 905&#xa;    Comment: &#xa;        /* main page */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 926&#xa;    Comment: &#xa;        /* END main page */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 903&#xa;    Comment: &#xa;        /* end querybox */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 174&#xa;    Comment: &#xa;        /* IE */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 30&#xa;    Comment: &#xa;         //detect browsers that support CSS3 box shadows (ie9+ or FF3.5+, Safari3+, Chrome etc)&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 458&#xa;    Comment: &#xa;        /* end messageboxes */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 290&#xa;    Comment: &#xa;        /* MySQL Parser */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 693&#xa;    Comment: &#xa;        /* END table stats */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 223&#xa;    Comment: &#xa;        /* hovered table rows */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/index.php&#xa;    Line number: 13&#xa;    Comment: &#xa;        &#xa;        //&lt;![CDATA[&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 63&#xa;    Comment: &#xa;         //reference current LI header&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 549&#xa;    Comment: &#xa;        /* specific elements */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 200&#xa;    Comment: &#xa;        /* odd table rows 1,3,5,7,... */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 881&#xa;    Comment: &#xa;        /* height: 15em; */&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js&#xa;    Line number: 67&#xa;    Comment: &#xa;         //is top level header?&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 231&#xa;    Comment: &#xa;        /**&#xa;         * marks table rows/cells if the db field is in a where condition&#xa;         */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 809&#xa;    Comment: &#xa;        /* END user privileges */&#xa;    &#xa;    Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;amp;convcharset=utf-8&amp;amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;amp;js_frame=right&amp;amp;nocache=2457687151&#xa;    Line number: 30&#xa;    Comment: &#xa;        /******************************************************************************/&#xa;    &#xa;    Path: http://192.168.78.102:80/mutillidae/index.php&#xa;    Line number: 2&#xa;    Comment: &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#xa;        &#x9;&#x9;&#x9;security instructors are just making all this up. -&#45;&gt;&#xa;"/></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rpcbind" version="2" extrainfo="RPC #100000" method="probed" conf="10"/><script id="nfs-statfs" output="&#xa;  Filesystem  1K-blocks  Used       Available  Use%  Maxfilesize  Maxlink&#xa;  /           7282168.0  1488876.0  5426292.0  22%   2.0T         32000&#xa;"/><script id="rpcinfo" output="&#xa;  program version    port/proto  service&#xa;  100000  2            111/tcp   rpcbind&#xa;  100000  2            111/udp   rpcbind&#xa;  100003  2,3,4       2049/tcp   nfs&#xa;  100003  2,3,4       2049/udp   nfs&#xa;  100005  1,2,3      48854/tcp   mountd&#xa;  100005  1,2,3      50369/udp   mountd&#xa;  100021  1,3,4      34801/udp   nlockmgr&#xa;  100021  1,3,4      41806/tcp   nlockmgr&#xa;  100024  1          40052/tcp   status&#xa;  100024  1          54480/udp   status&#xa;"><table key="100021">
+<table key="udp">
+<elem key="port">34801</elem>
+<table key="version">
+<elem>1</elem>
+<elem>3</elem>
+<elem>4</elem>
+</table>
+</table>
+<table key="tcp">
+<elem key="port">41806</elem>
+<table key="version">
+<elem>1</elem>
+<elem>3</elem>
+<elem>4</elem>
+</table>
+</table>
+</table>
+<table key="100005">
+<table key="udp">
+<elem key="port">50369</elem>
+<table key="version">
+<elem>1</elem>
+<elem>2</elem>
+<elem>3</elem>
+</table>
+</table>
+<table key="tcp">
+<elem key="port">48854</elem>
+<table key="version">
+<elem>1</elem>
+<elem>2</elem>
+<elem>3</elem>
+</table>
+</table>
+</table>
+<table key="100000">
+<table key="tcp">
+<elem key="port">111</elem>
+<table key="version">
+<elem>2</elem>
+</table>
+</table>
+<table key="udp">
+<elem key="port">111</elem>
+<table key="version">
+<elem>2</elem>
+</table>
+</table>
+</table>
+<table key="100024">
+<table key="udp">
+<elem key="port">54480</elem>
+<table key="version">
+<elem>1</elem>
+</table>
+</table>
+<table key="tcp">
+<elem key="port">40052</elem>
+<table key="version">
+<elem>1</elem>
+</table>
+</table>
+</table>
+<table key="100003">
+<table key="udp">
+<elem key="port">2049</elem>
+<table key="version">
+<elem>2</elem>
+<elem>3</elem>
+<elem>4</elem>
+</table>
+</table>
+<table key="tcp">
+<elem key="port">2049</elem>
+<table key="version">
+<elem>2</elem>
+<elem>3</elem>
+<elem>4</elem>
+</table>
+</table>
+</table>
+</script><script id="nfs-showmount" output="&#xa;  / *&#xa;"/><script id="nfs-ls" output="Volume /&#xa;  access: Read Lookup Modify Extend Delete NoExecute&#xa;PERMISSION  UID  GID  SIZE   TIME                 FILENAME&#xa;drwxr-xr-x  0    0    4096   2012-05-14T03:35:33  bin&#xa;drwxr-xr-x  0    0    4096   2010-04-16T06:16:02  home&#xa;drwxr-xr-x  0    0    4096   2010-03-16T22:57:40  initrd&#xa;lrwxrwxrwx  0    0    32     2010-04-28T20:26:18  initrd.img&#xa;drwxr-xr-x  0    0    4096   2012-05-14T03:35:22  lib&#xa;drwx-&#45;&#45;&#45;&#45;&#45;  0    0    16384  2010-03-16T22:55:15  lost+found&#xa;drwxr-xr-x  0    0    4096   2010-03-16T22:55:52  media&#xa;drwxr-xr-x  0    0    4096   2010-04-28T20:16:56  mnt&#xa;drwxr-xr-x  0    0    4096   2012-05-14T01:54:53  sbin&#xa;drwxr-xr-x  0    0    4096   2010-04-28T04:06:37  usr&#xa;&#xa;"><table key="volumes">
+<table>
+<table key="files">
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2012-05-14T03:35:33</elem>
+<elem key="uid">0</elem>
+<elem key="filename">bin</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2010-04-16T06:16:02</elem>
+<elem key="uid">0</elem>
+<elem key="filename">home</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2010-03-16T22:57:40</elem>
+<elem key="uid">0</elem>
+<elem key="filename">initrd</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">32</elem>
+<elem key="time">2010-04-28T20:26:18</elem>
+<elem key="uid">0</elem>
+<elem key="filename">initrd.img</elem>
+<elem key="permission">lrwxrwxrwx</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2012-05-14T03:35:22</elem>
+<elem key="uid">0</elem>
+<elem key="filename">lib</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">16384</elem>
+<elem key="time">2010-03-16T22:55:15</elem>
+<elem key="uid">0</elem>
+<elem key="filename">lost+found</elem>
+<elem key="permission">drwx-&#45;&#45;&#45;&#45;&#45;</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2010-03-16T22:55:52</elem>
+<elem key="uid">0</elem>
+<elem key="filename">media</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2010-04-28T20:16:56</elem>
+<elem key="uid">0</elem>
+<elem key="filename">mnt</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2012-05-14T01:54:53</elem>
+<elem key="uid">0</elem>
+<elem key="filename">sbin</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+<table>
+<elem key="gid">0</elem>
+<elem key="size">4096</elem>
+<elem key="time">2010-04-28T04:06:37</elem>
+<elem key="uid">0</elem>
+<elem key="filename">usr</elem>
+<elem key="permission">drwxr-xr-x</elem>
+</table>
+</table>
+<elem key="volume">/</elem>
+<table key="info">
+<elem>access: Read Lookup Modify Extend Delete NoExecute</elem>
+</table>
+</table>
+</table>
+<table key="total">
+<elem key="bytes">49184</elem>
+<elem key="files">10</elem>
+</table>
+</script></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" product="Samba smbd" version="3.X - 4.X" extrainfo="workgroup: WORKGROUP" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" product="Samba smbd" version="3.0.20-Debian" extrainfo="workgroup: WORKGROUP" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
+<port protocol="tcp" portid="512"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="exec" product="netkit-rsh rexecd" ostype="Linux" method="probed" conf="10"><cpe>cpe:/a:netkit:netkit</cpe><cpe>cpe:/o:linux:linux_kernel</cpe></service><script id="banner" output="\x01Where are you?"/></port>
+<port protocol="tcp" portid="513"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="login" method="table" conf="3"/></port>
+<port protocol="tcp" portid="514"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="shell" product="Netkit rshd" method="probed" conf="10"><cpe>cpe:/a:netkit:netkit_rsh</cpe></service><script id="banner" output="\x01getnameinfo: Temporary failure in name resolution"/></port>
+<port protocol="tcp" portid="1099"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="java-rmi" product="GNU Classpath grmiregistry" method="probed" conf="10"/><script id="unusual-port" output="java-rmi unexpected on port tcp/1099"/></port>
+<port protocol="tcp" portid="1524"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="bindshell" product="Metasploitable root shell" method="probed" conf="10"/><script id="banner" output="root@metasploitable:/#"/><script id="unusual-port" output="bindshell unexpected on port tcp/1524"/></port>
+<port protocol="tcp" portid="2049"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="nfs" version="2-4" extrainfo="RPC #100003" method="probed" conf="10"/><script id="unusual-port" output="rpcbind unexpected on port tcp/2049"/></port>
+<port protocol="tcp" portid="3306"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mysql" product="MySQL" version="5.0.51a-3ubuntu5" method="probed" conf="10"><cpe>cpe:/a:mysql:mysql:5.0.51a-3ubuntu5</cpe></service><script id="banner" output="&gt;\x00\x00\x00\x0A5.0.51a-3ubuntu5\x00\x0C\x00\x00\x00.P+$o&amp;l...&#xa;"/><script id="mysql-info" output="&#xa;  Protocol: 10&#xa;  Version: 5.0.51a-3ubuntu5&#xa;  Thread ID: 11&#xa;  Capabilities flags: 43564&#xa;  Some Capabilities: SwitchToSSLAfterHandshake, LongColumnFlag, SupportsTransactions, ConnectWithDatabase, SupportsCompression, Support41Auth, Speaks41ProtocolNew&#xa;  Status: Autocommit&#xa;  Salt: 23GK#jolS;i&quot;ild/ZZ6="><elem key="Protocol">10</elem>
+<elem key="Version">5.0.51a-3ubuntu5</elem>
+<elem key="Thread ID">11</elem>
+<elem key="Capabilities flags">43564</elem>
+<table key="Some Capabilities">
+<elem>SwitchToSSLAfterHandshake</elem>
+<elem>LongColumnFlag</elem>
+<elem>SupportsTransactions</elem>
+<elem>ConnectWithDatabase</elem>
+<elem>SupportsCompression</elem>
+<elem>Support41Auth</elem>
+<elem>Speaks41ProtocolNew</elem>
+</table>
+<elem key="Status">Autocommit</elem>
+<elem key="Salt">23GK#jolS;i&quot;ild/ZZ6=</elem>
+</script></port>
+<port protocol="tcp" portid="5432"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="postgresql" product="PostgreSQL DB" version="8.3.0 - 8.3.7" method="probed" conf="10"><cpe>cpe:/a:postgresql:postgresql:8.3</cpe></service><script id="ssl-ccs-injection" output="&#xa;  VULNERABLE:&#xa;  SSL/TLS MITM vulnerability (CCS Injection)&#xa;    State: VULNERABLE&#xa;    Risk factor: High&#xa;      OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h&#xa;      does not properly restrict processing of ChangeCipherSpec messages,&#xa;      which allows man-in-the-middle attackers to trigger use of a zero&#xa;      length master key in certain OpenSSL-to-OpenSSL communications, and&#xa;      consequently hijack sessions or obtain sensitive information, via&#xa;      a crafted TLS handshake, aka the &quot;CCS Injection&quot; vulnerability.&#xa;          &#xa;    References:&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224&#xa;      http://www.openssl.org/news/secadv_20140605.txt&#xa;      http://www.cvedetails.com/cve/2014-0224&#xa;"><table key="NMAP-19">
+<elem key="title">SSL/TLS MITM vulnerability (CCS Injection)</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="description">
+<elem>OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h&#xa;does not properly restrict processing of ChangeCipherSpec messages,&#xa;which allows man-in-the-middle attackers to trigger use of a zero&#xa;length master key in certain OpenSSL-to-OpenSSL communications, and&#xa;consequently hijack sessions or obtain sensitive information, via&#xa;a crafted TLS handshake, aka the &quot;CCS Injection&quot; vulnerability.&#xa;    </elem>
+</table>
+<table key="refs">
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224</elem>
+<elem>http://www.openssl.org/news/secadv_20140605.txt</elem>
+<elem>http://www.cvedetails.com/cve/2014-0224</elem>
+</table>
+</table>
+</script><script id="ssl-dh-params" output="&#xa;  VULNERABLE:&#xa;  Diffie-Hellman Key Exchange Insufficient Group Strength&#xa;    State: VULNERABLE&#xa;      Transport Layer Security (TLS) services that use Diffie-Hellman groups&#xa;      of insufficient strength, especially those using one of a few commonly&#xa;      shared groups, may be susceptible to passive eavesdropping attacks.&#xa;    Check results:&#xa;      WEAK DH GROUP 1&#xa;            Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA&#xa;            Modulus Type: Safe prime&#xa;            Modulus Source: Unknown/Custom-generated&#xa;            Modulus Length: 1024&#xa;            Generator Length: 8&#xa;            Public Key Length: 1024&#xa;    References:&#xa;      https://weakdh.org&#xa;"><table key="NMAP-22">
+<elem key="title">Diffie-Hellman Key Exchange Insufficient Group Strength</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="description">
+<elem>Transport Layer Security (TLS) services that use Diffie-Hellman groups&#xa;of insufficient strength, especially those using one of a few commonly&#xa;shared groups, may be susceptible to passive eavesdropping attacks.</elem>
+</table>
+<table key="check_results">
+<elem>WEAK DH GROUP 1&#xa;      Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA&#xa;      Modulus Type: Safe prime&#xa;      Modulus Source: Unknown/Custom-generated&#xa;      Modulus Length: 1024&#xa;      Generator Length: 8&#xa;      Public Key Length: 1024</elem>
+</table>
+<table key="refs">
+<elem>https://weakdh.org</elem>
+</table>
+</table>
+</script><script id="ssl-date" output="2025-10-19T16:36:20+00:00; +29s from scanner time."><elem key="delta">29.0</elem>
+<elem key="date">2025-10-19T16:36:20+00:00</elem>
+</script><script id="ssl-poodle" output="&#xa;  VULNERABLE:&#xa;  SSL POODLE information leak&#xa;    State: VULNERABLE&#xa;    IDs:  CVE:CVE-2014-3566  BID:70574&#xa;          The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other&#xa;          products, uses nondeterministic CBC padding, which makes it easier&#xa;          for man-in-the-middle attackers to obtain cleartext data via a&#xa;          padding-oracle attack, aka the &quot;POODLE&quot; issue.&#xa;    Disclosure date: 2014-10-14&#xa;    Check results:&#xa;      TLS_RSA_WITH_AES_128_CBC_SHA&#xa;    References:&#xa;      https://www.openssl.org/~bodo/ssl-poodle.pdf&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566&#xa;      https://www.securityfocus.com/bid/70574&#xa;      https://www.imperialviolet.org/2014/10/14/poodle.html&#xa;"><table key="CVE-2014-3566">
+<elem key="title">SSL POODLE information leak</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="ids">
+<elem>CVE:CVE-2014-3566</elem>
+<elem>BID:70574</elem>
+</table>
+<table key="description">
+<elem>    The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other&#xa;    products, uses nondeterministic CBC padding, which makes it easier&#xa;    for man-in-the-middle attackers to obtain cleartext data via a&#xa;    padding-oracle attack, aka the &quot;POODLE&quot; issue.</elem>
+</table>
+<table key="dates">
+<table key="disclosure">
+<elem key="month">10</elem>
+<elem key="day">14</elem>
+<elem key="year">2014</elem>
+</table>
+</table>
+<elem key="disclosure">2014-10-14</elem>
+<table key="check_results">
+<elem>TLS_RSA_WITH_AES_128_CBC_SHA</elem>
+</table>
+<table key="refs">
+<elem>https://www.openssl.org/~bodo/ssl-poodle.pdf</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566</elem>
+<elem>https://www.securityfocus.com/bid/70574</elem>
+<elem>https://www.imperialviolet.org/2014/10/14/poodle.html</elem>
+</table>
+</table>
+</script><script id="ssl-cert" output="Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX&#xa;Not valid before: 2010-03-17T14:07:45&#xa;Not valid after:  2010-04-16T14:07:45"><table key="subject">
+<elem key="commonName">ubuntu804-base.localdomain</elem>
+<elem key="countryName">XX</elem>
+<elem key="emailAddress">root@ubuntu804-base.localdomain</elem>
+<elem key="localityName">Everywhere</elem>
+<elem key="organizationName">OCOSA</elem>
+<elem key="organizationalUnitName">Office for Complication of Otherwise Simple Affairs</elem>
+<elem key="stateOrProvinceName">There is no such thing outside US</elem>
+</table>
+<table key="issuer">
+<elem key="commonName">ubuntu804-base.localdomain</elem>
+<elem key="countryName">XX</elem>
+<elem key="emailAddress">root@ubuntu804-base.localdomain</elem>
+<elem key="localityName">Everywhere</elem>
+<elem key="organizationName">OCOSA</elem>
+<elem key="organizationalUnitName">Office for Complication of Otherwise Simple Affairs</elem>
+<elem key="stateOrProvinceName">There is no such thing outside US</elem>
+</table>
+<table key="pubkey">
+<elem key="type">rsa</elem>
+<elem key="bits">1024</elem>
+<elem key="modulus">D6B41336339A95717B1BDE7C8375DA71B13CA97FFEAD641B77E94FAEBECAD4F8CBEFAEBB43792473FF3CE59E3B6DFCC8B1ACFA4C4D5E9B4C99540BD7A84A50BAA9DE1D1FF4E46B02A3F46B45CD4CAF8D8962338F65BB36619FC42C73C14E2EA0A8144E98704661BBD1B931DF8C99EE756B793C40A0AE9700909DDC990D33A4B5</elem>
+<elem key="exponent">65537</elem>
+</table>
+<elem key="sig_algo">sha1WithRSAEncryption</elem>
+<table key="validity">
+<elem key="notBefore">2010-03-17T14:07:45</elem>
+<elem key="notAfter">2010-04-16T14:07:45</elem>
+</table>
+<elem key="md5">dcd9ad906c8f2f7374af383b25408828</elem>
+<elem key="sha1">ed093088706603bfd5dc237399b498da2d4d31c6</elem>
+<elem key="pem">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIDWzCCAsQCCQD6+TpMf7a5zDANBgkqhkiG9w0BAQUFADCB8TELMAkGA1UEBhMC&#xa;WFgxKjAoBgNVBAgTIVRoZXJlIGlzIG5vIHN1Y2ggdGhpbmcgb3V0c2lkZSBVUzET&#xa;MBEGA1UEBxMKRXZlcnl3aGVyZTEOMAwGA1UEChMFT0NPU0ExPDA6BgNVBAsTM09m&#xa;ZmljZSBmb3IgQ29tcGxpY2F0aW9uIG9mIE90aGVyd2lzZSBTaW1wbGUgQWZmYWly&#xa;czEjMCEGA1UEAxMadWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4xLjAsBgkqhkiG&#xa;9w0BCQEWH3Jvb3RAdWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4wHhcNMTAwMzE3&#xa;MTQwNzQ1WhcNMTAwNDE2MTQwNzQ1WjCB8TELMAkGA1UEBhMCWFgxKjAoBgNVBAgT&#xa;IVRoZXJlIGlzIG5vIHN1Y2ggdGhpbmcgb3V0c2lkZSBVUzETMBEGA1UEBxMKRXZl&#xa;cnl3aGVyZTEOMAwGA1UEChMFT0NPU0ExPDA6BgNVBAsTM09mZmljZSBmb3IgQ29t&#xa;cGxpY2F0aW9uIG9mIE90aGVyd2lzZSBTaW1wbGUgQWZmYWlyczEjMCEGA1UEAxMa&#xa;dWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4xLjAsBgkqhkiG9w0BCQEWH3Jvb3RA&#xa;dWJ1bnR1ODA0LWJhc2UubG9jYWxkb21haW4wgZ8wDQYJKoZIhvcNAQEBBQADgY0A&#xa;MIGJAoGBANa0EzYzmpVxexvefIN12nGxPKl//q1kG3fpT66+ytT4y++uu0N5JHP/&#xa;POWeO238yLGs+kxNXptMmVQL16hKULqp3h0f9ORrAqP0a0XNTK+NiWIzj2W7NmGf&#xa;xCxzwU4uoKgUTphwRmG70bkx34yZ7nVreTxAoK6XAJCd3JkNM6S1AgMBAAEwDQYJ&#xa;KoZIhvcNAQEFBQADgYEAkqS0uBRVYyVRSgvDKiLPOvgXagzPZqqnZS9Ibc3jPlyf&#xa;d2zURFQfHoRPjtSN3awtiAkhqNpWLKkFPEloNRl1DNpTI4iIGS10JsEiZe4RaINq&#xa;U0qcJ8ugtOmNKQyyPBhcZ8xTph4w0Komex6uQLkpAWwuvKIZlHwVbo0wOPbKLnU=&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>
+</script></port>
+<port protocol="tcp" portid="5900"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="vnc" product="VNC" extrainfo="protocol 3.3" method="probed" conf="10"/><script id="vnc-info" output="&#xa;  Protocol version: 3.3&#xa;  Security types: &#xa;    VNC Authentication (2)"><elem key="Protocol version">3.3</elem>
+<table key="Security types">
+<table>
+<elem key="name">VNC Authentication</elem>
+<elem key="type">2</elem>
+</table>
+</table>
+</script><script id="banner" output="RFB 003.003"/></port>
+</ports>
+<os><portused state="open" proto="tcp" portid="21"/>
+<portused state="closed" proto="tcp" portid="1"/>
+<portused state="closed" proto="udp" portid="35486"/>
+<osmatch name="Linux 2.6.9 - 2.6.33" accuracy="100" line="62704">
+<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="100"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
+</osmatch>
+</os>
+<uptime seconds="5987" lastboot="Sun Oct 19 10:57:28 2025"/>
+<distance value="1"/>
+<tcpsequence index="201" difficulty="Good luck!" values="24A74F15,24D7F125,24D85946,24C340A7,2557FEBF,25149CD3"/>
+<ipidsequence class="All zeros" values="0,0,0,0,0,0"/>
+<tcptssequence class="100HZ" values="6F608,6F612,6F61C,6F626,6F631,6F63B"/>
+<hostscript><script id="smb-os-discovery" output="&#xa;  OS: Unix (Samba 3.0.20-Debian)&#xa;  Computer name: metasploitable&#xa;  NetBIOS computer name: &#xa;  Domain name: localdomain&#xa;  FQDN: metasploitable.localdomain&#xa;  System time: 2025-10-19T12:26:40-04:00&#xa;"><elem key="os">Unix</elem>
+<elem key="lanmanager">Samba 3.0.20-Debian</elem>
+<elem key="server"></elem>
+<elem key="date">2025-10-19T12:26:40-04:00</elem>
+<elem key="fqdn">metasploitable.localdomain</elem>
+<elem key="domain_dns">localdomain</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+</script><script id="smb2-time" output="Protocol negotiation failed (SMB2)"/><script id="smb-mbenum" output="ERROR: Script execution failed (use -d to debug)"/><script id="path-mtu" output="PMTU == 1500"/><script id="port-states" output="&#xa;  tcp: &#xa;    open: 21-23,25,53,80,111,139,445,512-514,1099,1524,2049,3306,5432,5900&#xa;    closed: 1-20,24,26-52,54-79,81-110,112-138,140-444,446-511,515-1098,1100-1523,1525-2000,3000,8080"><table key="tcp">
+<elem key="open">21-23,25,53,80,111,139,445,512-514,1099,1524,2049,3306,5432,5900</elem>
+<elem key="closed">1-20,24,26-52,54-79,81-110,112-138,140-444,446-511,515-1098,1100-1523,1525-2000,3000,8080</elem>
+</table>
+</script><script id="smb-ls" output="Volume \\192.168.78.102\tmp&#xa;SIZE   TIME                 FILENAME&#xa;&lt;DIR&gt;  2025-10-19T16:35:29  .&#xa;&lt;DIR&gt;  2012-05-20T18:36:12  ..&#xa;0      2025-10-19T14:54:32  4600.jsvc_up&#xa;&#xa;"><table key="volumes">
+<table>
+<elem key="volume">\\192.168.78.102\tmp</elem>
+<table key="files">
+<table>
+<elem key="time">2025-10-19T16:35:29</elem>
+<elem key="filename">.</elem>
+<elem key="size">&lt;DIR&gt;</elem>
+</table>
+<table>
+<elem key="time">2012-05-20T18:36:12</elem>
+<elem key="filename">..</elem>
+<elem key="size">&lt;DIR&gt;</elem>
+</table>
+<table>
+<elem key="time">2025-10-19T14:54:32</elem>
+<elem key="filename">4600.jsvc_up</elem>
+<elem key="size">0</elem>
+</table>
+</table>
+</table>
+</table>
+<table key="total">
+<elem key="bytes">0</elem>
+<elem key="files">3</elem>
+</table>
+</script><script id="fcrdns" output="FAIL (No PTR record)"><table key="&lt;none&gt;">
+<elem key="status">fail</elem>
+<elem key="reason">No PTR record</elem>
+</table>
+</script><script id="smb-enum-shares" output="&#xa;  account_used: &lt;blank&gt;&#xa;  \\192.168.78.102\ADMIN$: &#xa;    Type: STYPE_IPC&#xa;    Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))&#xa;    Users: 1&#xa;    Max Users: &lt;unlimited&gt;&#xa;    Path: C:\tmp&#xa;    Anonymous access: &lt;none&gt;&#xa;  \\192.168.78.102\IPC$: &#xa;    Type: STYPE_IPC&#xa;    Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))&#xa;    Users: 1&#xa;    Max Users: &lt;unlimited&gt;&#xa;    Path: C:\tmp&#xa;    Anonymous access: READ/WRITE&#xa;  \\192.168.78.102\opt: &#xa;    Type: STYPE_DISKTREE&#xa;    Comment: &#xa;    Users: 1&#xa;    Max Users: &lt;unlimited&gt;&#xa;    Path: C:\tmp&#xa;    Anonymous access: &lt;none&gt;&#xa;  \\192.168.78.102\print$: &#xa;    Type: STYPE_DISKTREE&#xa;    Comment: Printer Drivers&#xa;    Users: 1&#xa;    Max Users: &lt;unlimited&gt;&#xa;    Path: C:\var\lib\samba\printers&#xa;    Anonymous access: &lt;none&gt;&#xa;  \\192.168.78.102\tmp: &#xa;    Type: STYPE_DISKTREE&#xa;    Comment: oh noes!&#xa;    Users: 1&#xa;    Max Users: &lt;unlimited&gt;&#xa;    Path: C:\tmp&#xa;    Anonymous access: READ/WRITE"><elem key="account_used">&lt;blank&gt;</elem>
+<table key="\\192.168.78.102\ADMIN$">
+<elem key="Type">STYPE_IPC</elem>
+<elem key="Comment">IPC Service (metasploitable server (Samba 3.0.20-Debian))</elem>
+<elem key="Users">1</elem>
+<elem key="Max Users">&lt;unlimited&gt;</elem>
+<elem key="Path">C:\tmp</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.78.102\IPC$">
+<elem key="Type">STYPE_IPC</elem>
+<elem key="Comment">IPC Service (metasploitable server (Samba 3.0.20-Debian))</elem>
+<elem key="Users">1</elem>
+<elem key="Max Users">&lt;unlimited&gt;</elem>
+<elem key="Path">C:\tmp</elem>
+<elem key="Anonymous access">READ/WRITE</elem>
+</table>
+<table key="\\192.168.78.102\opt">
+<elem key="Type">STYPE_DISKTREE</elem>
+<elem key="Comment"></elem>
+<elem key="Users">1</elem>
+<elem key="Max Users">&lt;unlimited&gt;</elem>
+<elem key="Path">C:\tmp</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.78.102\print$">
+<elem key="Type">STYPE_DISKTREE</elem>
+<elem key="Comment">Printer Drivers</elem>
+<elem key="Users">1</elem>
+<elem key="Max Users">&lt;unlimited&gt;</elem>
+<elem key="Path">C:\var\lib\samba\printers</elem>
+<elem key="Anonymous access">&lt;none&gt;</elem>
+</table>
+<table key="\\192.168.78.102\tmp">
+<elem key="Type">STYPE_DISKTREE</elem>
+<elem key="Comment">oh noes!</elem>
+<elem key="Users">1</elem>
+<elem key="Max Users">&lt;unlimited&gt;</elem>
+<elem key="Path">C:\tmp</elem>
+<elem key="Anonymous access">READ/WRITE</elem>
+</table>
+</script><script id="clock-skew" output="mean: 1h03m07s, deviation: 2h05m20s, median: 26s"><elem key="mean">3787</elem>
+<elem key="count">4</elem>
+<elem key="median">26</elem>
+<elem key="stddev">7520</elem>
+</script><script id="dns-blacklist" output="&#xa;  ATTACK&#xa;    all.bl.blocklist.de - FAIL&#xa;  PROXY&#xa;    socks.dnsbl.sorbs.net - FAIL&#xa;    dnsbl.tornevall.org - FAIL&#xa;    misc.dnsbl.sorbs.net - FAIL&#xa;    http.dnsbl.sorbs.net - FAIL&#xa;    tor.dan.me.uk - FAIL&#xa;  SPAM&#xa;    sbl.spamhaus.org - FAIL&#xa;    bl.nszones.com - FAIL&#xa;    l2.apews.org - FAIL&#xa;    dnsbl.inps.de - FAIL&#xa;    all.spamrats.com - FAIL&#xa;    list.quorum.to - FAIL&#xa;    bl.spamcop.net - FAIL&#xa;    spam.dnsbl.sorbs.net - FAIL&#xa;"/><script id="smb-security-mode" output="&#xa;  account_used: &lt;blank&gt;&#xa;  authentication_level: user&#xa;  challenge_response: supported&#xa;  message_signing: disabled (dangerous, but default)"><elem key="account_used">&lt;blank&gt;</elem>
+<elem key="authentication_level">user</elem>
+<elem key="challenge_response">supported</elem>
+<elem key="message_signing">disabled</elem>
+</script><script id="msrpc-enum" output="NT_STATUS_OBJECT_NAME_NOT_FOUND">false</script><script id="ipidseq" output="All zeros"/><script id="nbstat" output="NetBIOS name: METASPLOITABLE, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)"/><script id="qscan" output="&#xa;PORT  FAMILY  MEAN (us)  STDDEV   LOSS (%)&#xa;1     0       3035.80    1040.80  0.0%&#xa;21    0       3146.40    1316.59  0.0%&#xa;22    0       2567.60    985.83   0.0%&#xa;23    0       2912.10    1500.38  0.0%&#xa;25    0       2864.40    1890.50  0.0%&#xa;53    0       3519.90    1451.38  0.0%&#xa;80    0       2921.20    1025.09  0.0%&#xa;111   0       3320.90    1224.91  0.0%&#xa;139   0       2433.30    1001.00  0.0%&#xa;"/><script id="smb2-capabilities" output="SMB 2+ not supported">false</script><script id="smb-protocols" output="&#xa;  dialects: &#xa;    NT LM 0.12 (SMBv1) [dangerous, but default]"><table key="dialects">
+<elem>NT LM 0.12 (SMBv1) [dangerous, but default]</elem>
+</table>
+</script></hostscript><times srtt="2608" rttvar="359" to="100000"/>
+</host>
+<postscript><script id="reverse-index" output="&#xa;  21/tcp: 192.168.78.102&#xa;  22/tcp: 192.168.78.102&#xa;  23/tcp: 192.168.78.102&#xa;  25/tcp: 192.168.78.102&#xa;  53/tcp: 192.168.78.102&#xa;  80/tcp: 192.168.78.102&#xa;  111/tcp: 192.168.78.102&#xa;  139/tcp: 192.168.78.102&#xa;  445/tcp: 192.168.78.102&#xa;  512/tcp: 192.168.78.102&#xa;  513/tcp: 192.168.78.102&#xa;  514/tcp: 192.168.78.102&#xa;  1099/tcp: 192.168.78.102&#xa;  1524/tcp: 192.168.78.102&#xa;  2049/tcp: 192.168.78.102&#xa;  3306/tcp: 192.168.78.102&#xa;  5432/tcp: 192.168.78.102&#xa;  5900/tcp: 192.168.78.102"><table key="21/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="22/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="23/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="25/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="53/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="80/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="111/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="139/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="445/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="512/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="513/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="514/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="1099/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="1524/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="2049/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="3306/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="5432/tcp">
+<elem>192.168.78.102</elem>
+</table>
+<table key="5900/tcp">
+<elem>192.168.78.102</elem>
+</table>
+</script></postscript><runstats><finished time="1760891835" timestr="Sun Oct 19 12:37:15 2025" summary="Nmap done at Sun Oct 19 12:37:15 2025; 1 IP address (1 host up) scanned in 1515.51 seconds" elapsed="1515.51" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

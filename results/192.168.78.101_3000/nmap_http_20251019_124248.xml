@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sun Oct 19 12:42:48 2025 as: /usr/lib/nmap/nmap -sV -T5 -&#45;open -p 80,443,3000,8080,8443 -&#45;script http-title,http-headers,http-enum,http-methods -Pn -oN results/192.168.78.101_3000/nmap_http_20251019_124248.txt -oX results/192.168.78.101_3000/nmap_http_20251019_124248.xml 192.168.78.101:3000 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -T5 -&#45;open -p 80,443,3000,8080,8443 -&#45;script http-title,http-headers,http-enum,http-methods -Pn -oN results/192.168.78.101_3000/nmap_http_20251019_124248.txt -oX results/192.168.78.101_3000/nmap_http_20251019_124248.xml 192.168.78.101:3000" start="1760892168" startstr="Sun Oct 19 12:42:48 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="5" services="80,443,3000,8080,8443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<runstats><finished time="1760892169" timestr="Sun Oct 19 12:42:49 2025" summary="Nmap done at Sun Oct 19 12:42:49 2025; 0 IP addresses (0 hosts up) scanned in 0.36 seconds" elapsed="0.36" exit="success"/><hosts up="0" down="0" total="0"/>
+</runstats>
+</nmaprun>

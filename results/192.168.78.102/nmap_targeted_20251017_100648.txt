@@ -1,0 +1,43 @@
+# Nmap 7.95 scan initiated Fri Oct 17 10:29:22 2025 as: /usr/lib/nmap/nmap -sS -sV -p 22,21,23,25,53,80,139,443,445,3306,5432,8080,3000 --script default,safe -oN results/192.168.78.102/nmap_targeted_20251017_100648.txt 192.168.78.102
+Pre-scan script results:
+|_eap-info: please specify an interface with -e
+| broadcast-dhcp-discover: 
+|   Response 1 of 2: 
+|     Interface: eth1
+|     IP Offered: 192.168.78.102
+|     Server Identifier: 192.168.78.100
+|     Subnet Mask: 255.255.255.0
+|   Response 2 of 2: 
+|     Interface: eth0
+|     IP Offered: 10.0.2.17
+|     Server Identifier: 10.0.2.2
+|     Subnet Mask: 255.255.255.0
+|     Router: 10.0.2.2
+|_    Domain Name Server: 10.18.80.217
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+|_multicast-profinet-discovery: 0
+| broadcast-igmp-discovery: 
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 224.0.0.251
+|     Description: mDNS (rfc6762)
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 224.0.0.252
+|     Description: Link-local Multicast Name Resolution (rfc4795)
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 239.255.255.250
+|     Description: Organization-Local Scope (rfc2365)
+|_  Use the newtargets script-arg to add the results as targets
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| broadcast-listener: 
+|   udp
+|       Browser
+|         ip              src  dst
+|_        192.168.78.102       

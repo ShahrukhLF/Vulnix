@@ -1,0 +1,3 @@
+[-] NO INDICATOR: No obvious 2FA-related text found on main/landing page (http://192.168.78.101:3000).
+[-] NO INDICATOR: No obvious 2FA-related text found on login page (http://192.168.78.101:3000/#/login).
+[-] NO INDICATOR: No obvious 2FA-related text found on profile/account page (http://192.168.78.101:3000/#/account).

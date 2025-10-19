@@ -10,15 +10,15 @@ This file provides two modes:
    environments where PyQt5 is not available.
 
 Usage:
-  - GUI (preferred, if PyQt5 installed):
-      python3 gui/app.py
-  - CLI fallback (automatically used if PyQt5 missing):
-      python3 gui/app.py
+ - GUI (preferred, if PyQt5 installed):
+     python3 gui/app.py
+ - CLI fallback (automatically used if PyQt5 missing):
+     python3 gui/app.py
 
 Notes:
-  - This script assumes the scan scripts exist at scripts/scan_network.sh and
-    scripts/scan_web.sh and are executable. Reports are expected under results/.
-  - The CLI fallback streams subprocess output live so users can see progress.
+ - This script assumes the scan scripts exist at scripts/scan_network.sh and
+   scripts/scan_web.sh and are executable. Reports are expected under results/.
+ - The CLI fallback streams subprocess output live so users can see progress.
 
 Author: ChatGPT (modified to include CLI fallback for environments missing PyQt5)
 """
@@ -49,10 +49,12 @@ def find_latest_report(safe_target_fragment: str | None = None) -> str | None:
         if safe_target_fragment:
             candidate = base / safe_target_fragment
             if candidate.exists() and candidate.is_dir():
+                # Sort reports in the target-specific directory
                 reports = sorted(candidate.glob('report_*.txt'), key=lambda p: p.stat().st_mtime, reverse=True)
                 if reports:
                     return str(reports[0])
-        # fallback search across all
+        # fallback search across all directories
+        # Sort all reports across all subdirectories
         reports = sorted(base.glob('**/report_*.txt'), key=lambda p: p.stat().st_mtime, reverse=True)
         if reports:
             return str(reports[0])
@@ -84,6 +86,8 @@ def run_command_stream(cmd: str) -> int:
     print(f"[CMD] {cmd}")
     args = shlex.split(cmd)
     try:
+        # Use shell=True for shell scripts if they are not explicitly executable or need env vars,
+        # but sticking to shlex.split and Popen(args) is generally safer.
         proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
     except FileNotFoundError as e:
         print(f"Command not found: {e}")
@@ -209,6 +213,7 @@ try:
             self._proc = None
 
         def run(self):
+            self.output_line.emit(f"[INFO] Running command: {self.cmd}")
             try:
                 args = shlex.split(self.cmd)
                 self._proc = subprocess.Popen(
@@ -225,8 +230,10 @@ try:
                 return
 
             try:
-                for line in self._proc.stdout:
-                    self.output_line.emit(line.rstrip())
+                # Use a loop to read output line by line as it is generated
+                if self._proc.stdout:
+                    for line in self._proc.stdout:
+                        self.output_line.emit(line.rstrip())
             except Exception as e:
                 self.output_line.emit(f"[ERROR] Reading process output failed: {e}\n")
 
@@ -298,11 +305,12 @@ try:
             layout.addLayout(status_row)
 
             # Variables
-            self.proc_thread = None
+            self.proc_thread: ProcessThreadGUI | None = None
 
         def append(self, text):
             self.log.append(text)
-            self.log.moveCursor(self.log.textCursor().End)
+            # Ensure the cursor moves to the end of the text
+            self.log.ensureCursorVisible()
 
         def _validate_target_for_network(self, target):
             if target.startswith("http://") or target.startswith("https://"):
@@ -319,24 +327,9 @@ try:
                 return False
             return True
 
-        def _find_latest_report(self, safe_target_fragment=None):
-            try:
-                base = Path(RESULTS_DIR)
-                if not base.exists():
-                    return None
-
-                if safe_target_fragment:
-                    candidate_dir = base / safe_target_fragment
-                    if candidate_dir.exists() and candidate_dir.is_dir():
-                        reports = sorted(candidate_dir.glob('report_*.txt'), key=os.path.getmtime, reverse=True)
-                        if reports:
-                            return str(reports[0])
-                reports = sorted(base.glob('**/report_*.txt'), key=os.path.getmtime, reverse=True)
-                if reports:
-                    return str(reports[0])
-            except Exception as e:
-                self.append(f"[ERROR] finding report: {e}")
-            return None
+        def _find_latest_report(self, safe_target_fragment: str | None = None) -> str | None:
+            # Use the common utility function
+            return find_latest_report(safe_target_fragment)
 
         def _open_file(self, path):
             if not path:
@@ -345,13 +338,17 @@ try:
             if not os.path.exists(path):
                 QMessageBox.information(self, "Open Report", f"Report not found: {path}")
                 return
+            
+            # Use the common utility function for platform awareness
             try:
-                subprocess.Popen(["xdg-open", path])
-            except Exception:
-                QMessageBox.information(self, "Open Report", f"Could not open report: {path}")
+                open_file_with_default_app(path)
+            except Exception as e:
+                QMessageBox.information(self, "Open Report", f"Could not open report using OS default: {e}")
 
         def on_browse_target(self):
-            path = QFileDialog.getExistingDirectory(self, "Select results folder (optional)")
+            # This is primarily for setting a directory target, which may not be fully supported by the scripts.
+            # Keeping it as a file/directory picker for flexibility.
+            path = QFileDialog.getExistingDirectory(self, "Select a directory or set target manually")
             if path:
                 self.target_input.setText(path)
 
@@ -363,6 +360,7 @@ try:
                     safe_fragment = t.replace('http://', '').replace('https://', '').replace('/', '_').replace(':', '_')
                 else:
                     safe_fragment = t.replace('/', '_').replace(':', '_')
+            
             report = self._find_latest_report(safe_fragment)
             if report:
                 self.append(f"[INFO] Opening report: {report}")
@@ -371,6 +369,7 @@ try:
                 QMessageBox.information(self, "Open Report", "No report found. Run a scan first.")
 
         def _run_command(self, cmd):
+            # Disable buttons while scan is running
             self.net_btn.setEnabled(False)
             self.web_btn.setEnabled(False)
             self.open_report_btn.setEnabled(False)
@@ -378,16 +377,20 @@ try:
             self.append(f"[CMD] {cmd}")
 
             self.proc_thread = ProcessThreadGUI(cmd)
-            self.proc_thread.output_line.connect(lambda ln: self.append(ln))
+            self.proc_thread.output_line.connect(self.append)
             self.proc_thread.finished_signal.connect(self._on_proc_finished)
             self.proc_thread.start()
 
         def _on_proc_finished(self, rc):
             self.append(f"[INFO] Process finished with exit code {rc}")
+            
+            # Re-enable buttons
             self.net_btn.setEnabled(True)
             self.web_btn.setEnabled(True)
             self.open_report_btn.setEnabled(True)
             self.status_label.setText("Ready")
+
+            # Check for latest report specific to the target if one was entered
             t = self.target_input.text().strip()
             safe_fragment = None
             if t:
@@ -397,7 +400,7 @@ try:
                     safe_fragment = t.replace('/', '_').replace(':', '_')
             report = self._find_latest_report(safe_fragment)
             if report:
-                self.append(f"[INFO] Latest report: {report}")
+                self.append(f"[INFO] Latest report available at: {report}")
 
         def on_run_network(self):
             target = self.target_input.text().strip()

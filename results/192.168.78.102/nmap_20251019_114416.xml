@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sun Oct 19 11:44:17 2025 as: /usr/lib/nmap/nmap -sS -sV -O -T4 -&#45;script=default,safe,http-enum,ftp-anon,ssl-heartbleed,smb-enum-shares,smb-enum-users -p 1-1024,3000,3306,5432,8080 -oN results/192.168.78.102/nmap_20251019_114416.txt -oX results/192.168.78.102/nmap_20251019_114416.xml 192.168.78.102 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sS -sV -O -T4 -&#45;script=default,safe,http-enum,ftp-anon,ssl-heartbleed,smb-enum-shares,smb-enum-users -p 1-1024,3000,3306,5432,8080 -oN results/192.168.78.102/nmap_20251019_114416.txt -oX results/192.168.78.102/nmap_20251019_114416.xml 192.168.78.102" start="1760888657" startstr="Sun Oct 19 11:44:17 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="1028" services="1-1024,3000,3306,5432,8080"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<prescript><script id="targets-asn" output="&#xa;  targets-asn.asn is a mandatory parameter&#xa;"/><script id="eap-info" output="please specify an interface with -e"/><script id="http-robtex-shared-ns" output="*TEMPORARILY DISABLED* due to changes in Robtex&apos;s API. See https://www.robtex.com/api/"/><script id="broadcast-dhcp-discover" output="&#xa;  Response 1 of 2: &#xa;    Interface: eth1&#xa;    IP Offered: 192.168.78.102&#xa;    Server Identifier: 192.168.78.100&#xa;    Subnet Mask: 255.255.255.0&#xa;  Response 2 of 2: &#xa;    Interface: eth0&#xa;    IP Offered: 10.0.2.17&#xa;    Server Identifier: 10.0.2.2&#xa;    Subnet Mask: 255.255.255.0&#xa;    Router: 10.0.2.2&#xa;    Domain Name Server: 192.168.1.1&#xa;    Domain Name: dlinkrouter"><table key="Response 1 of 2">
+<elem key="Interface">eth1</elem>
+<elem key="IP Offered">192.168.78.102</elem>
+<elem key="Server Identifier">192.168.78.100</elem>
+<elem key="Subnet Mask">255.255.255.0</elem>
+</table>
+<table key="Response 2 of 2">
+<elem key="Interface">eth0</elem>
+<elem key="IP Offered">10.0.2.17</elem>
+<elem key="Server Identifier">10.0.2.2</elem>
+<elem key="Subnet Mask">255.255.255.0</elem>
+<elem key="Router">10.0.2.2</elem>
+<elem key="Domain Name Server">192.168.1.1</elem>
+<elem key="Domain Name">dlinkrouter</elem>
+</table>
+</script><script id="broadcast-igmp-discovery" output="&#xa;  192.168.78.1&#xa;    Interface: eth1&#xa;    Version: 2&#xa;    Group: 224.0.0.251&#xa;    Description: mDNS (rfc6762)&#xa;  192.168.78.1&#xa;    Interface: eth1&#xa;    Version: 2&#xa;    Group: 224.0.0.252&#xa;    Description: Link-local Multicast Name Resolution (rfc4795)&#xa;  Use the newtargets script-arg to add the results as targets&#xa;"/><script id="multicast-profinet-discovery" output="0">0</script><script id="hostmap-robtex" output="*TEMPORARILY DISABLED* due to changes in Robtex&apos;s API. See https://www.robtex.com/api/"/></prescript><hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+</hosthint>

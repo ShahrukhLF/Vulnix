@@ -1,0 +1,42 @@
+VULNIX AUTOMATED WEB APPLICATION SECURITY ASSESSMENT REPORT
+==========================================================
+Target: http://192.168.78.101:3000
+Date/Time: 
+Tool/Script: Vulnix scan_web.sh (FYP-I - Demo Mode)
+
+### EXECUTIVE SUMMARY (Web Application) ###
+-------------------------------------------
+HIGH RISK: The scan detected severe misconfigurations, exposed sensitive files/directories, or cross-site scripting (XSS) indicators. This indicates significant risk to the application data and users.
+
+### KEY NON-TECHNICAL RECOMMENDATIONS ###
+-----------------------------------------
+* AUTHENTICATION: Review the implementation of Multi-Factor Authentication (MFA/2FA) or implement it if not present, as the scan found no indicators.
+
+### DETAILED FINDINGS ###
+-------------------------
+1) Automated Functionality Assessment (AFA): 2FA Presence
+---------------------------------------------------------
+[-] NO INDICATOR: No obvious 2FA-related text found on main/landing page (http://192.168.78.101:3000).
+[-] NO INDICATOR: No obvious 2FA-related text found on login page (http://192.168.78.101:3000/#/login).
+[-] NO INDICATOR: No obvious 2FA-related text found on profile/account page (http://192.168.78.101:3000/#/account).
+
+2) Nikto Key Findings (Misconfigurations & Info Leakage)
+------------------------------------------------------
++ GET /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.
++ GET /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file: 
++ GET /robots.txt: contains 1 entry which should be manually viewed. See: https://developer.mozilla.org/en-US/docs/Glossary/Robots.txt: 
+
+3) Vulnerable Components (CVE / Exploit Matches)
+------------------------------------------------
+No direct CVEs automatically detected by the scan.
+
+4) Technical Evidence (Raw Nmap HTTP & SearchSploit Excerpts)
+-------------------------------------------------------------
+--- Nmap HTTP Results (Service/Version) ---
+# Nmap 7.95 scan initiated Sun Oct 19 12:42:48 2025 as: /usr/lib/nmap/nmap -sV -T5 --open -p 80,443,3000,8080,8443 --script http-title,http-headers,http-enum,http-methods -Pn -oN results/192.168.78.101_3000/nmap_http_20251019_124248.txt -oX results/192.168.78.101_3000/nmap_http_20251019_124248.xml 192.168.78.101:3000
+
+--- SearchSploit Excerpt ---
+No searchsploit matches were found.
+
+END OF REPORT
+=============

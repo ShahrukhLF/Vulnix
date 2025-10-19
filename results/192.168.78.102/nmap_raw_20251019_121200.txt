@@ -1,0 +1,1018 @@
+# Nmap 7.95 scan initiated Sun Oct 19 12:12:00 2025 as: /usr/lib/nmap/nmap -sS -sV -O -T4 --script default,safe,smb-enum-shares,smb-vuln-ms08-067,ftp-anon,ssh-hostkey,mysql-empty-password,vnc-info,http-enum,http-methods -p 1-2000,3306,5432,8080,3000,2049,5900 -oX results/192.168.78.102/nmap_raw_20251019_121200.xml -oN results/192.168.78.102/nmap_raw_20251019_121200.txt 192.168.78.102
+Pre-scan script results:
+| broadcast-dhcp-discover: 
+|   Response 1 of 2: 
+|     Interface: eth1
+|     IP Offered: 192.168.78.102
+|     Server Identifier: 192.168.78.100
+|     Subnet Mask: 255.255.255.0
+|   Response 2 of 2: 
+|     Interface: eth0
+|     IP Offered: 10.0.2.17
+|     Server Identifier: 10.0.2.2
+|     Subnet Mask: 255.255.255.0
+|     Router: 10.0.2.2
+|_    Domain Name Server: 10.18.80.217
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+| broadcast-igmp-discovery: 
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 224.0.0.251
+|     Description: mDNS (rfc6762)
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 239.255.255.250
+|     Description: Organization-Local Scope (rfc2365)
+|_  Use the newtargets script-arg to add the results as targets
+|_eap-info: please specify an interface with -e
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+|_multicast-profinet-discovery: 0
+| broadcast-listener: 
+|   udp
+|       DHCP
+|         srv ip          cli ip          mask           gw  dns  vendor
+|_        192.168.78.100  192.168.78.102  255.255.255.0  -   -    -
+Nmap scan report for 192.168.78.102
+Host is up (0.0026s latency).
+Not shown: 1988 closed tcp ports (reset)
+Bug in http-security-headers: no string output.
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+|_banner: 220 (vsFTPd 2.3.4)
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 192.168.78.101
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|_End of status
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+| ssh-hostkey: 
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+|_banner: SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1
+| ssh2-enum-algos: 
+|   kex_algorithms: (4)
+|   server_host_key_algorithms: (2)
+|   encryption_algorithms: (13)
+|   mac_algorithms: (7)
+|_  compression_algorithms: (2)
+23/tcp   open  telnet      Linux telnetd
+|_banner: \xFF\xFD\x18\xFF\xFD \xFF\xFD#\xFF\xFD'
+| telnet-encryption: 
+|_  Telnet server does not support encryption
+25/tcp   open  smtp        Postfix smtpd
+| ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+| Not valid before: 2010-03-17T14:07:45
+|_Not valid after:  2010-04-16T14:07:45
+| sslv2: 
+|   SSLv2 supported
+|   ciphers: 
+|     SSL2_DES_64_CBC_WITH_MD5
+|     SSL2_RC2_128_CBC_WITH_MD5
+|     SSL2_RC2_128_CBC_EXPORT40_WITH_MD5
+|     SSL2_RC4_128_WITH_MD5
+|     SSL2_DES_192_EDE3_CBC_WITH_MD5
+|_    SSL2_RC4_128_EXPORT40_WITH_MD5
+|_banner: 220 metasploitable.localdomain ESMTP Postfix (Ubuntu)
+|_smtp-commands: SMTP: EHLO 421 4.4.2 metasploitable.localdomain Error: timeout exceeded\x0D
+53/tcp   open  domain      ISC BIND 9.4.2
+| dns-nsid: 
+|_  bind.version: 9.4.2
+80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+|_http-date: Sun, 19 Oct 2025 16:29:06 GMT; +27s from local time.
+|_http-vuln-cve2017-1001000: ERROR: Script execution failed (use -d to debug)
+| http-grep: 
+|   (1) http://192.168.78.102:80/dav/: 
+|     (1) ip: 
+|       + 192.168.78.102
+|   (1) http://192.168.78.102:80/mutillidae/index.php?page=credits.php: 
+|     (1) email: 
+|_      + mutillidae-development@gmail.com
+|_http-mobileversion-checker: No mobile version detected.
+| http-php-version: Versions from logo query (less accurate): 5.1.3 - 5.1.6, 5.2.0 - 5.2.17
+| Versions from credits query (more accurate): 5.2.3 - 5.2.5, 5.2.6RC3
+|_Version from header x-powered-by: PHP/5.2.4-2ubuntu5.10
+|_http-apache-negotiation: mod_negotiation enabled.
+|_http-title: Metasploitable2 - Linux
+|_http-referer-checker: Couldn't find any cross-domain scripts.
+| http-headers: 
+|   Date: Sun, 19 Oct 2025 16:29:06 GMT
+|   Server: Apache/2.2.8 (Ubuntu) DAV/2
+|   X-Powered-By: PHP/5.2.4-2ubuntu5.10
+|   Connection: close
+|   Content-Type: text/html
+|   
+|_  (Request type: HEAD)
+|_http-fetch: Please enter the complete path of the directory to save data in.
+| http-useragent-tester: 
+|   Status for browser useragent: 200
+|   Allowed User Agents: 
+|     Mozilla/5.0 (compatible; Nmap Scripting Engine; https://nmap.org/book/nse.html)
+|     libwww
+|     lwp-trivial
+|     libcurl-agent/1.0
+|     PHP/
+|     Python-urllib/2.5
+|     GT::WWW
+|     Snoopy
+|     MFC_Tear_Sample
+|     HTTP::Lite
+|     PHPCrawl
+|     URI::Fetch
+|     Zend_Http_Client
+|     http client
+|     PECL::HTTP
+|     Wget/1.13.4 (linux-gnu)
+|_    WWW-Mechanize/1.34
+|_http-trace: TRACE is enabled
+| http-slowloris-check: 
+|   VULNERABLE:
+|   Slowloris DOS attack
+|     State: LIKELY VULNERABLE
+|     IDs:  CVE:CVE-2007-6750
+|       Slowloris tries to keep many connections to the target web server open and hold
+|       them open as long as possible.  It accomplishes this by opening connections to
+|       the target web server and sending a partial request. By doing so, it starves
+|       the http server's resources causing Denial Of Service.
+|       
+|     Disclosure date: 2009-09-17
+|     References:
+|       http://ha.ckers.org/slowloris/
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+|_http-server-header: Apache/2.2.8 (Ubuntu) DAV/2
+|_http-xssed: ERROR: Script execution failed (use -d to debug)
+| http-auth-finder: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102
+|   url                                            method
+|   http://192.168.78.102:80/phpMyAdmin/           FORM
+|   http://192.168.78.102:80/dvwa/                 FORM
+|_  http://192.168.78.102:80/phpMyAdmin/index.php  FORM
+| http-enum: 
+|   /tikiwiki/: Tikiwiki
+|   /test/: Test page
+|   /phpinfo.php: Possible information file
+|   /phpMyAdmin/: phpMyAdmin
+|   /doc/: Potentially interesting directory w/ listing on 'apache/2.2.8 (ubuntu) dav/2'
+|   /icons/: Potentially interesting folder w/ directory listing
+|_  /index/: Potentially interesting folder
+| http-comments-displayer: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 121
+|     Comment: 
+|          //end $headers.each()
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 82
+|     Comment: 
+|          //insert shadow DIV and set it to parent node for the next shadow div
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 245
+|     Comment: 
+|         /* IE doesnt handles 'pre' right */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/index.php
+|     Line number: 66
+|     Comment: 
+|         
+|         // <![CDATA[
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 32
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 504
+|     Comment: 
+|         /* disabled text */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 616
+|     Comment: 
+|         /* enabled hover/active tabs */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 702
+|     Comment: 
+|         /* END server privileges */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 357
+|     Comment: 
+|         /* no extra space in table cells */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 208
+|     Comment: 
+|         /* marked table rows */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 164
+|     Comment: 
+|         /* avoid a thick line since this should be used under another fieldset */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 2
+|     Comment: 
+|         
+|         //** Script Download/ instructions page: http://www.dynamicdrive.com/dynamicindex1/ddlevelsmenu/
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/index.php
+|     Line number: 18
+|     Comment: 
+|         
+|         //]]>
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 153
+|     Comment: 
+|          //end ddsmoothmenu variable
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 747
+|     Comment: 
+|         /* user privileges */
+|     
+|     Path: http://192.168.78.102:80/dvwa/
+|     Line number: 57
+|     Comment: 
+|         <!-- <img src="dvwa/images/RandomStorm.png" /> -->
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 645
+|     Comment: 
+|         /* Calendar */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=add-to-your-blog.php
+|     Line number: 492
+|     Comment: 
+|         /* HTMLForm */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 696
+|     Comment: 
+|         /* server privileges */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 551
+|     Comment: 
+|         /* topmenu */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 542
+|     Comment: 
+|         <!-- End Content -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 33
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=add-to-your-blog.php
+|     Line number: 490
+|     Comment: 
+|         <!-- BEGIN HTML OUTPUT  -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 147
+|     Comment: 
+|          //else if markup menu
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 13
+|     Comment: 
+|         
+|         //** July 27th, 09" (v1.31): Fixed bug so shadows can be disabled if desired.
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 144
+|     Comment: 
+|          //if external ajax menu
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 120
+|     Comment: 
+|          //end hover
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 522
+|     Comment: 
+|         /**
+|          * login form
+|          */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 32
+|     Comment: 
+|          //function to fetch external page containing the panel DIVs
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 62
+|     Comment: 
+|          //loop through each LI header
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 897
+|     Comment: 
+|         /* height: 100%; */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 631
+|     Comment: 
+|         /* to be able to cancel the bottom border, use <li class="active"> */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/index.php
+|     Line number: 79
+|     Comment: 
+|         
+|         // ]]>
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 23
+|     Comment: 
+|         
+|         
+|         
+|         
+|         		***********************************************/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 28
+|     Comment: 
+|          //detect WebKit browsers (Safari, Chrome etc)
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 856
+|     Comment: 
+|         /* querywindow */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 154
+|     Comment: 
+|         /* classes */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 92
+|     Comment: 
+|          //calculate this sub menu's offsets from its parent
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 134
+|     Comment: 
+|          //override default menu colors (default/hover) with custom set?
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 584
+|     Comment: 
+|         /* disabled drop/empty tabs */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 498
+|     Comment: 
+|         /* forbidden, no privilegs */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 812
+|     Comment: 
+|         /* serverstatus */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 215
+|     Comment: 
+|         /* hovered items */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 11
+|     Comment: 
+|         
+|         //** 2) In IE6, shadows are now always disabled
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 31
+|     Comment: 
+|         /* general tags */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 674
+|     Comment: 
+|         /* end Calendar */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 124
+|     Comment: 
+|          //construct CSS3 box-shadow value
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 69
+|     Comment: 
+|          //add arrow images
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 20
+|     Comment: 
+|         
+|         //Specify full URL to down and right arrow images (23 is padding-right added to top level LIs with drop downs):
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 87
+|     Comment: 
+|          //reference header LI as DOM object
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 122
+|     Comment: 
+|          //if shadows enabled and browser supports CSS3 shadows
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 589
+|     Comment: 
+|         /* enabled drop/empty tabs */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 143
+|     Comment: 
+|          //ajax menu?
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 113
+|     Comment: 
+|          //in WebKit browsers, set first child shadow's opacity to 0, as "overflow:hidden" doesn't work in them
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 36
+|     Comment: 
+|          //path to external menu file
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 7
+|     Comment: 
+|         
+|         //** Feb 11th, 09" (v1.02): The currently active main menu item (LI A) now gets a CSS class of ".selected", including sub menu items.
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 86
+|     Comment: 
+|          //reference UL to reveal
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 75
+|     Comment: 
+|          //store this shadow's offsets
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 131
+|     Comment: 
+|         /* buttons in some browsers (eg. Konqueror) are block elements,
+|            this breaks design */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 31
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 579
+|     Comment: 
+|         /* disabled tabs */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 892
+|     Comment: 
+|         /* height: 12em; */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 125
+|     Comment: 
+|          //possible vendor specific CSS3 shadow properties
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 142
+|     Comment: 
+|          //in IE6, always disable shadow
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 188
+|     Comment: 
+|         /* odd items 1,3,5,7,... */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 367
+|     Comment: 
+|         /* message boxes: warning, error, confirmation */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 51
+|     Comment: 
+|          //reference main menu UL
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 194
+|     Comment: 
+|         /* even items 2,4,6,8,... */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 98
+|     Comment: 
+|          //in WebKit browsers, restore shadow's opacity to full
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 33
+|     Comment: 
+|          //reference empty div on page that will hold menu
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 74
+|     Comment: 
+|          //if shadows enabled and browser doesn't support CSS3 box shadows
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 26
+|     Comment: 
+|         
+|         ///////Stop configuring beyond here///////////////////////////
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 24
+|     Comment: 
+|          //set delay in milliseconds before sub menus appear and disappear, respectively
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/index.php
+|     Line number: 44
+|     Comment: 
+|         <!-- Login form -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 23
+|     Comment: 
+|          //enable shadow?
+|     
+|     Path: http://192.168.78.102:80/dvwa/
+|     Line number: 61
+|     Comment: 
+|         <!-- end align div -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 22
+|     Comment: 
+|          //duration of slide in/ out animation, in milliseconds
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 873
+|     Comment: 
+|         /* END querywindow */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 351
+|     Comment: 
+|         /* leave some space between icons and text */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 35
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 178
+|     Comment: 
+|         /* revert for Gecko */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 16
+|     Comment: 
+|         
+|         //** Dec 17th, 10" (v1.5): Updated menu shadow to use CSS3 box shadows when the browser is FF3.5+, IE9+, Opera9.5+, or Safari3+/Chrome. Only .js file changed.
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 854
+|     Comment: 
+|         /* end serverstatus */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 876
+|     Comment: 
+|         /* querybox */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 488
+|     Comment: 
+|         <!-- Begin Content -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 9
+|     Comment: 
+|         
+|         //** May 1st, 09" (v1.3):
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 706
+|     Comment: 
+|         /* Heading */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 642
+|     Comment: 
+|         /* end topmenu */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 571
+|     Comment: 
+|         /* default tab styles */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 93
+|     Comment: 
+|          //if 1 or less queued animations
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 677
+|     Comment: 
+|         /* table stats */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 1024
+|     Comment: 
+|         /* END iconic view for ul items */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 5
+|     Comment: 
+|         
+|         //** Dec 12th, 08" (v1.01): Fixed Shadow issue when multiple LIs within the same UL (level) contain sub menus: http://www.dynamicdrive.com/forums/showthread.php?t=39177&highlight=smooth
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 953
+|     Comment: 
+|         /* list-style-image: url(./themes/original/img/s_rights.png); */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 929
+|     Comment: 
+|         /* iconic view for ul items */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 905
+|     Comment: 
+|         /* main page */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 926
+|     Comment: 
+|         /* END main page */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 903
+|     Comment: 
+|         /* end querybox */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 174
+|     Comment: 
+|         /* IE */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 30
+|     Comment: 
+|          //detect browsers that support CSS3 box shadows (ie9+ or FF3.5+, Safari3+, Chrome etc)
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 458
+|     Comment: 
+|         /* end messageboxes */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 290
+|     Comment: 
+|         /* MySQL Parser */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 693
+|     Comment: 
+|         /* END table stats */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 223
+|     Comment: 
+|         /* hovered table rows */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/index.php
+|     Line number: 13
+|     Comment: 
+|         
+|         //<![CDATA[
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 63
+|     Comment: 
+|          //reference current LI header
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 549
+|     Comment: 
+|         /* specific elements */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 200
+|     Comment: 
+|         /* odd table rows 1,3,5,7,... */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 881
+|     Comment: 
+|         /* height: 15em; */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 67
+|     Comment: 
+|          //is top level header?
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 231
+|     Comment: 
+|         /**
+|          * marks table rows/cells if the db field is in a where condition
+|          */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 809
+|     Comment: 
+|         /* END user privileges */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/phpmyadmin.css.php?lang=en-utf-8&amp;convcharset=utf-8&amp;token=e5e37b1847331b7a638a9303bcbd5ac7&amp;js_frame=right&amp;nocache=2457687151
+|     Line number: 30
+|     Comment: 
+|         /******************************************************************************/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php
+|     Line number: 2
+|     Comment: 
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|_        			security instructors are just making all this up. -->
+111/tcp  open  rpcbind     2 (RPC #100000)
+| nfs-statfs: 
+|   Filesystem  1K-blocks  Used       Available  Use%  Maxfilesize  Maxlink
+|_  /           7282168.0  1488876.0  5426292.0  22%   2.0T         32000
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2            111/tcp   rpcbind
+|   100000  2            111/udp   rpcbind
+|   100003  2,3,4       2049/tcp   nfs
+|   100003  2,3,4       2049/udp   nfs
+|   100005  1,2,3      48854/tcp   mountd
+|   100005  1,2,3      50369/udp   mountd
+|   100021  1,3,4      34801/udp   nlockmgr
+|   100021  1,3,4      41806/tcp   nlockmgr
+|   100024  1          40052/tcp   status
+|_  100024  1          54480/udp   status
+| nfs-showmount: 
+|_  / *
+| nfs-ls: Volume /
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID  GID  SIZE   TIME                 FILENAME
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:33  bin
+| drwxr-xr-x  0    0    4096   2010-04-16T06:16:02  home
+| drwxr-xr-x  0    0    4096   2010-03-16T22:57:40  initrd
+| lrwxrwxrwx  0    0    32     2010-04-28T20:26:18  initrd.img
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:22  lib
+| drwx------  0    0    16384  2010-03-16T22:55:15  lost+found
+| drwxr-xr-x  0    0    4096   2010-03-16T22:55:52  media
+| drwxr-xr-x  0    0    4096   2010-04-28T20:16:56  mnt
+| drwxr-xr-x  0    0    4096   2012-05-14T01:54:53  sbin
+| drwxr-xr-x  0    0    4096   2010-04-28T04:06:37  usr
+|_
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+512/tcp  open  exec        netkit-rsh rexecd
+|_banner: \x01Where are you?
+513/tcp  open  login?
+514/tcp  open  shell       Netkit rshd
+|_banner: \x01getnameinfo: Temporary failure in name resolution
+1099/tcp open  java-rmi    GNU Classpath grmiregistry
+|_unusual-port: java-rmi unexpected on port tcp/1099
+1524/tcp open  bindshell   Metasploitable root shell
+|_banner: root@metasploitable:/#
+|_unusual-port: bindshell unexpected on port tcp/1524
+2049/tcp open  nfs         2-4 (RPC #100003)
+|_unusual-port: rpcbind unexpected on port tcp/2049
+3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
+|_banner: >\x00\x00\x00\x0A5.0.51a-3ubuntu5\x00\x0C\x00\x00\x00.P+$o&l...
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.0.51a-3ubuntu5
+|   Thread ID: 11
+|   Capabilities flags: 43564
+|   Some Capabilities: SwitchToSSLAfterHandshake, LongColumnFlag, SupportsTransactions, ConnectWithDatabase, SupportsCompression, Support41Auth, Speaks41ProtocolNew
+|   Status: Autocommit
+|_  Salt: 23GK#jolS;i"ild/ZZ6=
+5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
+| ssl-ccs-injection: 
+|   VULNERABLE:
+|   SSL/TLS MITM vulnerability (CCS Injection)
+|     State: VULNERABLE
+|     Risk factor: High
+|       OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h
+|       does not properly restrict processing of ChangeCipherSpec messages,
+|       which allows man-in-the-middle attackers to trigger use of a zero
+|       length master key in certain OpenSSL-to-OpenSSL communications, and
+|       consequently hijack sessions or obtain sensitive information, via
+|       a crafted TLS handshake, aka the "CCS Injection" vulnerability.
+|           
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224
+|       http://www.openssl.org/news/secadv_20140605.txt
+|_      http://www.cvedetails.com/cve/2014-0224
+| ssl-dh-params: 
+|   VULNERABLE:
+|   Diffie-Hellman Key Exchange Insufficient Group Strength
+|     State: VULNERABLE
+|       Transport Layer Security (TLS) services that use Diffie-Hellman groups
+|       of insufficient strength, especially those using one of a few commonly
+|       shared groups, may be susceptible to passive eavesdropping attacks.
+|     Check results:
+|       WEAK DH GROUP 1
+|             Cipher Suite: TLS_DHE_RSA_WITH_AES_256_CBC_SHA
+|             Modulus Type: Safe prime
+|             Modulus Source: Unknown/Custom-generated
+|             Modulus Length: 1024
+|             Generator Length: 8
+|             Public Key Length: 1024
+|     References:
+|_      https://weakdh.org
+|_ssl-date: 2025-10-19T16:36:20+00:00; +29s from scanner time.
+| ssl-poodle: 
+|   VULNERABLE:
+|   SSL POODLE information leak
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2014-3566  BID:70574
+|           The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other
+|           products, uses nondeterministic CBC padding, which makes it easier
+|           for man-in-the-middle attackers to obtain cleartext data via a
+|           padding-oracle attack, aka the "POODLE" issue.
+|     Disclosure date: 2014-10-14
+|     Check results:
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|     References:
+|       https://www.openssl.org/~bodo/ssl-poodle.pdf
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566
+|       https://www.securityfocus.com/bid/70574
+|_      https://www.imperialviolet.org/2014/10/14/poodle.html
+| ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+| Not valid before: 2010-03-17T14:07:45
+|_Not valid after:  2010-04-16T14:07:45
+5900/tcp open  vnc         VNC (protocol 3.3)
+| vnc-info: 
+|   Protocol version: 3.3
+|   Security types: 
+|_    VNC Authentication (2)
+|_banner: RFB 003.003
+MAC Address: 08:00:27:08:B9:EA (PCS Systemtechnik/Oracle VirtualBox virtual NIC)
+Device type: general purpose
+Running: Linux 2.6.X
+OS CPE: cpe:/o:linux:linux_kernel:2.6
+OS details: Linux 2.6.9 - 2.6.33
+Network Distance: 1 hop
+Service Info: Host:  metasploitable.localdomain; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+| smb-os-discovery: 
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: metasploitable
+|   NetBIOS computer name: 
+|   Domain name: localdomain
+|   FQDN: metasploitable.localdomain
+|_  System time: 2025-10-19T12:26:40-04:00
+|_smb2-time: Protocol negotiation failed (SMB2)
+|_smb-mbenum: ERROR: Script execution failed (use -d to debug)
+|_path-mtu: PMTU == 1500
+| port-states: 
+|   tcp: 
+|     open: 21-23,25,53,80,111,139,445,512-514,1099,1524,2049,3306,5432,5900
+|_    closed: 1-20,24,26-52,54-79,81-110,112-138,140-444,446-511,515-1098,1100-1523,1525-2000,3000,8080
+| smb-ls: Volume \\192.168.78.102\tmp
+| SIZE   TIME                 FILENAME
+| <DIR>  2025-10-19T16:35:29  .
+| <DIR>  2012-05-20T18:36:12  ..
+| 0      2025-10-19T14:54:32  4600.jsvc_up
+|_
+|_fcrdns: FAIL (No PTR record)
+| smb-enum-shares: 
+|   account_used: <blank>
+|   \\192.168.78.102\ADMIN$: 
+|     Type: STYPE_IPC
+|     Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: <none>
+|   \\192.168.78.102\IPC$: 
+|     Type: STYPE_IPC
+|     Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|   \\192.168.78.102\opt: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: <none>
+|   \\192.168.78.102\print$: 
+|     Type: STYPE_DISKTREE
+|     Comment: Printer Drivers
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\var\lib\samba\printers
+|     Anonymous access: <none>
+|   \\192.168.78.102\tmp: 
+|     Type: STYPE_DISKTREE
+|     Comment: oh noes!
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|_    Anonymous access: READ/WRITE
+|_clock-skew: mean: 1h03m07s, deviation: 2h05m20s, median: 26s
+| dns-blacklist: 
+|   ATTACK
+|     all.bl.blocklist.de - FAIL
+|   PROXY
+|     socks.dnsbl.sorbs.net - FAIL
+|     dnsbl.tornevall.org - FAIL
+|     misc.dnsbl.sorbs.net - FAIL
+|     http.dnsbl.sorbs.net - FAIL
+|     tor.dan.me.uk - FAIL
+|   SPAM
+|     sbl.spamhaus.org - FAIL
+|     bl.nszones.com - FAIL
+|     l2.apews.org - FAIL
+|     dnsbl.inps.de - FAIL
+|     all.spamrats.com - FAIL
+|     list.quorum.to - FAIL
+|     bl.spamcop.net - FAIL
+|_    spam.dnsbl.sorbs.net - FAIL
+| smb-security-mode: 
+|   account_used: <blank>
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_msrpc-enum: NT_STATUS_OBJECT_NAME_NOT_FOUND
+|_ipidseq: All zeros
+|_nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+| qscan: 
+| PORT  FAMILY  MEAN (us)  STDDEV   LOSS (%)
+| 1     0       3035.80    1040.80  0.0%
+| 21    0       3146.40    1316.59  0.0%
+| 22    0       2567.60    985.83   0.0%
+| 23    0       2912.10    1500.38  0.0%
+| 25    0       2864.40    1890.50  0.0%
+| 53    0       3519.90    1451.38  0.0%
+| 80    0       2921.20    1025.09  0.0%
+| 111   0       3320.90    1224.91  0.0%
+|_139   0       2433.30    1001.00  0.0%
+|_smb2-capabilities: SMB 2+ not supported
+| smb-protocols: 
+|   dialects: 
+|_    NT LM 0.12 (SMBv1) [dangerous, but default]
+
+Post-scan script results:
+| reverse-index: 
+|   21/tcp: 192.168.78.102
+|   22/tcp: 192.168.78.102
+|   23/tcp: 192.168.78.102
+|   25/tcp: 192.168.78.102
+|   53/tcp: 192.168.78.102
+|   80/tcp: 192.168.78.102
+|   111/tcp: 192.168.78.102
+|   139/tcp: 192.168.78.102
+|   445/tcp: 192.168.78.102
+|   512/tcp: 192.168.78.102
+|   513/tcp: 192.168.78.102
+|   514/tcp: 192.168.78.102
+|   1099/tcp: 192.168.78.102
+|   1524/tcp: 192.168.78.102
+|   2049/tcp: 192.168.78.102
+|   3306/tcp: 192.168.78.102
+|   5432/tcp: 192.168.78.102
+|_  5900/tcp: 192.168.78.102
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sun Oct 19 12:37:15 2025 -- 1 IP address (1 host up) scanned in 1515.51 seconds

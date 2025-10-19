@@ -1,0 +1,49 @@
+Vulnix — Network Scan Report
+Target: 192.168.78.102
+Timestamp: 20251019_114416
+Mode: fast
+====================================================
+
+[*] 1) Reachability check
+Host: reachable via ICMP (ping).
+
+[*] 2) Nmap service/version + key NSE scripts (fast profile)
+[*] Running nmap (T4) ... (bounded timeout: 480s)
+Starting Nmap 7.95 ( https://nmap.org ) at 2025-10-19 11:44 EDT
+No profinet devices in the subnet
+Pre-scan script results:
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
+|_eap-info: please specify an interface with -e
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| broadcast-dhcp-discover: 
+|   Response 1 of 2: 
+|     Interface: eth1
+|     IP Offered: 192.168.78.102
+|     Server Identifier: 192.168.78.100
+|     Subnet Mask: 255.255.255.0
+|   Response 2 of 2: 
+|     Interface: eth0
+|     IP Offered: 10.0.2.17
+|     Server Identifier: 10.0.2.2
+|     Subnet Mask: 255.255.255.0
+|     Router: 10.0.2.2
+|     Domain Name Server: 192.168.1.1
+|_    Domain Name: dlinkrouter
+| broadcast-igmp-discovery: 
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 224.0.0.251
+|     Description: mDNS (rfc6762)
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 224.0.0.252
+|     Description: Link-local Multicast Name Resolution (rfc4795)
+|_  Use the newtargets script-arg to add the results as targets
+|_multicast-profinet-discovery: 0
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+
+Nmap raw output saved to: results/192.168.78.102/nmap_20251019_114416.txt
+

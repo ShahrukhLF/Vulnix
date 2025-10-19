@@ -1,0 +1,468 @@
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+[01;31m[Kvsftpd[m[K 2.0.5 - 'CWD' (Authenticated) Remote M | linux/dos/5814.pl
+[01;31m[Kvsftpd[m[K 2.0.5 - 'deny_file' Option Remote Deni | windows/dos/31818.sh
+[01;31m[Kvsftpd[m[K 2.0.5 - 'deny_file' Option Remote Deni | windows/dos/31819.pl
+[01;31m[Kvsftpd[m[K 2.3.2 - Denial of Service              | linux/dos/16270.c
+[01;31m[Kvsftpd[m[K 2.3.4 - Backdoor Command Execution     | unix/remote/49757.py
+[01;31m[Kvsftpd[m[K 2.3.4 - Backdoor Command Execution (Me | unix/remote/17491.rb
+[01;31m[Kvsftpd[m[K 3.0.3 - Remote Denial of Service       | multiple/remote/49719.py
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+[01;31m[Kvsftpd[m[K [01;31m[K2.3.4[m[K - Backdoor Command Execution     | unix/remote/49757.py
+[01;31m[Kvsftpd[m[K [01;31m[K2.3.4[m[K - Backdoor Command Execution (Me | unix/remote/17491.rb
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+Debian [01;31m[KOpenSSH[m[K - (Authenticated) Remote SELin | linux/remote/6094.txt
+Dropbear / [01;31m[KOpenSSH[m[K Server - 'MAX_UNAUTH_CLIEN | multiple/dos/1572.pl
+FreeBSD [01;31m[KOpenSSH[m[K 3.5p1 - Remote Command Execut | freebsd/remote/17462.txt
+glibc-2.2 / [01;31m[Kopenssh[m[K-2.3.0p1 / glibc 2.1.9x -  | linux/local/258.sh
+Novell Netware 6.5 - [01;31m[KOpenSSH[m[K Remote Stack Ove | novell/dos/14866.txt
+[01;31m[KOpenSSH[m[K 1.2 - '.scp' File Create/Overwrite    | linux/remote/20253.sh
+[01;31m[KOpenSSH[m[K 2.3 < 7.7 - Username Enumeration      | linux/remote/45233.py
+[01;31m[KOpenSSH[m[K 2.3 < 7.7 - Username Enumeration (PoC | linux/remote/45210.py
+[01;31m[KOpenSSH[m[K 2.x/3.0.1/3.0.2 - Channel Code Off-by | unix/remote/21314.txt
+[01;31m[KOpenSSH[m[K 2.x/3.x - Kerberos 4 TGT/AFS Token Bu | linux/remote/21402.txt
+[01;31m[KOpenSSH[m[K 3.x - Challenge-Response Buffer Overf | unix/remote/21578.txt
+[01;31m[KOpenSSH[m[K 3.x - Challenge-Response Buffer Overf | unix/remote/21579.txt
+[01;31m[KOpenSSH[m[K 4.3 p1 - Duplicated Block Remote Deni | multiple/dos/2444.sh
+[01;31m[KOpenSSH[m[K 6.8 < 6.9 - 'PTY' Local Privilege Esc | linux/local/41173.c
+[01;31m[KOpenSSH[m[K 7.2 - Denial of Service               | linux/dos/40888.py
+[01;31m[KOpenSSH[m[K 7.2p1 - (Authenticated) xauth Command | multiple/remote/39569.py
+[01;31m[KOpenSSH[m[K 7.2p2 - Username Enumeration          | linux/remote/40136.py
+[01;31m[KOpenSSH[m[K < 6.6 SFTP (x64) - Command Execution  | linux_x86-64/remote/45000.c
+[01;31m[KOpenSSH[m[K < 6.6 SFTP - Command Execution        | linux/remote/45001.py
+[01;31m[KOpenSSH[m[K < 7.4 - 'UsePrivilegeSeparation Disab | linux/local/40962.txt
+[01;31m[KOpenSSH[m[K < 7.4 - agent Protocol Arbitrary Libr | linux/remote/40963.txt
+[01;31m[KOpenSSH[m[K < 7.7 - User Enumeration (2)          | linux/remote/45939.py
+[01;31m[KOpenSSH[m[K SCP Client - Write Arbitrary Files    | multiple/remote/46516.py
+[01;31m[KOpenSSH[m[K server (sshd) 9.8p1 - Race Condition  | linux/remote/52269.c
+[01;31m[KOpenSSH[m[K/PAM 3.6.1p1 - 'gossh.sh' Remote Users | linux/remote/26.sh
+[01;31m[KOpenSSH[m[K/PAM 3.6.1p1 - Remote Users Discovery  | linux/remote/25.c
+[01;31m[KOpenSSH[m[Kd 7.2p2 - Username Enumeration         | linux/remote/40113.txt
+Portable [01;31m[KOpenSSH[m[K 3.6.1p-PAM/4.1-SuSE - Timing | multiple/remote/3303.sh
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+3Com SuperStack II PS Hub 40 - [01;31m[KTelnet[m[KD Weak P | hardware/remote/21011.pl
+602Pro LAN SUITE 2002 - [01;31m[KTelnet[m[K Proxy localhos | windows/dos/21694.pl
+Absolute[01;31m[KTelnet[m[K 10.16 - 'License name' Denial  | windows/dos/46874.py
+Absolute[01;31m[KTelnet[m[K 11.12 - 'license name' Denial  | windows/dos/48006.py
+Absolute[01;31m[KTelnet[m[K 11.12 - 'SSH1/username' Denial | windows/dos/48305.py
+Absolute[01;31m[KTelnet[m[K 11.12 - 'SSH2/username' Denial | windows/dos/48010.py
+Absolute[01;31m[KTelnet[m[K 11.12 - _license name_ Denial  | windows/dos/48005.py
+Absolute[01;31m[KTelnet[m[K 11.21 - 'Username' Denial of S | windows/dos/48493.py
+Absolute[01;31m[KTelnet[m[K 11.24 - 'Phone' Denial of Serv | windows/dos/50511.py
+Absolute[01;31m[KTelnet[m[K 11.24 - 'Username' Denial of S | windows/dos/50510.py
+Accu-Time Systems MAXIMUS 1.0 - [01;31m[KTelnet[m[K Remote | hardware/remote/50620.py
+APC WEB/SNMP Management Card (9606) Firmware  | hardware/dos/20654.pl
+Apple Mac OSX 10.2 - Terminal.APP [01;31m[KTelnet[m[K Link | osx/local/21815.txt
+Arescom NetDSL-1000 - '[01;31m[KTelnet[m[KD' Remote Denial | hardware/dos/1464.c
+Beck IPC GmbH IPC@CHIP - [01;31m[KTelnet[m[KD Login Accoun | multiple/remote/20881.txt
+BSD - '[01;31m[KTelnet[m[KD' Remote Command Execution (1)  | bsd/remote/409.c
+BSD - '[01;31m[KTelnet[m[KD' Remote Command Execution (2)  | bsd/remote/19520.txt
+Byte Fusion BF[01;31m[KTelnet[m[K 1.1 - Long Username Deni | windows/dos/19596.txt
+CCProxy 6.2 - [01;31m[KTelnet[m[K Proxy Ping Overflow (Met | windows/remote/4360.rb
+Celestial Software Absolute[01;31m[KTelnet[m[K 2.0/2.11 -  | windows/remote/22229.pl
+CHIYU IoT Devices - '[01;31m[KTelnet[m[K' Authentication B | hardware/remote/49936.py
+Cypress Solutions CTM-200/CTM-ONE - Hard-code | hardware/remote/50407.py
+D-Link Devices - UPnP SOAP [01;31m[KTelnet[m[KD Command Ex | unix/remote/28333.rb
+Denver Smart Wifi Camera SHC-150 - '[01;31m[KTelnet[m[K' R | hardware/remote/50160.txt
+FreeBSD - [01;31m[KTelnet[m[K Service Encryption Key ID Bu | bsd/remote/18369.rb
+FreeBSD 7.0-RELEASE - [01;31m[KTelnet[m[K Daemon Privilege | freebsd/local/8055.txt
+GNU inetutils < 1.9.4 - '[01;31m[Ktelnet[m[K.c' Multiple O | linux/dos/45982.txt
+GoodTech [01;31m[KTelnet[m[K Server 4.0 - Remote Denial of | windows/dos/23506.txt
+GoodTech [01;31m[KTelnet[m[K Server 5.0.6 - Remote Buffer  | windows/remote/16817.rb
+GoodTech [01;31m[KTelnet[m[K Server < 5.0.7 - Buffer Overf | windows/dos/882.cpp
+GoodTech [01;31m[KTelnet[m[K Server < 5.0.7 - Remote Buffe | windows/remote/883.c
+GoodTech [01;31m[KTelnet[m[K Server NT 2.2.1 - Denial of S | windows/dos/19666.txt
+Herospeed - '[01;31m[KTelnet[m[KSwitch' Remote Stack Overf | hardware/remote/43997.py
+Hilgraeve HyperTerminal 6.0 - [01;31m[KTelnet[m[K Buffer O | windows/dos/20307.txt
+IRIX 5.2/5.3/6.x - [01;31m[KTelnet[m[KD Environment Variab | irix/remote/20149.c
+Jordan Windows [01;31m[KTelnet[m[K Server 1.0/1.2 - 'Usern | windows/remote/23491.pl
+Jordan Windows [01;31m[KTelnet[m[K Server 1.0/1.2 - 'Usern | windows/remote/23492.c
+Jordan Windows [01;31m[KTelnet[m[K Server 1.0/1.2 - 'Usern | windows/remote/23493.txt
+Kroum Grigorov KpyM [01;31m[KTelnet[m[K Server 1.0 - Remot | windows/dos/23530.c
+Linux BSD-derived [01;31m[KTelnet[m[K Service Encryption K | linux/remote/18368.rb
+Microsoft Internet Explorer 5.0.1/5.5/6.0 - T | windows/remote/20680.html
+Microsoft Windows 95/98 Internet Explorer 5/T | windows/local/19462.c
+Microsoft Windows NT 3.5.1 SP2/3.5.1 SP3/3.5. | windows/remote/19113.txt
+Microsoft Windows Server 2000 - '[01;31m[Ktelnet[m[K.exe'  | windows/remote/20222.cpp
+Microsoft Windows Server 2000 - [01;31m[KTelnet[m[K 'Usern | windows/dos/20907.sh
+Microsoft Windows Server 2000 - [01;31m[KTelnet[m[K Server | windows/dos/20047.txt
+Mocha [01;31m[KTelnet[m[K Lite for iOS 4.2 - 'User' Denial | windows/dos/48728.py
+Multiple Vendor [01;31m[KTelnet[m[K Client - Env_opt_add H | linux/dos/25303.txt
+Netgear - '[01;31m[KTelnet[m[KEnable' Magic Packet (Metasp | hardware/remote/44245.rb
+netkit-[01;31m[Ktelnet[m[K-0.17 [01;31m[Ktelnet[m[Kd (Fedora 31) - 'Bra | linux/remote/48170.py
+NUUO NVRMini2 3.8 - 'cgi_system' Buffer Overf | hardware/remote/45427.py
+Polycom HDX - [01;31m[KTelnet[m[K Authentication Bypass (M | hardware/remote/24494.rb
+Pragma Systems InterAccess [01;31m[KTelnet[m[KD Server 4.0 | windows/dos/19755.txt
+Pragma Systems InterAccess [01;31m[KTelnet[m[KD Server 4.0 | windows/dos/19760.txt
+Pragma Systems InterAccess [01;31m[KTelnet[m[KD Server 4.0 | windows/dos/20904.pl
+Pragma [01;31m[KTelnet[m[KServer 7.0.4.589 - NULL-Pointer  | multiple/dos/30991.txt
+PragmaSys [01;31m[KTelnet[m[KServer 2000 - rexec Buffer Ov | windows/dos/20175.pl
+ProFTPd 1.3.2 rc3 < 1.3.3b (FreeBSD) - [01;31m[KTelnet[m[K | linux/remote/16878.rb
+ProFTPd 1.3.2 rc3 < 1.3.3b (Linux) - [01;31m[KTelnet[m[K I | linux/remote/16851.rb
+Sagem F@st 3304-V2 - [01;31m[KTelnet[m[K Crash (PoC)       | hardware/dos/36309.py
+Sagem Router Fast 3304/3464/3504 - [01;31m[KTelnet[m[K Aut | hardware/remote/17670.py
+Solaris 10/11 [01;31m[KTelnet[m[K - Remote Authentication  | solaris/remote/9918.rb
+Solaris 2.6/7/8 - 'TTYPROMPT in.[01;31m[Ktelnet[m[K' Remot | solaris/remote/57.txt
+Solaris 2.x/7.0/8 / IRIX 6.5.x / OpenBSD 2.x  | unix/remote/21018.c
+Solaris [01;31m[KTelnet[m[KD - 'TTYPROMPT' Remote Buffer O | solaris/remote/16327.rb
+Solaris [01;31m[KTelnet[m[KD - 'TTYPROMPT' Remote Buffer O | solaris/remote/9917.rb
+Sun Solaris [01;31m[KTelnet[m[K - Remote Authentication By | solaris/remote/16328.rb
+SunOS 5.10/5.11 in.[01;31m[KTelnet[m[KD - Remote Authentic | solaris/remote/3293.sh
+[01;31m[KTelnet[m[K-Ftp Service Server 1.x - (Authenticate | windows/remote/8273.c
+[01;31m[KTelnet[m[KD encrypt_keyid - Function Pointer Over | linux/remote/18280.c
+Verso NetPerformer Frame Relay Access Device  | multiple/dos/28542.pl
+---------------------------------------------- ---------------------------------
+---------------------------------------------- ---------------------------------
+ Shellcode Title                              |  Path
+---------------------------------------------- ---------------------------------
+Google Android - Bind (1035/TCP) [01;31m[KTelnet[m[Kd Shel | android/38194.c
+Linux/MIPS (Little Endian) - system([01;31m[Ktelnet[m[Kd - | linux_mips/27132.txt
+Linux/x86 - Reverse (200.182.207.235/TCP) Tel | linux_x86/13435.c
+Windows/x86 - Add Administrator User (GAZZA/1 | windows_x86/13508.asm
+---------------------------------------------- ---------------------------------
+
+
+Exploits: No Results
+---------------------------------------------- ---------------------------------
+ Shellcode Title                              |  Path
+---------------------------------------------- ---------------------------------
+[01;31m[KLinux[m[K/MIPS (Little Endian) - system([01;31m[Ktelnetd[m[K - | [01;31m[Klinux[m[K_mips/27132.txt
+---------------------------------------------- ---------------------------------
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+AA [01;31m[KSMTP[m[K Server 1.1 - Crash (PoC)              | windows/dos/14990.txt
+Alt-N MDaemon 6.5.1 - IMAP/[01;31m[KSMTP[m[K Remote Buffer | windows/remote/473.c
+Alt-N MDaemon 6.5.1 [01;31m[KSMTP[m[K Server - Multiple Co | windows/remote/24624.c
+Alt-N MDaemon Server 2.71 SP1 - [01;31m[KSMTP[m[K HELO Arg | windows/dos/23146.c
+Apache James Server 2.2 - [01;31m[KSMTP[m[K Denial of Serv | multiple/dos/27915.pl
+BaSoMail 1.24 - [01;31m[KSMTP[m[K Server Command Buffer Ov | windows/dos/22668.txt
+BaSoMail Server 1.24 - POP3/[01;31m[KSMTP[m[K Remote Denia | windows/dos/594.pl
+BL4 [01;31m[KSMTP[m[K Server < 0.1.5 - Remote Buffer Overf | windows/dos/1721.pl
+Blat 2.7.6 [01;31m[KSMTP[m[K / NNTP Mailer - Local Buffer  | windows/local/38472.py
+BulletProof FTP Server 2019.0.0.50 - '[01;31m[KSMTP[m[K Se | windows/dos/46422.py
+Cisco PIX Firewall 4.x/5.x - [01;31m[KSMTP[m[K Content Fil | hardware/remote/20231.txt
+Citadel [01;31m[KSMTP[m[K 7.10 - Remote Overflow           | windows/remote/4949.txt
+Cobalt Raq3 PopRelayD - Arbitrary [01;31m[KSMTP[m[K Relay  | linux/remote/20994.txt
+CodeBlue 5.1 - [01;31m[KSMTP[m[K Response Buffer Overflow  | windows/remote/21643.c
+CommuniCrypt Mail 1.16 - 'AN[01;31m[KSMTP[m[K.dll/AO[01;31m[KSMTP[m[K.d | windows/remote/12663.html
+CommuniCrypt Mail 1.16 - [01;31m[KSMTP[m[K ActiveX Stack B | windows/remote/16566.rb
+Computalynx CMail 2.3 SP2/2.4 - [01;31m[KSMTP[m[K Buffer O | windows/remote/19495.c
+DeepOfix [01;31m[KSMTP[m[K Server 3.3 - Authentication Byp | linux/remote/29706.txt
+d[01;31m[KSMTP[m[K Mail Server 3.1b (Linux) - Format Strin | linux/remote/981.c
+EasyMail Objects 'EM[01;31m[KSMTP[m[K.DLL 6.0.1' - ActiveX | windows/remote/10007.html
+EType EServ 2.9x - [01;31m[KSMTP[m[K Remote Denial of Serv | windows/dos/22123.pl
+Eudora 7.1 - [01;31m[KSMTP[m[K ResponseRemote Remote Buffe | windows/remote/3934.py
+Exim E[01;31m[KSMTP[m[K 4.80 - glibc gethostbyname Denial  | linux/dos/35951.py
+FloosieTek FTGate PRO 1.22 - [01;31m[KSMTP[m[K MAIL FROM B | windows/dos/22568.pl
+FloosieTek FTGate PRO 1.22 - [01;31m[KSMTP[m[K RCPT TO Buf | windows/dos/22569.pl
+Free [01;31m[KSMTP[m[K Server 2.2 - Spam Filter            | windows/remote/1193.pl
+Free [01;31m[KSMTP[m[K Server 2.5 - Denial of Service (PoC | windows/dos/46937.py
+GetSimple CMS My [01;31m[KSMTP[m[K Contact Plugin 1.1.1 -  | php/webapps/49774.py
+GetSimple CMS My [01;31m[KSMTP[m[K Contact Plugin 1.1.2 -  | php/webapps/49798.py
+GoodTech [01;31m[KSMTP[m[K Server 5.14 - Denial of Service | windows/dos/1162.pl
+Hastymail 1.x - IMAP [01;31m[KSMTP[m[K Command Injection   | php/webapps/28777.txt
+i.Scribe [01;31m[KSMTP[m[K Client 2.00b - 'wscanf' Remote  | windows/dos/7249.php
+Inetserv 3.23 - [01;31m[KSMTP[m[K Denial of Service        | windows/dos/16035.py
+Inframail Advantage Server Edition 6.0 < 6.37 | windows/dos/1165.pl
+Ipswitch Imail Server 5.0 - [01;31m[KSMTP[m[K HELO Argumen | windows/dos/23145.c
+iScripts AutoHoster - 'main_[01;31m[Ksmtp[m[K.php' Travers | php/webapps/38889.txt
+Jack De Winter Win[01;31m[KSMTP[m[K 1.6 f/2.0 - Buffer Ove | windows/dos/20221.pl
+LeadTools Imaging LEAD[01;31m[KSmtp[m[K - ActiveX Control  | windows/remote/35880.html
+Lotus Domino 4.6.1/4.6.4 Notes - [01;31m[KSMTP[m[KA MTA Ma | multiple/dos/19368.sh
+Lotus Domino [01;31m[KSMTP[m[K Router & Email Server and C | multiple/dos/17549.txt
+MailEnable 1.x - [01;31m[KSMTP[m[K 'HELO' Remote Denial of | windows/dos/28103.pl
+MailEnable 2.x - [01;31m[KSMTP[m[K NTLM Multiple Authentic | windows/dos/28735.pl
+MailEnable 3.13 [01;31m[KSMTP[m[K Service - 'VRFY/EXPN' De | windows/dos/5235.py
+MailEnable Enterprise 1.x - [01;31m[KSMTP[m[K Remote Denia | windows/dos/916.pl
+MAILsweeper [01;31m[KSMTP[m[K 4.2.1 + F-Secure Anti-Virus  | windows/dos/21006.txt
+Mailtraq 2.1.0.1302 - Remote Format String SM | windows/dos/22780.txt
+Majordomo2 - '[01;31m[KSMTP[m[K/HTTP' Directory Traversal  | multiple/remote/16103.txt
+MDaemon [01;31m[KSMTP[m[K Server 5.0.5 - Null Password Aut | windows/remote/23002.txt
+Mercury/32 Mail Server 3.32 < 4.51 - [01;31m[KSMTP[m[K EIP | windows/remote/4316.cpp
+Mercury/32 Mail [01;31m[KSMTP[m[KD - AUTH CRAM-MD5 Buffer  | windows/remote/16821.rb
+Mercury/32 Mail [01;31m[KSMTP[m[KD - Remote Stack Overrun  | windows/dos/4294.pl
+Mercury/32 Mail [01;31m[KSMTP[m[KD 4.51 - [01;31m[KSMTP[m[KD CRAM-MD5 R | windows/remote/4301.cpp
+Microsoft Exchange Server 4.0/5.0 - [01;31m[KSMTP[m[K HELO | windows/remote/23113.c
+Microsoft IIS 4.0/5.0 - [01;31m[KSMTP[m[K Service Encapsul | windows/remote/21613.txt
+Microsoft Windows - ANI LoadAniIcon() Chunk S | windows/remote/16698.rb
+MIMEsweeper For [01;31m[KSMTP[m[K - Multiple Cross-Site Sc | asp/webapps/38318.txt
+Mock [01;31m[KSMTP[m[K Server 1.0 - Remote Crash (PoC)     | windows/dos/37954.py
+nb[01;31m[KSMTP[m[K 0.99 - 'util.c' Client-Side Command Ex | linux/remote/1138.c
+NetcPlus SmartServer 3.5.1 - [01;31m[KSMTP[m[K Buffer Over | windows/remote/19494.c
+Network Associates Webshield [01;31m[KSMTP[m[K 4.5 - Inval | windows/dos/20432.txt
+NJStar Communicator 3.00 - Mini[01;31m[KSMTP[m[K Server Re | windows/remote/18057.rb
+NJStar Communicator Mini[01;31m[KSmtp[m[K - Buffer Overflo | windows/dos/18196.py
+Open[01;31m[KSMTP[m[KD - MAIL FROM Remote Code Execution ( | linux/remote/48038.rb
+Open[01;31m[KSMTP[m[KD - OOB Read Local Privilege Escalati | linux/local/48185.rb
+Open[01;31m[KSMTP[m[KD 6.4.0 < 6.6.1 - Local Privilege Esc | openbsd/remote/48051.pl
+Open[01;31m[KSMTP[m[KD 6.6.1 - Remote Code Execution       | linux/remote/47984.py
+Open[01;31m[KSMTP[m[KD 6.6.3 - Arbitrary File Read         | linux/remote/48139.c
+Open[01;31m[KSMTP[m[KD < 6.6.3p1 - Local Privilege Escalat | openbsd/remote/48140.c
+Postcast Server Pro 3.0.61 / Quiksoft EasyMai | windows/remote/4328.html
+Postfix [01;31m[KSMTP[m[K 4.2.x < 4.2.48 - 'Shellshock' Re | linux/remote/34896.py
+Python [01;31m[Ksmtp[m[Klib 2.7.11 / 3.4.4 / 3.5.1 - Man I | multiple/local/43500.txt
+QK [01;31m[KSMTP[m[K 3.01 - 'RCPT TO' Remote Buffer Overfl | windows/remote/2649.c
+QK [01;31m[KSMTP[m[K 3.01 - 'RCPT TO' Remote Buffer Overfl | windows/remote/3067.py
+QK [01;31m[KSMTP[m[K 3.01 - 'RCPT TO' Remote Denial of Ser | windows/dos/2625.c
+QK [01;31m[KSMTP[m[K Server - Malformed Commands Multiple  | multiple/dos/30885.txt
+Qmail [01;31m[KSMTP[m[K - Bash Environment Variable Inject | linux/remote/42938.rb
+Qmail [01;31m[KSMTP[m[K 1.03 - Bash Environment Variable I | multiple/remote/48651.txt
+Qwik [01;31m[KSMTP[m[K 0.3 - Format String                 | linux/remote/620.c
+Sitemagic CMS - '[01;31m[KSMTp[m[Kl' Directory Traversal   | php/webapps/35877.txt
+SmartMax MailMax 1.0 - [01;31m[KSMTP[m[K Buffer Overflow   | windows/remote/20600.c
+Softek MailMarshal 4 / Trend Micro ScanMail 1 | multiple/remote/21029.pl
+SoftiaCom wMailServer 1.0 - [01;31m[KSMTP[m[K Remote Buffe | windows/remote/1463.pm
+SPECTral Personal [01;31m[KSMTP[m[K Server 0.4.2 - Denial  | windows/dos/899.pl
+SquirrelMail PGP Plugin - Command Execution ( | linux/remote/16888.rb
+s[01;31m[KSMTP[m[K 2.62 - 'standardize()' Buffer Overflow  | linux/dos/34375.txt
+SynaMan 4.0 build 1488 - [01;31m[KSMTP[m[K Credential Disc | windows/webapps/45387.txt
+SysGauge 1.5.18 - [01;31m[KSMTP[m[K Validation Buffer Over | windows/remote/41672.rb
+TABS MailCarrier 2.51 - [01;31m[KSMTP[m[K 'EHLO' / 'HELO'  | windows/remote/598.py
+TABS MailCarrier 2.51 - [01;31m[KSMTP[m[K EHLO Overflow (M | windows/remote/16822.rb
+YahooPOPs 1.6 - [01;31m[KSMTP[m[K Port Buffer Overflow     | windows/remote/577.c
+YahooPOPs 1.6 - [01;31m[KSMTP[m[K Remote Buffer Overflow   | windows/remote/582.c
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+[01;31m[KISC[m[K [01;31m[KBIND[m[K (Linux/BSD) - Remote Buffer Overflow | linux/remote/19111.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K (Multiple OSes) - Remote Buffer Over | linux/remote/19112.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 4.9.7 -T1B - named SIGINT / SIGIOT S | linux/local/19072.txt
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 4.9.7/8.x - Traffic Amplification an | multiple/remote/19749.txt
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8 - Remote Cache Poisoning (1)       | linux/remote/30535.pl
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8 - Remote Cache Poisoning (2)       | linux/remote/30536.pl
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.1 - Host Remote Buffer Overflow    | unix/remote/20374.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.2.2 / IRIX 6.5.17 / Solaris 7.0 -  | unix/dos/19615.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.2.2-P5 - Denial of Service         | linux/dos/20388.txt
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.2.x - 'TSIG' Remote Stack Overflow | linux/remote/277.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.2.x - 'TSIG' Remote Stack Overflow | linux/remote/279.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.2.x - 'TSIG' Remote Stack Overflow | linux/remote/282.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.2.x - 'TSIG' Remote Stack Overflow | solaris/remote/280.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 8.3.x - OPT Record Large UDP Denial  | linux/dos/22011.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 9 - Denial of Service                | multiple/dos/40453.py
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 9 - Remote Dynamic Update Message De | multiple/dos/9300.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 9 - TKEY (PoC)                       | multiple/dos/37721.c
+[01;31m[KISC[m[K [01;31m[KBIND[m[K 9 - TKEY Remote Denial of Service (P | multiple/dos/37723.py
+Microsoft Windows Kernel - 'win32k!NtQueryCom | windows/dos/42750.cpp
+Zabbix 2.0.5 - Cleartext ldap_[01;31m[Kbind[m[K_Password P | php/webapps/36157.rb
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+[01;31m[KApache[m[K 0.8.x/1.0.x / NCSA [01;31m[KHTTPd[m[K 1.x - 'test-c | cgi/remote/20435.txt
+[01;31m[KApache[m[K 1.1 / NCSA [01;31m[KHTTPd[m[K 1.5.2 / Netscape Serv | multiple/dos/19536.txt
+[01;31m[KApache[m[K [01;31m[KHttpd[m[K mod_proxy - Error Page Cross-Sit | multiple/webapps/47688.md
+[01;31m[KApache[m[K [01;31m[KHttpd[m[K mod_rewrite - Open Redirects     | multiple/webapps/47689.md
+NCSA 1.3/1.4.x/1.5 / [01;31m[KApache[m[K [01;31m[KHTTPd[m[K 0.8.11/0.8. | multiple/remote/20595.txt
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+Wietse Venema [01;31m[KRpcbind[m[K Replacement [01;31m[K2[m[K.1 - Denia | unix/dos/[01;31m[K2[m[K0376.txt
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+Apple Mac OSX (Lion) Kernel xnu-1699.3[01;31m[K2[m[K.7 exc | osx/local/3[01;31m[K2[m[K813.c
+Linux Kernel < [01;31m[K2[m[K.6.31-rc[01;31m[K4[m[K - '[01;31m[Knfs[m[K[01;31m[K4[m[K_proc_lock() | linux/dos/10[01;31m[K2[m[K0[01;31m[K2[m[K.c
+[01;31m[KNfS[m[Ken < 1.3.7 / AlienVault OSSIM < 5.3.6 - Lo | linux/local/[01;31m[K4[m[K[01;31m[K2[m[K305.txt
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+FreeBSD - 'ftpd / [01;31m[KProFTPd[m[K' Remote Command Exe | freebsd/remote/18181.txt
+[01;31m[KProFTPd[m[K - 'ftpdctl' 'pr_ctrls_connect' Local  | linux/local/394.c
+[01;31m[KProFTPd[m[K - 'mod_mysql' Authentication Bypass   | multiple/remote/8037.txt
+[01;31m[KProFTPd[m[K - 'mod_sftp' Integer Overflow Denial  | linux/dos/16129.txt
+[01;31m[KProFTPd[m[K 1.2 - 'SIZE' Remote Denial of Service | linux/dos/20536.java
+[01;31m[KProFTPd[m[K 1.2 < 1.3.0 (Linux) - 'sreplace' Remo | linux/remote/16852.rb
+[01;31m[KProFTPd[m[K 1.2 pre1/pre2/pre3/pre4/pre5 - Remote | linux/remote/19475.c
+[01;31m[KProFTPd[m[K 1.2 pre1/pre2/pre3/pre4/pre5 - Remote | linux/remote/19476.c
+[01;31m[KProFTPd[m[K 1.2 pre6 - 'snprintf' Remote Root     | linux/remote/19503.txt
+[01;31m[KProFTPd[m[K 1.2.0 pre10 - Remote Denial of Servic | linux/dos/244.java
+[01;31m[KProFTPd[m[K 1.2.0 rc2 - Memory Leakage            | linux/dos/241.c
+[01;31m[KProFTPd[m[K 1.2.10 - Remote Users Enumeration     | linux/remote/581.c
+[01;31m[KProFTPd[m[K 1.2.7 < 1.2.9rc2 - Remote Code Execut | linux/remote/110.c
+[01;31m[KProFTPd[m[K 1.2.7/1.2.8 - '.ASCII' File Transfer  | linux/dos/23170.c
+[01;31m[KProFTPd[m[K 1.2.9 RC1 - 'mod_sql' SQL Injection   | linux/remote/43.pl
+[01;31m[KProFTPd[m[K 1.2.9 rc2 - '.ASCII' File Remote Code | linux/remote/107.c
+[01;31m[KProFTPd[m[K 1.2.9 rc2 - '.ASCII' File Remote Code | linux/remote/3021.txt
+[01;31m[KProFTPd[m[K 1.2.x - 'STAT' Denial of Service      | linux/dos/22079.sh
+[01;31m[KProFTPd[m[K 1.3 - 'mod_sql' 'Username' SQL Inject | multiple/remote/32798.pl
+[01;31m[KProFTPd[m[K 1.3.0 (OpenSUSE) - 'mod_ctrls' Local  | unix/local/10044.pl
+[01;31m[KProFTPd[m[K 1.3.0 - 'sreplace' Remote Stack Overf | linux/remote/2856.pm
+[01;31m[KProFTPd[m[K 1.3.0/1.3.0a - 'mod_ctrls' 'support'  | linux/local/3330.pl
+[01;31m[KProFTPd[m[K 1.3.0/1.3.0a - 'mod_ctrls' 'support'  | linux/local/3333.pl
+[01;31m[KProFTPd[m[K 1.3.0/1.3.0a - 'mod_ctrls' exec-shiel | linux/local/3730.txt
+[01;31m[KProFTPd[m[K 1.3.0a - 'mod_ctrls' 'support' Local  | linux/dos/2928.py
+[01;31m[KProFTPd[m[K 1.3.2 rc3 < 1.3.3b (FreeBSD) - Telnet | linux/remote/16878.rb
+[01;31m[KProFTPd[m[K 1.3.2 rc3 < 1.3.3b (Linux) - Telnet I | linux/remote/16851.rb
+[01;31m[KProFTPd[m[K 1.3.3c - Compromised Source Backdoor  | linux/remote/15662.txt
+[01;31m[KProFTPd[m[K 1.3.5 - 'mod_copy' Command Execution  | linux/remote/37262.rb
+[01;31m[KProFTPd[m[K 1.3.5 - 'mod_copy' Remote Command Exe | linux/remote/36803.py
+[01;31m[KProFTPd[m[K 1.3.5 - 'mod_copy' Remote Command Exe | linux/remote/49908.py
+[01;31m[KProFTPd[m[K 1.3.5 - File Copy                     | linux/remote/36742.txt
+[01;31m[KProFTPD[m[K 1.3.7a - Remote Denial of Service     | multiple/dos/49697.py
+[01;31m[KProFTPd[m[K 1.x - 'mod_tls' Remote Buffer Overflo | linux/remote/4312.c
+[01;31m[KProFTPd[m[K IAC 1.3.x - Remote Command Execution  | linux/remote/15449.pl
+[01;31m[KProFTPd[m[K-1.3.3c - Backdoor Command Execution ( | linux/remote/16921.rb
+WU-FTPD 2.4.2 / SCO Open Server 5.0.5 / ProFT | linux/remote/19086.c
+WU-FTPD 2.4.2 / SCO Open Server 5.0.5 / ProFT | linux/remote/19087.c
+WU-FTPD 2.4/2.5/2.6 / Trolltech ftpd 1.2 / Pr | linux/remote/20690.sh
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+[01;31m[KMySQL[m[K < 5.6.35 / < 5.7.17 - Integer Overflow  | multiple/dos/41954.py
+[01;31m[KMySQL[m[K < 5.6.35 / < 5.7.17 - Integer Overflow  | multiple/dos/41954.py
+Oracle [01;31m[KMySQL[m[K < 5.1.49 - 'DDL' Statements Deni | linux/dos/34522.txt
+Oracle [01;31m[KMySQL[m[K < 5.1.49 - 'WITH ROLLUP' Denial  | multiple/dos/15467.txt
+Oracle [01;31m[KMySQL[m[K < 5.1.49 - Malformed 'BINLOG' Ar | linux/dos/34521.txt
+Oracle [01;31m[KMySQL[m[K < 5.1.50 - Privilege Escalation  | multiple/remote/34796.txt
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+PnPSCADA v2.x - Unauthenticated [01;31m[KPostgreSQL[m[K In | hardware/webapps/51448.txt
+[01;31m[KPostgreSQL[m[K - 'bitsubstr' Buffer Overflow      | linux/dos/33571.txt
+[01;31m[KPostgreSQL[m[K 6.3.2/6.5.3 - Cleartext Passwords  | immunix/local/19875.txt
+[01;31m[KPostgreSQL[m[K 7.x - Multiple Vulnerabilities     | linux/dos/25076.c
+[01;31m[KPostgreSQL[m[K 8.01 - Remote Reboot (Denial of Se | multiple/dos/946.c
+[01;31m[KPostgreSQL[m[K 8.2/8.3/8.4 - UDF for Command Exec | linux/local/7855.txt
+[01;31m[KPostgreSQL[m[K 8.3.6 - Conversion Encoding Remote | linux/dos/32849.txt
+[01;31m[KPostgreSQL[m[K 8.3.6 - Low Cost Function Informat | multiple/local/32847.txt
+[01;31m[KPostgreSQL[m[K 8.4.1 - JOIN Hashtable Size Intege | multiple/dos/33729.txt
+[01;31m[KPostgreSQL[m[K 9.3 - COPY FROM PROGRAM Command Ex | multiple/remote/46813.rb
+[01;31m[KPostgreSQL[m[K 9.3-11.7 - Remote Code Execution ( | multiple/remote/50847.py
+[01;31m[KPostgreSQL[m[K 9.4-0.5.3 - Privilege Escalation   | linux/local/45184.sh
+[01;31m[KPostgreSQL[m[K 9.6.1 - Remote Code Execution (RCE | multiple/remote/51247.py
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+AMX Corp. [01;31m[KVNC[m[K ActiveX Control - 'Amx[01;31m[KVnc[m[K.dll 1 | windows/remote/4123.html
+Chicken of the [01;31m[KVNC[m[K 2.0 - 'NULL-pointer' Remot | osx/dos/3257.php
+Echo[01;31m[KVNC[m[K Viewer - Remote Denial of Service     | windows/dos/27292.py
+QEMU 0.9 / KVM 36/79 - [01;31m[KVNC[m[K Server Remote Deni | linux/dos/32675.py
+Real[01;31m[KVNC[m[K - Authentication Bypass (Metasploit)  | windows/remote/17719.rb
+Real[01;31m[KVNC[m[K 3.3.7 - Client Buffer Overflow (Metas | windows/remote/16489.rb
+Real[01;31m[KVNC[m[K 4.1.0 < 4.1.1 - [01;31m[KVNC[m[K Null Authenticati | multiple/remote/1791.patch
+Real[01;31m[KVNC[m[K 4.1.0 < 4.1.1 - [01;31m[KVNC[m[K Null Authenticati | multiple/remote/1794.pm
+Real[01;31m[KVNC[m[K 4.1.0 < 4.1.1 - [01;31m[KVNC[m[K Null Authenticati | multiple/remote/1799.txt
+Real[01;31m[KVNC[m[K 4.1.0/4.1.1 - Authentication Bypass   | windows/remote/36932.py
+Real[01;31m[KVNC[m[K 4.1.2 - '[01;31m[Kvnc[m[Kviewer.exe' RFB Protocol  | windows/dos/7943.py
+Real[01;31m[KVNC[m[K 4.1.3 - 'ClientCutText' Message Remot | windows/dos/33924.py
+Real[01;31m[KVNC[m[K Server 4.0 - Remote Denial of Service | windows/dos/24412.c
+Real[01;31m[KVNC[m[K Windows Client 4.1.2 - Remote Denial  | windows/dos/6181.php
+SmartCode ServerX [01;31m[KVNC[m[K Server ActiveX 1.1.5.0  | windows/dos/14634.txt
+SmartCode [01;31m[KVNC[m[K Manager 3.6 - 'sc[01;31m[Kvnc[m[Kctrl.dll' D | windows/dos/3873.html
+Sun SunPCi II [01;31m[KVNC[m[K Software 2.3 - Password Dis | unix/local/21592.c
+Thin[01;31m[KVNC[m[K 1.0b1 - Authentication Bypass         | windows/remote/47519.py
+Tight[01;31m[KVNC[m[K - Authentication Failure Integer Ove | windows/dos/8024.py
+Tight[01;31m[KVNC[m[K 2.8.83 - Control Pipe Manipulation   | multiple/local/52322.c
+Ultr@[01;31m[KVNC[m[K 1.0.1 - 'client Log::ReallyPrint' Bu | windows/dos/1643.c
+Ultr@[01;31m[KVNC[m[K 1.0.1 - 'client Log::ReallyPrint' Re | windows/remote/1664.py
+Ultr@[01;31m[KVNC[m[K 1.0.1 - [01;31m[KVNC[m[KLog::ReallyPrint Remote B | windows/dos/1642.c
+Ultra[01;31m[KVNC[m[K 1.0.1 - Client Buffer Overflow (Meta | windows/remote/16490.rb
+Ultra[01;31m[KVNC[m[K 1.0.1 - Multiple Remote Error Loggin | windows/remote/27568.py
+Ultra[01;31m[KVNC[m[K 1.0.1 - Multiple Remote Error Loggin | windows/remote/27569.txt
+Ultra[01;31m[KVNC[m[K 1.0.2 Client - '[01;31m[Kvnc[m[Kviewer.exe' Remot | windows/remote/18666.rb
+Ultra[01;31m[KVNC[m[K 1.0.8.2 - DLL Loading Arbitrary Code | windows/remote/34542.c
+Ultra[01;31m[KVNC[m[K Launcher 1.2.2.4 - 'Path' Denial of  | windows/dos/46703.py
+Ultra[01;31m[KVNC[m[K Launcher 1.2.4.0 - 'Password' Denial | windows/dos/48290.py
+Ultra[01;31m[KVNC[m[K Launcher 1.2.4.0 - 'RepeaterHost' De | windows/dos/48288.py
+Ultra[01;31m[KVNC[m[K Viewer 1.2.2.4 - '[01;31m[KVNC[m[K Server' Denial | windows/dos/46702.py
+Ultra[01;31m[KVNC[m[K Viewer 1.2.4.0 - '[01;31m[KVNC[m[KServer' Denial  | windows/dos/48291.py
+Ultra[01;31m[KVNC[m[K/Tight[01;31m[KVNC[m[K (Multiple [01;31m[KVNC[m[K Clients) - Mu | windows/dos/7990.py
+Vino [01;31m[KVNC[m[K Server 3.7.3 - Persistent Denial of  | linux/dos/28338.txt
+[01;31m[KVNC[m[K Keyboard - Remote Code Execution (Metaspl | multiple/remote/37598.rb
+Win[01;31m[KVNC[m[K Web Server 3.3.3r7 - GET Overflow (Met | windows/remote/16491.rb
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+ASUS DSL-[01;31m[KX11[m[K ADSL Router - DNS Change         | cgi/webapps/40373.sh
+BSD/OS 2.1 / DG/UX 7.0 / Debian 1.3 / HP-UX 1 | unix/local/19173.c
+Eterm 0.8.10 / rxvt 2.6.1 / PuTTY 0.48 / [01;31m[KX11[m[KR | multiple/dos/19984.c
+Gnome 1.0/1.1 / Group X 11.0 / XFree86 [01;31m[KX11[m[KR6  | linux/dos/20023.c
+SCO Open Server 5.0.5 / IRIX 6.2 ib[01;31m[KX11[m[K/[01;31m[KX11[m[K To | multiple/local/19684.c
+Slackware Linux 3.1 - '/usr/[01;31m[KX11[m[K/bin/SuperProb | linux/local/19283.c
+Solaris 5.5.1 [01;31m[KX11[m[KR6.3 - xterm '-xrm' Local Pr | solaris/local/338.c
+Tor (Linux) - [01;31m[KX11[m[K Linux Sandbox Breakout      | linux/local/42626.c
+X 11.0/3.3.3/3.3.4/3.3.5/3.3.6/4.0 - lib[01;31m[KX11[m[K ' | linux/local/20045.c
+X.Org [01;31m[KX11[m[K ([01;31m[KX11[m[KR6.9.0/[01;31m[KX11[m[KR7.0) - Local Privile | linux/local/1596.txt
+X.Org xorg-[01;31m[Kx11[m[K-xfs 1.0.2-3.1 - Local Race Con | linux/local/5167.sh
+[01;31m[KX11[m[KR6 3.3.3 - Symlink                         | linux/local/19257.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (sco x86) - Local Buffe | sco/local/2332.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (solaris x86) - Local B | solaris/local/2331.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (Solaris/SPARC) - Local | solaris/local/2330.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (Solaris/SPARC) - Local | solaris/local/2360.c
+XFree86 [01;31m[KX11[m[KR6 3.3 XDM - Session Cookie Guessi | unix/remote/20993.c
+XFree86 [01;31m[KX11[m[KR6 3.3.2 XMan - ManPath Environmen | linux/local/21010.sh
+XFree86 [01;31m[KX11[m[KR6 3.3.5/3.3.6/4.0 Xserver - Denia | linux/dos/19950.c
+XFree86 [01;31m[KX11[m[KR6 3.3.x - Font Server Remote Buff | unix/remote/22036.pl
+Xorg [01;31m[KX11[m[K Server (AIX) - Local Privilege Escal | aix/local/45938.pl
+Xorg [01;31m[KX11[m[K Server - Local Privilege Escalation  | unix/local/47701.rb
+Xorg [01;31m[KX11[m[K Server - SUID privilege escalation ( | multiple/local/45908.rb
+xorg-[01;31m[Kx11[m[K-server 1.20.3 - Privilege Escalation | openbsd/local/45742.sh
+xorg-[01;31m[Kx11[m[K-server < 1.20.1 - Local Privilege Es | linux/local/45832.py
+xorg-[01;31m[Kx11[m[K-server < 1.20.3 (Solaris 11) - 'init | solaris/local/46142.sh
+xorg-[01;31m[Kx11[m[K-server < 1.20.3 - 'modulepath' Local | multiple/local/45922.sh
+xorg-[01;31m[Kx11[m[K-server < 1.20.3 - Local Privilege Es | multiple/local/45697.txt
+---------------------------------------------- ---------------------------------
+---------------------------------------------- ---------------------------------
+ Shellcode Title                              |  Path
+---------------------------------------------- ---------------------------------
+OSX/PPC - execve(/usr/[01;31m[KX11[m[KR6/bin/xterm) Shellc | osx_ppc/13487.c
+---------------------------------------------- ---------------------------------
+
+
