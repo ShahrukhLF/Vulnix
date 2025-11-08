@@ -1,0 +1,37 @@
+# Nmap 7.95 scan initiated Sun Oct 26 18:30:44 2025 as: /usr/lib/nmap/nmap -sS -sV -O -T4 --script safe,http-enum,ftp-anon,smb-enum-shares,smb-enum-users -p 1-1024,3306,5432,8080,3000 -oN results/network_nmap_20251026_183044.txt -oX results/network_nmap_20251026_183044.xml 192.168.78.102
+Pre-scan script results:
+| broadcast-dhcp-discover: 
+|   Response 1 of 2: 
+|     Interface: eth1
+|     IP Offered: 192.168.78.102
+|     Server Identifier: 192.168.78.100
+|     Subnet Mask: 255.255.255.0
+|   Response 2 of 2: 
+|     Interface: eth0
+|     IP Offered: 10.0.2.17
+|     Server Identifier: 10.0.2.2
+|     Subnet Mask: 255.255.255.0
+|     Router: 10.0.2.2
+|     Domain Name Server: 192.168.1.1
+|_    Domain Name: dlinkrouter
+|_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| broadcast-listener: 
+|   ether
+|       EIGRP Update
+|         
+|   udp
+|       DHCP
+|         srv ip          cli ip          mask           gw  dns  vendor
+|_        192.168.78.100  192.168.78.102  255.255.255.0  -   -    -
+| broadcast-igmp-discovery: 
+|   192.168.78.1
+|     Interface: eth1
+|     Version: 2
+|     Group: 239.255.255.250
+|     Description: Organization-Local Scope (rfc2365)
+|_  Use the newtargets script-arg to add the results as targets
+|_multicast-profinet-discovery: 0
+|_eap-info: please specify an interface with -e
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter

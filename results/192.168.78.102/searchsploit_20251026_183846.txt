@@ -297,11 +297,55 @@ Shellcodes: No Results
 ---------------------------------------------- ---------------------------------
  Exploit Title                                |  Path
 ---------------------------------------------- ---------------------------------
-HPE iMC 7.3 - [01;31m[KRMI[m[K [01;31m[KJava[m[K Deserialization        | windows/remote/43927.txt
-[01;31m[KJava[m[K - [01;31m[KRMI[m[KConnectionImpl Deserialization Priv | multiple/remote/16305.rb
-[01;31m[KJava[m[K [01;31m[KRMI[m[K - Server Insecure Default Configurat | multiple/remote/17535.rb
-Jenkins CLI - [01;31m[KRMI[m[K [01;31m[KJava[m[K Deserialization (Metas | [01;31m[Kjava[m[K/remote/38983.rb
-Oracle WebLogic 12.1.2.0 - [01;31m[KRMI[m[K Registry Unica | multiple/webapps/44998.py
+Apple Mac OSX (Lion) Kernel xnu-1699.3[01;31m[K2[m[K.7 exc | osx/local/3[01;31m[K2[m[K813.c
+Linux Kernel < [01;31m[K2[m[K.6.31-rc[01;31m[K4[m[K - '[01;31m[Knfs[m[K[01;31m[K4[m[K_proc_lock() | linux/dos/10[01;31m[K2[m[K0[01;31m[K2[m[K.c
+[01;31m[KNfS[m[Ken < 1.3.7 / AlienVault OSSIM < 5.3.6 - Lo | linux/local/[01;31m[K4[m[K[01;31m[K2[m[K305.txt
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+FreeBSD - 'ftpd / [01;31m[KProFTPd[m[K' Remote Command Exe | freebsd/remote/18181.txt
+[01;31m[KProFTPd[m[K - 'ftpdctl' 'pr_ctrls_connect' Local  | linux/local/394.c
+[01;31m[KProFTPd[m[K - 'mod_mysql' Authentication Bypass   | multiple/remote/8037.txt
+[01;31m[KProFTPd[m[K - 'mod_sftp' Integer Overflow Denial  | linux/dos/16129.txt
+[01;31m[KProFTPd[m[K 1.2 - 'SIZE' Remote Denial of Service | linux/dos/20536.java
+[01;31m[KProFTPd[m[K 1.2 < 1.3.0 (Linux) - 'sreplace' Remo | linux/remote/16852.rb
+[01;31m[KProFTPd[m[K 1.2 pre1/pre2/pre3/pre4/pre5 - Remote | linux/remote/19475.c
+[01;31m[KProFTPd[m[K 1.2 pre1/pre2/pre3/pre4/pre5 - Remote | linux/remote/19476.c
+[01;31m[KProFTPd[m[K 1.2 pre6 - 'snprintf' Remote Root     | linux/remote/19503.txt
+[01;31m[KProFTPd[m[K 1.2.0 pre10 - Remote Denial of Servic | linux/dos/244.java
+[01;31m[KProFTPd[m[K 1.2.0 rc2 - Memory Leakage            | linux/dos/241.c
+[01;31m[KProFTPd[m[K 1.2.10 - Remote Users Enumeration     | linux/remote/581.c
+[01;31m[KProFTPd[m[K 1.2.7 < 1.2.9rc2 - Remote Code Execut | linux/remote/110.c
+[01;31m[KProFTPd[m[K 1.2.7/1.2.8 - '.ASCII' File Transfer  | linux/dos/23170.c
+[01;31m[KProFTPd[m[K 1.2.9 RC1 - 'mod_sql' SQL Injection   | linux/remote/43.pl
+[01;31m[KProFTPd[m[K 1.2.9 rc2 - '.ASCII' File Remote Code | linux/remote/107.c
+[01;31m[KProFTPd[m[K 1.2.9 rc2 - '.ASCII' File Remote Code | linux/remote/3021.txt
+[01;31m[KProFTPd[m[K 1.2.x - 'STAT' Denial of Service      | linux/dos/22079.sh
+[01;31m[KProFTPd[m[K 1.3 - 'mod_sql' 'Username' SQL Inject | multiple/remote/32798.pl
+[01;31m[KProFTPd[m[K 1.3.0 (OpenSUSE) - 'mod_ctrls' Local  | unix/local/10044.pl
+[01;31m[KProFTPd[m[K 1.3.0 - 'sreplace' Remote Stack Overf | linux/remote/2856.pm
+[01;31m[KProFTPd[m[K 1.3.0/1.3.0a - 'mod_ctrls' 'support'  | linux/local/3330.pl
+[01;31m[KProFTPd[m[K 1.3.0/1.3.0a - 'mod_ctrls' 'support'  | linux/local/3333.pl
+[01;31m[KProFTPd[m[K 1.3.0/1.3.0a - 'mod_ctrls' exec-shiel | linux/local/3730.txt
+[01;31m[KProFTPd[m[K 1.3.0a - 'mod_ctrls' 'support' Local  | linux/dos/2928.py
+[01;31m[KProFTPd[m[K 1.3.2 rc3 < 1.3.3b (FreeBSD) - Telnet | linux/remote/16878.rb
+[01;31m[KProFTPd[m[K 1.3.2 rc3 < 1.3.3b (Linux) - Telnet I | linux/remote/16851.rb
+[01;31m[KProFTPd[m[K 1.3.3c - Compromised Source Backdoor  | linux/remote/15662.txt
+[01;31m[KProFTPd[m[K 1.3.5 - 'mod_copy' Command Execution  | linux/remote/37262.rb
+[01;31m[KProFTPd[m[K 1.3.5 - 'mod_copy' Remote Command Exe | linux/remote/36803.py
+[01;31m[KProFTPd[m[K 1.3.5 - 'mod_copy' Remote Command Exe | linux/remote/49908.py
+[01;31m[KProFTPd[m[K 1.3.5 - File Copy                     | linux/remote/36742.txt
+[01;31m[KProFTPD[m[K 1.3.7a - Remote Denial of Service     | multiple/dos/49697.py
+[01;31m[KProFTPd[m[K 1.x - 'mod_tls' Remote Buffer Overflo | linux/remote/4312.c
+[01;31m[KProFTPd[m[K IAC 1.3.x - Remote Command Execution  | linux/remote/15449.pl
+[01;31m[KProFTPd[m[K-1.3.3c - Backdoor Command Execution ( | linux/remote/16921.rb
+WU-FTPD 2.4.2 / SCO Open Server 5.0.5 / ProFT | linux/remote/19086.c
+WU-FTPD 2.4.2 / SCO Open Server 5.0.5 / ProFT | linux/remote/19087.c
+WU-FTPD 2.4/2.5/2.6 / Trolltech ftpd 1.2 / Pr | linux/remote/20690.sh
 ---------------------------------------------- ---------------------------------
 Shellcodes: No Results
 
@@ -337,5 +381,88 @@ PnPSCADA v2.x - Unauthenticated [01;31m[KPostgreSQL[m[K In | hardware/webapp
 [01;31m[KPostgreSQL[m[K 9.6.1 - Remote Code Execution (RCE | multiple/remote/51247.py
 ---------------------------------------------- ---------------------------------
 Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+AMX Corp. [01;31m[KVNC[m[K ActiveX Control - 'Amx[01;31m[KVnc[m[K.dll 1 | windows/remote/4123.html
+Chicken of the [01;31m[KVNC[m[K 2.0 - 'NULL-pointer' Remot | osx/dos/3257.php
+Echo[01;31m[KVNC[m[K Viewer - Remote Denial of Service     | windows/dos/27292.py
+QEMU 0.9 / KVM 36/79 - [01;31m[KVNC[m[K Server Remote Deni | linux/dos/32675.py
+Real[01;31m[KVNC[m[K - Authentication Bypass (Metasploit)  | windows/remote/17719.rb
+Real[01;31m[KVNC[m[K 3.3.7 - Client Buffer Overflow (Metas | windows/remote/16489.rb
+Real[01;31m[KVNC[m[K 4.1.0 < 4.1.1 - [01;31m[KVNC[m[K Null Authenticati | multiple/remote/1791.patch
+Real[01;31m[KVNC[m[K 4.1.0 < 4.1.1 - [01;31m[KVNC[m[K Null Authenticati | multiple/remote/1794.pm
+Real[01;31m[KVNC[m[K 4.1.0 < 4.1.1 - [01;31m[KVNC[m[K Null Authenticati | multiple/remote/1799.txt
+Real[01;31m[KVNC[m[K 4.1.0/4.1.1 - Authentication Bypass   | windows/remote/36932.py
+Real[01;31m[KVNC[m[K 4.1.2 - '[01;31m[Kvnc[m[Kviewer.exe' RFB Protocol  | windows/dos/7943.py
+Real[01;31m[KVNC[m[K 4.1.3 - 'ClientCutText' Message Remot | windows/dos/33924.py
+Real[01;31m[KVNC[m[K Server 4.0 - Remote Denial of Service | windows/dos/24412.c
+Real[01;31m[KVNC[m[K Windows Client 4.1.2 - Remote Denial  | windows/dos/6181.php
+SmartCode ServerX [01;31m[KVNC[m[K Server ActiveX 1.1.5.0  | windows/dos/14634.txt
+SmartCode [01;31m[KVNC[m[K Manager 3.6 - 'sc[01;31m[Kvnc[m[Kctrl.dll' D | windows/dos/3873.html
+Sun SunPCi II [01;31m[KVNC[m[K Software 2.3 - Password Dis | unix/local/21592.c
+Thin[01;31m[KVNC[m[K 1.0b1 - Authentication Bypass         | windows/remote/47519.py
+Tight[01;31m[KVNC[m[K - Authentication Failure Integer Ove | windows/dos/8024.py
+Tight[01;31m[KVNC[m[K 2.8.83 - Control Pipe Manipulation   | multiple/local/52322.c
+Ultr@[01;31m[KVNC[m[K 1.0.1 - 'client Log::ReallyPrint' Bu | windows/dos/1643.c
+Ultr@[01;31m[KVNC[m[K 1.0.1 - 'client Log::ReallyPrint' Re | windows/remote/1664.py
+Ultr@[01;31m[KVNC[m[K 1.0.1 - [01;31m[KVNC[m[KLog::ReallyPrint Remote B | windows/dos/1642.c
+Ultra[01;31m[KVNC[m[K 1.0.1 - Client Buffer Overflow (Meta | windows/remote/16490.rb
+Ultra[01;31m[KVNC[m[K 1.0.1 - Multiple Remote Error Loggin | windows/remote/27568.py
+Ultra[01;31m[KVNC[m[K 1.0.1 - Multiple Remote Error Loggin | windows/remote/27569.txt
+Ultra[01;31m[KVNC[m[K 1.0.2 Client - '[01;31m[Kvnc[m[Kviewer.exe' Remot | windows/remote/18666.rb
+Ultra[01;31m[KVNC[m[K 1.0.8.2 - DLL Loading Arbitrary Code | windows/remote/34542.c
+Ultra[01;31m[KVNC[m[K Launcher 1.2.2.4 - 'Path' Denial of  | windows/dos/46703.py
+Ultra[01;31m[KVNC[m[K Launcher 1.2.4.0 - 'Password' Denial | windows/dos/48290.py
+Ultra[01;31m[KVNC[m[K Launcher 1.2.4.0 - 'RepeaterHost' De | windows/dos/48288.py
+Ultra[01;31m[KVNC[m[K Viewer 1.2.2.4 - '[01;31m[KVNC[m[K Server' Denial | windows/dos/46702.py
+Ultra[01;31m[KVNC[m[K Viewer 1.2.4.0 - '[01;31m[KVNC[m[KServer' Denial  | windows/dos/48291.py
+Ultra[01;31m[KVNC[m[K/Tight[01;31m[KVNC[m[K (Multiple [01;31m[KVNC[m[K Clients) - Mu | windows/dos/7990.py
+Vino [01;31m[KVNC[m[K Server 3.7.3 - Persistent Denial of  | linux/dos/28338.txt
+[01;31m[KVNC[m[K Keyboard - Remote Code Execution (Metaspl | multiple/remote/37598.rb
+Win[01;31m[KVNC[m[K Web Server 3.3.3r7 - GET Overflow (Met | windows/remote/16491.rb
+---------------------------------------------- ---------------------------------
+Shellcodes: No Results
+
+
+---------------------------------------------- ---------------------------------
+ Exploit Title                                |  Path
+---------------------------------------------- ---------------------------------
+ASUS DSL-[01;31m[KX11[m[K ADSL Router - DNS Change         | cgi/webapps/40373.sh
+BSD/OS 2.1 / DG/UX 7.0 / Debian 1.3 / HP-UX 1 | unix/local/19173.c
+Eterm 0.8.10 / rxvt 2.6.1 / PuTTY 0.48 / [01;31m[KX11[m[KR | multiple/dos/19984.c
+Gnome 1.0/1.1 / Group X 11.0 / XFree86 [01;31m[KX11[m[KR6  | linux/dos/20023.c
+SCO Open Server 5.0.5 / IRIX 6.2 ib[01;31m[KX11[m[K/[01;31m[KX11[m[K To | multiple/local/19684.c
+Slackware Linux 3.1 - '/usr/[01;31m[KX11[m[K/bin/SuperProb | linux/local/19283.c
+Solaris 5.5.1 [01;31m[KX11[m[KR6.3 - xterm '-xrm' Local Pr | solaris/local/338.c
+Tor (Linux) - [01;31m[KX11[m[K Linux Sandbox Breakout      | linux/local/42626.c
+X 11.0/3.3.3/3.3.4/3.3.5/3.3.6/4.0 - lib[01;31m[KX11[m[K ' | linux/local/20045.c
+X.Org [01;31m[KX11[m[K ([01;31m[KX11[m[KR6.9.0/[01;31m[KX11[m[KR7.0) - Local Privile | linux/local/1596.txt
+X.Org xorg-[01;31m[Kx11[m[K-xfs 1.0.2-3.1 - Local Race Con | linux/local/5167.sh
+[01;31m[KX11[m[KR6 3.3.3 - Symlink                         | linux/local/19257.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (sco x86) - Local Buffe | sco/local/2332.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (solaris x86) - Local B | solaris/local/2331.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (Solaris/SPARC) - Local | solaris/local/2330.c
+[01;31m[KX11[m[KR6 < 6.4 XKEYBOARD (Solaris/SPARC) - Local | solaris/local/2360.c
+XFree86 [01;31m[KX11[m[KR6 3.3 XDM - Session Cookie Guessi | unix/remote/20993.c
+XFree86 [01;31m[KX11[m[KR6 3.3.2 XMan - ManPath Environmen | linux/local/21010.sh
+XFree86 [01;31m[KX11[m[KR6 3.3.5/3.3.6/4.0 Xserver - Denia | linux/dos/19950.c
+XFree86 [01;31m[KX11[m[KR6 3.3.x - Font Server Remote Buff | unix/remote/22036.pl
+Xorg [01;31m[KX11[m[K Server (AIX) - Local Privilege Escal | aix/local/45938.pl
+Xorg [01;31m[KX11[m[K Server - Local Privilege Escalation  | unix/local/47701.rb
+Xorg [01;31m[KX11[m[K Server - SUID privilege escalation ( | multiple/local/45908.rb
+xorg-[01;31m[Kx11[m[K-server 1.20.3 - Privilege Escalation | openbsd/local/45742.sh
+xorg-[01;31m[Kx11[m[K-server < 1.20.1 - Local Privilege Es | linux/local/45832.py
+xorg-[01;31m[Kx11[m[K-server < 1.20.3 (Solaris 11) - 'init | solaris/local/46142.sh
+xorg-[01;31m[Kx11[m[K-server < 1.20.3 - 'modulepath' Local | multiple/local/45922.sh
+xorg-[01;31m[Kx11[m[K-server < 1.20.3 - Local Privilege Es | multiple/local/45697.txt
+---------------------------------------------- ---------------------------------
+---------------------------------------------- ---------------------------------
+ Shellcode Title                              |  Path
+---------------------------------------------- ---------------------------------
+OSX/PPC - execve(/usr/[01;31m[KX11[m[KR6/bin/xterm) Shellc | osx_ppc/13487.c
+---------------------------------------------- ---------------------------------
 
 

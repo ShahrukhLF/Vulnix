@@ -1,6 +1,15 @@
-# Nmap 7.95 scan initiated Fri Oct 17 10:29:22 2025 as: /usr/lib/nmap/nmap -sS -sV -p 22,21,23,25,53,80,139,443,445,3306,5432,8080,3000 --script default,safe -oN results/192.168.78.102/nmap_targeted_20251017_100648.txt 192.168.78.102
+# Nmap 7.95 scan initiated Sun Oct 26 18:46:18 2025 as: /usr/lib/nmap/nmap -sS -sV -T4 --top-ports 100 -Pn --script safe,http-enum,ftp-anon,smb-enum-shares,smb-enum-users -oN results/network_nmap_20251026_184618.txt -oX results/network_nmap_20251026_184618.xml 192.168.78.102
 Pre-scan script results:
-|_eap-info: please specify an interface with -e
+| broadcast-listener: 
+|   ether
+|       EIGRP Update
+|         
+|   udp
+|       DHCP
+|         srv ip          cli ip          mask           gw  dns  vendor
+|_        192.168.78.100  192.168.78.102  255.255.255.0  -   -    -
+| targets-asn: 
+|_  targets-asn.asn is a mandatory parameter
 | broadcast-dhcp-discover: 
 |   Response 1 of 2: 
 |     Interface: eth1
@@ -13,11 +22,12 @@ Pre-scan script results:
 |     Server Identifier: 10.0.2.2
 |     Subnet Mask: 255.255.255.0
 |     Router: 10.0.2.2
-|_    Domain Name Server: 10.18.80.217
+|     Domain Name Server: 192.168.1.1
+|_    Domain Name: dlinkrouter
 |_http-robtex-shared-ns: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
-| targets-asn: 
-|_  targets-asn.asn is a mandatory parameter
 |_multicast-profinet-discovery: 0
+|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
+|_eap-info: please specify an interface with -e
 | broadcast-igmp-discovery: 
 |   192.168.78.1
 |     Interface: eth1
@@ -35,9 +45,3 @@ Pre-scan script results:
 |     Group: 239.255.255.250
 |     Description: Organization-Local Scope (rfc2365)
 |_  Use the newtargets script-arg to add the results as targets
-|_hostmap-robtex: *TEMPORARILY DISABLED* due to changes in Robtex's API. See https://www.robtex.com/api/
-| broadcast-listener: 
-|   udp
-|       Browser
-|         ip              src  dst
-|_        192.168.78.102       

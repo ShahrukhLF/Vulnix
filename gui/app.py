@@ -1,467 +1,402 @@
 #!/usr/bin/env python3
 """
-Vulnix GUI / CLI launcher
-
-This file provides two modes:
-1) If PyQt5 is installed, runs the original PyQt5 GUI (same feature set).
-2) If PyQt5 is NOT installed, falls back to a simple command-line interactive
-   launcher which allows non-technical users to run the same scan scripts and
-   open the latest generated report. This prevents ModuleNotFoundError in
-   environments where PyQt5 is not available.
-
-Usage:
- - GUI (preferred, if PyQt5 installed):
-     python3 gui/app.py
- - CLI fallback (automatically used if PyQt5 missing):
-     python3 gui/app.py
-
-Notes:
- - This script assumes the scan scripts exist at scripts/scan_network.sh and
-   scripts/scan_web.sh and are executable. Reports are expected under results/.
- - The CLI fallback streams subprocess output live so users can see progress.
-
-Author: ChatGPT (modified to include CLI fallback for environments missing PyQt5)
+Vulnix GUI — Final FYP-I Edition (Modern Dark Theme)
+Author: Shahrukh Karim | Supervisor: Dr. Husnain Mansoor
 """
 
-from __future__ import annotations
-
-import os
-import shlex
-import subprocess
-import sys
-from pathlib import Path
+import sys, os, json, subprocess, getpass, glob
 from datetime import datetime
-import glob
-import time
+from PyQt5.QtCore import Qt, QThread, pyqtSignal
+from PyQt5.QtWidgets import (
+    QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
+    QPushButton, QLabel, QLineEdit, QTextEdit, QProgressBar, QTableWidget,
+    QTableWidgetItem, QMessageBox, QDialog, QFormLayout, QFileDialog, QFrame
+)
+from PyQt5.QtGui import QFont
 
-# Configuration
-NETWORK_SCRIPT = os.path.join("scripts", "scan_network.sh")
-WEB_SCRIPT = os.path.join("scripts", "scan_web.sh")
-RESULTS_DIR = "results"
+# ---------- Authentication Helpers ----------
+try:
+    import pam
+    PAM_AVAILABLE = True
+except Exception:
+    PAM_AVAILABLE = False
 
-# Helper utilities shared by GUI and CLI
-
-def find_latest_report(safe_target_fragment: str | None = None) -> str | None:
-    base = Path(RESULTS_DIR)
-    if not base.exists():
-        return None
-    try:
-        if safe_target_fragment:
-            candidate = base / safe_target_fragment
-            if candidate.exists() and candidate.is_dir():
-                # Sort reports in the target-specific directory
-                reports = sorted(candidate.glob('report_*.txt'), key=lambda p: p.stat().st_mtime, reverse=True)
-                if reports:
-                    return str(reports[0])
-        # fallback search across all directories
-        # Sort all reports across all subdirectories
-        reports = sorted(base.glob('**/report_*.txt'), key=lambda p: p.stat().st_mtime, reverse=True)
-        if reports:
-            return str(reports[0])
-    except Exception as e:
-        print(f"[ERROR] finding report: {e}")
-    return None
+CONFIG_PATH = os.path.expanduser("~/.vulnix_config.json")
+DEFAULT_CONFIG = {
+    "auth_user": getpass.getuser(),
+    "scan_paths": {
+        "network": "./scripts/scan_network.sh",
+        "web": "./scripts/scan_web.sh",
+        "full": "./scripts/run_full_assessment.sh"
+    },
+    "last_report": ""
+}
 
 
-def open_file_with_default_app(path: str) -> None:
-    """Open path with the platform default application (Linux: xdg-open)."""
-    if not path or not os.path.exists(path):
-        print(f"Report not found: {path}")
-        return
-    try:
-        if sys.platform.startswith("linux"):
-            subprocess.Popen(["xdg-open", path])
-        elif sys.platform == "darwin":
-            subprocess.Popen(["open", path])
-        elif sys.platform.startswith("win"):
-            os.startfile(path)
-        else:
-            print(f"Cannot open files automatically on this OS: {sys.platform}")
-    except Exception as e:
-        print(f"Failed to open file: {e}")
-
-
-def run_command_stream(cmd: str) -> int:
-    """Run a shell command and stream stdout/stderr to the console. Returns exit code."""
-    print(f"[CMD] {cmd}")
-    args = shlex.split(cmd)
-    try:
-        # Use shell=True for shell scripts if they are not explicitly executable or need env vars,
-        # but sticking to shlex.split and Popen(args) is generally safer.
-        proc = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True)
-    except FileNotFoundError as e:
-        print(f"Command not found: {e}")
-        return 127
-    except Exception as e:
-        print(f"Failed to start process: {e}")
-        return 1
-
-    # stream lines
-    try:
-        assert proc.stdout is not None
-        for line in proc.stdout:
-            print(line.rstrip())
-    except KeyboardInterrupt:
-        print('\n[INFO] Keyboard interrupt received, terminating process...')
+def load_config():
+    if os.path.exists(CONFIG_PATH):
         try:
-            proc.terminate()
-            proc.wait(timeout=5)
+            return json.load(open(CONFIG_PATH))
         except Exception:
             pass
-        return -1
-    rc = proc.wait()
-    print(f"[INFO] Process finished with exit code {rc}")
-    return rc
+    json.dump(DEFAULT_CONFIG, open(CONFIG_PATH, "w"), indent=2)
+    return DEFAULT_CONFIG.copy()
 
 
-# CLI fallback implementation
-def cli_menu():
-    """Simple CLI menu for environments without PyQt5."""
-    print("Vulnix - CLI Launcher (PyQt5 not available)")
-    print("This fallback lets you run the same scans and open reports.")
+def save_config(cfg):
+    json.dump(cfg, open(CONFIG_PATH, "w"), indent=2)
 
-    while True:
-        print("\nSelect an option:")
-        print("  1) Run Network Scan (fast)")
-        print("  2) Run Network Scan (full, slow)")
-        print("  3) Run Web Scan (provide full URL, e.g. http://192.168.78.101:3000)")
-        print("  4) Open Latest Report (optionally for a target)")
-        print("  5) List results/ directories")
-        print("  6) Exit")
-        choice = input("Choice: ").strip()
 
-        if choice == "1":
-            target = input("Enter target IP or hostname (e.g. 192.168.78.102): ").strip()
-            if not target:
-                print("Invalid target")
-                continue
-            cmd = f"sudo {NETWORK_SCRIPT} {shlex.quote(target)}"
-            run_command_stream(cmd)
-        elif choice == "2":
-            target = input("Enter target IP or hostname (e.g. 192.168.78.102): ").strip()
-            if not target:
-                print("Invalid target")
-                continue
-            cmd = f"sudo {NETWORK_SCRIPT} {shlex.quote(target)} --full-scan"
-            run_command_stream(cmd)
-        elif choice == "3":
-            url = input("Enter full URL (e.g. http://192.168.78.101:3000): ").strip()
-            if not (url.startswith("http://") or url.startswith("https://")):
-                print("Invalid URL — must start with http:// or https://")
-                continue
-            cmd = f"sudo {WEB_SCRIPT} {shlex.quote(url)}"
-            run_command_stream(cmd)
-        elif choice == "4":
-            t = input("Optional: Enter target IP or URL to prefer its latest report (press Enter to search all): ").strip()
-            safe_fragment = None
-            if t:
-                if t.startswith('http://') or t.startswith('https://'):
-                    safe_fragment = t.replace('http://', '').replace('https://', '').replace('/', '_').replace(':', '_')
-                else:
-                    safe_fragment = t.replace('/', '_').replace(':', '_')
-            rpt = find_latest_report(safe_fragment)
-            if rpt:
-                print(f"Opening report: {rpt}")
-                open_file_with_default_app(rpt)
-            else:
-                print("No report found. Run a scan first.")
-        elif choice == "5":
-            base = Path(RESULTS_DIR)
-            if not base.exists():
-                print("No results directory found yet.")
-                continue
-            for p in sorted(base.iterdir()):
-                if p.is_dir():
-                    try:
-                        m = max([f.stat().st_mtime for f in p.glob('report_*.txt')], default=0)
-                        print(f"{p.name} (latest report mtime: {datetime.fromtimestamp(m) if m else 'N/A'})")
-                    except Exception:
-                        print(p.name)
-        elif choice == "6":
-            print("Exiting.")
-            break
+def pam_authenticate(u, p):
+    if not PAM_AVAILABLE:
+        return False
+    try:
+        return pam.pam().authenticate(u, p)
+    except Exception:
+        return False
+
+
+def sudo_validate_current_user(p):
+    try:
+        proc = subprocess.Popen(["/bin/bash", "-lc", "sudo -S -k -v"],
+                                stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+                                stderr=subprocess.PIPE, universal_newlines=True)
+        proc.communicate(p + "\n", timeout=6)
+        return proc.returncode == 0
+    except Exception:
+        return False
+
+
+def authenticate_system_user(u, p):
+    if u == "root" and os.geteuid() == 0:
+        return True, "Running as root"
+    if PAM_AVAILABLE:
+        ok = pam_authenticate(u, p)
+        return ok, ("OK" if ok else "Failed")
+    if u == getpass.getuser():
+        ok = sudo_validate_current_user(p)
+        return ok, ("OK" if ok else "Failed")
+    return False, "Cannot verify user"
+
+
+# ---------- Worker ----------
+class ScanWorker(QThread):
+    output_line = pyqtSignal(str)
+    finished_signal = pyqtSignal(int)
+    progress = pyqtSignal(int)
+
+    def __init__(self, cmd, out_dir):
+        super().__init__()
+        self.cmd = cmd
+        self._p = None
+        self.out_dir = out_dir
+
+    def run(self):
+        self.output_line.emit(f"Running: {self.cmd}")
+        try:
+            self._p = subprocess.Popen(
+                ["/bin/bash", "-lc", self.cmd],
+                stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                bufsize=1, universal_newlines=True
+            )
+            count = 0
+            for line in self._p.stdout:
+                txt = line.rstrip("\n")
+                self.output_line.emit(txt)
+                count += 1
+                if count % 10 == 0:
+                    self.progress.emit(min(95, count // 3))
+            self._p.wait()
+            self.progress.emit(100)
+            self.finished_signal.emit(self._p.returncode or 0)
+        except Exception as e:
+            self.output_line.emit(str(e))
+            self.finished_signal.emit(-1)
+
+    def stop(self):
+        if self._p and self._p.poll() is None:
+            self._p.terminate()
+
+
+# ---------- Login ----------
+class LoginDialog(QDialog):
+    def __init__(self, parent=None, cfg=None):
+        super().__init__(parent)
+        self.cfg = cfg or load_config()
+        self.setModal(True)
+        self.setWindowTitle("Vulnix — Privileged Login")
+        self.setFixedSize(440, 240)
+        self.build_ui()
+
+    def build_ui(self):
+        v = QVBoxLayout(self)
+        title = QLabel("Sign in to Vulnix")
+        title.setFont(QFont("Segoe UI", 14, QFont.Bold))
+        title.setAlignment(Qt.AlignCenter)
+        v.addWidget(title)
+
+        form = QFormLayout()
+        self.user = QLineEdit(self.cfg.get("auth_user", getpass.getuser()))
+        self.pwd = QLineEdit()
+        self.pwd.setEchoMode(QLineEdit.Password)
+        form.addRow("Username:", self.user)
+        form.addRow("Password:", self.pwd)
+        v.addLayout(form)
+
+        self.msg = QLabel("")
+        v.addWidget(self.msg)
+
+        btn = QPushButton("Sign In")
+        btn.clicked.connect(self.try_login)
+        v.addWidget(btn, alignment=Qt.AlignRight)
+
+    def try_login(self):
+        u, p = self.user.text().strip(), self.pwd.text()
+        if not u or not p:
+            self.msg.setText("Enter username and password")
+            self.msg.setStyleSheet("color:#EF5350;")
+            return
+        ok, msg = authenticate_system_user(u, p)
+        if ok:
+            c = load_config()
+            c["auth_user"] = u
+            save_config(c)
+            self.accept()
         else:
-            print("Invalid option — choose 1-6.")
+            self.msg.setText("Invalid credentials — " + msg)
+            self.msg.setStyleSheet("color:#EF5350;")
 
 
-# GUI Implementation (only loaded if PyQt5 available)
-try:
-    from PyQt5.QtCore import Qt, QThread, pyqtSignal
-    from PyQt5.QtWidgets import (
-        QApplication,
-        QMainWindow,
-        QWidget,
-        QVBoxLayout,
-        QHBoxLayout,
-        QLabel,
-        QLineEdit,
-        QPushButton,
-        QTextEdit,
-        QCheckBox,
-        QFileDialog,
-        QMessageBox,
-    )
+# ---------- Main Window ----------
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.cfg = load_config()
+        self.worker = None
+        self.setWindowTitle("Vulnix — Automated Vulnerability Toolkit")
+        self.setMinimumSize(1100, 720)
+        self.build_ui()
 
-    class ProcessThreadGUI(QThread):
-        output_line = pyqtSignal(str)
-        finished_signal = pyqtSignal(int)
+    def build_ui(self):
+        central = QWidget()
+        self.setCentralWidget(central)
+        root = QHBoxLayout(central)
+        root.setContentsMargins(0, 0, 0, 0)
 
-        def __init__(self, cmd, cwd=None):
-            super().__init__()
-            self.cmd = cmd
-            self.cwd = cwd
-            self._proc = None
+        # Sidebar
+        side = QFrame()
+        side.setFixedWidth(260)
+        side.setObjectName("sidebar")
+        s = QVBoxLayout(side)
+        s.setContentsMargins(20, 20, 20, 20)
+        s.setSpacing(14)
 
-        def run(self):
-            self.output_line.emit(f"[INFO] Running command: {self.cmd}")
-            try:
-                args = shlex.split(self.cmd)
-                self._proc = subprocess.Popen(
-                    args,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
-                    cwd=self.cwd,
-                    bufsize=1,
-                    universal_newlines=True,
-                )
-            except Exception as e:
-                self.output_line.emit(f"[ERROR] Failed to start process: {e}\n")
-                self.finished_signal.emit(-1)
-                return
+        logo = QLabel("VULNIX")
+        logo.setFont(QFont("Segoe UI", 20, QFont.Bold))
+        logo.setAlignment(Qt.AlignCenter)
+        logo.setObjectName("logo")
+        s.addWidget(logo)
 
-            try:
-                # Use a loop to read output line by line as it is generated
-                if self._proc.stdout:
-                    for line in self._proc.stdout:
-                        self.output_line.emit(line.rstrip())
-            except Exception as e:
-                self.output_line.emit(f"[ERROR] Reading process output failed: {e}\n")
+        # Buttons
+        self.b_net = QPushButton("Network Scan")
+        self.b_web = QPushButton("Web Scan")
+        self.b_full = QPushButton("Full Assessment")
+        self.b_reports = QPushButton("Reports")
+        self.b_last = QPushButton("Last Report")
+        self.b_settings = QPushButton("Settings")
+        self.b_logs = QPushButton("Logs")
+        self.b_about = QPushButton("About")
 
-            rc = self._proc.wait()
-            self.finished_signal.emit(rc)
+        for b in [self.b_net, self.b_web, self.b_full, self.b_reports,
+                  self.b_last, self.b_settings, self.b_logs, self.b_about]:
+            b.setMinimumHeight(44)
+            s.addWidget(b)
 
-        def terminate(self):
-            if self._proc and self._proc.poll() is None:
-                try:
-                    self._proc.terminate()
-                except Exception:
-                    pass
-            super().terminate()
+        s.addStretch()
+        s.addWidget(QLabel(f"User: {self.cfg.get('auth_user', getpass.getuser())}"))
 
+        # Main content
+        content = QWidget()
+        v = QVBoxLayout(content)
+        v.setContentsMargins(20, 20, 20, 20)
+        v.setSpacing(12)
 
-    class MainWindowGUI(QMainWindow):
-        def __init__(self):
-            super().__init__()
-            self.setWindowTitle("Vulnix - FYP Toolkit (GUI)")
-            self.setMinimumSize(900, 600)
+        ctrl = QHBoxLayout()
+        self.target = QLineEdit()
+        self.target.setPlaceholderText("Target (IP / Host)")
+        self.start = QPushButton("Start")
+        self.start.setFixedWidth(140)
+        ctrl.addWidget(self.target)
+        ctrl.addWidget(self.start)
+        v.addLayout(ctrl)
 
-            central = QWidget()
-            self.setCentralWidget(central)
-            layout = QVBoxLayout(central)
+        self.console = QTextEdit()
+        self.console.setReadOnly(True)
+        self.console.setMinimumHeight(260)
+        v.addWidget(self.console)
 
-            # Row: target input
-            row = QHBoxLayout()
-            row.addWidget(QLabel("Target (IP or URL):"))
-            self.target_input = QLineEdit()
-            self.target_input.setPlaceholderText("e.g. 192.168.78.102  or  http://192.168.78.101:3000")
-            row.addWidget(self.target_input)
+        self.progress = QProgressBar()
+        self.progress.setFixedHeight(18)
+        v.addWidget(self.progress)
 
-            # Checkbox for network full scan
-            self.full_scan_cb = QCheckBox("Network: run full scan (-p-) (slow)")
-            row.addWidget(self.full_scan_cb)
+        self.cancel = QPushButton("Cancel")
+        self.cancel.setDisabled(True)
+        v.addWidget(self.cancel, alignment=Qt.AlignLeft)
 
-            layout.addLayout(row)
+        self.table = QTableWidget(0, 4)
+        self.table.setHorizontalHeaderLabels(
+            ["Severity", "Finding", "Evidence", "Remediation"])
+        self.table.setMinimumHeight(180)
+        v.addWidget(self.table)
 
-            # Row: buttons
-            btn_row = QHBoxLayout()
-            self.net_btn = QPushButton("Run Network Scan")
-            self.net_btn.clicked.connect(self.on_run_network)
-            btn_row.addWidget(self.net_btn)
+        root.addWidget(side)
+        root.addWidget(content, 1)
 
-            self.web_btn = QPushButton("Run Web Scan")
-            self.web_btn.clicked.connect(self.on_run_web)
-            btn_row.addWidget(self.web_btn)
+        # Connections
+        self.start.clicked.connect(lambda: self.start_scan("network"))
+        self.b_net.clicked.connect(lambda: self.start_scan("network"))
+        self.b_web.clicked.connect(lambda: self.start_scan("web"))
+        self.b_full.clicked.connect(lambda: self.start_scan("full"))
+        self.cancel.clicked.connect(self.cancel_scan)
+        self.b_reports.clicked.connect(self.show_reports)
+        self.b_last.clicked.connect(self.show_last_report)
+        self.b_settings.clicked.connect(self.open_settings)
+        self.b_logs.clicked.connect(self.open_logs)
+        self.b_about.clicked.connect(self.show_about)
 
-            self.open_report_btn = QPushButton("Open Latest Report")
-            self.open_report_btn.clicked.connect(self.on_open_latest_report)
-            btn_row.addWidget(self.open_report_btn)
+        self.setStyleSheet(self.qss())
 
-            self.choose_btn = QPushButton("Browse Target...")
-            self.choose_btn.clicked.connect(self.on_browse_target)
-            btn_row.addWidget(self.choose_btn)
+    # ---------- Scan Handling ----------
+    def start_scan(self, kind):
+        t = self.target.text().strip()
+        if not t:
+            QMessageBox.warning(self, "Missing Target", "Enter a target IP/hostname.")
+            return
+        path = self.cfg["scan_paths"].get(kind)
+        if not os.path.exists(path):
+            self.console.append(f"Script not found: {path}")
+            return
 
-            layout.addLayout(btn_row)
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        out = f"results/{t}_{ts}"
+        os.makedirs(out, exist_ok=True)
+        cmd = f"{path} '{t}' '{out}'"
 
-            # Output log area
-            self.log = QTextEdit()
-            self.log.setReadOnly(True)
-            layout.addWidget(self.log)
+        self.console.append(f"Starting {kind} scan on {t} ...")
+        self.start.setDisabled(True)
+        self.cancel.setDisabled(False)
 
-            # Footer status
-            status_row = QHBoxLayout()
-            self.status_label = QLabel("Ready")
-            status_row.addWidget(self.status_label)
-            status_row.addStretch()
-            layout.addLayout(status_row)
+        self.worker = ScanWorker(cmd, out)
+        self.worker.output_line.connect(self.console.append)
+        self.worker.progress.connect(self.progress.setValue)
+        self.worker.finished_signal.connect(lambda c: self.scan_done(c, out))
+        self.worker.start()
 
-            # Variables
-            self.proc_thread: ProcessThreadGUI | None = None
+    def cancel_scan(self):
+        if self.worker:
+            self.worker.stop()
+            self.console.append("Scan cancelled.")
+            self.cancel.setDisabled(True)
+            self.start.setDisabled(False)
 
-        def append(self, text):
-            self.log.append(text)
-            # Ensure the cursor moves to the end of the text
-            self.log.ensureCursorVisible()
+    def scan_done(self, code, out):
+        cfg = load_config()
+        cfg["last_report"] = out
+        save_config(cfg)
+        txt = self.console.toPlainText().upper()
+        crit = sum(1 for l in txt.splitlines() if "CRITICAL" in l)
+        high = sum(1 for l in txt.splitlines() if "HIGH" in l)
+        med = sum(1 for l in txt.splitlines() if "MEDIUM" in l)
+        low = sum(1 for l in txt.splitlines() if "LOW" in l)
+        total = crit + high + med + low
+        msg = (f"Scan finished (exit {code}).\n"
+               f"Total Findings: {total}\nCritical: {crit}, High: {high}, Medium: {med}, Low: {low}")
+        self.console.append(msg)
+        QMessageBox.information(self, "Scan Summary", msg)
+        self.progress.setValue(0)
+        self.start.setDisabled(False)
+        self.cancel.setDisabled(True)
 
-        def _validate_target_for_network(self, target):
-            if target.startswith("http://") or target.startswith("https://"):
-                QMessageBox.warning(self, "Invalid target", "Network scan expects an IP or hostname (no http://).")
-                return False
-            if not target.strip():
-                QMessageBox.warning(self, "Invalid target", "Please enter a target IP or hostname.")
-                return False
-            return True
+    # ---------- Other Actions ----------
+    def show_reports(self):
+        d = os.path.abspath("./results")
+        os.makedirs(d, exist_ok=True)
+        QMessageBox.information(self, "Reports", f"Reports stored at:\n{d}")
 
-        def _validate_target_for_web(self, target):
-            if not (target.startswith("http://") or target.startswith("https://")):
-                QMessageBox.warning(self, "Invalid target", "Web scan expects a URL like http://<ip>:3000")
-                return False
-            return True
+    def show_last_report(self):
+        cfg = load_config()
+        last = cfg.get("last_report", "")
+        if not last or not os.path.exists(last):
+            QMessageBox.warning(self, "Last Report", "No previous report found.")
+            return
+        files = sorted(glob.glob(os.path.join(last, "*.txt")))
+        if not files:
+            QMessageBox.warning(self, "Last Report", "No .txt report found in last scan folder.")
+            return
+        fpath = files[-1]
+        with open(fpath, "r", errors="ignore") as f:
+            text = f.read()
+        self.console.setText(text)
+        QMessageBox.information(self, "Last Report", f"Showing report from:\n{fpath}")
 
-        def _find_latest_report(self, safe_target_fragment: str | None = None) -> str | None:
-            # Use the common utility function
-            return find_latest_report(safe_target_fragment)
+    def open_settings(self):
+        QMessageBox.information(self, "Settings", "Settings feature available in FYP-II.")
 
-        def _open_file(self, path):
-            if not path:
-                QMessageBox.information(self, "Open Report", "No report found.")
-                return
-            if not os.path.exists(path):
-                QMessageBox.information(self, "Open Report", f"Report not found: {path}")
-                return
-            
-            # Use the common utility function for platform awareness
-            try:
-                open_file_with_default_app(path)
-            except Exception as e:
-                QMessageBox.information(self, "Open Report", f"Could not open report using OS default: {e}")
+    def open_logs(self):
+        p, _ = QFileDialog.getOpenFileName(self, "Open Log", "./results")
+        if p:
+            self.console.setText(open(p, "r", errors="ignore").read())
 
-        def on_browse_target(self):
-            # This is primarily for setting a directory target, which may not be fully supported by the scripts.
-            # Keeping it as a file/directory picker for flexibility.
-            path = QFileDialog.getExistingDirectory(self, "Select a directory or set target manually")
-            if path:
-                self.target_input.setText(path)
+    def show_about(self):
+        QMessageBox.information(self, "About Vulnix",
+            "Vulnix — Automated Offensive Security Toolkit\n"
+            "Final Year Project (FYP-I)\n\n"
+            "Developed by: Shahrukh Karim\n"
+            "Supervised by: Dr. Husnain Mansoor\n"
+            "Department of Computer Science, 2025\n\n"
+            "Kali Linux | PyQt5 | Nmap | Nikto\n"
+            "© 2025 Vulnix Project")
 
-        def on_open_latest_report(self):
-            t = self.target_input.text().strip()
-            safe_fragment = None
-            if t:
-                if t.startswith('http://') or t.startswith('https://'):
-                    safe_fragment = t.replace('http://', '').replace('https://', '').replace('/', '_').replace(':', '_')
-                else:
-                    safe_fragment = t.replace('/', '_').replace(':', '_')
-            
-            report = self._find_latest_report(safe_fragment)
-            if report:
-                self.append(f"[INFO] Opening report: {report}")
-                self._open_file(report)
-            else:
-                QMessageBox.information(self, "Open Report", "No report found. Run a scan first.")
+    # ---------- Modern Theme ----------
+    def qss(self):
+        return """
+        QMainWindow { background-color: #131E2B; font-family: 'Segoe UI'; color: #E0E7FF; }
+        #sidebar { background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+                    stop:0 #0B1A2A, stop:1 #122B48); }
+        #logo { color: #E0E7FF; }
+        QPushButton {
+            background-color: #1E88E5; color: #E0E7FF;
+            border-radius: 8px; padding: 10px; font-weight: 600;
+        }
+        QPushButton:hover { background-color: #42A5F5; }
+        QPushButton:disabled { background-color: #4A5568; color: #94A3B8; }
+        QTextEdit, QLineEdit, QTableWidget {
+            background-color: #1E293B; border: 1px solid #2E3A50;
+            border-radius: 6px; color: #E0E7FF; padding: 6px;
+        }
+        QHeaderView::section {
+            background-color: #243447; color: #E0E7FF;
+            padding: 4px; border: none;
+        }
+        QProgressBar {
+            background-color: #1E293B; border: 1px solid #2E3A50;
+            border-radius: 8px; text-align: center; color: #E0E7FF;
+        }
+        QProgressBar::chunk { background-color: #1E88E5; border-radius: 8px; }
+        QLabel { color: #E0E7FF; }
+        """
 
-        def _run_command(self, cmd):
-            # Disable buttons while scan is running
-            self.net_btn.setEnabled(False)
-            self.web_btn.setEnabled(False)
-            self.open_report_btn.setEnabled(False)
-            self.status_label.setText("Scanning...")
-            self.append(f"[CMD] {cmd}")
-
-            self.proc_thread = ProcessThreadGUI(cmd)
-            self.proc_thread.output_line.connect(self.append)
-            self.proc_thread.finished_signal.connect(self._on_proc_finished)
-            self.proc_thread.start()
-
-        def _on_proc_finished(self, rc):
-            self.append(f"[INFO] Process finished with exit code {rc}")
-            
-            # Re-enable buttons
-            self.net_btn.setEnabled(True)
-            self.web_btn.setEnabled(True)
-            self.open_report_btn.setEnabled(True)
-            self.status_label.setText("Ready")
-
-            # Check for latest report specific to the target if one was entered
-            t = self.target_input.text().strip()
-            safe_fragment = None
-            if t:
-                if t.startswith('http://') or t.startswith('https://'):
-                    safe_fragment = t.replace('http://', '').replace('https://', '').replace('/', '_').replace(':', '_')
-                else:
-                    safe_fragment = t.replace('/', '_').replace(':', '_')
-            report = self._find_latest_report(safe_fragment)
-            if report:
-                self.append(f"[INFO] Latest report available at: {report}")
-
-        def on_run_network(self):
-            target = self.target_input.text().strip()
-            if not self._validate_target_for_network(target):
-                return
-            full = self.full_scan_cb.isChecked()
-            if full:
-                cmd = f"sudo {NETWORK_SCRIPT} {shlex.quote(target)} --full-scan"
-            else:
-                cmd = f"sudo {NETWORK_SCRIPT} {shlex.quote(target)}"
-            self._run_command(cmd)
-
-        def on_run_web(self):
-            target = self.target_input.text().strip()
-            if not self._validate_target_for_web(target):
-                return
-            cmd = f"sudo {WEB_SCRIPT} {shlex.quote(target)}"
-            self._run_command(cmd)
-
-    def ensure_scripts_exist_gui():
-        missing = []
-        if not os.path.exists(NETWORK_SCRIPT):
-            missing.append(NETWORK_SCRIPT)
-        if not os.path.exists(WEB_SCRIPT):
-            missing.append(WEB_SCRIPT)
-        if missing:
-            QMessageBox.critical(None, "Missing scripts", "The following required scripts are missing:\n" + "\n".join(missing))
-            return False
-        return True
-
-except ModuleNotFoundError:
-    # PyQt5 not available; GUI won't be loaded. We'll use CLI fallback instead.
-    QApplication = None
-    MainWindowGUI = None
-
-
+# ---------- Run ----------
 def main():
-    # If PyQt5 is available, launch GUI; otherwise launch CLI fallback.
-    if QApplication is not None:
-        app = QApplication(sys.argv)
-        win = MainWindowGUI()
-        if not ensure_scripts_exist_gui():
-            win.append("[ERROR] Required scripts are missing. Place them in scripts/ and restart.")
-        win.show()
-        sys.exit(app.exec_())
-    else:
-        print("PyQt5 is not installed in this environment. Launching CLI fallback.")
-        # Ensure scripts exist before showing the CLI
-        missing = []
-        if not os.path.exists(NETWORK_SCRIPT):
-            missing.append(NETWORK_SCRIPT)
-        if not os.path.exists(WEB_SCRIPT):
-            missing.append(WEB_SCRIPT)
-        if missing:
-            print("The following required scripts are missing:")
-            for m in missing:
-                print("  -", m)
-            print("Please add them to the scripts/ folder and re-run this program.")
-            sys.exit(1)
-        cli_menu()
+    app = QApplication(sys.argv)
+    app.setStyle("Fusion")
+    cfg = load_config()
+    login = LoginDialog(None, cfg)
+    if login.exec_() != QDialog.Accepted:
+        sys.exit(0)
+    w = MainWindow()
+    w.show()
+    sys.exit(app.exec_())
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

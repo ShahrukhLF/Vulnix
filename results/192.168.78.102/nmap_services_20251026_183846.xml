@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.95 scan initiated Sun Oct 19 12:31:04 2025 as: /usr/lib/nmap/nmap -sV -T5 -&#45;top-ports 100 -Pn -oN results/192.168.78.102/nmap_services_20251019_123104.txt -oX results/192.168.78.102/nmap_services_20251019_123104.xml 192.168.78.102 -->
-<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -T5 -&#45;top-ports 100 -Pn -oN results/192.168.78.102/nmap_services_20251019_123104.txt -oX results/192.168.78.102/nmap_services_20251019_123104.xml 192.168.78.102" start="1760891464" startstr="Sun Oct 19 12:31:04 2025" version="7.95" xmloutputversion="1.05">
+<!-- Nmap 7.95 scan initiated Sun Oct 26 18:38:46 2025 as: /usr/lib/nmap/nmap -sV -T5 -&#45;top-ports 100 -Pn -oN results/192.168.78.102/nmap_services_20251026_183846.txt -oX results/192.168.78.102/nmap_services_20251026_183846.xml 192.168.78.102 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -T5 -&#45;top-ports 100 -Pn -oN results/192.168.78.102/nmap_services_20251026_183846.txt -oX results/192.168.78.102/nmap_services_20251026_183846.xml 192.168.78.102" start="1761518326" startstr="Sun Oct 26 18:38:46 2025" version="7.95" xmloutputversion="1.05">
 <scaninfo type="syn" protocol="tcp" numservices="100" services="7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157"/>
 <verbose level="0"/>
 <debugging level="0"/>
@@ -12,7 +12,7 @@
 <hostnames>
 </hostnames>
 </hosthint>
-<host starttime="1760891477" endtime="1760891514"><status state="up" reason="arp-response" reason_ttl="0"/>
+<host starttime="1761518326" endtime="1761518364"><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.78.102" addrtype="ipv4"/>
 <address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
 <hostnames>
@@ -39,8 +39,8 @@
 <port protocol="tcp" portid="6000"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="X11" extrainfo="access denied" method="probed" conf="10"/></port>
 <port protocol="tcp" portid="8009"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ajp13" product="Apache Jserv" extrainfo="Protocol v1.3" method="probed" conf="10"/></port>
 </ports>
-<times srtt="2435" rttvar="279" to="50000"/>
+<times srtt="1572" rttvar="140" to="50000"/>
 </host>
-<runstats><finished time="1760891514" timestr="Sun Oct 19 12:31:54 2025" summary="Nmap done at Sun Oct 19 12:31:54 2025; 1 IP address (1 host up) scanned in 49.82 seconds" elapsed="49.82" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1761518364" timestr="Sun Oct 26 18:39:24 2025" summary="Nmap done at Sun Oct 26 18:39:24 2025; 1 IP address (1 host up) scanned in 38.37 seconds" elapsed="38.37" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

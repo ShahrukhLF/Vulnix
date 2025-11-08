@@ -1,1 +1,0 @@
-[-] No obvious 2FA text on main page.

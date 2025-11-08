@@ -1,4 +1,0 @@
-# Nmap 7.95 scan initiated Sun Oct 19 12:42:48 2025 as: /usr/lib/nmap/nmap -sV -T5 --open -p 80,443,3000,8080,8443 --script http-title,http-headers,http-enum,http-methods -Pn -oN results/192.168.78.101_3000/nmap_http_20251019_124248.txt -oX results/192.168.78.101_3000/nmap_http_20251019_124248.xml 192.168.78.101:3000
-Failed to resolve "192.168.78.101:3000".
-WARNING: No targets were specified, so 0 hosts scanned.
-# Nmap done at Sun Oct 19 12:42:49 2025 -- 0 IP addresses (0 hosts up) scanned in 0.36 seconds

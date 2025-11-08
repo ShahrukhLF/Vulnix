@@ -1,3 +1,0 @@
-# Nmap 7.95 scan initiated Thu Oct 16 08:39:55 2025 as: /usr/lib/nmap/nmap -sn -oG results/192.168.78.102/nmap_ping_20251016_083955.gnmap 192.168.78.102
-Host: 192.168.78.102 ()	Status: Up
-# Nmap done at Thu Oct 16 08:39:55 2025 -- 1 IP address (1 host up) scanned in 0.12 seconds
