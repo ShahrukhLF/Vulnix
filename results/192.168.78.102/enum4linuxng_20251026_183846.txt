@@ -1,1 +1,0 @@
-[!] enum4linux-ng not found. Skipping enumeration.
