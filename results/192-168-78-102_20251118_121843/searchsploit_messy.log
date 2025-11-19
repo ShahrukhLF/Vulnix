@@ -346,9 +346,11 @@
 
 
 {
-	"SEARCH": "rpcbind 2",
+	"SEARCH": "rpcbind",
 	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
 	"RESULTS_EXPLOIT": [
+		{"Title":"rpcbind - CALLIT procedure UDP Crash (PoC)","EDB-ID":"26887","Date_Published":"2013-07-16","Date_Added":"2013-07-16","Date_Updated":"2013-07-16","Author":"Sean Verity","Type":"dos","Platform":"linux","Port":"","Verified":"0","Codes":"CVE-2013-1950;OSVDB-95447","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/linux/dos/26887.rb"},
+		{"Title":"RPCBind / libtirpc - Denial of Service","EDB-ID":"41974","Date_Published":"2017-05-08","Date_Added":"2017-05-08","Date_Updated":"2017-05-08","Author":"Guido Vranken","Type":"dos","Platform":"linux","Port":"111","Verified":"0","Codes":"CVE-2017-8779","Tags":"Denial of Service (DoS)","Aliases":"rpcbomb","Screenshot":"","Application":"http://www.exploit-db.comrpcbind-0.2.4.tar.bz2","Source":"https://github.com/guidovranken/rpcbomb/blob/fe53048af2d4fb78c911e71a30f21afcffbbf5e1/rpcbomb.rb","Path":"/usr/share/exploitdb/exploits/linux/dos/41974.rb"},
 		{"Title":"Wietse Venema Rpcbind Replacement 2.1 - Denial of Service","EDB-ID":"20376","Date_Published":"1998-11-13","Date_Added":"1998-11-13","Date_Updated":"2012-08-13","Author":"Patrick Gilbert","Type":"dos","Platform":"unix","Port":"","Verified":"1","Codes":"OSVDB-85839","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/1893/info","Path":"/usr/share/exploitdb/exploits/unix/dos/20376.txt"}
 	],
 	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
@@ -420,19 +422,6 @@
 	"SEARCH": "metasploitable root shell",
 	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
 	"RESULTS_EXPLOIT": [	],
-	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
-	"RESULTS_SHELLCODE": [	]
-}
-
-
-{
-	"SEARCH": "nfs 2 4",
-	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
-	"RESULTS_EXPLOIT": [
-		{"Title":"Apple Mac OSX (Lion) Kernel xnu-1699.32.7 except xnu-1699.24.8 NFS Mount - Local Privilege Escalation","EDB-ID":"32813","Date_Published":"2014-04-11","Date_Added":"2014-04-11","Date_Updated":"2014-04-11","Author":"Kenzley Alphonse","Type":"local","Platform":"osx","Port":"","Verified":"0","Codes":"OSVDB-105924","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/osx/local/32813.c"},
-		{"Title":"Linux Kernel < 2.6.31-rc4 - 'nfs4_proc_lock()' Denial of Service","EDB-ID":"10202","Date_Published":"2009-10-15","Date_Added":"2009-10-14","Date_Updated":"","Author":"Simon Vallet","Type":"dos","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2009-3726;OSVDB-59877","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/linux/dos/10202.c"},
-		{"Title":"NfSen < 1.3.7 / AlienVault OSSIM < 5.3.6 - Local Privilege Escalation","EDB-ID":"42305","Date_Published":"2017-07-10","Date_Added":"2017-07-10","Date_Updated":"2017-07-10","Author":"Paul Taylor","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2017-6970","Tags":"","Aliases":"","Screenshot":"","Application":"http://www.exploit-db.comnfsen-1.3.7.tar.gz","Source":"","Path":"/usr/share/exploitdb/exploits/linux/local/42305.txt"}
-	],
 	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
 	"RESULTS_SHELLCODE": [	]
 }
@@ -601,6 +590,48 @@
 
 
 {
+	"SEARCH": "x11",
+	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
+	"RESULTS_EXPLOIT": [
+		{"Title":"ASUS DSL-X11 ADSL Router - DNS Change","EDB-ID":"40373","Date_Published":"2016-09-13","Date_Added":"2016-09-13","Date_Updated":"2016-09-13","Author":"Todor Donev","Type":"webapps","Platform":"cgi","Port":"80","Verified":"0","Codes":"","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/cgi/webapps/40373.sh"},
+		{"Title":"BSD/OS 2.1 / DG/UX 7.0 / Debian 1.3 / HP-UX 10.34 / IBM AIX 4.2 / SGI IRIX 6.4 / Solaris 2.5.1 - '/usr/bin/X11/xlock' Local Privilege Escalation (2)","EDB-ID":"19173","Date_Published":"1997-04-26","Date_Added":"1997-04-26","Date_Updated":"2017-11-15","Author":"BeastMaster","Type":"local","Platform":"unix","Port":"","Verified":"1","Codes":"CVE-1999-0306;OSVDB-941;CVE-1999-0038;CVE-1999-0030","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/224/info","Path":"/usr/share/exploitdb/exploits/unix/local/19173.c"},
+		{"Title":"Eterm 0.8.10 / rxvt 2.6.1 / PuTTY 0.48 / X11R6 3.3.3/4.0 - Denial of Service","EDB-ID":"19984","Date_Published":"2000-05-31","Date_Added":"2000-05-31","Date_Updated":"2012-07-20","Author":"Kit Knox","Type":"dos","Platform":"multiple","Port":"","Verified":"1","Codes":"CVE-2000-0476;OSVDB-83441","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/1298/info","Path":"/usr/share/exploitdb/exploits/multiple/dos/19984.c"},
+		{"Title":"Gnome 1.0/1.1 / Group X 11.0 / XFree86 X11R6 3.3.x/4.0 - Denial of Service","EDB-ID":"20023","Date_Published":"2000-06-19","Date_Added":"2000-06-19","Date_Updated":"2012-07-22","Author":"Chris Evans","Type":"dos","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2000-0504;OSVDB-1412","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/1369/info","Path":"/usr/share/exploitdb/exploits/linux/dos/20023.c"},
+		{"Title":"SCO Open Server 5.0.5 / IRIX 6.2 ibX11/X11 Toolkit/Athena Widget Library - Local Buffer Overflow","EDB-ID":"19684","Date_Published":"1999-12-20","Date_Added":"1999-12-20","Date_Updated":"2012-07-08","Author":"Last Stage of Delirium","Type":"local","Platform":"multiple","Port":"","Verified":"1","Codes":"OSVDB-92006;OSVDB-92005;OSVDB-92004;OSVDB-92003;OSVDB-85842","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/884/info","Path":"/usr/share/exploitdb/exploits/multiple/local/19684.c"},
+		{"Title":"Slackware Linux 3.1 - '/usr/X11/bin/SuperProbe' Local Buffer Overflow","EDB-ID":"19283","Date_Published":"1997-03-04","Date_Added":"1997-03-04","Date_Updated":"2017-11-15","Author":"Solar","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-1999-1489;OSVDB-13538","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/364/info","Path":"/usr/share/exploitdb/exploits/linux/local/19283.c"},
+		{"Title":"Solaris 5.5.1 X11R6.3 - xterm '-xrm' Local Privilege Escalation","EDB-ID":"338","Date_Published":"1997-05-28","Date_Added":"1997-05-27","Date_Updated":"","Author":"David Hedley","Type":"local","Platform":"solaris","Port":"","Verified":"1","Codes":"OSVDB-8517;CVE-1999-0126","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/solaris/local/338.c"},
+		{"Title":"Tor (Linux) - X11 Linux Sandbox Breakout","EDB-ID":"42626","Date_Published":"2017-09-06","Date_Added":"2017-09-06","Date_Updated":"2017-09-07","Author":"Google Security Research","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://bugs.chromium.org/p/project-zero/issues/detail?id=1293&desc=2","Path":"/usr/share/exploitdb/exploits/linux/local/42626.c"},
+		{"Title":"X 11.0/3.3.3/3.3.4/3.3.5/3.3.6/4.0 - libX11 '_XAsyncReply()' Stack Corruption","EDB-ID":"20045","Date_Published":"2000-06-19","Date_Added":"2000-06-19","Date_Updated":"2012-07-23","Author":"Chris Evans","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"OSVDB-84671","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/1408/info","Path":"/usr/share/exploitdb/exploits/linux/local/20045.c"},
+		{"Title":"X.Org X11 (X11R6.9.0/X11R7.0) - Local Privilege Escalation","EDB-ID":"1596","Date_Published":"2006-03-20","Date_Added":"2006-03-19","Date_Updated":"","Author":"H D Moore","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"OSVDB-24000;CVE-2006-0745","Tags":"","Aliases":"xmodulepath.tgz","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/linux/local/1596.txt"},
+		{"Title":"X.Org xorg-x11-xfs 1.0.2-3.1 - Local Race Condition","EDB-ID":"5167","Date_Published":"2008-02-21","Date_Added":"2008-02-20","Date_Updated":"","Author":"vl4dZ","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2007-3103","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/linux/local/5167.sh"},
+		{"Title":"X11R6 3.3.3 - Symlink","EDB-ID":"19257","Date_Published":"1999-03-21","Date_Added":"1999-03-21","Date_Updated":"2012-06-17","Author":"Stealthf0rk","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-1999-0433;OSVDB-975","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/326/info","Path":"/usr/share/exploitdb/exploits/linux/local/19257.c"},
+		{"Title":"X11R6 < 6.4 XKEYBOARD (sco x86) - Local Buffer Overflow","EDB-ID":"2332","Date_Published":"2006-09-08","Date_Added":"2006-09-07","Date_Updated":"2016-10-27","Author":"RISE Security","Type":"local","Platform":"sco","Port":"","Verified":"1","Codes":"CVE-2006-4655","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/sco/local/2332.c"},
+		{"Title":"X11R6 < 6.4 XKEYBOARD (solaris x86) - Local Buffer Overflow","EDB-ID":"2331","Date_Published":"2006-09-08","Date_Added":"2006-09-07","Date_Updated":"2016-10-27","Author":"RISE Security","Type":"local","Platform":"solaris","Port":"","Verified":"1","Codes":"OSVDB-28622;CVE-2006-4655","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/solaris/local/2331.c"},
+		{"Title":"X11R6 < 6.4 XKEYBOARD (Solaris/SPARC) - Local Buffer Overflow (1)","EDB-ID":"2330","Date_Published":"2006-09-08","Date_Added":"2006-09-07","Date_Updated":"2017-04-21","Author":"RISE Security","Type":"local","Platform":"solaris","Port":"","Verified":"1","Codes":"CVE-2006-4655","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/solaris/local/2330.c"},
+		{"Title":"X11R6 < 6.4 XKEYBOARD (Solaris/SPARC) - Local Buffer Overflow (2)","EDB-ID":"2360","Date_Published":"2006-09-13","Date_Added":"2006-09-12","Date_Updated":"2017-04-21","Author":"Marco Ivaldi","Type":"local","Platform":"solaris","Port":"","Verified":"1","Codes":"CVE-2006-4655","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/solaris/local/2360.c"},
+		{"Title":"XFree86 X11R6 3.3 XDM - Session Cookie Guessing","EDB-ID":"20993","Date_Published":"2001-06-24","Date_Added":"2001-06-24","Date_Updated":"2012-09-01","Author":"ntf & sky","Type":"remote","Platform":"unix","Port":"","Verified":"1","Codes":"CVE-2001-1086;OSVDB-11759","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/2985/info","Path":"/usr/share/exploitdb/exploits/unix/remote/20993.c"},
+		{"Title":"XFree86 X11R6 3.3.2 XMan - ManPath Environment Variable Buffer Overflow","EDB-ID":"21010","Date_Published":"2001-06-11","Date_Added":"2001-06-11","Date_Updated":"2012-09-02","Author":"kf","Type":"local","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2001-1178;OSVDB-14177","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/3030/info","Path":"/usr/share/exploitdb/exploits/linux/local/21010.sh"},
+		{"Title":"XFree86 X11R6 3.3.5/3.3.6/4.0 Xserver - Denial of Service","EDB-ID":"19950","Date_Published":"2000-05-18","Date_Added":"2000-05-18","Date_Updated":"2017-11-15","Author":"Chris Evans","Type":"dos","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2000-0453;OSVDB-1345","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/1235/info","Path":"/usr/share/exploitdb/exploits/linux/dos/19950.c"},
+		{"Title":"XFree86 X11R6 3.3.x - Font Server Remote Buffer Overrun","EDB-ID":"22036","Date_Published":"2002-11-25","Date_Added":"2002-11-25","Date_Updated":"2012-10-17","Author":"TESO Security","Type":"remote","Platform":"unix","Port":"","Verified":"1","Codes":"CVE-2002-1317;OSVDB-15140","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/6241/info","Path":"/usr/share/exploitdb/exploits/unix/remote/22036.pl"},
+		{"Title":"Xorg X11 Server (AIX) - Local Privilege Escalation","EDB-ID":"45938","Date_Published":"2018-12-04","Date_Added":"2018-12-04","Date_Updated":"2018-12-11","Author":"0xdono","Type":"local","Platform":"aix","Port":"","Verified":"0","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/aix/local/45938.pl"},
+		{"Title":"Xorg X11 Server - Local Privilege Escalation (Metasploit)","EDB-ID":"47701","Date_Published":"2019-11-20","Date_Added":"2019-11-20","Date_Updated":"2019-11-20","Author":"Metasploit","Type":"local","Platform":"unix","Port":"","Verified":"1","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"https://raw.githubusercontent.com/rapid7/metasploit-framework/master/modules/exploits/aix/local/xorg_x11_server.rb","Path":"/usr/share/exploitdb/exploits/unix/local/47701.rb"},
+		{"Title":"Xorg X11 Server - Local Privilege Escalation (Metasploit)","EDB-ID":"47701","Date_Published":"2019-11-20","Date_Added":"2019-11-20","Date_Updated":"2019-11-20","Author":"Metasploit","Type":"local","Platform":"unix","Port":"","Verified":"1","Codes":"CVE-2018-14665","Tags":"Metasploit Framework (MSF)","Aliases":"","Screenshot":"","Application":"","Source":"https://raw.githubusercontent.com/rapid7/metasploit-framework/master/modules/exploits/aix/local/xorg_x11_server.rb","Path":"/usr/share/exploitdb/exploits/unix/local/47701.rb"},
+		{"Title":"Xorg X11 Server - SUID privilege escalation (Metasploit)","EDB-ID":"45908","Date_Published":"2018-11-26","Date_Added":"2018-11-26","Date_Updated":"2018-11-26","Author":"Metasploit","Type":"local","Platform":"multiple","Port":"","Verified":"1","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"https://raw.githubusercontent.com/rapid7/metasploit-framework/be6cfde92158d2c6716711046536c9f1ca44d958/modules/exploits/multi/local/xorg_x11_suid_server.rb","Path":"/usr/share/exploitdb/exploits/multiple/local/45908.rb"},
+		{"Title":"Xorg X11 Server - SUID privilege escalation (Metasploit)","EDB-ID":"45908","Date_Published":"2018-11-26","Date_Added":"2018-11-26","Date_Updated":"2018-11-26","Author":"Metasploit","Type":"local","Platform":"multiple","Port":"","Verified":"1","Codes":"CVE-2018-14665","Tags":"Metasploit Framework (MSF)","Aliases":"","Screenshot":"","Application":"","Source":"https://raw.githubusercontent.com/rapid7/metasploit-framework/be6cfde92158d2c6716711046536c9f1ca44d958/modules/exploits/multi/local/xorg_x11_suid_server.rb","Path":"/usr/share/exploitdb/exploits/multiple/local/45908.rb"},
+		{"Title":"xorg-x11-server 1.20.3 - Privilege Escalation","EDB-ID":"45742","Date_Published":"2018-10-30","Date_Added":"2018-10-30","Date_Updated":"2018-10-30","Author":"Marco Ivaldi","Type":"local","Platform":"openbsd","Port":"","Verified":"0","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/openbsd/local/45742.sh"},
+		{"Title":"xorg-x11-server < 1.20.1 - Local Privilege Escalation","EDB-ID":"45832","Date_Published":"2018-11-13","Date_Added":"2018-11-13","Date_Updated":"2018-11-13","Author":"bolonobolo","Type":"local","Platform":"linux","Port":"","Verified":"0","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/linux/local/45832.py"},
+		{"Title":"xorg-x11-server < 1.20.3 (Solaris 11) - 'inittab Local Privilege Escalation","EDB-ID":"46142","Date_Published":"2019-01-14","Date_Added":"2019-01-14","Date_Updated":"2019-05-20","Author":"Marco Ivaldi","Type":"local","Platform":"solaris","Port":"","Verified":"0","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/solaris/local/46142.sh"},
+		{"Title":"xorg-x11-server < 1.20.3 - 'modulepath' Local Privilege Escalation","EDB-ID":"45922","Date_Published":"2018-11-30","Date_Added":"2018-11-30","Date_Updated":"2020-02-12","Author":"Marco Ivaldi","Type":"local","Platform":"multiple","Port":"","Verified":"0","Codes":"CVE-2018-14665","Tags":"Local","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/exploits/multiple/local/45922.sh"},
+		{"Title":"xorg-x11-server < 1.20.3 - Local Privilege Escalation","EDB-ID":"45697","Date_Published":"2018-10-25","Date_Added":"2018-10-26","Date_Updated":"2018-10-26","Author":"Hacker Fantastic","Type":"local","Platform":"multiple","Port":"","Verified":"0","Codes":"CVE-2018-14665","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://twitter.com/hackerfantastic/status/1055517801224396800","Path":"/usr/share/exploitdb/exploits/multiple/local/45697.txt"}
+	],
+	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
+	"RESULTS_SHELLCODE": [
+		{"Title":"OSX/PPC - execve(/usr/X11R6/bin/xterm) Shellcode (141 bytes)","EDB-ID":"13487","Date_Published":"2004-09-26","Date_Added":"2004-09-25","Date_Updated":"","Author":"B-r00t","Type":"","Platform":"osx_ppc","Port":"141","Verified":"1","Codes":"","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"","Path":"/usr/share/exploitdb/shellcodes/osx_ppc/13487.c"}
+	]
+}
+
+
+{
 	"SEARCH": "unrealircd",
 	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
 	"RESULTS_EXPLOIT": [
@@ -609,24 +640,6 @@
 		{"Title":"UnrealIRCd 3.2.8.1 - Remote Downloader/Execute","EDB-ID":"13853","Date_Published":"2010-06-13","Date_Added":"2010-06-12","Date_Updated":"2017-11-02","Author":"anonymous","Type":"remote","Platform":"linux","Port":"","Verified":"1","Codes":"CVE-2010-2075;OSVDB-65445","Tags":"","Aliases":"","Screenshot":"http://www.exploit-db.com/screenshots/idlt14000/13853.png","Application":"http://www.exploit-db.comUnreal3.2.8.1_backdoor.tar_.gz","Source":"","Path":"/usr/share/exploitdb/exploits/linux/remote/13853.pl"},
 		{"Title":"UnrealIRCd 3.x - Remote Denial of Service","EDB-ID":"27407","Date_Published":"2006-03-09","Date_Added":"2006-03-09","Date_Updated":"2013-08-07","Author":"Brandon Milner","Type":"dos","Platform":"windows","Port":"","Verified":"1","Codes":"CVE-2006-1214;OSVDB-23778","Tags":"","Aliases":"","Screenshot":"","Application":"","Source":"https://www.securityfocus.com/bid/17057/info","Path":"/usr/share/exploitdb/exploits/windows/dos/27407.pl"}
 	],
-	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
-	"RESULTS_SHELLCODE": [	]
-}
-
-
-{
-	"SEARCH": "apache tomcat coyote jsp engine",
-	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
-	"RESULTS_EXPLOIT": [	],
-	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
-	"RESULTS_SHELLCODE": [	]
-}
-
-
-{
-	"SEARCH": "apache tomcat coyote jsp engine 1.1",
-	"DB_PATH_EXPLOIT": "/usr/share/exploitdb",
-	"RESULTS_EXPLOIT": [	],
 	"DB_PATH_SHELLCODE": "/usr/share/exploitdb",
 	"RESULTS_SHELLCODE": [	]
 }

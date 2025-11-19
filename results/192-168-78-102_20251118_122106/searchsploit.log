@@ -1,0 +1,65 @@
+[i] SearchSploit's XML mode (without verbose enabled).   To enable: searchsploit -v --xml...
+[i] Reading: '/home/kali/FYP-1/results/192-168-78-102_20251118_122106/nmap_vuln.xml'
+
+[-] Skipping term: ftp   (Term is too general. Please re-search manually: /usr/bin/searchsploit -t --json ftp)
+
+[i] /usr/bin/searchsploit -t --json vsftpd
+[i] /usr/bin/searchsploit -t --json vsftpd 2.3.4
+[-] Skipping term: ssh   (Term is too general. Please re-search manually: /usr/bin/searchsploit -t --json ssh)
+
+[i] /usr/bin/searchsploit -t --json openssh
+[i] /usr/bin/searchsploit -t --json openssh 4.7p1 debian 8ubuntu1
+[i] /usr/bin/searchsploit -t --json telnet
+[i] /usr/bin/searchsploit -t --json linux telnetd
+[i] /usr/bin/searchsploit -t --json smtp
+[i] /usr/bin/searchsploit -t --json postfix smtpd
+[i] /usr/bin/searchsploit -t --json domain
+[-] Skipping output: domain   (Too many results, 100+. You'll need to force a search: /usr/bin/searchsploit -t --json domain)
+
+[i] /usr/bin/searchsploit -t --json isc bind
+[i] /usr/bin/searchsploit -t --json isc bind 9.4.2
+[-] Skipping term: http   (Term is too general. Please re-search manually: /usr/bin/searchsploit -t --json http)
+
+[i] /usr/bin/searchsploit -t --json apache httpd
+[i] /usr/bin/searchsploit -t --json apache httpd 2.2.8
+[i] /usr/bin/searchsploit -t --json rpcbind 2
+[i] /usr/bin/searchsploit -t --json netbios ssn
+[i] /usr/bin/searchsploit -t --json samba smbd
+[i] /usr/bin/searchsploit -t --json samba smbd 3.x   4.x
+[i] /usr/bin/searchsploit -t --json exec
+[-] Skipping output: exec   (Too many results, 100+. You'll need to force a search: /usr/bin/searchsploit -t --json exec)
+
+[i] /usr/bin/searchsploit -t --json netkit rsh rexecd
+[i] /usr/bin/searchsploit -t --json login
+[-] Skipping output: login   (Too many results, 100+. You'll need to force a search: /usr/bin/searchsploit -t --json login)
+
+[i] /usr/bin/searchsploit -t --json shell
+[-] Skipping output: shell   (Too many results, 100+. You'll need to force a search: /usr/bin/searchsploit -t --json shell)
+
+[i] /usr/bin/searchsploit -t --json netkit rshd
+[i] /usr/bin/searchsploit -t --json java rmi
+[i] /usr/bin/searchsploit -t --json gnu classpath grmiregistry
+[i] /usr/bin/searchsploit -t --json bindshell
+[i] /usr/bin/searchsploit -t --json metasploitable root shell
+[i] /usr/bin/searchsploit -t --json nfs 2 4
+[i] /usr/bin/searchsploit -t --json proftpd
+[i] /usr/bin/searchsploit -t --json proftpd 1.3.1
+[i] /usr/bin/searchsploit -t --json mysql
+[-] Skipping output: mysql   (Too many results, 100+. You'll need to force a search: /usr/bin/searchsploit -t --json mysql)
+
+[i] /usr/bin/searchsploit -t --json mysql 5.0.51a 3ubuntu5
+[i] /usr/bin/searchsploit -t --json distccd
+[i] /usr/bin/searchsploit -t --json distccd v1
+[i] /usr/bin/searchsploit -t --json postgresql
+[i] /usr/bin/searchsploit -t --json postgresql db
+[i] /usr/bin/searchsploit -t --json postgresql db 8.3.0   8.3.7
+[i] /usr/bin/searchsploit -t --json vnc
+[i] /usr/bin/searchsploit -t --json x11
+[i] /usr/bin/searchsploit -t --json irc
+[-] Skipping output: irc   (Too many results, 100+. You'll need to force a search: /usr/bin/searchsploit -t --json irc)
+
+[i] /usr/bin/searchsploit -t --json unrealircd
+[i] /usr/bin/searchsploit -t --json ajp13
+[i] /usr/bin/searchsploit -t --json apache jserv
+[i] /usr/bin/searchsploit -t --json apache tomcat coyote jsp engine
+[i] /usr/bin/searchsploit -t --json apache tomcat coyote jsp engine 1.1

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE nmaprun>
 <?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.95 scan initiated Mon Nov 17 02:03:04 2025 as: /usr/lib/nmap/nmap -sV -O -&#45;open -p 21,22,23,25,53,80,111,139,445,1099,1524,2049,2121,3306,5432,5900,6667,8180 -oX /home/kali/FYP-1/results/192-168-78-102_20251117_020303/nmap_raw.xml -oN /home/kali/FYP-1/results/192-168-78-102_20251117_020303/nmap_raw.txt 192.168.78.102 -->
-<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -O -&#45;open -p 21,22,23,25,53,80,111,139,445,1099,1524,2049,2121,3306,5432,5900,6667,8180 -oX /home/kali/FYP-1/results/192-168-78-102_20251117_020303/nmap_raw.xml -oN /home/kali/FYP-1/results/192-168-78-102_20251117_020303/nmap_raw.txt 192.168.78.102" start="1763362984" startstr="Mon Nov 17 02:03:04 2025" version="7.95" xmloutputversion="1.05">
-<scaninfo type="syn" protocol="tcp" numservices="18" services="21-23,25,53,80,111,139,445,1099,1524,2049,2121,3306,5432,5900,6667,8180"/>
+<!-- Nmap 7.95 scan initiated Tue Nov 18 12:18:54 2025 as: /usr/lib/nmap/nmap -sV -&#45;version-light -&#45;open -p 21,22,23,25,53,80,110,111,135,139,143,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,6000,6667,8080,8180 -oX /home/kali/FYP-1/results/192-168-78-102_20251118_121843/nmap_quick.xml -oN /home/kali/FYP-1/results/192-168-78-102_20251118_121843/nmap_quick.txt 192.168.78.102 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-light -&#45;open -p 21,22,23,25,53,80,110,111,135,139,143,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,6000,6667,8080,8180 -oX /home/kali/FYP-1/results/192-168-78-102_20251118_121843/nmap_quick.xml -oN /home/kali/FYP-1/results/192-168-78-102_20251118_121843/nmap_quick.txt 192.168.78.102" start="1763486334" startstr="Tue Nov 18 12:18:54 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="27" services="21-23,25,53,80,110-111,135,139,143,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,6000,6667,8080,8180"/>
 <verbose level="0"/>
 <debugging level="0"/>
 <hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
@@ -12,43 +12,36 @@
 <hostnames>
 </hostnames>
 </hosthint>
-<host starttime="1763362984" endtime="1763363007"><status state="up" reason="arp-response" reason_ttl="0"/>
+<host starttime="1763486334" endtime="1763486361"><status state="up" reason="arp-response" reason_ttl="0"/>
 <address addr="192.168.78.102" addrtype="ipv4"/>
 <address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
 <hostnames>
 </hostnames>
-<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="vsftpd" version="2.3.4" ostype="Unix" method="probed" conf="10"><cpe>cpe:/a:vsftpd:vsftpd:2.3.4</cpe></service></port>
+<ports><extraports state="closed" count="8">
+<extrareasons reason="reset" count="8" proto="tcp" ports="110,135,143,443,1433,1521,3389,8080"/>
+</extraports>
+<port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="vsftpd" version="2.3.4" ostype="Unix" method="probed" conf="10"><cpe>cpe:/a:vsftpd:vsftpd:2.3.4</cpe></service></port>
 <port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="4.7p1 Debian 8ubuntu1" extrainfo="protocol 2.0" ostype="Linux" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:4.7p1</cpe><cpe>cpe:/o:linux:linux_kernel</cpe></service></port>
 <port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="telnet" product="Linux telnetd" ostype="Linux" method="probed" conf="10"><cpe>cpe:/o:linux:linux_kernel</cpe></service></port>
 <port protocol="tcp" portid="25"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="smtp" product="Postfix smtpd" hostname=" metasploitable.localdomain" method="probed" conf="10"><cpe>cpe:/a:postfix:postfix</cpe></service></port>
 <port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="domain" product="ISC BIND" version="9.4.2" method="probed" conf="10"><cpe>cpe:/a:isc:bind:9.4.2</cpe></service></port>
 <port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.2.8" extrainfo="(Ubuntu) DAV/2" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.2.8</cpe></service></port>
-<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rpcbind" version="2" extrainfo="RPC #100000" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rpcbind" method="probed" conf="10"/></port>
 <port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" product="Samba smbd" version="3.X - 4.X" extrainfo="workgroup: WORKGROUP" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
 <port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" product="Samba smbd" version="3.X - 4.X" extrainfo="workgroup: WORKGROUP" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
 <port protocol="tcp" portid="1099"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="java-rmi" product="GNU Classpath grmiregistry" method="probed" conf="10"/></port>
 <port protocol="tcp" portid="1524"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="bindshell" product="Metasploitable root shell" method="probed" conf="10"/></port>
-<port protocol="tcp" portid="2049"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="nfs" version="2-4" extrainfo="RPC #100003" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="2049"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rpcbind" method="probed" conf="10"/></port>
 <port protocol="tcp" portid="2121"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="ProFTPD" version="1.3.1" ostype="Unix" method="probed" conf="10"><cpe>cpe:/a:proftpd:proftpd:1.3.1</cpe></service></port>
 <port protocol="tcp" portid="3306"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mysql" product="MySQL" version="5.0.51a-3ubuntu5" method="probed" conf="10"><cpe>cpe:/a:mysql:mysql:5.0.51a-3ubuntu5</cpe></service></port>
 <port protocol="tcp" portid="5432"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="postgresql" product="PostgreSQL DB" version="8.3.0 - 8.3.7" method="probed" conf="10"><cpe>cpe:/a:postgresql:postgresql:8.3</cpe></service></port>
 <port protocol="tcp" portid="5900"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="vnc" product="VNC" extrainfo="protocol 3.3" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="6000"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="X11" extrainfo="access denied" method="probed" conf="10"/></port>
 <port protocol="tcp" portid="6667"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="irc" product="UnrealIRCd" hostname="irc.Metasploitable.LAN" method="probed" conf="10"><cpe>cpe:/a:unrealircd:unrealircd</cpe></service></port>
-<port protocol="tcp" portid="8180"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache Tomcat/Coyote JSP engine" version="1.1" method="probed" conf="10"><cpe>cpe:/a:apache:coyote_http_connector:1.1</cpe></service></port>
+<port protocol="tcp" portid="8180"><state state="open" reason="syn-ack" reason_ttl="64"/></port>
 </ports>
-<os><portused state="open" proto="tcp" portid="21"/>
-<portused state="closed" proto="udp" portid="41258"/>
-<osmatch name="Linux 2.6.9 - 2.6.33" accuracy="100" line="62704">
-<osclass type="general purpose" vendor="Linux" osfamily="Linux" osgen="2.6.X" accuracy="100"><cpe>cpe:/o:linux:linux_kernel:2.6</cpe></osclass>
-</osmatch>
-</os>
-<uptime seconds="438" lastboot="Mon Nov 17 01:56:09 2025"/>
-<distance value="1"/>
-<tcpsequence index="203" difficulty="Good luck!" values="4116D54A,41CC5525,41E12031,41C9E9FC,41DF8116,41AEF867"/>
-<ipidsequence class="All zeros" values="0,0,0,0,0,0"/>
-<tcptssequence class="100HZ" values="AB14,AB1E,AB28,AB32,AB3C,AB47"/>
-<times srtt="3147" rttvar="584" to="100000"/>
+<times srtt="1421" rttvar="1091" to="100000"/>
 </host>
-<runstats><finished time="1763363007" timestr="Mon Nov 17 02:03:27 2025" summary="Nmap done at Mon Nov 17 02:03:27 2025; 1 IP address (1 host up) scanned in 23.69 seconds" elapsed="23.69" exit="success"/><hosts up="1" down="0" total="1"/>
+<runstats><finished time="1763486361" timestr="Tue Nov 18 12:19:21 2025" summary="Nmap done at Tue Nov 18 12:19:21 2025; 1 IP address (1 host up) scanned in 27.06 seconds" elapsed="27.06" exit="success"/><hosts up="1" down="0" total="1"/>
 </runstats>
 </nmaprun>

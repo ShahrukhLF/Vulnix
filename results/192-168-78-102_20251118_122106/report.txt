@@ -1,40 +1,73 @@
---- VULNIX Network Assessment Report ---
+--- Vulnix Deep Assessment Report ---
 Target: 192.168.78.102
-Date: Mon Nov 17 02:03:04 AM EST 2025
+Date: Tue Nov 18 12:21:06 PM EST 2025
 
---- Summary of Findings ---
+--- Deep Analysis Findings ---
 
 =================================================================
-| SEVERITY   | HIGH
+| SEVERITY   | CRITICAL
 -----------------------------------------------------------------
 | FINDING:
-|   Nmap Script Vulnerabilities Found
+|   Nmap Script: vsFTPd version 2.3.4 backdoor
 | EVIDENCE:
-|   Nmap's --script=vuln found one or more vulnerabilities. See 'nmap_vuln_scan.txt' for details.
+|   Nmap --script=vuln confirmed this vulnerability.
 | REMEDIATION:
-|   Review the nmap_vuln_scan.txt file in the results folder and patch accordingly.
+|   See nmap_vuln.txt for full details.
 =================================================================
 
 =================================================================
 | SEVERITY   | CRITICAL
 -----------------------------------------------------------------
 | FINDING:
-|   vsftpd 2.3.4 Backdoor
+|   Nmap Script: RMI registry default configuration remote code execution vulnerability
 | EVIDENCE:
-|   Service vsftpd 2.3.4 detected on port 21. This version is famously backdoored.
+|   Nmap --script=vuln confirmed this vulnerability.
 | REMEDIATION:
-|   Upgrade this FTP server immediately. (metasploit: exploit/unix/ftp/vsftpd_234_backdoor).
+|   See nmap_vuln.txt for full details.
 =================================================================
 
 =================================================================
-| SEVERITY   | HIGH
+| SEVERITY   | CRITICAL
 -----------------------------------------------------------------
 | FINDING:
-|   Telnet Service Enabled
+|   Nmap Script: distcc Daemon Command Execution
 | EVIDENCE:
-|   Telnet service detected on port 23.
+|   Nmap --script=vuln confirmed this vulnerability.
 | REMEDIATION:
-|   Telnet is insecure and transmits passwords in cleartext. Disable Telnet and use SSH instead.
+|   See nmap_vuln.txt for full details.
+=================================================================
+
+=================================================================
+| SEVERITY   | CRITICAL
+-----------------------------------------------------------------
+| FINDING:
+|   Nmap Script: SSL/TLS MITM vulnerability (CCS Injection)
+| EVIDENCE:
+|   Nmap --script=vuln confirmed this vulnerability.
+| REMEDIATION:
+|   See nmap_vuln.txt for full details.
+=================================================================
+
+=================================================================
+| SEVERITY   | CRITICAL
+-----------------------------------------------------------------
+| FINDING:
+|   Nmap Script: SSL POODLE information leak
+| EVIDENCE:
+|   Nmap --script=vuln confirmed this vulnerability.
+| REMEDIATION:
+|   See nmap_vuln.txt for full details.
+=================================================================
+
+=================================================================
+| SEVERITY   | CRITICAL
+-----------------------------------------------------------------
+| FINDING:
+|   VSFTPD Backdoor
+| EVIDENCE:
+|   Port 21
+| REMEDIATION:
+|   Remove backdoor.
 =================================================================
 
 =================================================================
@@ -43,41 +76,8 @@ Date: Mon Nov 17 02:03:04 AM EST 2025
 | FINDING:
 |   UnrealIRCd Backdoor
 | EVIDENCE:
-|   Service UnrealIRCd detected on port 6667. This version is famously backdoored.
+|   Port 6667
 | REMEDIATION:
-|   Upgrade or remove this IRC server. (metasploit: exploit/unix/irc/unreal_ircd_3281_backdoor).
-=================================================================
-
-=================================================================
-| SEVERITY   | HIGH
------------------------------------------------------------------
-| FINDING:
-|   ProFTPD 1.3.1 Command Execution
-| EVIDENCE:
-|   Service ProFTPD 1.3.1 detected on port 2121. This version has a known arbitrary code exec bug.
-| REMEDIATION:
-|   Upgrade this FTP server immediately.
-=================================================================
-
-=================================================================
-| SEVERITY   | MEDIUM
------------------------------------------------------------------
-| FINDING:
-|   VNC Server Detected
-| EVIDENCE:
-|   A VNC server was found on port 5900. Metasploitable2's default password is 'password'.
-| REMEDIATION:
-|   Ensure VNC is firewalled and uses a strong, unique password.
-=================================================================
-
-=================================================================
-| SEVERITY   | HIGH
------------------------------------------------------------------
-| FINDING:
-|   PostgreSQL Database Open
-| EVIDENCE:
-|   PostgreSQL database detected on port 5432. The default 'postgres' user often has a weak password.
-| REMEDIATION:
-|   Firewall this port. Ensure all database users have strong passwords.
+|   Remove backdoor.
 =================================================================
 

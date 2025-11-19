@@ -1,0 +1,32 @@
+[
+  {
+    "severity": "CRITICAL",
+    "finding": "VSFTPD Backdoor",
+    "evidence": "Port 21: vsftpd 2.3.4 detected.",
+    "remediation": "Remove this backdoor immediately."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Insecure Telnet Service",
+    "evidence": "Port 23: Telnet is cleartext.",
+    "remediation": "Replace with SSH."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "UnrealIRCd Backdoor",
+    "evidence": "Port 6667: Malicious IRC version.",
+    "remediation": "Reinstall clean version."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Java RMI Vulnerability",
+    "evidence": "Port 1099: Java RMI Registry.",
+    "remediation": "Firewall this port."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Root Shell Backdoor",
+    "evidence": "Port 1524: Metasploitable root shell.",
+    "remediation": "Close this port immediately."
+  }
+]
