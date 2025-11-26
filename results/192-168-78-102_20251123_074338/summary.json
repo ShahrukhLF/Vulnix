@@ -1,0 +1,14 @@
+[
+  {
+    "severity": "CRITICAL",
+    "finding": "VSFTPD Backdoor",
+    "evidence": "vsftpd 2.3.4 detected on Port 21.",
+    "remediation": "This is a known backdoor. Update immediately."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Root Shell Backdoor",
+    "evidence": "Port 1524 (Ingreslock) is open.",
+    "remediation": "This is a direct root backdoor."
+  }
+]

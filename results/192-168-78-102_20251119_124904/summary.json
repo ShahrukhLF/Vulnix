@@ -1,0 +1,44 @@
+[
+  {
+    "severity": "CRITICAL",
+    "finding": "Nmap Script: vsFTPd version 2.3.4 backdoor",
+    "evidence": "Nmap --script=vuln confirmed this vulnerability.",
+    "remediation": "See nmap_vuln.txt for full details."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Nmap Script: RMI registry default configuration remote code execution vulnerability",
+    "evidence": "Nmap --script=vuln confirmed this vulnerability.",
+    "remediation": "See nmap_vuln.txt for full details."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Nmap Script: distcc Daemon Command Execution",
+    "evidence": "Nmap --script=vuln confirmed this vulnerability.",
+    "remediation": "See nmap_vuln.txt for full details."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Nmap Script: SSL POODLE information leak",
+    "evidence": "Nmap --script=vuln confirmed this vulnerability.",
+    "remediation": "See nmap_vuln.txt for full details."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Nmap Script: SSL/TLS MITM vulnerability (CCS Injection)",
+    "evidence": "Nmap --script=vuln confirmed this vulnerability.",
+    "remediation": "See nmap_vuln.txt for full details."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "VSFTPD Backdoor",
+    "evidence": "Port 21",
+    "remediation": "Remove backdoor."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "UnrealIRCd Backdoor",
+    "evidence": "Port 6667",
+    "remediation": "Remove backdoor."
+  }
+]

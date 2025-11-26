@@ -1,0 +1,15 @@
+Vulnix Quick Scan Report - Target: 192.168.78.102
+Date: Sun Nov 23 07:43:38 AM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[CRITICAL] VSFTPD Backdoor
+Evidence:
+vsftpd 2.3.4 detected on Port 21.
+Remediation: This is a known backdoor. Update immediately.
+
+-----------------------------------------------------------------
+[CRITICAL] Root Shell Backdoor
+Evidence:
+Port 1524 (Ingreslock) is open.
+Remediation: This is a direct root backdoor.
+
