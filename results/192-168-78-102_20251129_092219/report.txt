@@ -1,0 +1,137 @@
+Vulnix Deep Assessment Report - Target: 192.168.78.102
+Date: Sat Nov 29 09:22:19 AM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: vsftpd 2.3.4
+Evidence:
+Found 2 exploits for vsftpd 2.3.4:
+- vsftpd 2.3.4 - Backdoor Command Execution (Metasploit) [CVE-2011-2523]
+- vsftpd 2.3.4 - Backdoor Command Execution [CVE-2011-2523]
+Remediation: Update vsftpd immediately.
+
+-----------------------------------------------------------------
+[CRITICAL] VSFTPD Backdoor [CVE-2011-2523] (Port 21)
+Evidence:
+
+  VULNERABLE:
+  vsFTPd version 2.3.4 backdoor
+    State: VULNERABLE (Exploitable)
+    IDs:  CVE:CVE-2011-2523  BID:48539
+      vsFTPd version 2.3.4 backdoor, this was reported on 2011-07-04.
+    Disclosure date: 2011-07-03
+    Exploit results:
+      Shell command: id
+      Results: uid=0(root) gid=0(root)
+    References:
+      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2523
+      https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/ftp/vsftpd_234_backdoor.rb
+      http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+      https://www.securityfocus.com/bid/48539
+Remediation: Immediate Action: Patch service, remove backdoor, or firewall this port.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Linux telnetd
+Evidence:
+Found 2 exploits for Linux telnetd:
+- netkit-telnet-0.17 telnetd (Fedora 31) - 'BraveStarr' Remote Code Execution [EDB-ID]
+- TelnetD encrypt_keyid - Function Pointer Overwrite [CVE-2011-4862]
+Remediation: Update Linux telnetd immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Apache 2.2.8
+Evidence:
+Found 20 exploits for Apache 2.2.8:
+- Apache + PHP < 5.3.12 / < 5.4.2 - cgi-bin Remote Code Execution [CVE-2012-2336, CVE-2012-2311, CVE-2012-1823]
+- Apache + PHP < 5.3.12 / < 5.4.2 - Remote Code Execution + Scanner [CVE-2012-2336, CVE-2012-2311, CVE-2012-1823]
+- Apache < 2.0.64 / < 2.2.21 mod_setenvif - Integer Overflow [CVE-2011-4415, CVE-2011-3607]
+- Apache < 2.2.34 / < 2.4.27 - OPTIONS Memory Leak [CVE-2017-9798]
+- Apache CXF < 2.5.10/2.6.7/2.7.4 - Denial of Service [CVE-2013-2160]
+- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuck.c' Remote Buffer Overflow [CVE-2002-0082]
+- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (1) [CVE-2002-0082]
+- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (2) [CVE-2002-0082]
+- Apache OpenMeetings 1.9.x < 3.1.0 - '.ZIP' File Directory Traversal [CVE-2016-0784]
+- Apache Struts 2 < 2.3.1 - Multiple Vulnerabilities [CVE-2012-0394, CVE-2012-0393, CVE-2012-0392, CVE-2012-0391]
+- Apache Struts 2.0.1 < 2.3.33 / 2.5 < 2.5.10 - Arbitrary Code Execution [CVE-2017-12611]
+- Apache Struts < 1.3.10 / < 2.3.16.2 - ClassLoader Manipulation Remote Code Execution (Metasploit) [CVE-2014-0114, CVE-2014-0112, CVE-2014-0094]
+- Apache Struts2 2.0.0 < 2.3.15 - Prefixed Parameters OGNL Injection [CVE-2013-2251]
+- Apache Tomcat < 5.5.17 - Remote Directory Listing [EDB-ID]
+- Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal (PoC) [CVE-2008-2938]
+...and 5 more.
+Remediation: Update Apache httpd immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Samba 3.X
+Evidence:
+Found 2 exploits for Samba 3.X:
+- Samba < 3.0.20 - Remote Heap Overflow [EDB-ID]
+- Samba < 3.6.2 (x86) - Denial of Service (PoC) [CVE-2015-0240]
+Remediation: Update Samba smbd immediately.
+
+-----------------------------------------------------------------
+[CRITICAL] Java RMI Remote Code Execution (Port 1099)
+Evidence:
+
+  VULNERABLE:
+  RMI registry default configuration remote code execution vulnerability
+    State: VULNERABLE
+      Default configuration of RMI registry allows loading classes from remote URLs which can lead to remote code execution.
+      
+    References:
+      https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/misc/java_rmi_server.rb
+Remediation: Immediate Action: Patch service, remove backdoor, or firewall this port.
+
+-----------------------------------------------------------------
+[CRITICAL] DistCC Remote Code Execution [CVE-2004-2687] (Port 3632)
+Evidence:
+
+  VULNERABLE:
+  distcc Daemon Command Execution
+    State: VULNERABLE (Exploitable)
+    IDs:  CVE:CVE-2004-2687
+    Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+      Allows executing of arbitrary commands on systems running distccd 3.1 and
+      earlier. The vulnerability is the consequence of weak service configuration.
+      
+    Disclosure date: 2002-02-01
+    Extra information:
+      
+    uid=1(daemon) gid=1(daemon) groups=1(daemon)
+  
+    References:
+      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2687
+      https://distcc.github.io/security.html
+      https://nvd.nist.gov/vuln/detail/CVE-2004-2687
+Remediation: Immediate Action: Patch service, remove backdoor, or firewall this port.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: VNC
+Evidence:
+Found 37 exploits for VNC:
+- AMX Corp. VNC ActiveX Control - 'AmxVnc.dll 1.0.13.0' Remote Buffer Overflow [CVE-2007-3536]
+- Chicken of the VNC 2.0 - 'NULL-pointer' Remote Denial of Service [CVE-2007-0756]
+- EchoVNC Viewer - Remote Denial of Service [EDB-ID]
+- QEMU 0.9 / KVM 36/79 - VNC Server Remote Denial of Service [CVE-2008-2382]
+- RealVNC - Authentication Bypass (Metasploit) [CVE-2006-2369]
+- RealVNC 3.3.7 - Client Buffer Overflow (Metasploit) [CVE-2001-0167]
+- RealVNC 4.1.0 < 4.1.1 - VNC Null Authentication Bypass (Metasploit) [CVE-2006-2369]
+- RealVNC 4.1.0 < 4.1.1 - VNC Null Authentication Bypass [CVE-2006-2369]
+- RealVNC 4.1.0 < 4.1.1 - VNC Null Authentication Scanner [EDB-ID]
+- RealVNC 4.1.0/4.1.1 - Authentication Bypass [CVE-2006-2369]
+- RealVNC 4.1.2 - 'vncviewer.exe' RFB Protocol Remote Code Execution (PoC) [EDB-ID]
+- RealVNC 4.1.3 - 'ClientCutText' Message Remote Denial of Service [EDB-ID]
+- RealVNC Server 4.0 - Remote Denial of Service [EDB-ID]
+- RealVNC Windows Client 4.1.2 - Remote Denial of Service Crash (PoC) [CVE-2008-3493]
+- SmartCode ServerX VNC Server ActiveX 1.1.5.0 - 'scvncsrvx.dll' Denial of Service [EDB-ID]
+...and 22 more.
+Remediation: Update VNC immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: UnrealIRCd
+Evidence:
+Found 4 exploits for UnrealIRCd:
+- UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit) [CVE-2010-2075]
+- UnrealIRCd 3.2.8.1 - Local Configuration Stack Overflow [EDB-ID]
+- UnrealIRCd 3.2.8.1 - Remote Downloader/Execute [CVE-2010-2075]
+- UnrealIRCd 3.x - Remote Denial of Service [CVE-2006-1214]
+Remediation: Update UnrealIRCd immediately.
+

@@ -5,9 +5,10 @@
 #
 # GOAL: Complete in < 5 minutes.
 # FIX: 
-#   1. Ignores "NOT VULNERABLE" false positives.
-#   2. Generates human-readable remediation for Nmap script findings.
-#   3. Extracts CVEs from Nmap output into the title.
+#   1. Fixed 'grep' crash on CVE brackets.
+#   2. Expanded scripts to find Misconfigurations (Auth/Discovery).
+#   3. Smart Remediation for all finding types.
+#   4. EXCLUDED 'broadcast' and 'multicast' scripts to prevent hanging on IPv6.
 # ==============================================================================
 
 set -e
@@ -35,7 +36,6 @@ add_finding() {
   local evidence="$3"
   local remediation="$4"
 
-  # Text Report formatting
   echo "-----------------------------------------------------------------" >> "$USER_REPORT"
   printf "[%-8s] %s\n" "$severity" "$finding" >> "$USER_REPORT"
   echo "Evidence:" >> "$USER_REPORT"
@@ -43,7 +43,6 @@ add_finding() {
   echo "Remediation: $remediation" >> "$USER_REPORT"
   echo "" >> "$USER_REPORT"
 
-  # JSON Summary (Safe Append for GUI)
   if [ ! -s "$GUI_SUMMARY" ] || [ "$(cat "$GUI_SUMMARY")" == "[]" ]; then
      jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
         '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
@@ -60,10 +59,9 @@ echo "Vulnix Deep Assessment Report - Target: $TARGET_IP" > "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-# --- Phase 1: Discovery (Speed Optimized) ---
+# --- Phase 1: Discovery ---
 echo "[*] Phase 1/3: Port Discovery..."
-# Scan Top 2000 ports
-sudo nmap -sS --top-ports 2000 --open -n --min-rate 1000 "$TARGET_IP" -oG "$NMAP_DISCOVERY"
+sudo nmap -sS --top-ports 2000 --open -n --min-rate 1500 "$TARGET_IP" -oG "$NMAP_DISCOVERY"
 OPEN_PORTS=$(grep "Ports:" "$NMAP_DISCOVERY" | grep -oE '[0-9]+/open' | cut -d'/' -f1 | tr '\n' ',' | sed 's/,$//')
 
 if [ -z "$OPEN_PORTS" ]; then
@@ -73,13 +71,13 @@ fi
 echo "[*] Target Ports: $OPEN_PORTS"
 
 # --- Phase 2: Vulnerability Scripting ---
-echo "[*] Phase 2/3: Running Vuln Scripts..."
-# Runs standard 'vuln' category scripts.
-sudo nmap -sV --script=vuln --script-timeout 2m --max-retries 1 -p "$OPEN_PORTS" -oN "$NMAP_VULN" -oX "$NMAP_XML" "$TARGET_IP"
+echo "[*] Phase 2/3: Running Deep Scripts..."
+# FIX: Added "and not broadcast and not multicast" to prevent IPv6 hangs
+sudo nmap -sV --version-intensity 5 --script="(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast" --script-timeout 60s --max-retries 1 --min-rate 1500 -p "$OPEN_PORTS" -oN "$NMAP_VULN" -oX "$NMAP_XML" "$TARGET_IP"
 echo "[+] Nmap Script Scan complete."
 
-# --- Phase 3: Advanced Analysis (Python XML Parser) ---
-echo "[*] Phase 3/3: Analyzing Results (XML Parsing)..."
+# --- Phase 3: Advanced Analysis ---
+echo "[*] Phase 3/3: Analyzing Results..."
 
 python3 -c '
 import xml.etree.ElementTree as ET
@@ -90,7 +88,6 @@ import re
 
 xml_file = "'"$NMAP_XML"'"
 
-# --- Searchsploit Logic ---
 def get_exploits(query):
     try:
         cmd = ["searchsploit", "-j", query]
@@ -108,16 +105,13 @@ def clean_query(product, version):
     v = v.strip().split(" - ")[0]
     return f"{p.strip()} {v}".strip()
 
-# --- Parser Start ---
 try:
     tree = ET.parse(xml_file)
     root = tree.getroot()
     
-    # 1. Process Hosts/Ports
     for host in root.findall("host"):
         for port in host.findall(".//port"):
             port_id = port.get("portid")
-            proto = port.get("protocol")
             
             # A. Service Analysis (Searchsploit)
             service = port.find("service")
@@ -127,7 +121,7 @@ try:
                 if product:
                     query = f"{product} {version}".strip()
                     exploits = get_exploits(query)
-                    if not exploits: # Smart Fuzz Fallback
+                    if not exploits:
                         query = clean_query(product, version)
                         if len(query) > 3: exploits = get_exploits(query)
                     
@@ -141,37 +135,45 @@ try:
                             cve_str = ", ".join(cves) if cves else "EDB-ID"
                             ev_list.append(f"- {t} [{cve_str}]")
                         
-                        ev_str = "\n".join(ev_list[:10]) # Top 10
+                        ev_str = "\n".join(ev_list[:10])
                         if count > 10: ev_str += f"\n...and {count-10} more."
                         safe_ev = f"Found {count} exploits for {query}:\n{ev_str}".replace("\n", "\\n")
-                        print(f"HIGH|Vulnerable Service: {query}|{safe_ev}|Update {product}.")
+                        print(f"HIGH|Vulnerable Service: {query}|{safe_ev}|Update {product} immediately.")
 
-            # B. Nmap Script Analysis (NSE)
-            # We look for <script> tags inside the port
+            # B. Nmap Script Analysis (Expanded)
             for script in port.findall("script"):
                 sid = script.get("id")
                 output = script.get("output", "")
                 
-                # Skip "vulners" script
                 if sid == "vulners": continue
-                
-                # FIX 1: Explicitly ignore false positives
                 if "NOT VULNERABLE" in output: continue
 
-                # Detect if script found a vuln
                 is_vuln = False
                 severity = "HIGH"
                 title = f"Nmap Script: {sid}"
                 
-                # Logic: Check for "VULNERABLE" keyword or specific dangerous scripts
+                # Detection Logic
                 if "State: VULNERABLE" in output or "VULNERABLE:" in output or "Vulnerable" in output:
                     is_vuln = True
+                # Misconfigurations (Discovery/Auth)
+                elif "Anonymous" in output and "allowed" in output:
+                    title = "Anonymous Access Allowed"
+                    severity = "MEDIUM"
+                    is_vuln = True
+                elif "nfs-showmount" in sid:
+                    title = "NFS Shares Exposed"
+                    severity = "MEDIUM"
+                    is_vuln = True
+                elif "http-methods" in sid and "PUT" in output:
+                    title = "Insecure HTTP Methods (PUT)"
+                    severity = "MEDIUM"
+                    is_vuln = True
                 
-                # Extract CVEs from the output text for cleaner titles
+                # Extract CVE
                 cves_found = re.findall(r"CVE-\d{4}-\d+", output)
                 cve_tag = f" [{cves_found[0]}]" if cves_found else ""
 
-                # Special handling for known criticals
+                # Map Criticals
                 if "vsftpd-backdoor" in sid:
                     title = "VSFTPD Backdoor"
                     severity = "CRITICAL"
@@ -182,41 +184,47 @@ try:
                 elif "distcc" in sid and is_vuln:
                     title = "DistCC Remote Code Execution"
                     severity = "CRITICAL"
+                    is_vuln = True
                 elif "rmi-vuln" in sid and is_vuln:
                     title = "Java RMI Remote Code Execution"
                     severity = "CRITICAL"
+                    is_vuln = True
+                elif "ms17-010" in sid and is_vuln:
+                    title = "EternalBlue (MS17-010)"
+                    severity = "CRITICAL"
+                    is_vuln = True
                 
                 if is_vuln:
-                    # FIX 2: Better Remediation Advice
-                    remediation = "Consult vendor documentation for patches."
+                    remediation = "Consult vendor documentation."
                     if severity == "CRITICAL":
-                        remediation = "Immediate Action: Patch service, remove backdoor, or firewall port."
+                        remediation = "Immediate Action: Patch, remove, or firewall."
+                    elif "Anonymous" in title:
+                        remediation = "Disable anonymous login in service configuration."
+                    elif "NFS" in title:
+                        remediation = "Restrict NFS exports to trusted IPs only."
+                    elif "PUT" in title:
+                        remediation = "Disable dangerous HTTP methods in web server config."
                     elif "ssl" in sid:
-                        remediation = "Disable weak SSL/TLS protocols (SSLv3) in configuration."
-                    elif "backdoor" in sid:
-                        remediation = "Reinstall a clean version of the service immediately."
+                        remediation = "Disable weak SSL/TLS protocols."
 
-                    # Clean output for report (limit lines)
                     lines = output.splitlines()
                     clean_output = "\n".join(lines[:15]) 
                     if len(lines) > 15: clean_output += "\n..."
-                    
-                    # Sanitize for pipe
                     safe_out = clean_output.replace("\n", "\\n")
+                    
                     print(f"{severity}|{title}{cve_tag} (Port {port_id})|{safe_out}|{remediation}")
 
-except Exception as e:
-    pass
+except Exception: pass
 ' | while IFS='|' read -r sev fin evi rem; do
     evi_decoded=$(echo -e "$evi")
-    # Filter out duplicates
-    if ! grep -q "$fin" "$USER_REPORT"; then
+    # FIX: Use grep -Fq (Fixed String) to handle brackets [] in titles
+    if ! grep -Fq "$fin" "$USER_REPORT"; then
         add_finding "$sev" "$fin" "$evi_decoded" "$rem"
     fi
 done
 
-# --- Fallback for Critical Manual Checks (Safety Net) ---
-if grep -q "1524/tcp.*open" "$NMAP_DISCOVERY"; then
+# --- Fallback for Critical Manual Checks ---
+if grep -q "1524/tcp.*open" "$NMAP_VULN"; then
     add_finding "CRITICAL" "Root Shell Backdoor" "Port 1524 (Ingreslock) is open." "Direct root access detected. Firewall immediately."
 fi
 

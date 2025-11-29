@@ -1,0 +1,2 @@
+# Nmap 7.95 scan initiated Sat Nov 29 09:22:01 2025 as: /usr/lib/nmap/nmap -sS --top-ports 2000 --open -n --min-rate 1500 -oG /home/kali/FYP-1/results/912-168-78-102_20251129_092201/nmap_discovery.txt 912.168.78.102
+# Nmap done at Sat Nov 29 09:22:01 2025 -- 0 IP addresses (0 hosts up) scanned in 0.07 seconds
