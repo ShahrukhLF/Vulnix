@@ -1,0 +1,116 @@
+- Nikto v2.5.0
+---------------------------------------------------------------------------
++ Target IP:          127.0.0.1
++ Target Hostname:    localhost
++ Target Port:        3000
++ Start Time:         2025-11-30 11:44:00 (GMT-5)
+---------------------------------------------------------------------------
++ Server: No banner retrieved
++ /: Retrieved access-control-allow-origin header: *.
++ /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200). See: https://portswigger.net/kb/issues/00600600_robots-txt-file
++ /robots.txt: contains 1 entry which should be manually viewed. See: https://developer.mozilla.org/en-US/docs/Glossary/Robots.txt
++ assets/public/favicon_js.ico: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type. See: https://www.netsparker.com/web-vulnerability-scanner/vulnerabilities/missing-content-type-header/
++ /localhost.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.pem: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.war: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.tar.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.zip: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /site.cer: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.alz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /dump.gz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.sql: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /database.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.tgz: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /backup.tar.bz2: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /archive.tar.lzma: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /127.0.0.1.tar: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.jks: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ /localhost.egg: Potentially interesting backup/cert file found. . See: https://cwe.mitre.org/data/definitions/530.html
++ 1036 requests: 1 error(s) and 103 item(s) reported on remote host
++ End Time:           2025-11-30 11:44:40 (GMT-5) (40 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

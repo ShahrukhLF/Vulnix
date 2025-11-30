@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sun Nov 30 11:11:31 2025 as: /usr/lib/nmap/nmap -sV -&#45;version-light -p 80,443,8080,8443,8000,8008 -oX /home/kali/FYP-1/results/http:__192-168-78-101:3000_20251130_111131/nmap_web_quick.xml http://192.168.78.101:3000 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-light -p 80,443,8080,8443,8000,8008 -oX /home/kali/FYP-1/results/http:__192-168-78-101:3000_20251130_111131/nmap_web_quick.xml http://192.168.78.101:3000" start="1764519091" startstr="Sun Nov 30 11:11:31 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="6" services="80,443,8000,8008,8080,8443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<target specification="http://192.168.78.101:3000" status="skipped" reason="invalid"/>
+<runstats><finished time="1764519091" timestr="Sun Nov 30 11:11:31 2025" summary="Nmap done at Sun Nov 30 11:11:31 2025; 0 IP addresses (0 hosts up) scanned in 0.36 seconds" elapsed="0.36" exit="success"/><hosts up="0" down="0" total="0"/>
+</runstats>
+</nmaprun>

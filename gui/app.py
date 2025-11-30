@@ -6,14 +6,14 @@ Author: Shahrukh Karim | Supervisor: Dr. Husnain Mansoor
 This file contains the main PyQt5 application window, login logic,
 and scan orchestration for the Vulnix project.
 
--- FIXED:
-- Config Crash: 'load_config' now properly merges nested dictionaries to prevent missing paths.
-- Button Styles: All buttons (Logout, Back, Create Account) now match the main theme exactly.
+UPDATES:
+- Added "Quick Web Scan" and "Deep Web Scan" buttons.
+- Updated config to map new script paths.
 """
 
 import sys, os, json, subprocess, getpass, glob
 from datetime import datetime
-import database # Manages the SQLite database
+import database  # Manages the SQLite database
 import hashlib
 
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
@@ -29,11 +29,13 @@ from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices
 # ---------- Config Functions ----------
 
 CONFIG_PATH = os.path.expanduser("~/.vulnix_config.json")
+# UPDATED: Distinct paths for web scans
 DEFAULT_CONFIG = {
     "scan_paths": {
         "quick": "./scripts/scan_quick.sh",
         "deep": "./scripts/scan_deep.sh",
-        "web": "./scripts/scan_web.sh",
+        "web_quick": "./scripts/scan_web_quick.sh",
+        "web_deep": "./scripts/scan_web_deep.sh",
         "full": "./scripts/run_full_assessment.sh"
     },
     "last_report": ""
@@ -58,7 +60,7 @@ def load_config():
                     cfg[key] = value
             
             # 2. Smart update for scan_paths
-            # This ensures 'quick' and 'deep' keys exist even if the file is old
+            # This ensures new keys (web_quick/web_deep) exist even if file is old
             if "scan_paths" in saved_cfg:
                 cfg["scan_paths"].update(saved_cfg["scan_paths"])
                 
@@ -92,6 +94,8 @@ class ScanWorker(QThread):
         self.out_dir = out_dir
 
     def run(self):
+        # IMPORTANT: Sudo is called here. 
+        # See instructions below on how to configure sudoers to avoid password prompt.
         full_cmd = f"sudo {self.cmd}"
         self.output_line.emit(f"Running: {full_cmd}")
         try:
@@ -362,7 +366,11 @@ class DashboardView(QWidget):
         
         self.b_quick = QPushButton("Quick Network Scan")
         self.b_deep = QPushButton("Deep Network Scan")
-        self.b_web = QPushButton("Web Scan")
+        
+        # UPDATED: Two distinct web buttons
+        self.b_web_quick = QPushButton("Quick Web Scan")
+        self.b_web_deep = QPushButton("Deep Web Scan")
+        
         self.b_full = QPushButton("Full Assessment")
         self.b_open_reports = QPushButton("Open Reports Folder")
         self.b_last = QPushButton("Last Report")
@@ -374,7 +382,9 @@ class DashboardView(QWidget):
         self.b_logout = QPushButton("Logout")
         
         buttons = [
-            self.b_quick, self.b_deep, self.b_web, self.b_full,
+            self.b_quick, self.b_deep, 
+            self.b_web_quick, self.b_web_deep,
+            self.b_full,
             self.b_open_reports, self.b_last, self.b_settings,
             self.b_logs, self.b_about
         ]
@@ -434,7 +444,11 @@ class DashboardView(QWidget):
         # --- Connections ---
         self.b_quick.clicked.connect(lambda: self.start_scan("quick"))
         self.b_deep.clicked.connect(lambda: self.start_scan("deep"))
-        self.b_web.clicked.connect(lambda: self.start_scan("web"))
+        
+        # UPDATED: Connected to new keys
+        self.b_web_quick.clicked.connect(lambda: self.start_scan("web_quick"))
+        self.b_web_deep.clicked.connect(lambda: self.start_scan("web_deep"))
+        
         self.b_full.clicked.connect(lambda: self.start_scan("full"))
         self.cancel.clicked.connect(self.cancel_scan)
         
