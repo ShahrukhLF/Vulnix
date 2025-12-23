@@ -8,7 +8,7 @@
 #   1. Clean Target Parsing (Fixes Nmap crashes).
 #   2. Nmap: Version detection on common web ports.
 #   3. Searchsploit: Map versions to public exploits.
-#   4. Nikto: Tuned scan for XSS/SQLi (with noise filtering).
+#   4. Nikto: Tuned scan for XSS/SQLi + 2FA Endpoint Detection.
 # ==============================================================================
 
 set -e
@@ -23,7 +23,6 @@ TARGET="$1"
 OUTPUT_DIR="$2"
 
 # FIX 1: Extract Clean Host for Nmap (Remove http://, https://, and :port)
-# This ensures Nmap gets "192.168.1.1" instead of "http://192.168.1.1:3000"
 NMAP_HOST=$(echo "$TARGET" | sed 's#^.*://##' | cut -d':' -f1 | cut -d'/' -f1)
 
 # Output Files
@@ -65,7 +64,7 @@ echo "-----------------------------------------------------------------" >> "$US
 
 # --- Phase 1: Service Version Detection (Nmap) ---
 echo "[*] Phase 1/3: Identifying Web Technologies on $NMAP_HOST..."
-# Scan standard web ports only
+# Scan standard web ports only for speed
 sudo nmap -sV --version-light -p 80,443,8080,8443,3000,8000,8008 -oX "$NMAP_XML" "$NMAP_HOST" > /dev/null
 
 # --- Phase 2: Exploit Mapping (Searchsploit) ---
@@ -124,7 +123,7 @@ echo "[*] Phase 3/3: Scanning for Critical Flaws (Nikto)..."
 # -maxtime 90s: Strict time limit
 nikto -h "$TARGET" -o "$NIKTO_JSON" -Format json -Tuning 489 -maxtime 90s -nointeractive > "$NIKTO_TXT" 2>&1 || true
 
-# Parse Nikto JSON (With Noise Filtering)
+# Parse Nikto JSON (With Noise Filtering & 2FA Detection)
 python3 -c '
 import json, re
 
@@ -149,17 +148,29 @@ try:
                 
                 # Severity Logic
                 severity = "MEDIUM"
+                title = msg.split(".")[0]
+                remediation = "Check application code."
+
                 if "SQL" in msg or "Injection" in msg: severity = "CRITICAL"
                 elif "XSS" in msg or "Scripting" in msg: severity = "HIGH"
                 elif "Travers" in msg or "shell" in msg: severity = "CRITICAL"
                 elif "cookie" in msg.lower(): severity = "LOW"
 
-                # Format
-                title = msg.split(".")[0]
+                # 2FA / AUTH Logic (Requested by Evaluator)
+                msg_lower = msg.lower()
+                url_lower = url.lower()
+                if any(x in msg_lower for x in ["2fa", "otp", "mfa", "two-factor", "authenticator"]) or \
+                   any(x in url_lower for x in ["2fa", "otp", "mfa"]):
+                    severity = "HIGH"
+                    title = "Potential 2FA/Auth Endpoint Exposed"
+                    remediation = "Manual Verification Required: Check for 2FA bypass vulnerabilities (Logic/Race Conditions)."
+
+                # Clean Title
                 if len(title) > 60: title = title[:60] + "..."
+                
                 evidence = f"URL: {url}\\nMethod: {method}\\nDetails: {msg}".replace("\n", "\\n")
                 
-                print(f"{severity}|{title}|{evidence}|Check application code.")
+                print(f"{severity}|{title}|{evidence}|{remediation}")
 
 except: pass
 ' | while IFS='|' read -r sev fin evi rem; do

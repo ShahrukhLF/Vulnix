@@ -1,0 +1,67 @@
+Vulnix Quick Web Report - Target: http://localhost:3000
+Date: Tue Dec 16 07:44:33 AM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] /: Retrieved access-control-allow-origin header: *
+Evidence:
+URL: 
+Method: GET
+Details: /: Retrieved access-control-allow-origin header: *.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: Uncommon header 'x-recruiting' found, with contents: /#/j...
+Evidence:
+URL: 
+Method: GET
+Details: /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /robots
+Evidence:
+URL: 
+Method: GET
+Details: /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200).
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /robots
+Evidence:
+URL: 
+Method: GET
+Details: /robots.txt: contains 1 entry which should be manually viewed.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] assets/public/favicon_js
+Evidence:
+URL: 
+Method: GET
+Details: assets/public/favicon_js.ico: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /backup
+Evidence:
+URL: 
+Method: HEAD
+Details: /backup.zip: Potentially interesting backup/cert file found. .
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /archive
+Evidence:
+URL: 
+Method: HEAD
+Details: /archive.pem: Potentially interesting backup/cert file found. .
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /localhost
+Evidence:
+URL: 
+Method: HEAD
+Details: /localhost.cer: Potentially interesting backup/cert file found. .
+Remediation: Check application code.
+

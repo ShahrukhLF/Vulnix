@@ -1,0 +1,50 @@
+[
+  {
+    "severity": "MEDIUM",
+    "finding": "/: Retrieved access-control-allow-origin header: *",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /: Retrieved access-control-allow-origin header: *.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/: Uncommon header 'x-recruiting' found, with contents: /#/j...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/robots",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200).",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/robots",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /robots.txt: contains 1 entry which should be manually viewed.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "assets/public/favicon_js",
+    "evidence": "URL: \\nMethod: GET\\nDetails: assets/public/favicon_js.ico: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/backup",
+    "evidence": "URL: \\nMethod: HEAD\\nDetails: /backup.zip: Potentially interesting backup/cert file found. .",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/archive",
+    "evidence": "URL: \\nMethod: HEAD\\nDetails: /archive.pem: Potentially interesting backup/cert file found. .",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/localhost",
+    "evidence": "URL: \\nMethod: HEAD\\nDetails: /localhost.cer: Potentially interesting backup/cert file found. .",
+    "remediation": "Check application code."
+  }
+]

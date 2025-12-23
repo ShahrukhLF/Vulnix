@@ -1,0 +1,115 @@
+Vulnix Quick Web Report - Target: http://192.168.78.102/dvwa
+Date: Tue Dec 16 07:39:02 AM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[LOW     ] /dvwa/: Cookie PHPSESSID created without the httponly flag
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: Cookie PHPSESSID created without the httponly flag.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/: Cookie security created without the httponly flag
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: Cookie security created without the httponly flag.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/: Retrieved x-powered-by header: PHP/5
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/: The anti-clickjacking X-Frame-Options header is not ...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: The anti-clickjacking X-Frame-Options header is not present.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/: The X-Content-Type-Options header is not set
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/robots
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/robots.txt: Server may leak inodes via ETags, header found with file /dvwa/robots.txt, inode: 93164, size: 26, mtime: Tue Mar 16 01:56:22 2010.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/index: Uncommon header 'tcn' found, with contents: lis...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/index: Uncommon header 'tcn' found, with contents: list.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /index: Apache mod_negotiation is enabled with MultiViews, w...
+Evidence:
+URL: 
+Method: GET
+Details: /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Apache/2
+Evidence:
+URL: 
+Method: HEAD
+Details: Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRA...
+Evidence:
+URL: 
+Method: OPTIONS
+Details: OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: HTTP TRACE method is active which suggests the host is vu...
+Evidence:
+URL: 
+Method: TRACE
+Details: /: HTTP TRACE method is active which suggests the host is vulnerable to XST.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/?-s: PHP allows retrieval of the source code via the -...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/login
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/login.php?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[CRITICAL] /dvwa/CHANGELOG
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/CHANGELOG.txt: Version number implies that there is a SQL Injection in Drupal 7, which can be used for authentication bypass (Drupalgeddon).
+Remediation: Check application code.
+

@@ -8,6 +8,7 @@
 #   1. Fixed 'unexpected operator' crash by removing fragile JSON string checks.
 #   2. Fixed '-e' artifacts in text report by using printf.
 #   3. Nmap Target Cleaning & Nikto Noise Filtering included.
+#   4. Added 2FA/MFA Endpoint Detection.
 # ==============================================================================
 
 set -e
@@ -131,10 +132,9 @@ done
 # --- Phase 2: Nikto Deep Scan ---
 echo "[*] Phase 2/3: Nikto Deep Scan (3.5 min limit)..."
 # Reverse Tuning (x): Scan everything EXCEPT Denial of Service (6)
-# This is much more comprehensive than the Quick scan
 nikto -h "$TARGET" -o "$NIKTO_JSON" -Format json -Tuning x6 -maxtime 210s -nointeractive > "$NIKTO_TXT" 2>&1 || true
 
-# Parse Nikto with Noise Filter
+# Parse Nikto with Noise Filter & 2FA Detection
 python3 -c '
 import json
 try:
@@ -146,7 +146,7 @@ try:
             backup_count = 0
             for item in data.get("vulnerabilities", []):
                 msg = item.get("msg", "")
-                url = item.get("url", "")
+                url = item.get("url", "/")
                 method = item.get("method", "")
                 
                 # Filter Noise: Detect Soft 404 behavior on backup files
@@ -156,12 +156,25 @@ try:
 
                 # Dynamic Severity Assignment
                 sev = "LOW"
+                remediation = "Check server config."
+                title = msg[:60] + "..."
+
                 if "XSS" in msg or "SQL" in msg: sev = "HIGH"
                 if "Shell" in msg or "Execution" in msg: sev = "CRITICAL"
                 if "Configuration" in msg or "header" in msg: sev = "MEDIUM"
+
+                # 2FA / AUTH Logic (Requested by Evaluator)
+                msg_lower = msg.lower()
+                url_lower = url.lower()
+                if any(x in msg_lower for x in ["2fa", "otp", "mfa", "two-factor", "authenticator"]) or \
+                   any(x in url_lower for x in ["2fa", "otp", "mfa"]):
+                    sev = "HIGH"
+                    title = "Potential 2FA/Auth Endpoint Exposed"
+                    remediation = "Manual Verification Required: Check for 2FA bypass vulnerabilities (Logic/Race Conditions)."
+
                 
                 evidence = f"URL: {url}\\nMethod: {method}\\nDetails: {msg}".replace("\n", "\\n")
-                print(f"{sev}|{msg[:60]}...|{evidence}|Check server config.")
+                print(f"{sev}|{title}|{evidence}|{remediation}")
 except: pass
 ' | while IFS='|' read -r sev fin evi rem; do
     add_finding "$sev" "$fin" "$evi" "$rem"
