@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Tue Dec 23 12:30:19 2025 as: /usr/lib/nmap/nmap -sV -&#45;version-light -&#45;open -p 21,22,23,25,53,80,88,110,111,135,139,143,389,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,5985,6000,6379,6667,8000,8009,8080,8180,8443,9000 -oX /home/kali/FYP-1/results/10-0-2-2_20251223_123018/nmap_quick.xml -oN /home/kali/FYP-1/results/10-0-2-2_20251223_123018/nmap_quick.txt 10.0.2.2 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-light -&#45;open -p 21,22,23,25,53,80,88,110,111,135,139,143,389,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,5985,6000,6379,6667,8000,8009,8080,8180,8443,9000 -oX /home/kali/FYP-1/results/10-0-2-2_20251223_123018/nmap_quick.xml -oN /home/kali/FYP-1/results/10-0-2-2_20251223_123018/nmap_quick.txt 10.0.2.2" start="1766511019" startstr="Tue Dec 23 12:30:19 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="35" services="21-23,25,53,80,88,110-111,135,139,143,389,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,5985,6000,6379,6667,8000,8009,8080,8180,8443,9000"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.0.2.2" addrtype="ipv4"/>
+<address addr="52:55:0A:00:02:02" addrtype="mac"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1766511019" endtime="1766511027"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="10.0.2.2" addrtype="ipv4"/>
+<address addr="52:55:0A:00:02:02" addrtype="mac"/>
+<hostnames>
+</hostnames>
+<ports><extraports state="filtered" count="33">
+<extrareasons reason="no-response" count="33" proto="tcp" ports="21-23,25,53,80,88,110-111,139,143,389,443,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,5985,6000,6379,6667,8000,8009,8080,8180,8443,9000"/>
+</extraports>
+<port protocol="tcp" portid="135"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="msrpc" product="Microsoft Windows RPC" ostype="Windows" method="probed" conf="10"><cpe>cpe:/o:microsoft:windows</cpe></service></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="1459" rttvar="3744" to="100000"/>
+</host>
+<runstats><finished time="1766511027" timestr="Tue Dec 23 12:30:27 2025" summary="Nmap done at Tue Dec 23 12:30:27 2025; 1 IP address (1 host up) scanned in 8.57 seconds" elapsed="8.57" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

@@ -3,33 +3,29 @@
 Vulnix GUI — Automated Vulnerability Toolkit
 Author: Shahrukh Karim | Supervisor: Dr. Husnain Mansoor
 
-This file contains the main PyQt5 application window, login logic,
-and scan orchestration for the Vulnix project.
-
 UPDATES:
-- Added "Quick Web Scan" and "Deep Web Scan" buttons.
-- Updated config to map new script paths.
+- Moved Scan Controls to the top right (Advisor Requirement).
+- Implemented Dropdown for Scan Mode selection.
+- Cleaned up Sidebar.
 """
 
-import sys, os, json, subprocess, getpass, glob
+import sys, os, json, subprocess, glob
 from datetime import datetime
 import database  # Manages the SQLite database
-import hashlib
 
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QTextEdit, QProgressBar, QTableWidget,
     QTableWidgetItem, QMessageBox, QDialog, QFormLayout, QFileDialog, QFrame,
-    QHeaderView, QDialogButtonBox, QStackedWidget
+    QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox
 )
 from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices
-
 
 # ---------- Config Functions ----------
 
 CONFIG_PATH = os.path.expanduser("~/.vulnix_config.json")
-# UPDATED: Distinct paths for web scans
+
 DEFAULT_CONFIG = {
     "scan_paths": {
         "quick": "./scripts/scan_quick.sh",
@@ -42,37 +38,23 @@ DEFAULT_CONFIG = {
 }
 
 def load_config():
-    """
-    Loads configuration. Implements a 'deep merge' for scan_paths
-    to prevent crashes if the config file is outdated.
-    """
-    # Start with defaults
     cfg = DEFAULT_CONFIG.copy()
-    
     if os.path.exists(CONFIG_PATH):
         try:
             with open(CONFIG_PATH, 'r') as f:
                 saved_cfg = json.load(f)
-            
-            # 1. Update top-level keys (like last_report)
             for key, value in saved_cfg.items():
                 if key != "scan_paths":
                     cfg[key] = value
-            
-            # 2. Smart update for scan_paths
-            # This ensures new keys (web_quick/web_deep) exist even if file is old
             if "scan_paths" in saved_cfg:
                 cfg["scan_paths"].update(saved_cfg["scan_paths"])
-                
         except Exception:
-            pass # If corrupt, use defaults
+            pass 
     else:
         save_config(cfg)
-        
     return cfg
 
 def save_config(cfg):
-    """Saves the config dictionary back to the JSON file."""
     try:
         with open(CONFIG_PATH, 'w') as f:
             json.dump(cfg, f, indent=2)
@@ -94,8 +76,7 @@ class ScanWorker(QThread):
         self.out_dir = out_dir
 
     def run(self):
-        # IMPORTANT: Sudo is called here. 
-        # See instructions below on how to configure sudoers to avoid password prompt.
+        # NOTE: Sudo is called here. Ensure scripts are executable.
         full_cmd = f"sudo {self.cmd}"
         self.output_line.emit(f"Running: {full_cmd}")
         try:
@@ -182,7 +163,6 @@ class LoginView(QWidget):
         self.pwd.setPlaceholderText("Password")
         self.pwd.setMinimumHeight(35)
         
-        # Enter key triggers login
         self.user.returnPressed.connect(self.try_login)
         self.pwd.returnPressed.connect(self.try_login)
         
@@ -194,15 +174,13 @@ class LoginView(QWidget):
         self.msg.setAlignment(Qt.AlignCenter)
         v.addWidget(self.msg)
 
-        # Login Button
         self.login_btn = QPushButton("Sign In")
         self.login_btn.setMinimumHeight(40)
         self.login_btn.clicked.connect(self.try_login)
         v.addWidget(self.login_btn)
 
-        # Create Account Button - Matched Style
         self.signup_btn = QPushButton("Create New Account")
-        self.signup_btn.setMinimumHeight(40) # Same height as Login
+        self.signup_btn.setMinimumHeight(40)
         self.signup_btn.setCursor(Qt.PointingHandCursor)
         self.signup_btn.clicked.connect(self.goToSignUp.emit)
         v.addWidget(self.signup_btn)
@@ -288,7 +266,6 @@ class SignUpView(QWidget):
         self.create_btn.clicked.connect(self.try_signup)
         v.addWidget(self.create_btn)
 
-        # Back Button - Matched Style
         self.back_btn = QPushButton("Back to Login")
         self.back_btn.setMinimumHeight(40)
         self.back_btn.setCursor(Qt.PointingHandCursor)
@@ -351,6 +328,7 @@ class DashboardView(QWidget):
         root = QHBoxLayout(self)
         root.setContentsMargins(0, 0, 0, 0)
 
+        # --- LEFT SIDEBAR (Cleaned Up) ---
         side = QFrame()
         side.setFixedWidth(260)
         side.setObjectName("sidebar")
@@ -364,29 +342,17 @@ class DashboardView(QWidget):
         logo.setObjectName("logo")
         s.addWidget(logo)
         
-        self.b_quick = QPushButton("Quick Network Scan")
-        self.b_deep = QPushButton("Deep Network Scan")
-        
-        # UPDATED: Two distinct web buttons
-        self.b_web_quick = QPushButton("Quick Web Scan")
-        self.b_web_deep = QPushButton("Deep Web Scan")
-        
-        self.b_full = QPushButton("Full Assessment")
+        # Navigation Buttons Only
         self.b_open_reports = QPushButton("Open Reports Folder")
         self.b_last = QPushButton("Last Report")
-        self.b_settings = QPushButton("Settings")
         self.b_logs = QPushButton("Logs")
+        self.b_settings = QPushButton("Settings")
         self.b_about = QPushButton("About")
-        
-        # Logout - Now matched style (removed gray styling)
         self.b_logout = QPushButton("Logout")
         
         buttons = [
-            self.b_quick, self.b_deep, 
-            self.b_web_quick, self.b_web_deep,
-            self.b_full,
-            self.b_open_reports, self.b_last, self.b_settings,
-            self.b_logs, self.b_about
+            self.b_open_reports, self.b_last, 
+            self.b_logs, self.b_settings, self.b_about
         ]
 
         for b in buttons:
@@ -400,31 +366,68 @@ class DashboardView(QWidget):
         
         root.addWidget(side)
 
+        # --- MAIN CONTENT AREA ---
         content = QWidget()
         v = QVBoxLayout(content)
         v.setContentsMargins(20, 20, 20, 20)
         v.setSpacing(12)
         
-        ctrl = QHBoxLayout()
+        # --- NEW CONTROL BAR (Target | Mode | Start) ---
+        ctrl_bar = QHBoxLayout()
+        ctrl_bar.setSpacing(10)
+
+        # 1. Input Field
         self.target = QLineEdit()
         self.target.setPlaceholderText("Enter Target IP or Hostname...")
-        ctrl.addWidget(self.target)
-        v.addLayout(ctrl)
+        self.target.setMinimumHeight(45)
+        ctrl_bar.addWidget(self.target, 3) # Stretch factor 3 (takes up most space)
+
+        # 2. Mode Selector Dropdown
+        self.scan_mode = QComboBox()
+        self.scan_mode.addItems([
+            "Quick Network Scan",
+            "Deep Network Scan",
+            "Quick Web Scan",
+            "Deep Web Scan",
+            "Full Assessment"
+        ])
+        self.scan_mode.setMinimumHeight(45)
+        self.scan_mode.setFixedWidth(200)
+        self.scan_mode.setCursor(Qt.PointingHandCursor)
+        ctrl_bar.addWidget(self.scan_mode, 1) # Stretch factor 1
+
+        # 3. Start Button
+        self.start_btn = QPushButton("Start Scan")
+        self.start_btn.setMinimumHeight(45)
+        self.start_btn.setFixedWidth(120)
+        self.start_btn.setCursor(Qt.PointingHandCursor)
+        self.start_btn.setStyleSheet("background-color: #4CAF50; font-weight: bold;")
+        self.start_btn.clicked.connect(self.initiate_selected_scan)
+        ctrl_bar.addWidget(self.start_btn, 0)
+
+        # 4. Cancel Button (Hidden by default or placed next to start)
+        self.cancel = QPushButton("Stop")
+        self.cancel.setMinimumHeight(45)
+        self.cancel.setFixedWidth(80)
+        self.cancel.setDisabled(True)
+        self.cancel.setStyleSheet("background-color: #EF5350; font-weight: bold;") 
+        self.cancel.clicked.connect(self.cancel_scan)
+        ctrl_bar.addWidget(self.cancel, 0)
+
+        v.addLayout(ctrl_bar)
         
+        # Console Log
         self.console = QTextEdit()
         self.console.setReadOnly(True)
         self.console.setMinimumHeight(260)
         v.addWidget(self.console)
         
+        # Progress Bar
         self.progress = QProgressBar()
         self.progress.setFixedHeight(18)
         v.addWidget(self.progress)
         
-        self.cancel = QPushButton("Cancel Scan")
-        self.cancel.setDisabled(True)
-        self.cancel.setStyleSheet("background-color: #EF5350; font-weight: bold;") 
-        v.addWidget(self.cancel, alignment=Qt.AlignLeft)
-
+        # Results Table
         self.table = QTableWidget(0, 4)
         self.table.setHorizontalHeaderLabels(
             ["Severity", "Finding", "Evidence", "Remediation"])
@@ -441,34 +444,39 @@ class DashboardView(QWidget):
         v.addWidget(self.table)
         root.addWidget(content, 1)
 
-        # --- Connections ---
-        self.b_quick.clicked.connect(lambda: self.start_scan("quick"))
-        self.b_deep.clicked.connect(lambda: self.start_scan("deep"))
-        
-        # UPDATED: Connected to new keys
-        self.b_web_quick.clicked.connect(lambda: self.start_scan("web_quick"))
-        self.b_web_deep.clicked.connect(lambda: self.start_scan("web_deep"))
-        
-        self.b_full.clicked.connect(lambda: self.start_scan("full"))
-        self.cancel.clicked.connect(self.cancel_scan)
-        
+        # --- Connections for Sidebar ---
         self.b_open_reports.clicked.connect(self.open_reports_folder)
         self.b_last.clicked.connect(self.show_last_report_window)
         self.b_settings.clicked.connect(self.open_settings)
         self.b_logs.clicked.connect(self.open_logs)
         self.b_about.clicked.connect(self.show_about)
-        
         self.b_logout.clicked.connect(self.logoutSignal.emit)
 
     # ---------- Logic Functions ----------
 
+    def initiate_selected_scan(self):
+        """ Reads dropdown and calls start_scan with correct key """
+        mode_text = self.scan_mode.currentText()
+        
+        # Map User-Friendly Text to Config Keys
+        mapping = {
+            "Quick Network Scan": "quick",
+            "Deep Network Scan": "deep",
+            "Quick Web Scan": "web_quick",
+            "Deep Web Scan": "web_deep",
+            "Full Assessment": "full"
+        }
+        
+        key = mapping.get(mode_text)
+        if key:
+            self.start_scan(key)
+
     def start_scan(self, kind):
         t = self.target.text().strip()
         if not t:
-            StyledMessageBox.warning(self, "Missing Target", "Please enter a target IP.")
+            StyledMessageBox.warning(self, "Missing Target", "Please enter a target IP or URL.")
             return
         
-        # Ensure config is loaded and path exists
         path = self.cfg["scan_paths"].get(kind)
         if not path or not os.path.exists(path):
             self.console.append(f"Script not found: {path}")
@@ -483,8 +491,13 @@ class DashboardView(QWidget):
         os.makedirs(out_folder, exist_ok=True)
         
         cmd = f"{path} '{t}' '{out_folder}'"
-        self.console.append(f"Starting {kind} scan on {t} ...")
+        self.console.append(f"Starting {kind.upper()} scan on {t} ...")
+        
+        # UI State Update
+        self.start_btn.setDisabled(True)
         self.cancel.setDisabled(False)
+        self.scan_mode.setDisabled(True)
+        self.target.setDisabled(True)
         
         self.current_scan_kind = kind
         self.current_scan_target = t
@@ -502,6 +515,13 @@ class DashboardView(QWidget):
             self.cancel.setDisabled(True)
 
     def scan_done(self, code, out_folder):
+        # Reset UI State
+        self.start_btn.setDisabled(False)
+        self.scan_mode.setDisabled(False)
+        self.target.setDisabled(False)
+        self.cancel.setDisabled(True)
+        self.progress.setValue(0)
+
         if code == 0:
             database.log_scan(
                 self.user_id,
@@ -522,15 +542,12 @@ class DashboardView(QWidget):
         elif code == 0:
             self.console.append("Scan finished, but no 'summary.json' was found.")
 
-        if code != -15:
+        if code != -15: # -15 is SIGTERM (Cancel)
             msg = (f"Scan finished (exit code {code}).\n"
                    f"Total Findings: {findings_count}")
             self.console.append(msg)
             StyledMessageBox.info(self, "Scan Summary", msg)
         
-        self.progress.setValue(0)
-        self.cancel.setDisabled(True)
-
     def load_results_to_table(self, file_path):
         try:
             with open(file_path, 'r') as f:
@@ -684,6 +701,11 @@ class VulnixApp(QMainWindow):
         }
         QPushButton:hover { background-color: #42A5F5; }
         QPushButton:disabled { background-color: #4A5568; color: #94A3B8; }
+        QComboBox {
+            background-color: #1E293B; border: 1px solid #2E3A50; border-radius: 6px; color: #E0E7FF; padding: 6px;
+        }
+        QComboBox::drop-down { border: none; }
+        QComboBox::down-arrow { image: none; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 5px solid #E0E7FF; margin-right: 10px; }
         QTableWidget { gridline-color: #2E3A50; }
         QTableWidget::item:selected { background-color: #1E88E5; color: #E0E7FF; }
         QHeaderView::section { background-color: #243447; color: #E0E7FF; padding: 4px; border: none; }

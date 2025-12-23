@@ -1,0 +1,30 @@
+Vulnix Quick Scan Report - Target: 10.0.2.2
+Date: Tue Dec 23 12:30:19 PM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Microsoft Windows RPC
+Evidence:
+Found 31 exploits for "Microsoft Windows RPC":
+- Microsoft DNS RPC Service - 'extractQuotedChar()' Remote Overflow 'SMB' (MS07-029) (Metasploit) [CVE-2007-1748]
+- Microsoft DNS RPC Service - 'extractQuotedChar()' TCP Overflow (MS07-029) (Metasploit) [CVE-2007-1748]
+- Microsoft RPC DCOM Interface - Remote Overflow (MS03-026) (Metasploit) [CVE-2003-0352]
+- Microsoft Windows - 'Lsasrv.dll' RPC Remote Buffer Overflow (MS04-011) [CVE-2003-0533]
+- Microsoft Windows - 'RPC DCOM' Long Filename Overflow (MS03-026) [CVE-2003-0352]
+- Microsoft Windows - 'RPC DCOM' Remote (1) [CVE-2003-0605]
+- Microsoft Windows - 'RPC DCOM' Remote (2) [CVE-2003-0605]
+- Microsoft Windows - 'RPC DCOM' Remote (Universal) [CVE-2003-0605]
+- Microsoft Windows - 'RPC DCOM' Remote Buffer Overflow [CVE-2003-0605]
+- Microsoft Windows - 'RPC DCOM' Scanner (MS03-039) [CVE-2003-0605]
+- Microsoft Windows - 'RPC DCOM2' Remote (MS03-039) [CVE-2003-0605]
+- Microsoft Windows - 'RPC2' Universal / Denial of Service (RPC3) (MS03-039) [CVE-2003-0605]
+- Microsoft Windows - DCE-RPC svcctl ChangeServiceConfig2A() Memory Corruption [EDB-ID]
+- Microsoft Windows - DCOM RPC Interface Buffer Overrun [CVE-2003-0352]
+- Microsoft Windows - DNS RPC Remote Buffer Overflow (2) [CVE-2007-1748]
+- Microsoft Windows - Net-NTLMv2 Reflection DCOM/RPC (Metasploit) [CVE-2016-3225]
+- Microsoft Windows - Net-NTLMv2 Reflection DCOM/RPC (Metasploit) [CVE-2016-3225]
+- Microsoft Windows 10 1903/1809 - RPCSS Activation Kernel Security Callback Privilege Escalation [CVE-2019-1089]
+- Microsoft Windows 2000/NT 4 - RPC Locator Service Remote Overflow [CVE-2003-0003]
+- Microsoft Windows 8.1 - DCOM DCE/RPC Local NTLM Reflection Privilege Escalation (MS15-076) [CVE-2015-2370]
+...and 11 more.
+Remediation: Update Microsoft Windows RPC to the latest version.
+
