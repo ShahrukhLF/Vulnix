@@ -1,0 +1,4 @@
+# Nmap 7.95 scan initiated Mon Dec 29 11:52:16 2025 as: /usr/lib/nmap/nmap -sS --top-ports 2000 --open -n --min-rate 1500 -oG /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_115216/nmap_discovery.txt 192.168.78.102
+Host: 192.168.78.102 ()	Status: Up
+Host: 192.168.78.102 ()	Ports: 22/open/tcp//ssh///, 80/open/tcp//http///, 111/open/tcp//rpcbind///, 139/open/tcp//netbios-ssn///, 443/open/tcp//https///, 1024/open/tcp//kdm///	Ignored State: closed (1994)
+# Nmap done at Mon Dec 29 11:52:17 2025 -- 1 IP address (1 host up) scanned in 1.18 seconds

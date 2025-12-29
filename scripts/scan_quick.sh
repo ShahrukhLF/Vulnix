@@ -64,7 +64,7 @@ echo "-----------------------------------------------------------------" >> "$US
 
 # --- Phase 1: Fast Nmap Scan ---
 echo "[*] Phase 1/3: Service Detection..."
-sudo nmap -sV --version-light --open -p "$TARGET_PORTS" -oX "$NMAP_XML" -oN "$NMAP_TXT" "$TARGET_IP"
+sudo nmap -Pn -sV --version-light --open -p "$TARGET_PORTS" -oX "$NMAP_XML" -oN "$NMAP_TXT" "$TARGET_IP"
 
 echo "[+] Nmap complete."
 

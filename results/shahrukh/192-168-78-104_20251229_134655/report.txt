@@ -1,0 +1,90 @@
+Vulnix Deep Assessment Report - Target: 192.168.78.104
+Date: Mon Dec 29 01:46:56 PM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] Anonymous Access Allowed (Port 21)
+Evidence:
+Anonymous FTP login allowed (FTP code 230)
+Can't get directory listing: PASV failed: 550 Permission denied.
+Remediation: Disable anonymous login in service configuration.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: dnsmasq 2.75
+Evidence:
+Found 6 exploits for dnsmasq 2.75:
+- Dnsmasq < 2.78 - 2-byte Heap Overflow [CVE-2017-14491]
+- Dnsmasq < 2.78 - Heap Overflow [CVE-2017-14492]
+- Dnsmasq < 2.78 - Information Leak [CVE-2017-14494]
+- Dnsmasq < 2.78 - Integer Underflow [CVE-2017-14496]
+- Dnsmasq < 2.78 - Lack of free() Denial of Service [CVE-2017-14495]
+- Dnsmasq < 2.78 - Stack Overflow [CVE-2017-14493]
+Remediation: Update dnsmasq immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Samba 4.3.9-Ubuntu
+Evidence:
+Found 1 exploits for Samba 4.3.9-Ubuntu:
+- Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known_pipename()' Arbitrary Module Load (Metasploit) [CVE-2017-7494]
+Remediation: Update Samba smbd immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: .ZIP file
+Evidence:
+Found 1058 exploits for .ZIP file:
+- 2532/Gigs 1.2.1 - 'activateuser.php' Local File Inclusion [CVE-2007-4585]
+- 4Images 1.7.8 - Remote File Inclusion [EDB-ID]
+- Aardvark Topsites PHP 4.2.2 - 'lostpw.php' Remote File Inclusion [CVE-2006-2149]
+- Aardvark Topsites PHP 4.2.2 - 'path' Remote File Inclusion [CVE-2006-7026]
+- ACal 2.2.6 - 'day.php' Remote File Inclusion [CVE-2006-2261]
+- acute control panel 1.0.0 - SQL Injection / Remote File Inclusion [CVE-2009-1248, CVE-2009-1247]
+- Ad Board Script 1.01 - Local File Inclusion [CVE-2010-1057]
+- AdaptBB 1.0 - 'forumspath' Remote File Inclusion [CVE-2009-1946]
+- AdaptCMS 2.0.0 Beta - 'init.php' Remote File Inclusion [CVE-2010-2618]
+- AdaptCMS 2.0.1 Beta - Remote File Inclusion (Metasploit) [CVE-2010-2618]
+...and 1048 more.
+Remediation: Update .ZIP file immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: MySQL 5.7.12-0ubuntu1
+Evidence:
+Found 2 exploits for MySQL 5.7.12-0ubuntu1:
+- MySQL < 5.6.35 / < 5.7.17 - Integer Overflow [CVE-2017-3599]
+- MySQL < 5.6.35 / < 5.7.17 - Integer Overflow [CVE-2017-3599]
+Remediation: Update MySQL immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Apache 2.4.18
+Evidence:
+Found 16 exploits for Apache 2.4.18:
+- Apache + PHP < 5.3.12 / < 5.4.2 - cgi-bin Remote Code Execution [CVE-2012-2336, CVE-2012-2311, CVE-2012-1823]
+- Apache + PHP < 5.3.12 / < 5.4.2 - Remote Code Execution + Scanner [CVE-2012-2336, CVE-2012-2311, CVE-2012-1823]
+- Apache 2.4.17 < 2.4.38 - 'apache2ctl graceful' 'logrotate' Local Privilege Escalation [CVE-2019-0211]
+- Apache < 2.2.34 / < 2.4.27 - OPTIONS Memory Leak [CVE-2017-9798]
+- Apache CXF < 2.5.10/2.6.7/2.7.4 - Denial of Service [CVE-2013-2160]
+- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuck.c' Remote Buffer Overflow [CVE-2002-0082]
+- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (1) [CVE-2002-0082]
+- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (2) [CVE-2002-0082]
+- Apache OpenMeetings 1.9.x < 3.1.0 - '.ZIP' File Directory Traversal [CVE-2016-0784]
+- Apache Tomcat < 5.5.17 - Remote Directory Listing [EDB-ID]
+...and 6 more.
+Remediation: Update Apache httpd immediately.
+
+-----------------------------------------------------------------
+[HIGH    ] Nmap Script: http-slowloris-check [CVE-2007-6750] (Port 12380)
+Evidence:
+
+  VULNERABLE:
+  Slowloris DOS attack
+    State: LIKELY VULNERABLE
+    IDs:  CVE:CVE-2007-6750
+      Slowloris tries to keep many connections to the target web server open and hold
+      them open as long as possible.  It accomplishes this by opening connections to
+      the target web server and sending a partial request. By doing so, it starves
+      the http server's resources causing Denial Of Service.
+      
+    Disclosure date: 2009-09-17
+    References:
+      http://ha.ckers.org/slowloris/
+      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750
+Remediation: Consult vendor documentation.
+

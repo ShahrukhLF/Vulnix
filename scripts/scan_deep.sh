@@ -61,7 +61,7 @@ echo "-----------------------------------------------------------------" >> "$US
 
 # --- Phase 1: Discovery ---
 echo "[*] Phase 1/3: Port Discovery..."
-sudo nmap -sS --top-ports 2000 --open -n --min-rate 1500 "$TARGET_IP" -oG "$NMAP_DISCOVERY"
+sudo nmap -Pn -sS --top-ports 2000 --open -n --min-rate 1500 "$TARGET_IP" -oG "$NMAP_DISCOVERY"
 OPEN_PORTS=$(grep "Ports:" "$NMAP_DISCOVERY" | grep -oE '[0-9]+/open' | cut -d'/' -f1 | tr '\n' ',' | sed 's/,$//')
 
 if [ -z "$OPEN_PORTS" ]; then

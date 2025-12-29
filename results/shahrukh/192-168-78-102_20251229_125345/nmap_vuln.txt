@@ -1,0 +1,343 @@
+# Nmap 7.95 scan initiated Mon Dec 29 12:53:46 2025 as: /usr/lib/nmap/nmap -sV --version-intensity 5 "--script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast" --script-timeout 60s --max-retries 1 --min-rate 1500 -p 21,22,23,25,53,80,111,139,445,512,513,514,1099,1524,2049,2121,3306,3632,5432,5900,6000,6667,8009,8180 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_125345/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_125345/nmap_vuln.xml 192.168.78.102
+Pre-scan script results:
+|_multicast-profinet-discovery: 0
+Nmap scan report for 192.168.78.102
+Host is up (0.00078s latency).
+
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 192.168.78.101
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|_End of status
+| ftp-vsftpd-backdoor: 
+|   VULNERABLE:
+|   vsFTPd version 2.3.4 backdoor
+|     State: VULNERABLE (Exploitable)
+|     IDs:  BID:48539  CVE:CVE-2011-2523
+|       vsFTPd version 2.3.4 backdoor, this was reported on 2011-07-04.
+|     Disclosure date: 2011-07-03
+|     Exploit results:
+|       Shell command: id
+|       Results: uid=0(root) gid=0(root)
+|     References:
+|       https://www.securityfocus.com/bid/48539
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2523
+|       https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/ftp/vsftpd_234_backdoor.rb
+|_      http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+|_banner: 220 (vsFTPd 2.3.4)
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+|_banner: SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1
+| ssh2-enum-algos: 
+|   kex_algorithms: (4)
+|   server_host_key_algorithms: (2)
+|   encryption_algorithms: (13)
+|   mac_algorithms: (7)
+|_  compression_algorithms: (2)
+| ssh-auth-methods: 
+|   Supported authentication methods: 
+|     publickey
+|_    password
+| ssh-hostkey: 
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+23/tcp   open  telnet      Linux telnetd
+| telnet-encryption: 
+|_  Telnet server does not support encryption
+25/tcp   open  smtp        Postfix smtpd
+|_smtp-commands: metasploitable.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN
+|_banner: 220 metasploitable.localdomain ESMTP Postfix (Ubuntu)
+| smtp-vuln-cve2010-4344: 
+|_  The SMTP server is not Exim: NOT VULNERABLE
+53/tcp   open  domain      ISC BIND 9.4.2
+| dns-nsid: 
+|_  bind.version: 9.4.2
+|_dns-nsec3-enum: Can't determine domain for host 192.168.78.102; use dns-nsec3-enum.domains script arg.
+|_dns-nsec-enum: Can't determine domain for host 192.168.78.102; use dns-nsec-enum.domains script arg.
+80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+|_http-feed: Couldn't find any feeds.
+|_http-chrono: ERROR: Script execution failed (use -d to debug)
+|_http-apache-negotiation: mod_negotiation enabled.
+| http-php-version: Versions from logo query (less accurate): 5.1.3 - 5.1.6, 5.2.0 - 5.2.17
+| Versions from credits query (more accurate): 5.2.3 - 5.2.5, 5.2.6RC3
+|_Version from header x-powered-by: PHP/5.2.4-2ubuntu5.10
+|_http-trace: TRACE is enabled
+|_http-date: Mon, 29 Dec 2025 17:55:20 GMT; 0s from local time.
+|_http-comments-displayer: Couldn't find any comments.
+| http-headers: 
+|   Date: Mon, 29 Dec 2025 17:55:26 GMT
+|   Server: Apache/2.2.8 (Ubuntu) DAV/2
+|   X-Powered-By: PHP/5.2.4-2ubuntu5.10
+|   Connection: close
+|   Content-Type: text/html
+|   
+|_  (Request type: HEAD)
+|_http-vuln-cve2017-1001000: ERROR: Script execution failed (use -d to debug)
+111/tcp  open  rpcbind
+| nfs-showmount: 
+|_  / *
+| nfs-ls: Volume /
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID  GID  SIZE   TIME                 FILENAME
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:33  bin
+| drwxr-xr-x  0    0    4096   2010-04-16T06:16:02  home
+| drwxr-xr-x  0    0    4096   2010-03-16T22:57:40  initrd
+| lrwxrwxrwx  0    0    32     2010-04-28T20:26:18  initrd.img
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:22  lib
+| drwx------  0    0    16384  2010-03-16T22:55:15  lost+found
+| drwxr-xr-x  0    0    4096   2010-03-16T22:55:52  media
+| drwxr-xr-x  0    0    4096   2010-04-28T20:16:56  mnt
+| drwxr-xr-x  0    0    4096   2012-05-14T01:54:53  sbin
+| drwxr-xr-x  0    0    4096   2010-04-28T04:06:37  usr
+|_
+| nfs-statfs: 
+|   Filesystem  1K-blocks  Used       Available  Use%  Maxfilesize  Maxlink
+|_  /           7282168.0  1504956.0  5410212.0  22%   2.0T         32000
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+512/tcp  open  exec        netkit-rsh rexecd
+|_banner: \x01Where are you?
+513/tcp  open  login?
+514/tcp  open  shell       Netkit rshd
+1099/tcp open  java-rmi    GNU Classpath grmiregistry
+| rmi-vuln-classloader: 
+|   VULNERABLE:
+|   RMI registry default configuration remote code execution vulnerability
+|     State: VULNERABLE
+|       Default configuration of RMI registry allows loading classes from remote URLs which can lead to remote code execution.
+|       
+|     References:
+|_      https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/multi/misc/java_rmi_server.rb
+1524/tcp open  bindshell   Metasploitable root shell
+|_banner: root@metasploitable:/#
+2049/tcp open  rpcbind
+| nfs-statfs: 
+|   Filesystem  1K-blocks  Used       Available  Use%  Maxfilesize  Maxlink
+|_  /           7282168.0  1504956.0  5410212.0  22%   2.0T         32000
+2121/tcp open  ftp         ProFTPD 1.3.1
+|_banner: 220 ProFTPD 1.3.1 Server (Debian) [::ffff:192.168.78.102]
+3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
+| mysql-info: 
+|   Protocol: 10
+|   Version: 5.0.51a-3ubuntu5
+|   Thread ID: 9
+|   Capabilities flags: 43564
+|   Some Capabilities: LongColumnFlag, Support41Auth, SupportsTransactions, ConnectWithDatabase, SwitchToSSLAfterHandshake, Speaks41ProtocolNew, SupportsCompression
+|   Status: Autocommit
+|_  Salt: &EgYgyLM|NLqx&RJ]tPp
+3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+| distcc-cve2004-2687: 
+|   VULNERABLE:
+|   distcc Daemon Command Execution
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2004-2687
+|     Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+|       Allows executing of arbitrary commands on systems running distccd 3.1 and
+|       earlier. The vulnerability is the consequence of weak service configuration.
+|       
+|     Disclosure date: 2002-02-01
+|     Extra information:
+|       
+|     uid=1(daemon) gid=1(daemon) groups=1(daemon)
+|   
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2687
+|       https://nvd.nist.gov/vuln/detail/CVE-2004-2687
+|_      https://distcc.github.io/security.html
+5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
+| ssl-poodle: 
+|   VULNERABLE:
+|   SSL POODLE information leak
+|     State: VULNERABLE
+|     IDs:  BID:70574  CVE:CVE-2014-3566
+|           The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other
+|           products, uses nondeterministic CBC padding, which makes it easier
+|           for man-in-the-middle attackers to obtain cleartext data via a
+|           padding-oracle attack, aka the "POODLE" issue.
+|     Disclosure date: 2014-10-14
+|     Check results:
+|       TLS_RSA_WITH_AES_128_CBC_SHA
+|     References:
+|       https://www.imperialviolet.org/2014/10/14/poodle.html
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566
+|       https://www.openssl.org/~bodo/ssl-poodle.pdf
+|_      https://www.securityfocus.com/bid/70574
+| ssl-cert: Subject: commonName=ubuntu804-base.localdomain/organizationName=OCOSA/stateOrProvinceName=There is no such thing outside US/countryName=XX
+| Not valid before: 2010-03-17T14:07:45
+|_Not valid after:  2010-04-16T14:07:45
+5900/tcp open  vnc         VNC (protocol 3.3)
+6000/tcp open  X11         (access denied)
+6667/tcp open  irc         UnrealIRCd
+|_banner: ERROR :Closing Link: [192.168.78.101] (Throttled: Reconnecti...
+|_irc-unrealircd-backdoor: Looks like trojaned version of unrealircd. See http://seclists.org/fulldisclosure/2010/Jun/277
+8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
+| ajp-headers: 
+|_  Content-Type: text/html;charset=ISO-8859-1
+| ajp-request: 
+| AJP/1.3 200 OK
+| Content-Type: text/html;charset=ISO-8859-1
+| 
+| iguring and using Tomcat</li>
+|                <li><b><a href="mailto:dev@tomcat.apache.org">dev@tomcat.apache.org</a></b> for developers working on Tomcat</li>
+|            </ul>
+| 
+|             <p>Thanks for using Tomcat!</p>
+| 
+|             <p id="footer"><img src="tomcat-power.gif" width="77" height="80" alt="Powered by Tomcat"/><br/>
+| 	    &nbsp;
+| 
+| 	    Copyright &copy; 1999-2005 Apache Software Foundation<br/>
+|             All Rights Reserved
+|             </p>
+|         </td>
+| 
+|     </tr>
+| </table>
+| 
+| </body>
+|_</html>
+|_ajp-methods: Failed to get a valid response for the OPTION request
+8180/tcp open  http        Apache Tomcat/Coyote JSP engine 1.1
+|_http-favicon: Apache Tomcat
+| http-enum: 
+|   /admin/: Possible admin folder
+|   /admin/index.html: Possible admin folder
+|   /admin/login.html: Possible admin folder
+|   /admin/admin.html: Possible admin folder
+|   /admin/account.html: Possible admin folder
+|   /admin/admin_login.html: Possible admin folder
+|   /admin/home.html: Possible admin folder
+|   /admin/admin-login.html: Possible admin folder
+|   /admin/adminLogin.html: Possible admin folder
+|   /admin/controlpanel.html: Possible admin folder
+|   /admin/cp.html: Possible admin folder
+|   /admin/index.jsp: Possible admin folder
+|   /admin/login.jsp: Possible admin folder
+|   /admin/admin.jsp: Possible admin folder
+|   /admin/home.jsp: Possible admin folder
+|   /admin/controlpanel.jsp: Possible admin folder
+|   /admin/admin-login.jsp: Possible admin folder
+|   /admin/cp.jsp: Possible admin folder
+|   /admin/account.jsp: Possible admin folder
+|   /admin/admin_login.jsp: Possible admin folder
+|   /admin/adminLogin.jsp: Possible admin folder
+|   /manager/html/upload: Apache Tomcat (401 Unauthorized)
+|   /manager/html: Apache Tomcat (401 Unauthorized)
+|   /admin/view/javascript/fckeditor/editor/filemanager/connectors/test.html: OpenCart/FCKeditor File upload
+|   /admin/includes/FCKeditor/editor/filemanager/upload/test.html: ASP Simple Blog / FCKeditor File Upload
+|_  /admin/jscript/upload.html: Lizard Cart/Remote File upload
+|_http-comments-displayer: Couldn't find any comments.
+|_http-csrf: Couldn't find any CSRF vulnerabilities.
+| http-default-accounts: 
+|   [Apache Tomcat] at /manager/html/
+|     tomcat:tomcat
+|   [Apache Tomcat Host Manager] at /host-manager/html/
+|_    tomcat:tomcat
+| http-headers: 
+|   Server: Apache-Coyote/1.1
+|   Content-Type: text/html;charset=ISO-8859-1
+|   Date: Mon, 29 Dec 2025 17:55:19 GMT
+|   Connection: close
+|   
+|_  (Request type: HEAD)
+|_http-referer-checker: Couldn't find any cross-domain scripts.
+|_http-chrono: ERROR: Script execution failed (use -d to debug)
+|_http-date: Mon, 29 Dec 2025 17:54:28 GMT; -1s from local time.
+|_http-feed: Couldn't find any feeds.
+| http-sitemap-generator: 
+|   Directory structure:
+|   Longest directory structure:
+|     Depth: 0
+|     Dir: /
+|   Total files found (by extension):
+|_    
+MAC Address: 08:00:27:08:B9:EA (PCS Systemtechnik/Oracle VirtualBox virtual NIC)
+Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_dns-brute: Can't guess domain of "192.168.78.102"; use dns-brute.domain script argument.
+|_clock-skew: mean: 1h40m16s, deviation: 2h53m41s, median: 0s
+| smb-os-discovery: 
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: metasploitable
+|   NetBIOS computer name: 
+|   Domain name: localdomain
+|   FQDN: metasploitable.localdomain
+|_  System time: 2025-12-29T12:55:18-05:00
+|_smb2-time: Protocol negotiation failed (SMB2)
+|_ipidseq: All zeros
+|_nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+|_fcrdns: FAIL (No PTR record)
+| smb-enum-shares: 
+|   account_used: <blank>
+|   \\192.168.78.102\ADMIN$: 
+|     Type: STYPE_IPC
+|     Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: <none>
+|   \\192.168.78.102\IPC$: 
+|     Type: STYPE_IPC
+|     Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|   \\192.168.78.102\opt: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: <none>
+|   \\192.168.78.102\print$: 
+|     Type: STYPE_DISKTREE
+|     Comment: Printer Drivers
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\var\lib\samba\printers
+|     Anonymous access: <none>
+|   \\192.168.78.102\tmp: 
+|     Type: STYPE_DISKTREE
+|     Comment: oh noes!
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|_    Anonymous access: READ/WRITE
+|_smb-vuln-ms10-061: false
+| smb-ls: Volume \\192.168.78.102\tmp
+| SIZE   TIME                 FILENAME
+| <DIR>  2025-12-29T17:55:31  .
+| <DIR>  2012-05-20T19:36:12  ..
+| 0      2025-12-29T17:43:37  4552.jsvc_up
+|_
+|_path-mtu: PMTU == 1500
+|_smb2-capabilities: SMB 2+ not supported
+|_msrpc-enum: NT_STATUS_OBJECT_NAME_NOT_FOUND
+| smb-enum-users: 
+|_  Domain: METASPLOITABLE; Users: backup, bin, bind, daemon, dhcp, distccd, ftp, games, gnats, irc, klog, libuuid, list, lp, mail, man, msfadmin, mysql, news, nobody, postfix, postgres, proftpd, proxy, root, service, sshd, sync, sys, syslog, telnetd, tomcat55, user, uucp, www-data
+| smb-protocols: 
+|   dialects: 
+|_    NT LM 0.12 (SMBv1) [dangerous, but default]
+|_smb-enum-sessions: ERROR: Script execution failed (use -d to debug)
+|_smb-system-info: ERROR: Script execution failed (use -d to debug)
+|_smb-mbenum: ERROR: Script execution failed (use -d to debug)
+
+Post-scan script results:
+| creds-summary: 
+|   192.168.78.102: 
+|     8180/http: 
+|       tomcat:tomcat - Valid credentials
+|_      tomcat:tomcat - Valid credentials
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Mon Dec 29 13:04:27 2025 -- 1 IP address (1 host up) scanned in 640.66 seconds

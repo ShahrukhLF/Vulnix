@@ -65,26 +65,32 @@ def save_config(cfg):
 
 def is_target_reachable(target):
     """
-    Checks if target is reachable via Ping before running heavy scans.
+    Checks reachability. 
+    UPDATED: If Ping fails, we still allow the scan to proceed 
+    because modern targets (like Stapler) often block Ping.
     """
     clean_target = target.replace("http://", "").replace("https://", "").split("/")[0].split(":")[0]
     
     if not clean_target:
         return False, "Target is empty."
 
+    # OPTIONAL: You can keep the ping just for logging, but don't block on it.
     try:
-        # Ping with 2 second timeout
         ret_code = subprocess.call(
-            ['ping', '-c', '1', '-W', '2', clean_target],
+            ['ping', '-c', '1', '-W', '1', clean_target],
             stdout=subprocess.DEVNULL,
             stderr=subprocess.DEVNULL
         )
         if ret_code == 0:
             return True, "Target is reachable."
         else:
-            return False, f"Target '{clean_target}' is unreachable (Ping failed)."
+            # THIS IS THE FIX: Return True even if ping fails.
+            # We let the Nmap script (with -Pn) handle the actual connection.
+            return True, f"Ping failed, but forcing scan (assuming firewall blocks Ping)."
+            
     except Exception as e:
-        return False, f"Validation Error: {str(e)}"
+        # Even if the ping command crashes, let's try to run the scan anyway.
+        return True, f"Validation skipped: {str(e)}"
 
 # ---------- Scan Worker ----------
 

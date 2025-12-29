@@ -1,0 +1,56 @@
+[
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: vsftpd 2.3.4",
+    "evidence": "Found 2 exploits for \"vsftpd 2.3.4\":\n- vsftpd 2.3.4 - Backdoor Command Execution (Metasploit) [CVE-2011-2523]\n- vsftpd 2.3.4 - Backdoor Command Execution [CVE-2011-2523]",
+    "remediation": "Update vsftpd to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: Linux telnetd",
+    "evidence": "Found 2 exploits for \"Linux telnetd\":\n- netkit-telnet-0.17 telnetd (Fedora 31) - 'BraveStarr' Remote Code Execution [EDB-ID]\n- TelnetD encrypt_keyid - Function Pointer Overwrite [CVE-2011-4862]",
+    "remediation": "Update Linux telnetd to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: Apache 2.2.8",
+    "evidence": "Found 20 exploits for \"Apache 2.2.8\":\n- Apache + PHP < 5.3.12 / < 5.4.2 - cgi-bin Remote Code Execution [CVE-2012-2336, CVE-2012-2311, CVE-2012-1823]\n- Apache + PHP < 5.3.12 / < 5.4.2 - Remote Code Execution + Scanner [CVE-2012-2336, CVE-2012-2311, CVE-2012-1823]\n- Apache < 2.0.64 / < 2.2.21 mod_setenvif - Integer Overflow [CVE-2011-4415, CVE-2011-3607]\n- Apache < 2.2.34 / < 2.4.27 - OPTIONS Memory Leak [CVE-2017-9798]\n- Apache CXF < 2.5.10/2.6.7/2.7.4 - Denial of Service [CVE-2013-2160]\n- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuck.c' Remote Buffer Overflow [CVE-2002-0082]\n- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (1) [CVE-2002-0082]\n- Apache mod_ssl < 2.8.7 OpenSSL - 'OpenFuckV2.c' Remote Buffer Overflow (2) [CVE-2002-0082]\n- Apache OpenMeetings 1.9.x < 3.1.0 - '.ZIP' File Directory Traversal [CVE-2016-0784]\n- Apache Struts 2 < 2.3.1 - Multiple Vulnerabilities [CVE-2012-0394, CVE-2012-0393, CVE-2012-0392, CVE-2012-0391]\n- Apache Struts 2.0.1 < 2.3.33 / 2.5 < 2.5.10 - Arbitrary Code Execution [CVE-2017-12611]\n- Apache Struts < 1.3.10 / < 2.3.16.2 - ClassLoader Manipulation Remote Code Execution (Metasploit) [CVE-2014-0114, CVE-2014-0112, CVE-2014-0094]\n- Apache Struts2 2.0.0 < 2.3.15 - Prefixed Parameters OGNL Injection [CVE-2013-2251]\n- Apache Tomcat < 5.5.17 - Remote Directory Listing [EDB-ID]\n- Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal (PoC) [CVE-2008-2938]\n- Apache Tomcat < 6.0.18 - 'utf8' Directory Traversal [CVE-2008-2938]\n- Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - JSP Upload Bypass / Remote Code Execution (1) [CVE-2017-12615]\n- Apache Tomcat < 9.0.1 (Beta) / < 8.5.23 / < 8.0.47 / < 7.0.8 - JSP Upload Bypass / Remote Code Execution (2) [CVE-2017-12617]\n- Apache Xerces-C XML Parser < 3.1.2 - Denial of Service (PoC) [CVE-2015-0252]\n- Webfroot Shoutbox < 2.32 (Apache) - Local File Inclusion / Remote Code Execution [EDB-ID]",
+    "remediation": "Update Apache httpd to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: Samba 3.X",
+    "evidence": "Found 2 exploits for \"Samba 3.X\":\n- Samba < 3.0.20 - Remote Heap Overflow [EDB-ID]\n- Samba < 3.6.2 (x86) - Denial of Service (PoC) [CVE-2015-0240]",
+    "remediation": "Update Samba smbd to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: Samba 3.X",
+    "evidence": "Found 2 exploits for \"Samba 3.X\":\n- Samba < 3.0.20 - Remote Heap Overflow [EDB-ID]\n- Samba < 3.6.2 (x86) - Denial of Service (PoC) [CVE-2015-0240]",
+    "remediation": "Update Samba smbd to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: VNC",
+    "evidence": "Found 37 exploits for \"VNC\":\n- AMX Corp. VNC ActiveX Control - 'AmxVnc.dll 1.0.13.0' Remote Buffer Overflow [CVE-2007-3536]\n- Chicken of the VNC 2.0 - 'NULL-pointer' Remote Denial of Service [CVE-2007-0756]\n- EchoVNC Viewer - Remote Denial of Service [EDB-ID]\n- QEMU 0.9 / KVM 36/79 - VNC Server Remote Denial of Service [CVE-2008-2382]\n- RealVNC - Authentication Bypass (Metasploit) [CVE-2006-2369]\n- RealVNC 3.3.7 - Client Buffer Overflow (Metasploit) [CVE-2001-0167]\n- RealVNC 4.1.0 < 4.1.1 - VNC Null Authentication Bypass (Metasploit) [CVE-2006-2369]\n- RealVNC 4.1.0 < 4.1.1 - VNC Null Authentication Bypass [CVE-2006-2369]\n- RealVNC 4.1.0 < 4.1.1 - VNC Null Authentication Scanner [EDB-ID]\n- RealVNC 4.1.0/4.1.1 - Authentication Bypass [CVE-2006-2369]\n- RealVNC 4.1.2 - 'vncviewer.exe' RFB Protocol Remote Code Execution (PoC) [EDB-ID]\n- RealVNC 4.1.3 - 'ClientCutText' Message Remote Denial of Service [EDB-ID]\n- RealVNC Server 4.0 - Remote Denial of Service [EDB-ID]\n- RealVNC Windows Client 4.1.2 - Remote Denial of Service Crash (PoC) [CVE-2008-3493]\n- SmartCode ServerX VNC Server ActiveX 1.1.5.0 - 'scvncsrvx.dll' Denial of Service [EDB-ID]\n- SmartCode VNC Manager 3.6 - 'scvncctrl.dll' Denial of Service [CVE-2007-2526]\n- Sun SunPCi II VNC Software 2.3 - Password Disclosure [CVE-2002-0994]\n- ThinVNC 1.0b1 - Authentication Bypass [CVE-2019-17662]\n- TightVNC - Authentication Failure Integer Overflow (PoC) [CVE-2009-0388]\n- TightVNC 2.8.83 - Control Pipe Manipulation [CVE-2024-42049]\n...and 17 more.",
+    "remediation": "Update VNC to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: UnrealIRCd",
+    "evidence": "Found 4 exploits for \"UnrealIRCd\":\n- UnrealIRCd 3.2.8.1 - Backdoor Command Execution (Metasploit) [CVE-2010-2075]\n- UnrealIRCd 3.2.8.1 - Local Configuration Stack Overflow [EDB-ID]\n- UnrealIRCd 3.2.8.1 - Remote Downloader/Execute [CVE-2010-2075]\n- UnrealIRCd 3.x - Remote Denial of Service [CVE-2006-1214]",
+    "remediation": "Update UnrealIRCd to the latest version."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "VSFTPD Backdoor",
+    "evidence": "vsftpd 2.3.4 detected on Port 21.",
+    "remediation": "This is a known backdoor. Update immediately."
+  },
+  {
+    "severity": "CRITICAL",
+    "finding": "Root Shell Backdoor",
+    "evidence": "Port 1524 (Ingreslock) is open.",
+    "remediation": "This is a direct root backdoor."
+  }
+]

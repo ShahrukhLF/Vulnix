@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Mon Dec 29 11:52:17 2025 as: /usr/lib/nmap/nmap -sV -&#45;version-intensity 5 &quot;-&#45;script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast&quot; -&#45;script-timeout 60s -&#45;max-retries 1 -&#45;min-rate 1500 -p 22,80,111,139,443,1024 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_115216/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_115216/nmap_vuln.xml 192.168.78.102 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-intensity 5 &quot;-&#45;script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast&quot; -&#45;script-timeout 60s -&#45;max-retries 1 -&#45;min-rate 1500 -p 22,80,111,139,443,1024 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_115216/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-102_20251229_115216/nmap_vuln.xml 192.168.78.102" start="1767027137" startstr="Mon Dec 29 11:52:17 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="6" services="22,80,111,139,443,1024"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<prescript><script id="multicast-profinet-discovery" output="0">0</script></prescript><hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:1F:A7:2E" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1767027154" endtime="1767027478"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:1F:A7:2E" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="2.9p2" extrainfo="protocol 1.99" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:2.9p2</cpe></service><script id="banner" output="SSH-1.99-OpenSSH_2.9p2"/><script id="ssh-auth-methods" output="&#xa;  Supported authentication methods: &#xa;    publickey&#xa;    password&#xa;    keyboard-interactive"><table key="Supported authentication methods">
+<elem>publickey</elem>
+<elem>password</elem>
+<elem>keyboard-interactive</elem>
+</table>
+</script><script id="ssh-publickey-acceptance" output="&#xa;  Accepted Public Keys: No public keys accepted"><elem key="Accepted Public Keys">No public keys accepted</elem>
+</script><script id="ssh2-enum-algos" output="&#xa;  kex_algorithms: (2)&#xa;  server_host_key_algorithms: (2)&#xa;  encryption_algorithms: (11)&#xa;  mac_algorithms: (6)&#xa;  compression_algorithms: (2)"><table key="kex_algorithms">
+<elem>diffie-hellman-group-exchange-sha1</elem>
+<elem>diffie-hellman-group1-sha1</elem>
+</table>
+<table key="server_host_key_algorithms">
+<elem>ssh-rsa</elem>
+<elem>ssh-dss</elem>
+</table>
+<table key="encryption_algorithms">
+<elem>aes128-cbc</elem>
+<elem>3des-cbc</elem>
+<elem>blowfish-cbc</elem>
+<elem>cast128-cbc</elem>
+<elem>arcfour</elem>
+<elem>aes192-cbc</elem>
+<elem>aes256-cbc</elem>
+<elem>rijndael128-cbc</elem>
+<elem>rijndael192-cbc</elem>
+<elem>rijndael256-cbc</elem>
+<elem>rijndael-cbc@lysator.liu.se</elem>
+</table>
+<table key="mac_algorithms">
+<elem>hmac-md5</elem>
+<elem>hmac-sha1</elem>
+<elem>hmac-ripemd160</elem>
+<elem>hmac-ripemd160@openssh.com</elem>
+<elem>hmac-sha1-96</elem>
+<elem>hmac-md5-96</elem>
+</table>
+<table key="compression_algorithms">
+<elem>none</elem>
+<elem>zlib</elem>
+</table>
+</script><script id="ssh-hostkey" output="&#xa;  1024 b8:74:6c:db:fd:8b:e6:66:e9:2a:2b:df:5e:6f:64:86 (RSA1)&#xa;  1024 8f:8e:5b:81:ed:21:ab:c1:80:e1:57:a3:3c:85:c4:71 (DSA)&#xa;  1024 ed:4e:a9:4a:06:14:ff:15:14:ce:da:3a:80:db:e2:81 (RSA)"><table>
+<elem key="fingerprint">b8746cdbfd8be666e92a2bdf5e6f6486</elem>
+<elem key="type">rsa1</elem>
+<elem key="bits">1024</elem>
+<elem key="key">35 109482092953601530927446985143812377560925655194254170270380314520841776849335628258408994190413716152105684423280369467219093526740118507720167655934779634416983599247086840099503203800281526143567271862466057363705861760702664279290804439502645034586412570490614431533437479630834594344497670338190191879537</elem>
+</table>
+<table>
+<elem key="fingerprint">8f8e5b81ed21abc180e157a33c85c471</elem>
+<elem key="type">ssh-dss</elem>
+<elem key="bits">1024</elem>
+<elem key="key">AAAAB3NzaC1kc3MAAACBAKtycvxuV/e7s2cN74HyTZXHXiBrwyiZe/PKT/inuT5NDSQTPsGiyJZU4gefPAsYKSw5wLe28TDlZWHAdXpNdwyn4QrFQBjwFR+8WbFiAZBoWlSfQPR2RQW8i32Y2P2V79p4mu742HtWBz0hTjkd9qL5j8KCUPDfY9hzDuViWy7PAAAAFQCY9bvq+5rs1OpY5/DGsGx0k6CqGwAAAIBVpBtIHbhvoQdN0WPe8d6OzTTFvdNRa8pWKzV1Hpw+e3qsC4LYHAy1NoeaqK8uJP9203MEkxrd2OoBJKn/8EXlKAco7vC1dr/QWae+NEkI1a38x0Ml545vHAGFaVUWkffHekjhR476Uq4N4qeLfFp5B+v+9flLxYVYsY/ymJKpNgAAAIEApyjrqjgX0AE4fSBFntGFWM3j5M3lc5jw/0qufXlHJu8sZG0FRf9wTI6HlJHHsIKHA7FZ33vGLq3TRmvZucJZ0l55fV2ASS9uvQRE+c8P6w72YCzgJN7v4hYXxnY4RiWvINjW/F6ApQEUJc742i6Fn54FEYAIy5goatGFMwpVq3Q=</elem>
+</table>
+<table>
+<elem key="fingerprint">ed4ea94a0614ff1514ceda3a80dbe281</elem>
+<elem key="type">ssh-rsa</elem>
+<elem key="bits">1024</elem>
+<elem key="key">AAAAB3NzaC1yc2EAAAABIwAAAIEAvv8UUWsrO7+VCG/rTWY72jElft4WXfXGWybh141E8XnWxMCu+R1qdocxhh+4Clz8wO9beuZzG1rjlAD+XHiR3j2P+sw6UODeyBkuP24a+7V8P5nu9ksKD1fA83RyelgSgRJNQgPfFU3gngNno1yN6ossqkcMQTI1CY5nF6iYePs=</elem>
+</table>
+</script><script id="sshv1" output="Server supports SSHv1">true</script></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="1.3.20" extrainfo="(Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:1.3.20</cpe></service><script id="http-chrono" output="Request times for /; avg: 24392.44ms; min: 164.79ms; max: 120927.52ms"/><script id="http-sitemap-generator" output="&#xa;  Directory structure:&#xa;    /&#xa;      Other: 1; png: 1&#xa;    /icons/&#xa;      gif: 1&#xa;  Longest directory structure:&#xa;    Depth: 1&#xa;    Dir: /icons/&#xa;  Total files found (by extension):&#xa;    Other: 1; gif: 1; png: 1&#xa;"/><script id="http-methods" output="&#xa;  Potentially risky methods: TRACE"><table key="Potentially risky methods">
+<elem>TRACE</elem>
+</table>
+</script><script id="http-title" output="Test Page for the Apache Web Server on Red Hat Linux"><elem key="title">Test Page for the Apache Web Server on Red Hat Linux</elem>
+</script><script id="http-security-headers" output=""></script><script id="http-date" output="Tue, 30 Dec 2025 02:52:46 GMT; +9h59m57s from local time."><elem key="date">2025-12-30T02:52:46+00:00</elem>
+<elem key="delta">35997.0</elem>
+</script><script id="http-userdir-enum" output="Potential Users: root"/><script id="http-vhosts" output="&#xa;128 names had status 200"/><script id="http-enum" output="&#xa;  /test.php: Test page&#xa;  /icons/: Potentially interesting directory w/ listing on &apos;apache/1.3.20&apos;&#xa;  /manual/: Potentially interesting directory w/ listing on &apos;apache/1.3.20&apos;&#xa;  /usage/: Potentially interesting folder&#xa;"/><script id="http-trace" output="TRACE is enabled"/><script id="http-headers" output="&#xa;  Date: Tue, 30 Dec 2025 02:53:03 GMT&#xa;  Server: Apache/1.3.20 (Unix)  (Red-Hat/Linux) mod_ssl/2.8.4 OpenSSL/0.9.6b&#xa;  Last-Modified: Thu, 06 Sep 2001 03:12:46 GMT&#xa;  ETag: &quot;8805-b4a-3b96e9ae&quot;&#xa;  Accept-Ranges: bytes&#xa;  Content-Length: 2890&#xa;  Connection: close&#xa;  Content-Type: text/html&#xa;  &#xa;  (Request type: HEAD)&#xa;"/></port>
+<port protocol="tcp" portid="111"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rpcbind" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" product="Samba smbd" extrainfo="workgroup: MYGROUP" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service><script id="smb-enum-services" output="ERROR: Script execution failed (use -d to debug)"/></port>
+<port protocol="tcp" portid="443"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="https" tunnel="ssl" method="table" conf="3"/><script id="http-aspnet-debug" output="ERROR: Script execution failed (use -d to debug)"/><script id="ssl-cert" output="Subject: commonName=localhost.localdomain/organizationName=SomeOrganization/stateOrProvinceName=SomeState/countryName=-&#45;&#xa;Not valid before: 2009-09-26T09:32:06&#xa;Not valid after:  2010-09-26T09:32:06"><table key="subject">
+<elem key="commonName">localhost.localdomain</elem>
+<elem key="countryName">-&#45;</elem>
+<elem key="emailAddress">root@localhost.localdomain</elem>
+<elem key="localityName">SomeCity</elem>
+<elem key="organizationName">SomeOrganization</elem>
+<elem key="organizationalUnitName">SomeOrganizationalUnit</elem>
+<elem key="stateOrProvinceName">SomeState</elem>
+</table>
+<table key="issuer">
+<elem key="commonName">localhost.localdomain</elem>
+<elem key="countryName">-&#45;</elem>
+<elem key="emailAddress">root@localhost.localdomain</elem>
+<elem key="localityName">SomeCity</elem>
+<elem key="organizationName">SomeOrganization</elem>
+<elem key="organizationalUnitName">SomeOrganizationalUnit</elem>
+<elem key="stateOrProvinceName">SomeState</elem>
+</table>
+<table key="pubkey">
+<elem key="type">rsa</elem>
+<elem key="bits">1024</elem>
+<elem key="modulus">CE015E22B96D6952A1BE01E9AF402E62836D2C6AA0C70CDE9BC61EC705B09B3E7C71E7F828D4D435F8E0B3C334EC303A5E94A9BF86B5926FEA3B957AD0F07136DBA1C0B604CFBAC7A83257F1FA698B82B2C0B0ACEB95296A7B97DC55A5A763213526861FAE07CD6ACAAA29B7FFD9E131F0C3B49ECCB2505E2D7E1AB9A9DE2143</elem>
+<elem key="exponent">65537</elem>
+</table>
+<table key="extensions">
+<table>
+<elem key="name">X509v3 Subject Key Identifier</elem>
+<elem key="value">EC:E7:51:4B:43:6B:6C:D0:7C:80:4F:6A:52:37:30:F0:B1:7C:C4:A0</elem>
+</table>
+<table>
+<elem key="name">X509v3 Authority Key Identifier</elem>
+<elem key="value">keyid:EC:E7:51:4B:43:6B:6C:D0:7C:80:4F:6A:52:37:30:F0:B1:7C:C4:A0&#xa;DirName:/C=-&#45;/ST=SomeState/L=SomeCity/O=SomeOrganization/OU=SomeOrganizationalUnit/CN=localhost.localdomain/emailAddress=root@localhost.localdomain&#xa;serial:00</elem>
+</table>
+<table>
+<elem key="name">X509v3 Basic Constraints</elem>
+<elem key="value">CA:TRUE</elem>
+</table>
+</table>
+<elem key="sig_algo">md5WithRSAEncryption</elem>
+<table key="validity">
+<elem key="notBefore">2009-09-26T09:32:06</elem>
+<elem key="notAfter">2010-09-26T09:32:06</elem>
+</table>
+<elem key="md5">78ce52934723e7fec28d74ab42d702f1</elem>
+<elem key="sha1">9c4291c3bed2a95b983d10acf766ecb987661d33</elem>
+<elem key="pem">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIEDDCCA3WgAwIBAgIBADANBgkqhkiG9w0BAQQFADCBuzELMAkGA1UEBhMCLS0x&#xa;EjAQBgNVBAgTCVNvbWVTdGF0ZTERMA8GA1UEBxMIU29tZUNpdHkxGTAXBgNVBAoT&#xa;EFNvbWVPcmdhbml6YXRpb24xHzAdBgNVBAsTFlNvbWVPcmdhbml6YXRpb25hbFVu&#xa;aXQxHjAcBgNVBAMTFWxvY2FsaG9zdC5sb2NhbGRvbWFpbjEpMCcGCSqGSIb3DQEJ&#xa;ARYacm9vdEBsb2NhbGhvc3QubG9jYWxkb21haW4wHhcNMDkwOTI2MDkzMjA2WhcN&#xa;MTAwOTI2MDkzMjA2WjCBuzELMAkGA1UEBhMCLS0xEjAQBgNVBAgTCVNvbWVTdGF0&#xa;ZTERMA8GA1UEBxMIU29tZUNpdHkxGTAXBgNVBAoTEFNvbWVPcmdhbml6YXRpb24x&#xa;HzAdBgNVBAsTFlNvbWVPcmdhbml6YXRpb25hbFVuaXQxHjAcBgNVBAMTFWxvY2Fs&#xa;aG9zdC5sb2NhbGRvbWFpbjEpMCcGCSqGSIb3DQEJARYacm9vdEBsb2NhbGhvc3Qu&#xa;bG9jYWxkb21haW4wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAM4BXiK5bWlS&#xa;ob4B6a9ALmKDbSxqoMcM3pvGHscFsJs+fHHn+CjU1DX44LPDNOwwOl6Uqb+GtZJv&#xa;6juVetDwcTbbocC2BM+6x6gyV/H6aYuCssCwrOuVKWp7l9xVpadjITUmhh+uB81q&#xa;yqopt//Z4THww7SezLJQXi1+Grmp3iFDAgMBAAGjggEcMIIBGDAdBgNVHQ4EFgQU&#xa;7OdRS0NrbNB8gE9qUjcw8LF8xKAwgegGA1UdIwSB4DCB3YAU7OdRS0NrbNB8gE9q&#xa;Ujcw8LF8xKChgcGkgb4wgbsxCzAJBgNVBAYTAi0tMRIwEAYDVQQIEwlTb21lU3Rh&#xa;dGUxETAPBgNVBAcTCFNvbWVDaXR5MRkwFwYDVQQKExBTb21lT3JnYW5pemF0aW9u&#xa;MR8wHQYDVQQLExZTb21lT3JnYW5pemF0aW9uYWxVbml0MR4wHAYDVQQDExVsb2Nh&#xa;bGhvc3QubG9jYWxkb21haW4xKTAnBgkqhkiG9w0BCQEWGnJvb3RAbG9jYWxob3N0&#xa;LmxvY2FsZG9tYWluggEAMAwGA1UdEwQFMAMBAf8wDQYJKoZIhvcNAQEEBQADgYEA&#xa;Vgrmpprfkmd8vy0E0UmZvWdIcDrIYRvUWcwSFwc6bGqJeJr0CYSB+jDQzA6Cu7nt&#xa;xjrlXxEjHFBBbF4iEMJDnuQTFGvICQIcrqJoH3lqAO73u4TeBDjhv5n+h+S37CHd&#xa;1lvgRgoOay9dWaLKOyUThgKF2HcPWMZIj2froo5eihM=&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>
+</script><script id="ssl-poodle" output="&#xa;  VULNERABLE:&#xa;  SSL POODLE information leak&#xa;    State: VULNERABLE&#xa;    IDs:  BID:70574  CVE:CVE-2014-3566&#xa;          The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other&#xa;          products, uses nondeterministic CBC padding, which makes it easier&#xa;          for man-in-the-middle attackers to obtain cleartext data via a&#xa;          padding-oracle attack, aka the &quot;POODLE&quot; issue.&#xa;    Disclosure date: 2014-10-14&#xa;    Check results:&#xa;      TLS_RSA_WITH_3DES_EDE_CBC_SHA&#xa;    References:&#xa;      https://www.imperialviolet.org/2014/10/14/poodle.html&#xa;      https://www.openssl.org/~bodo/ssl-poodle.pdf&#xa;      https://www.securityfocus.com/bid/70574&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566&#xa;"><table key="CVE-2014-3566">
+<elem key="title">SSL POODLE information leak</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="ids">
+<elem>BID:70574</elem>
+<elem>CVE:CVE-2014-3566</elem>
+</table>
+<table key="description">
+<elem>    The SSL protocol 3.0, as used in OpenSSL through 1.0.1i and other&#xa;    products, uses nondeterministic CBC padding, which makes it easier&#xa;    for man-in-the-middle attackers to obtain cleartext data via a&#xa;    padding-oracle attack, aka the &quot;POODLE&quot; issue.</elem>
+</table>
+<table key="dates">
+<table key="disclosure">
+<elem key="day">14</elem>
+<elem key="month">10</elem>
+<elem key="year">2014</elem>
+</table>
+</table>
+<elem key="disclosure">2014-10-14</elem>
+<table key="check_results">
+<elem>TLS_RSA_WITH_3DES_EDE_CBC_SHA</elem>
+</table>
+<table key="refs">
+<elem>https://www.imperialviolet.org/2014/10/14/poodle.html</elem>
+<elem>https://www.openssl.org/~bodo/ssl-poodle.pdf</elem>
+<elem>https://www.securityfocus.com/bid/70574</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-3566</elem>
+</table>
+</table>
+</script><script id="sslv2" output="&#xa;  SSLv2 supported&#xa;  ciphers: &#xa;    SSL2_RC4_128_WITH_MD5&#xa;    SSL2_RC2_128_CBC_EXPORT40_WITH_MD5&#xa;    SSL2_RC2_128_CBC_WITH_MD5&#xa;    SSL2_RC4_64_WITH_MD5&#xa;    SSL2_RC4_128_EXPORT40_WITH_MD5&#xa;    SSL2_DES_192_EDE3_CBC_WITH_MD5&#xa;    SSL2_DES_64_CBC_WITH_MD5"><elem>SSLv2 supported</elem>
+<table key="ciphers">
+<elem>SSL2_RC4_128_WITH_MD5</elem>
+<elem>SSL2_RC2_128_CBC_EXPORT40_WITH_MD5</elem>
+<elem>SSL2_RC2_128_CBC_WITH_MD5</elem>
+<elem>SSL2_RC4_64_WITH_MD5</elem>
+<elem>SSL2_RC4_128_EXPORT40_WITH_MD5</elem>
+<elem>SSL2_DES_192_EDE3_CBC_WITH_MD5</elem>
+<elem>SSL2_DES_64_CBC_WITH_MD5</elem>
+</table>
+</script><script id="http-sitemap-generator" output="&#xa;  Directory structure:&#xa;  Longest directory structure:&#xa;    Depth: 0&#xa;    Dir: /&#xa;  Total files found (by extension):&#xa;    &#xa;"/><script id="http-chrono" output="ERROR: Script execution failed (use -d to debug)"/><script id="http-date" output="Tue, 30 Dec 2025 02:53:06 GMT; +9h57m57s from local time."><elem key="date">2025-12-30T02:53:06+00:00</elem>
+<elem key="delta">35877.0</elem>
+</script><script id="ssl-enum-ciphers" output="&#xa;  SSLv3: &#xa;    ciphers: &#xa;      TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA (dh 512) - F&#xa;      TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA (dh 1024) - F&#xa;      TLS_DHE_RSA_WITH_DES_CBC_SHA (dh 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA (rsa 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5 (rsa 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_RC4_56_MD5 (rsa 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_RC4_56_SHA (rsa 1024) - F&#xa;      TLS_RSA_EXPORT_WITH_DES40_CBC_SHA (rsa 64) - F&#xa;      TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5 (rsa 64) - F&#xa;      TLS_RSA_EXPORT_WITH_RC4_40_MD5 (rsa 64) - F&#xa;      TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 1024) - F&#xa;      TLS_RSA_WITH_DES_CBC_SHA (rsa 1024) - F&#xa;      TLS_RSA_WITH_RC4_128_MD5 (rsa 1024) - F&#xa;      TLS_RSA_WITH_RC4_128_SHA (rsa 1024) - F&#xa;    compressors: &#xa;      NULL&#xa;    cipher preference: client&#xa;    warnings: &#xa;      64-bit block cipher 3DES vulnerable to SWEET32 attack&#xa;      64-bit block cipher DES vulnerable to SWEET32 attack&#xa;      64-bit block cipher DES40 vulnerable to SWEET32 attack&#xa;      64-bit block cipher RC2 vulnerable to SWEET32 attack&#xa;      Broken cipher RC4 is deprecated by RFC 7465&#xa;      CBC-mode cipher in SSLv3 (CVE-2014-3566)&#xa;      Ciphersuite uses MD5 for message integrity&#xa;      Export key exchange&#xa;      Insecure certificate signature (MD5), score capped at F&#xa;  TLSv1.0: &#xa;    ciphers: &#xa;      TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA (dh 512) - F&#xa;      TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA (dh 1024) - F&#xa;      TLS_DHE_RSA_WITH_DES_CBC_SHA (dh 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA (rsa 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5 (rsa 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_RC4_56_MD5 (rsa 1024) - F&#xa;      TLS_RSA_EXPORT1024_WITH_RC4_56_SHA (rsa 1024) - F&#xa;      TLS_RSA_EXPORT_WITH_DES40_CBC_SHA (rsa 64) - F&#xa;      TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5 (rsa 64) - F&#xa;      TLS_RSA_EXPORT_WITH_RC4_40_MD5 (rsa 64) - F&#xa;      TLS_RSA_WITH_3DES_EDE_CBC_SHA (rsa 1024) - F&#xa;      TLS_RSA_WITH_DES_CBC_SHA (rsa 1024) - F&#xa;      TLS_RSA_WITH_RC4_128_MD5 (rsa 1024) - F&#xa;      TLS_RSA_WITH_RC4_128_SHA (rsa 1024) - F&#xa;    compressors: &#xa;      NULL&#xa;    cipher preference: client&#xa;    warnings: &#xa;      64-bit block cipher 3DES vulnerable to SWEET32 attack&#xa;      64-bit block cipher DES vulnerable to SWEET32 attack&#xa;      64-bit block cipher DES40 vulnerable to SWEET32 attack&#xa;      64-bit block cipher RC2 vulnerable to SWEET32 attack&#xa;      Broken cipher RC4 is deprecated by RFC 7465&#xa;      Ciphersuite uses MD5 for message integrity&#xa;      Export key exchange&#xa;      Insecure certificate signature (MD5), score capped at F&#xa;  least strength: F"><table key="SSLv3">
+<table key="ciphers">
+<table>
+<elem key="name">TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA</elem>
+<elem key="kex_info">dh 512</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA</elem>
+<elem key="kex_info">dh 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_DHE_RSA_WITH_DES_CBC_SHA</elem>
+<elem key="kex_info">dh 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_RC4_56_MD5</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_RC4_56_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT_WITH_DES40_CBC_SHA</elem>
+<elem key="kex_info">rsa 64</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5</elem>
+<elem key="kex_info">rsa 64</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT_WITH_RC4_40_MD5</elem>
+<elem key="kex_info">rsa 64</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_3DES_EDE_CBC_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_DES_CBC_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_RC4_128_MD5</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_RC4_128_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+</table>
+<table key="compressors">
+<elem>NULL</elem>
+</table>
+<elem key="cipher preference">client</elem>
+<table key="warnings">
+<elem>64-bit block cipher 3DES vulnerable to SWEET32 attack</elem>
+<elem>64-bit block cipher DES vulnerable to SWEET32 attack</elem>
+<elem>64-bit block cipher DES40 vulnerable to SWEET32 attack</elem>
+<elem>64-bit block cipher RC2 vulnerable to SWEET32 attack</elem>
+<elem>Broken cipher RC4 is deprecated by RFC 7465</elem>
+<elem>CBC-mode cipher in SSLv3 (CVE-2014-3566)</elem>
+<elem>Ciphersuite uses MD5 for message integrity</elem>
+<elem>Export key exchange</elem>
+<elem>Insecure certificate signature (MD5), score capped at F</elem>
+</table>
+</table>
+<table key="TLSv1.0">
+<table key="ciphers">
+<table>
+<elem key="name">TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA</elem>
+<elem key="kex_info">dh 512</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA</elem>
+<elem key="kex_info">dh 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_DHE_RSA_WITH_DES_CBC_SHA</elem>
+<elem key="kex_info">dh 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_DES_CBC_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_RC2_CBC_56_MD5</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_RC4_56_MD5</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT1024_WITH_RC4_56_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT_WITH_DES40_CBC_SHA</elem>
+<elem key="kex_info">rsa 64</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT_WITH_RC2_CBC_40_MD5</elem>
+<elem key="kex_info">rsa 64</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_EXPORT_WITH_RC4_40_MD5</elem>
+<elem key="kex_info">rsa 64</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_3DES_EDE_CBC_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_DES_CBC_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_RC4_128_MD5</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+<table>
+<elem key="name">TLS_RSA_WITH_RC4_128_SHA</elem>
+<elem key="kex_info">rsa 1024</elem>
+<elem key="strength">F</elem>
+</table>
+</table>
+<table key="compressors">
+<elem>NULL</elem>
+</table>
+<elem key="cipher preference">client</elem>
+<table key="warnings">
+<elem>64-bit block cipher 3DES vulnerable to SWEET32 attack</elem>
+<elem>64-bit block cipher DES vulnerable to SWEET32 attack</elem>
+<elem>64-bit block cipher DES40 vulnerable to SWEET32 attack</elem>
+<elem>64-bit block cipher RC2 vulnerable to SWEET32 attack</elem>
+<elem>Broken cipher RC4 is deprecated by RFC 7465</elem>
+<elem>Ciphersuite uses MD5 for message integrity</elem>
+<elem>Export key exchange</elem>
+<elem>Insecure certificate signature (MD5), score capped at F</elem>
+</table>
+</table>
+<elem key="least strength">F</elem>
+</script><script id="http-vhosts" output="&#xa;128 names had status 400"/><script id="http-dombased-xss" output="Couldn&apos;t find any DOM based XSS."/><script id="http-security-headers" output="&#xa;  Strict_Transport_Security: &#xa;    HSTS not configured in HTTPS Server"><table key="Strict_Transport_Security">
+<elem>HSTS not configured in HTTPS Server</elem>
+</table>
+</script><script id="http-title" output="400 Bad Request"><elem key="title">400 Bad Request</elem>
+</script><script id="sslv2-drown" output="ERROR: Script execution failed (use -d to debug)"/><script id="ssl-ccs-injection" output="&#xa;  VULNERABLE:&#xa;  SSL/TLS MITM vulnerability (CCS Injection)&#xa;    State: VULNERABLE&#xa;    Risk factor: High&#xa;      OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h&#xa;      does not properly restrict processing of ChangeCipherSpec messages,&#xa;      which allows man-in-the-middle attackers to trigger use of a zero&#xa;      length master key in certain OpenSSL-to-OpenSSL communications, and&#xa;      consequently hijack sessions or obtain sensitive information, via&#xa;      a crafted TLS handshake, aka the &quot;CCS Injection&quot; vulnerability.&#xa;          &#xa;    References:&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224&#xa;      http://www.cvedetails.com/cve/2014-0224&#xa;      http://www.openssl.org/news/secadv_20140605.txt&#xa;"><table key="NMAP-12">
+<elem key="title">SSL/TLS MITM vulnerability (CCS Injection)</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="description">
+<elem>OpenSSL before 0.9.8za, 1.0.0 before 1.0.0m, and 1.0.1 before 1.0.1h&#xa;does not properly restrict processing of ChangeCipherSpec messages,&#xa;which allows man-in-the-middle attackers to trigger use of a zero&#xa;length master key in certain OpenSSL-to-OpenSSL communications, and&#xa;consequently hijack sessions or obtain sensitive information, via&#xa;a crafted TLS handshake, aka the &quot;CCS Injection&quot; vulnerability.&#xa;    </elem>
+</table>
+<table key="refs">
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2014-0224</elem>
+<elem>http://www.cvedetails.com/cve/2014-0224</elem>
+<elem>http://www.openssl.org/news/secadv_20140605.txt</elem>
+</table>
+</table>
+</script><script id="ssl-dh-params" output="&#xa;  VULNERABLE:&#xa;  Transport Layer Security (TLS) Protocol DHE_EXPORT Ciphers Downgrade MitM (Logjam)&#xa;    State: VULNERABLE&#xa;    IDs:  BID:74733  CVE:CVE-2015-4000&#xa;      The Transport Layer Security (TLS) protocol contains a flaw that is&#xa;      triggered when handling Diffie-Hellman key exchanges defined with&#xa;      the DHE_EXPORT cipher. This may allow a man-in-the-middle attacker&#xa;      to downgrade the security of a TLS session to 512-bit export-grade&#xa;      cryptography, which is significantly weaker, allowing the attacker&#xa;      to more easily break the encryption and monitor or tamper with&#xa;      the encrypted stream.&#xa;    Disclosure date: 2015-5-19&#xa;    Check results:&#xa;      EXPORT-GRADE DH GROUP 1&#xa;            Cipher Suite: TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA&#xa;            Modulus Type: Safe prime&#xa;            Modulus Source: mod_ssl 2.0.x/512-bit MODP group with safe prime modulus&#xa;            Modulus Length: 512&#xa;            Generator Length: 8&#xa;            Public Key Length: 512&#xa;    References:&#xa;      https://www.securityfocus.com/bid/74733&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-4000&#xa;      https://weakdh.org&#xa;  &#xa;  Diffie-Hellman Key Exchange Insufficient Group Strength&#xa;    State: VULNERABLE&#xa;      Transport Layer Security (TLS) services that use Diffie-Hellman groups&#xa;      of insufficient strength, especially those using one of a few commonly&#xa;      shared groups, may be susceptible to passive eavesdropping attacks.&#xa;    Check results:&#xa;      WEAK DH GROUP 1&#xa;            Cipher Suite: TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA&#xa;            Modulus Type: Safe prime&#xa;            Modulus Source: mod_ssl 2.0.x/1024-bit MODP group with safe prime modulus&#xa;            Modulus Length: 1024&#xa;            Generator Length: 8&#xa;            Public Key Length: 1024&#xa;    References:&#xa;      https://weakdh.org&#xa;"><table key="CVE-2015-4000">
+<elem key="title">Transport Layer Security (TLS) Protocol DHE_EXPORT Ciphers Downgrade MitM (Logjam)</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="ids">
+<elem>BID:74733</elem>
+<elem>CVE:CVE-2015-4000</elem>
+</table>
+<table key="description">
+<elem>The Transport Layer Security (TLS) protocol contains a flaw that is&#xa;triggered when handling Diffie-Hellman key exchanges defined with&#xa;the DHE_EXPORT cipher. This may allow a man-in-the-middle attacker&#xa;to downgrade the security of a TLS session to 512-bit export-grade&#xa;cryptography, which is significantly weaker, allowing the attacker&#xa;to more easily break the encryption and monitor or tamper with&#xa;the encrypted stream.</elem>
+</table>
+<table key="dates">
+<table key="disclosure">
+<elem key="day">19</elem>
+<elem key="month">5</elem>
+<elem key="year">2015</elem>
+</table>
+</table>
+<elem key="disclosure">2015-5-19</elem>
+<table key="check_results">
+<elem>EXPORT-GRADE DH GROUP 1&#xa;      Cipher Suite: TLS_DHE_RSA_EXPORT_WITH_DES40_CBC_SHA&#xa;      Modulus Type: Safe prime&#xa;      Modulus Source: mod_ssl 2.0.x/512-bit MODP group with safe prime modulus&#xa;      Modulus Length: 512&#xa;      Generator Length: 8&#xa;      Public Key Length: 512</elem>
+</table>
+<table key="refs">
+<elem>https://www.securityfocus.com/bid/74733</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2015-4000</elem>
+<elem>https://weakdh.org</elem>
+</table>
+</table>
+<table key="NMAP-14">
+<elem key="title">Diffie-Hellman Key Exchange Insufficient Group Strength</elem>
+<elem key="state">VULNERABLE</elem>
+<table key="description">
+<elem>Transport Layer Security (TLS) services that use Diffie-Hellman groups&#xa;of insufficient strength, especially those using one of a few commonly&#xa;shared groups, may be susceptible to passive eavesdropping attacks.</elem>
+</table>
+<table key="check_results">
+<elem>WEAK DH GROUP 1&#xa;      Cipher Suite: TLS_DHE_RSA_WITH_3DES_EDE_CBC_SHA&#xa;      Modulus Type: Safe prime&#xa;      Modulus Source: mod_ssl 2.0.x/1024-bit MODP group with safe prime modulus&#xa;      Modulus Length: 1024&#xa;      Generator Length: 8&#xa;      Public Key Length: 1024</elem>
+</table>
+<table key="refs">
+<elem>https://weakdh.org</elem>
+</table>
+</table>
+</script><script id="ssl-date" output="2025-12-30T02:55:40+00:00; +10h00m00s from scanner time."><elem key="date">2025-12-30T02:55:40+00:00</elem>
+<elem key="delta">36000.0</elem>
+</script></port>
+<port protocol="tcp" portid="1024"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="rpcbind" method="probed" conf="10"/></port>
+</ports>
+<hostscript><script id="dns-brute" output="Can&apos;t guess domain of &quot;192.168.78.102&quot;; use dns-brute.domain script argument."/><script id="smb2-time" output="Protocol negotiation failed (SMB2)"/><script id="smb-vuln-ms10-061" output="Could not negotiate a connection:SMB: ERROR: Server returned less data than it was supposed to (one or more fields are missing); aborting [14]">false</script><script id="samba-vuln-cve-2012-1182" output="Could not negotiate a connection:SMB: ERROR: Server returned less data than it was supposed to (one or more fields are missing); aborting [14]">false</script><script id="path-mtu" output="PMTU == 1500"/><script id="smb-mbenum" output="&#xa;  ERROR: Failed to connect to browser service: Could not negotiate a connection:SMB: ERROR: Server returned less data than it was supposed to (one or more fields are missing); aborting [14]"/><script id="nbstat" output="NetBIOS name: KIOPTRIX, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)"/><script id="clock-skew" output="mean: 9h59m17s, deviation: 1m10s, median: 9h59m56s"><elem key="median">35996</elem>
+<elem key="stddev">70</elem>
+<elem key="mean">35957</elem>
+<elem key="count">3</elem>
+</script><script id="ipidseq" output="All zeros"/><script id="fcrdns" output="FAIL (No PTR record)"><table key="&lt;none&gt;">
+<elem key="status">fail</elem>
+<elem key="reason">No PTR record</elem>
+</table>
+</script><script id="msrpc-enum" output="Could not negotiate a connection:SMB: ERROR: Server returned less data than it was supposed to (one or more fields are missing); aborting [14]">false</script><script id="smb2-capabilities" output="SMB 2+ not supported">false</script></hostscript><times srtt="3036" rttvar="2268" to="100000"/>
+</host>
+<runstats><finished time="1767027478" timestr="Mon Dec 29 11:57:58 2025" summary="Nmap done at Mon Dec 29 11:57:58 2025; 1 IP address (1 host up) scanned in 340.34 seconds" elapsed="340.34" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

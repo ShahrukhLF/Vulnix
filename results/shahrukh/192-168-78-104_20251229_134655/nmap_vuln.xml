@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Mon Dec 29 13:46:59 2025 as: /usr/lib/nmap/nmap -sV -&#45;version-intensity 5 &quot;-&#45;script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast&quot; -&#45;script-timeout 60s -&#45;max-retries 1 -&#45;min-rate 1500 -p 21,22,53,80,139,666,3306,12380 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-104_20251229_134655/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-104_20251229_134655/nmap_vuln.xml 192.168.78.104 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-intensity 5 &quot;-&#45;script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast&quot; -&#45;script-timeout 60s -&#45;max-retries 1 -&#45;min-rate 1500 -p 21,22,53,80,139,666,3306,12380 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-104_20251229_134655/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-104_20251229_134655/nmap_vuln.xml 192.168.78.104" start="1767034019" startstr="Mon Dec 29 13:46:59 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="8" services="21-22,53,80,139,666,3306,12380"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<prescript><script id="multicast-profinet-discovery" output="0">0</script></prescript><hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.104" addrtype="ipv4"/>
+<address addr="08:00:27:6E:E2:A6" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1767034034" endtime="1767034506"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.104" addrtype="ipv4"/>
+<address addr="08:00:27:6E:E2:A6" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" product="vsftpd" version="2.0.8 or later" method="probed" conf="10"><cpe>cpe:/a:vsftpd:vsftpd</cpe></service><script id="banner" output="220-\x0D\x0A220-|-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;...&#xa;"/><script id="ftp-anon" output="Anonymous FTP login allowed (FTP code 230)&#xa;Can&apos;t get directory listing: PASV failed: 550 Permission denied."/><script id="ftp-syst" output="&#xa;  STAT: &#xa;FTP server status:&#xa;     Connected to 192.168.78.101&#xa;     Logged in as ftp&#xa;     TYPE: ASCII&#xa;     No session bandwidth limit&#xa;     Session timeout in seconds is 300&#xa;     Control connection is plain text&#xa;     Data connections will be plain text&#xa;     At session startup, client count was 1&#xa;     vsFTPd 3.0.3 - secure, fast, stable&#xa;End of status"><elem key="STAT">&#xa;FTP server status:&#xa;     Connected to 192.168.78.101&#xa;     Logged in as ftp&#xa;     TYPE: ASCII&#xa;     No session bandwidth limit&#xa;     Session timeout in seconds is 300&#xa;     Control connection is plain text&#xa;     Data connections will be plain text&#xa;     At session startup, client count was 1&#xa;     vsFTPd 3.0.3 - secure, fast, stable&#xa;End of status</elem>
+</script></port>
+<port protocol="tcp" portid="22"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ssh" product="OpenSSH" version="7.2p2 Ubuntu 4" extrainfo="Ubuntu Linux; protocol 2.0" ostype="Linux" method="probed" conf="10"><cpe>cpe:/a:openbsd:openssh:7.2p2</cpe><cpe>cpe:/o:linux:linux_kernel</cpe></service><script id="banner" output="SSH-2.0-OpenSSH_7.2p2 Ubuntu-4"/><script id="ssh-publickey-acceptance" output="&#xa;  Accepted Public Keys: No public keys accepted"><elem key="Accepted Public Keys">No public keys accepted</elem>
+</script><script id="ssh2-enum-algos" output="&#xa;  kex_algorithms: (6)&#xa;  server_host_key_algorithms: (5)&#xa;  encryption_algorithms: (6)&#xa;  mac_algorithms: (10)&#xa;  compression_algorithms: (2)"><table key="kex_algorithms">
+<elem>curve25519-sha256@libssh.org</elem>
+<elem>ecdh-sha2-nistp256</elem>
+<elem>ecdh-sha2-nistp384</elem>
+<elem>ecdh-sha2-nistp521</elem>
+<elem>diffie-hellman-group-exchange-sha256</elem>
+<elem>diffie-hellman-group14-sha1</elem>
+</table>
+<table key="server_host_key_algorithms">
+<elem>ssh-rsa</elem>
+<elem>rsa-sha2-512</elem>
+<elem>rsa-sha2-256</elem>
+<elem>ecdsa-sha2-nistp256</elem>
+<elem>ssh-ed25519</elem>
+</table>
+<table key="encryption_algorithms">
+<elem>chacha20-poly1305@openssh.com</elem>
+<elem>aes128-ctr</elem>
+<elem>aes192-ctr</elem>
+<elem>aes256-ctr</elem>
+<elem>aes128-gcm@openssh.com</elem>
+<elem>aes256-gcm@openssh.com</elem>
+</table>
+<table key="mac_algorithms">
+<elem>umac-64-etm@openssh.com</elem>
+<elem>umac-128-etm@openssh.com</elem>
+<elem>hmac-sha2-256-etm@openssh.com</elem>
+<elem>hmac-sha2-512-etm@openssh.com</elem>
+<elem>hmac-sha1-etm@openssh.com</elem>
+<elem>umac-64@openssh.com</elem>
+<elem>umac-128@openssh.com</elem>
+<elem>hmac-sha2-256</elem>
+<elem>hmac-sha2-512</elem>
+<elem>hmac-sha1</elem>
+</table>
+<table key="compression_algorithms">
+<elem>none</elem>
+<elem>zlib@openssh.com</elem>
+</table>
+</script><script id="ssh-auth-methods" output="&#xa;  Supported authentication methods: &#xa;    publickey&#xa;    password&#xa;  Banner: -&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#xa;~          Barry, don&apos;t forget to put a message here           ~&#xa;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#xa;"><table key="Supported authentication methods">
+<elem>publickey</elem>
+<elem>password</elem>
+</table>
+<elem key="Banner">-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#xa;~          Barry, don&apos;t forget to put a message here           ~&#xa;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#xa;</elem>
+</script><script id="ssh-hostkey" output="&#xa;  2048 81:21:ce:a1:1a:05:b1:69:4f:4d:ed:80:28:e8:99:05 (RSA)&#xa;  256 5b:a5:bb:67:91:1a:51:c2:d3:21:da:c0:ca:f0:db:9e (ECDSA)&#xa;  256 6d:01:b7:73:ac:b0:93:6f:fa:b9:89:e6:ae:3c:ab:d3 (ED25519)"><table>
+<elem key="type">ssh-rsa</elem>
+<elem key="fingerprint">8121cea11a05b1694f4ded8028e89905</elem>
+<elem key="key">AAAAB3NzaC1yc2EAAAADAQABAAABAQDc/xrBbi5hixT2B19dQilbbrCaRllRyNhtJcOzE8x0BM1ow9I80RcU7DtajyqiXXEwHRavQdO+/cHZMyOiMFZG59OCuIouLRNoVO58C91gzDgDZ1fKH6BDg+FaSz+iYZbHg2lzaMPbRje6oqNamPR4QGISNUpxZeAsQTLIiPcRlb5agwurovTd3p0SXe0GknFhZwHHvAZWa2J6lHE2b9K5IsSsDzX2WHQ4vPb+1DzDHV0RTRVUGviFvUX1X5tVFvVZy0TTFc0minD75CYClxLrgc+wFLPcAmE2C030ER/Z+9umbhuhCnLkLN87hlzDSRDPwUjWr+sNA3+7vc/xuZul</elem>
+<elem key="bits">2048</elem>
+</table>
+<table>
+<elem key="type">ecdsa-sha2-nistp256</elem>
+<elem key="fingerprint">5ba5bb67911a51c2d321dac0caf0db9e</elem>
+<elem key="key">AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBNQB5n5kAZPIyHb9lVx1aU0fyOXMPUblpmB8DRjnP8tVIafLIWh54wmTFVd3nCMr1n5IRWiFeX1weTBDSjjz0IY=</elem>
+<elem key="bits">256</elem>
+</table>
+<table>
+<elem key="type">ssh-ed25519</elem>
+<elem key="fingerprint">6d01b773acb0936ffab989e6ae3cabd3</elem>
+<elem key="key">AAAAC3NzaC1lZDI1NTE5AAAAIJ9wvrF4tkFMApswOmWKpTymFjkaiIoie4QD0RWOYnny</elem>
+<elem key="bits">256</elem>
+</table>
+</script></port>
+<port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="domain" product="dnsmasq" version="2.75" method="probed" conf="10"><cpe>cpe:/a:thekelleys:dnsmasq:2.75</cpe></service><script id="dns-nsid" output="&#xa;  bind.version: dnsmasq-2.75"><elem key="bind.version">dnsmasq-2.75</elem>
+</script><script id="dns-nsec3-enum" output="Can&apos;t determine domain for host 192.168.78.104; use dns-nsec3-enum.domains script arg."/><script id="dns-nsec-enum" output="Can&apos;t determine domain for host 192.168.78.104; use dns-nsec-enum.domains script arg."/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="PHP cli server" version="5.5 or later" method="probed" conf="10"><cpe>cpe:/a:php:php</cpe></service><script id="http-security-headers" output=""></script><script id="http-vhosts" output="&#xa;128 names had status 404"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" product="Samba smbd" version="4.3.9-Ubuntu" extrainfo="workgroup: WORKGROUP" hostname="RED" method="probed" conf="10"><cpe>cpe:/a:samba:samba</cpe></service></port>
+<port protocol="tcp" portid="666"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="pkzip-file" product=".ZIP file" method="probed" conf="10"/></port>
+<port protocol="tcp" portid="3306"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="mysql" product="MySQL" version="5.7.12-0ubuntu1" method="probed" conf="10"><cpe>cpe:/a:mysql:mysql:5.7.12-0ubuntu1</cpe></service><script id="banner" output="S\x00\x00\x00\x0A5.7.12-0ubuntu1\x00H\x00\x00\x00&lt;\x05A^a[AL...&#xa;"/><script id="mysql-info" output="&#xa;  Protocol: 10&#xa;  Version: 5.7.12-0ubuntu1&#xa;  Thread ID: 8&#xa;  Capabilities flags: 63487&#xa;  Some Capabilities: Support41Auth, SupportsLoadDataLocal, LongPassword, LongColumnFlag, Speaks41ProtocolOld, DontAllowDatabaseTableColumn, IgnoreSpaceBeforeParenthesis, SupportsTransactions, InteractiveClient, SupportsCompression, ODBCClient, IgnoreSigpipes, FoundRows, Speaks41ProtocolNew, ConnectWithDatabase, SupportsAuthPlugins, SupportsMultipleStatments, SupportsMultipleResults&#xa;  Status: Autocommit&#xa;  Salt: #Q&apos;JgIN\x07n\x05\x1En3?:\x13N\x1Bd&lt;&#xa;  Auth Plugin Name: mysql_native_password"><elem key="Protocol">10</elem>
+<elem key="Version">5.7.12-0ubuntu1</elem>
+<elem key="Thread ID">8</elem>
+<elem key="Capabilities flags">63487</elem>
+<table key="Some Capabilities">
+<elem>Support41Auth</elem>
+<elem>SupportsLoadDataLocal</elem>
+<elem>LongPassword</elem>
+<elem>LongColumnFlag</elem>
+<elem>Speaks41ProtocolOld</elem>
+<elem>DontAllowDatabaseTableColumn</elem>
+<elem>IgnoreSpaceBeforeParenthesis</elem>
+<elem>SupportsTransactions</elem>
+<elem>InteractiveClient</elem>
+<elem>SupportsCompression</elem>
+<elem>ODBCClient</elem>
+<elem>IgnoreSigpipes</elem>
+<elem>FoundRows</elem>
+<elem>Speaks41ProtocolNew</elem>
+<elem>ConnectWithDatabase</elem>
+<elem>SupportsAuthPlugins</elem>
+<elem>SupportsMultipleStatments</elem>
+<elem>SupportsMultipleResults</elem>
+</table>
+<elem key="Status">Autocommit</elem>
+<elem key="Salt">#Q&apos;JgIN\x07n\x05\x1En3?:\x13N\x1Bd&lt;</elem>
+<elem key="Auth Plugin Name">mysql_native_password</elem>
+</script></port>
+<port protocol="tcp" portid="12380"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.4.18" extrainfo="(Ubuntu)" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.4.18</cpe></service><script id="http-comments-displayer" output="Couldn&apos;t find any comments."/><script id="http-referer-checker" output="Couldn&apos;t find any cross-domain scripts."/><script id="http-slowloris-check" output="&#xa;  VULNERABLE:&#xa;  Slowloris DOS attack&#xa;    State: LIKELY VULNERABLE&#xa;    IDs:  CVE:CVE-2007-6750&#xa;      Slowloris tries to keep many connections to the target web server open and hold&#xa;      them open as long as possible.  It accomplishes this by opening connections to&#xa;      the target web server and sending a partial request. By doing so, it starves&#xa;      the http server&apos;s resources causing Denial Of Service.&#xa;      &#xa;    Disclosure date: 2009-09-17&#xa;    References:&#xa;      http://ha.ckers.org/slowloris/&#xa;      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750&#xa;"><table key="CVE-2007-6750">
+<elem key="title">Slowloris DOS attack</elem>
+<elem key="state">LIKELY VULNERABLE</elem>
+<table key="ids">
+<elem>CVE:CVE-2007-6750</elem>
+</table>
+<table key="description">
+<elem>Slowloris tries to keep many connections to the target web server open and hold&#xa;them open as long as possible.  It accomplishes this by opening connections to&#xa;the target web server and sending a partial request. By doing so, it starves&#xa;the http server&apos;s resources causing Denial Of Service.&#xa;</elem>
+</table>
+<table key="dates">
+<table key="disclosure">
+<elem key="day">17</elem>
+<elem key="year">2009</elem>
+<elem key="month">09</elem>
+</table>
+</table>
+<elem key="disclosure">2009-09-17</elem>
+<table key="exploit_results">
+</table>
+<table key="refs">
+<elem>http://ha.ckers.org/slowloris/</elem>
+<elem>https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2007-6750</elem>
+</table>
+</table>
+</script><script id="http-title" output="Site doesn&apos;t have a title (text/html)."></script><script id="http-csrf" output="Couldn&apos;t find any CSRF vulnerabilities."/><script id="http-dombased-xss" output="Couldn&apos;t find any DOM based XSS."/><script id="http-sitemap-generator" output="&#xa;  Directory structure:&#xa;  Longest directory structure:&#xa;    Depth: 0&#xa;    Dir: /&#xa;  Total files found (by extension):&#xa;    &#xa;"/><script id="http-errors" output="Couldn&apos;t find any error pages."/><script id="http-date" output="Mon, 29 Dec 2025 18:47:28 GMT; +1s from local time."><elem key="date">2025-12-29T18:47:28+00:00</elem>
+<elem key="delta">1.0</elem>
+</script><script id="http-security-headers" output=""></script></port>
+</ports>
+<hostscript><script id="dns-brute" output="Can&apos;t guess domain of &quot;192.168.78.104&quot;; use dns-brute.domain script argument."/><script id="smb-enum-users" output="&#xa;  Domain: RED; Users: nobody&#xa;"/><script id="smb-system-info" output="ERROR: Script execution failed (use -d to debug)"/><script id="ipidseq" output="All zeros"/><script id="fcrdns" output="FAIL (No PTR record)"><table key="&lt;none&gt;">
+<elem key="status">fail</elem>
+<elem key="reason">No PTR record</elem>
+</table>
+</script><script id="smb-mbenum" output="ERROR: Script execution failed (use -d to debug)"/><script id="smb-security-mode" output="&#xa;  account_used: guest&#xa;  authentication_level: user&#xa;  challenge_response: supported&#xa;  message_signing: disabled (dangerous, but default)"><elem key="account_used">guest</elem>
+<elem key="authentication_level">user</elem>
+<elem key="challenge_response">supported</elem>
+<elem key="message_signing">disabled</elem>
+</script><script id="smb2-security-mode" output="&#xa;  3:1:1: &#xa;    Message signing enabled but not required"><table key="3:1:1">
+<elem>Message signing enabled but not required</elem>
+</table>
+</script><script id="smb-enum-sessions" output="&#xa;  &lt;nobody&gt;&#xa;"/><script id="nbstat" output="NetBIOS name: RED, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)"/><script id="smb-enum-domains" output="&#xa;  Builtin&#xa;    Groups: n/a&#xa;    Users: n/a&#xa;    Creation time: unknown&#xa;    Passwords: min length: 5; min age: n/a days; max age: n/a days; history: n/a passwords&#xa;    Account lockout disabled&#xa;  RED&#xa;    Groups: n/a&#xa;    Users: n/a&#xa;    Creation time: unknown&#xa;    Passwords: min length: 5; min age: n/a days; max age: n/a days; history: n/a passwords&#xa;    Account lockout disabled&#xa;"/><script id="msrpc-enum" output="NT_STATUS_OBJECT_NAME_NOT_FOUND">false</script><script id="smb-protocols" output="&#xa;  dialects: &#xa;    NT LM 0.12 (SMBv1) [dangerous, but default]&#xa;    2:0:2&#xa;    2:1:0&#xa;    3:0:0&#xa;    3:1:1"><table key="dialects">
+<elem>NT LM 0.12 (SMBv1) [dangerous, but default]</elem>
+<elem>2:0:2</elem>
+<elem>2:1:0</elem>
+<elem>3:0:0</elem>
+<elem>3:1:1</elem>
+</table>
+</script><script id="smb-vuln-ms10-061" output="SMB: Failed to receive bytes: EOF">false</script><script id="smb2-capabilities" output="&#xa;  2:0:2: &#xa;    Distributed File System&#xa;  2:1:0: &#xa;    Distributed File System&#xa;  3:0:0: &#xa;    Distributed File System&#xa;  3:0:2: &#xa;    Distributed File System&#xa;  3:1:1: &#xa;    Distributed File System"><table key="2:0:2">
+<elem>Distributed File System</elem>
+</table>
+<table key="2:1:0">
+<elem>Distributed File System</elem>
+</table>
+<table key="3:0:0">
+<elem>Distributed File System</elem>
+</table>
+<table key="3:0:2">
+<elem>Distributed File System</elem>
+</table>
+<table key="3:1:1">
+<elem>Distributed File System</elem>
+</table>
+</script><script id="path-mtu" output="PMTU == 1500"/><script id="smb2-time" output="&#xa;  date: 2025-12-29T18:48:16&#xa;  start_date: N/A"><elem key="date">2025-12-29T18:48:16</elem>
+<elem key="start_date">N/A</elem>
+</script><script id="clock-skew" output="mean: 12s, deviation: 22s, median: 0s"><elem key="median">0</elem>
+<elem key="count">4</elem>
+<elem key="stddev">22</elem>
+<elem key="mean">12</elem>
+</script><script id="smb-os-discovery" output="&#xa;  OS: Windows 6.1 (Samba 4.3.9-Ubuntu)&#xa;  Computer name: red&#xa;  NetBIOS computer name: RED\x00&#xa;  Domain name: \x00&#xa;  FQDN: red&#xa;  System time: 2025-12-29T18:48:12+00:00&#xa;"><elem key="os">Windows 6.1</elem>
+<elem key="lanmanager">Samba 4.3.9-Ubuntu</elem>
+<elem key="server">RED\x00</elem>
+<elem key="date">2025-12-29T18:48:12+00:00</elem>
+<elem key="fqdn">red</elem>
+<elem key="domain_dns">\x00</elem>
+<elem key="workgroup">WORKGROUP\x00</elem>
+</script></hostscript><times srtt="1263" rttvar="1158" to="100000"/>
+</host>
+<runstats><finished time="1767034506" timestr="Mon Dec 29 13:55:06 2025" summary="Nmap done at Mon Dec 29 13:55:06 2025; 1 IP address (1 host up) scanned in 487.19 seconds" elapsed="487.19" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

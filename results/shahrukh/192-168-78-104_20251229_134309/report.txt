@@ -1,0 +1,31 @@
+Vulnix Quick Scan Report - Target: 192.168.78.104
+Date: Mon Dec 29 01:43:09 PM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: dnsmasq 2.75
+Evidence:
+Found 6 exploits for "dnsmasq 2.75":
+- Dnsmasq < 2.78 - 2-byte Heap Overflow [CVE-2017-14491]
+- Dnsmasq < 2.78 - Heap Overflow [CVE-2017-14492]
+- Dnsmasq < 2.78 - Information Leak [CVE-2017-14494]
+- Dnsmasq < 2.78 - Integer Underflow [CVE-2017-14496]
+- Dnsmasq < 2.78 - Lack of free() Denial of Service [CVE-2017-14495]
+- Dnsmasq < 2.78 - Stack Overflow [CVE-2017-14493]
+Remediation: Update dnsmasq to the latest version.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: Samba 3.X
+Evidence:
+Found 2 exploits for "Samba 3.X":
+- Samba < 3.0.20 - Remote Heap Overflow [EDB-ID]
+- Samba < 3.6.2 (x86) - Denial of Service (PoC) [CVE-2015-0240]
+Remediation: Update Samba smbd to the latest version.
+
+-----------------------------------------------------------------
+[HIGH    ] Vulnerable Service: MySQL 5.7.12-0ubuntu1
+Evidence:
+Found 2 exploits for "MySQL 5.7.12-0ubuntu1":
+- MySQL < 5.6.35 / < 5.7.17 - Integer Overflow [CVE-2017-3599]
+- MySQL < 5.6.35 / < 5.7.17 - Integer Overflow [CVE-2017-3599]
+Remediation: Update MySQL to the latest version.
+
