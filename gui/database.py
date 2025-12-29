@@ -177,3 +177,16 @@ if __name__ == "__main__":
     create_tables()
     print("Database tables created successfully (if they didn't exist).")
     print("You can now run the main GUI application.")
+
+def check_user_credentials_only(user_id, password):
+    """Verifies password for a specific user ID (used for deletion confirmation)."""
+    conn = get_connection()
+    c = conn.cursor()
+    c.execute("SELECT password FROM users WHERE id=?", (user_id,))
+    res = c.fetchone()
+    conn.close()
+    
+    if res:
+        stored_hash = res[0]
+        return hash_password(password) == stored_hash
+    return False

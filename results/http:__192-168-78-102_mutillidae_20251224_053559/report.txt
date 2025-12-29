@@ -1,0 +1,131 @@
+Vulnix Quick Web Report - Target: http://192.168.78.102/mutillidae
+Date: Wed Dec 24 05:35:59 AM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[LOW     ] /mutillidae/: Cookie PHPSESSID created without the httponly ...
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/: Cookie PHPSESSID created without the httponly flag.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/: Retrieved x-powered-by header: PHP/5
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/: The anti-clickjacking X-Frame-Options header i...
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/: The anti-clickjacking X-Frame-Options header is not present.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/: Uncommon header 'logged-in-user' found, with c...
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/: Uncommon header 'logged-in-user' found, with contents: .
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/: The X-Content-Type-Options header is not set
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/robots
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/robots.txt: Server may leak inodes via ETags, header found with file /mutillidae/robots.txt, inode: 92442, size: 160, mtime: Tue May 10 17:00:04 2011.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /robots
+Evidence:
+URL: 
+Method: GET
+Details: /robots.txt: contains 6 entries which should be manually viewed.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/index: Uncommon header 'tcn' found, with content...
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/index: Uncommon header 'tcn' found, with contents: list.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /index: Apache mod_negotiation is enabled with MultiViews, w...
+Evidence:
+URL: 
+Method: GET
+Details: /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Apache/2
+Evidence:
+URL: 
+Method: HEAD
+Details: Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRA...
+Evidence:
+URL: 
+Method: OPTIONS
+Details: OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: Web Server returns a valid response with junk HTTP method...
+Evidence:
+URL: 
+Method: LVCKJYJJ
+Details: /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: HTTP TRACE method is active which suggests the host is vu...
+Evidence:
+URL: 
+Method: TRACE
+Details: /: HTTP TRACE method is active which suggests the host is vulnerable to XST.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/phpinfo
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/phpinfo.php: Output from the phpinfo() function was found.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/?-s: PHP allows retrieval of the source code via...
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check application code.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /mutillidae/login
+Evidence:
+URL: 
+Method: GET
+Details: /mutillidae/login.php?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check application code.
+

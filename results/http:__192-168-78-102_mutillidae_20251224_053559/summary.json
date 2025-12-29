@@ -1,0 +1,98 @@
+[
+  {
+    "severity": "LOW",
+    "finding": "/mutillidae/: Cookie PHPSESSID created without the httponly ...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/: Cookie PHPSESSID created without the httponly flag.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/: Retrieved x-powered-by header: PHP/5",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/: The anti-clickjacking X-Frame-Options header i...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/: The anti-clickjacking X-Frame-Options header is not present.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/: Uncommon header 'logged-in-user' found, with c...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/: Uncommon header 'logged-in-user' found, with contents: .",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/: The X-Content-Type-Options header is not set",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/robots",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/robots.txt: Server may leak inodes via ETags, header found with file /mutillidae/robots.txt, inode: 92442, size: 160, mtime: Tue May 10 17:00:04 2011.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/robots",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /robots.txt: contains 6 entries which should be manually viewed.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/index: Uncommon header 'tcn' found, with content...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/index: Uncommon header 'tcn' found, with contents: list.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/index: Apache mod_negotiation is enabled with MultiViews, w...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Apache/2",
+    "evidence": "URL: \\nMethod: HEAD\\nDetails: Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRA...",
+    "evidence": "URL: \\nMethod: OPTIONS\\nDetails: OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/: Web Server returns a valid response with junk HTTP method...",
+    "evidence": "URL: \\nMethod: LVCKJYJJ\\nDetails: /: Web Server returns a valid response with junk HTTP methods which may cause false positives.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/: HTTP TRACE method is active which suggests the host is vu...",
+    "evidence": "URL: \\nMethod: TRACE\\nDetails: /: HTTP TRACE method is active which suggests the host is vulnerable to XST.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/phpinfo",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/phpinfo.php: Output from the phpinfo() function was found.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/?-s: PHP allows retrieval of the source code via...",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.",
+    "remediation": "Check application code."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/mutillidae/login",
+    "evidence": "URL: \\nMethod: GET\\nDetails: /mutillidae/login.php?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.",
+    "remediation": "Check application code."
+  }
+]

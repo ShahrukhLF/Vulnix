@@ -1,0 +1,3 @@
+Vulnix Quick Web Report - Target: http://google.com
+Date: Mon Dec 29 09:36:51 AM EST 2025
+-----------------------------------------------------------------

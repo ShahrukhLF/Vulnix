@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Wed Dec 24 05:34:39 2025 as: /usr/lib/nmap/nmap -sV -&#45;version-light -p 80,443,8080,8443,3000,8000,8008 -oX /home/kali/FYP-1/results/http:__192-168-78-102_dvwa_20251224_053438/nmap_web_quick.xml 192.168.78.102 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-light -p 80,443,8080,8443,3000,8000,8008 -oX /home/kali/FYP-1/results/http:__192-168-78-102_dvwa_20251224_053438/nmap_web_quick.xml 192.168.78.102" start="1766572479" startstr="Wed Dec 24 05:34:39 2025" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="7" services="80,443,3000,8000,8008,8080,8443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1766572479" endtime="1766572486"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.102" addrtype="ipv4"/>
+<address addr="08:00:27:08:B9:EA" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" product="Apache httpd" version="2.2.8" extrainfo="(Ubuntu) DAV/2" method="probed" conf="10"><cpe>cpe:/a:apache:http_server:2.2.8</cpe></service></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3000"><state state="closed" reason="reset" reason_ttl="64"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8000"><state state="closed" reason="reset" reason_ttl="64"/><service name="http-alt" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8008"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="reset" reason_ttl="64"/><service name="http-proxy" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https-alt" method="table" conf="3"/></port>
+</ports>
+<times srtt="3980" rttvar="2190" to="100000"/>
+</host>
+<runstats><finished time="1766572486" timestr="Wed Dec 24 05:34:46 2025" summary="Nmap done at Wed Dec 24 05:34:46 2025; 1 IP address (1 host up) scanned in 6.99 seconds" elapsed="6.99" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

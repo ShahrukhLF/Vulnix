@@ -4,23 +4,23 @@ Vulnix GUI — Automated Vulnerability Toolkit
 Author: Shahrukh Karim | Supervisor: Dr. Husnain Mansoor
 
 UPDATES:
-- Moved Scan Controls to the top right (Advisor Requirement).
-- Implemented Dropdown for Scan Mode selection.
-- Cleaned up Sidebar.
+- CSS FIX: Reordered ':focus' and ':hover' rules. 
+  Now 'Network Scan' button correctly turns blue on hover even when focused.
 """
 
-import sys, os, json, subprocess, glob
+import sys, os, json, subprocess, sqlite3, glob, stat, hashlib
 from datetime import datetime
-import database  # Manages the SQLite database
+import database  # Manages the SQLite database (for login/signup)
 
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl, QSize
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QTextEdit, QProgressBar, QTableWidget,
     QTableWidgetItem, QMessageBox, QDialog, QFormLayout, QFileDialog, QFrame,
-    QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox
+    QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox, QTabWidget,
+    QInputDialog, QSizePolicy
 )
-from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices
+from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon
 
 # ---------- Config Functions ----------
 
@@ -34,10 +34,10 @@ DEFAULT_CONFIG = {
         "web_deep": "./scripts/scan_web_deep.sh",
         "full": "./scripts/run_full_assessment.sh"
     },
-    "last_report": ""
 }
 
 def load_config():
+    """Loads configuration with fallback to defaults."""
     cfg = DEFAULT_CONFIG.copy()
     if os.path.exists(CONFIG_PATH):
         try:
@@ -61,6 +61,30 @@ def save_config(cfg):
     except Exception as e:
         print(f"Error saving config: {e}")
 
+# ---------- Validation Helper ----------
+
+def is_target_reachable(target):
+    """
+    Checks if target is reachable via Ping before running heavy scans.
+    """
+    clean_target = target.replace("http://", "").replace("https://", "").split("/")[0].split(":")[0]
+    
+    if not clean_target:
+        return False, "Target is empty."
+
+    try:
+        # Ping with 2 second timeout
+        ret_code = subprocess.call(
+            ['ping', '-c', '1', '-W', '2', clean_target],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        if ret_code == 0:
+            return True, "Target is reachable."
+        else:
+            return False, f"Target '{clean_target}' is unreachable (Ping failed)."
+    except Exception as e:
+        return False, f"Validation Error: {str(e)}"
 
 # ---------- Scan Worker ----------
 
@@ -76,7 +100,6 @@ class ScanWorker(QThread):
         self.out_dir = out_dir
 
     def run(self):
-        # NOTE: Sudo is called here. Ensure scripts are executable.
         full_cmd = f"sudo {self.cmd}"
         self.output_line.emit(f"Running: {full_cmd}")
         try:
@@ -103,7 +126,6 @@ class ScanWorker(QThread):
         if self._p and self._p.poll() is None:
             self._p.terminate()
 
-
 # ---------- Helper: Styled Message Box ----------
 
 class StyledMessageBox:
@@ -126,7 +148,6 @@ class StyledMessageBox:
         msg = StyledMessageBox._create_msg_box(QMessageBox.Warning, title, text)
         msg.exec_()
 
-
 # ---------- VIEW 1: Login Screen ----------
 
 class LoginView(QWidget):
@@ -140,10 +161,8 @@ class LoginView(QWidget):
     def build_ui(self):
         outer_layout = QVBoxLayout(self)
         outer_layout.setAlignment(Qt.AlignCenter)
-
         container = QFrame()
         container.setFixedWidth(400)
-        
         v = QVBoxLayout(container)
         v.setSpacing(20)
         v.setContentsMargins(30, 30, 30, 30)
@@ -157,7 +176,6 @@ class LoginView(QWidget):
         self.user = QLineEdit()
         self.user.setPlaceholderText("Username")
         self.user.setMinimumHeight(35)
-        
         self.pwd = QLineEdit()
         self.pwd.setEchoMode(QLineEdit.Password)
         self.pwd.setPlaceholderText("Password")
@@ -184,28 +202,24 @@ class LoginView(QWidget):
         self.signup_btn.setCursor(Qt.PointingHandCursor)
         self.signup_btn.clicked.connect(self.goToSignUp.emit)
         v.addWidget(self.signup_btn)
-
         outer_layout.addWidget(container)
 
     def try_login(self):
-        u_text = self.user.text().strip()
-        p_text = self.pwd.text()
-        
-        if not u_text or not p_text:
+        u = self.user.text().strip()
+        p = self.pwd.text()
+        if not u or not p:
             self.msg.setText("Enter username and password")
             self.msg.setStyleSheet("color:#EF5350;")
             return
-        
-        ok, user_id = database.check_user(u_text, p_text)
+        ok, user_id = database.check_user(u, p)
         if ok:
             self.msg.setText("")
             self.user.clear()
             self.pwd.clear()
-            self.loginSuccess.emit(user_id, u_text)
+            self.loginSuccess.emit(user_id, u)
         else:
             self.msg.setText("Invalid username or password.")
             self.msg.setStyleSheet("color:#EF5350;")
-
 
 # ---------- VIEW 2: Sign Up Screen ----------
 
@@ -220,10 +234,8 @@ class SignUpView(QWidget):
     def build_ui(self):
         outer_layout = QVBoxLayout(self)
         outer_layout.setAlignment(Qt.AlignCenter)
-
         container = QFrame()
         container.setFixedWidth(400)
-        
         v = QVBoxLayout(container)
         v.setSpacing(20)
         v.setContentsMargins(30, 30, 30, 30)
@@ -237,12 +249,10 @@ class SignUpView(QWidget):
         self.user = QLineEdit()
         self.user.setPlaceholderText("Choose Username")
         self.user.setMinimumHeight(35)
-
         self.pwd1 = QLineEdit()
         self.pwd1.setEchoMode(QLineEdit.Password)
         self.pwd1.setPlaceholderText("Password")
         self.pwd1.setMinimumHeight(35)
-
         self.pwd2 = QLineEdit()
         self.pwd2.setEchoMode(QLineEdit.Password)
         self.pwd2.setPlaceholderText("Confirm Password")
@@ -271,7 +281,6 @@ class SignUpView(QWidget):
         self.back_btn.setCursor(Qt.PointingHandCursor)
         self.back_btn.clicked.connect(self.go_back_safe)
         v.addWidget(self.back_btn)
-
         outer_layout.addWidget(container)
 
     def go_back_safe(self):
@@ -285,31 +294,110 @@ class SignUpView(QWidget):
         u = self.user.text().strip()
         p1 = self.pwd1.text()
         p2 = self.pwd2.text()
-
         if not u or not p1 or not p2:
             self.msg.setText("All fields are required.")
-            self.msg.setStyleSheet("color:#EF5350;")
             return
-        
         if p1 != p2:
             self.msg.setText("Passwords do not match.")
-            self.msg.setStyleSheet("color:#EF5350;")
             return
-
         success, message = database.add_user(u, p1)
-        
         if success:
-            StyledMessageBox.info(self, "Success", "Account created! You can now log in.")
+            StyledMessageBox.info(self, "Success", "Account created!")
             self.go_back_safe()
         else:
             self.msg.setText(message)
-            self.msg.setStyleSheet("color:#EF5350;")
 
+# ---------- VIEW 3: Mode Selection (Corrected) ----------
 
-# ---------- VIEW 3: Dashboard ----------
+class ModeSelectionView(QWidget):
+    """
+    Screen 2: Allows user to choose between Network Scan and Web Scan.
+    UPDATED: CSS Fixed so Hover works even when button is focused.
+    """
+    modeSelected = pyqtSignal(str) # Emits "network" or "web"
+    logoutSignal = pyqtSignal()
+
+    def __init__(self):
+        super().__init__()
+        self.build_ui()
+
+    def build_ui(self):
+        layout = QVBoxLayout(self)
+        layout.setAlignment(Qt.AlignCenter)
+        layout.setSpacing(50)
+
+        # Header
+        title = QLabel("Select Vulnerability Assessment Mode")
+        title.setFont(QFont("Segoe UI", 24, QFont.Bold))
+        title.setAlignment(Qt.AlignCenter)
+        layout.addWidget(title)
+
+        # Buttons Container
+        btn_layout = QHBoxLayout()
+        btn_layout.setSpacing(60) 
+        btn_layout.setAlignment(Qt.AlignCenter)
+
+        # CSS Styling (FIXED):
+        # We define :focus BEFORE :hover. This way, if both are true (user hovers a focused button),
+        # the :hover rule wins because it comes later in the cascade.
+        btn_style = """
+            QPushButton {
+                background-color: #1E293B; 
+                border: 3px solid #1E88E5; 
+                border-radius: 15px;
+                color: #E0E7FF;
+                padding: 10px;
+                text-align: center;
+                outline: none; 
+            }
+            /* Focus rule comes FIRST */
+            QPushButton:focus {
+                border: 3px solid #1E88E5; 
+                background-color: #1E293B;
+            }
+            /* Hover rule comes AFTER to override focus color */
+            QPushButton:hover {
+                background-color: #1E88E5;
+                color: white;
+                border: 3px solid #42A5F5;
+            }
+            QPushButton:pressed {
+                background-color: #1565C0;
+            }
+        """
+
+        # Network Scan Button
+        self.btn_net = QPushButton("Network Scan")
+        self.btn_net.setFixedSize(280, 160) 
+        self.btn_net.setFont(QFont("Segoe UI", 18, QFont.Bold))
+        self.btn_net.setStyleSheet(btn_style)
+        self.btn_net.setCursor(Qt.PointingHandCursor)
+        self.btn_net.clicked.connect(lambda: self.modeSelected.emit("network"))
+        btn_layout.addWidget(self.btn_net)
+
+        # Web Scan Button
+        self.btn_web = QPushButton("Web Scan")
+        self.btn_web.setFixedSize(280, 160) 
+        self.btn_web.setFont(QFont("Segoe UI", 18, QFont.Bold))
+        self.btn_web.setStyleSheet(btn_style)
+        self.btn_web.setCursor(Qt.PointingHandCursor)
+        self.btn_web.clicked.connect(lambda: self.modeSelected.emit("web"))
+        btn_layout.addWidget(self.btn_web)
+
+        layout.addLayout(btn_layout)
+
+        # Logout option at bottom
+        self.btn_logout = QPushButton("Logout")
+        self.btn_logout.setFixedSize(120, 40)
+        self.btn_logout.setStyleSheet("background-color: #546E7A; border-radius: 6px; border: none; outline: none;")
+        self.btn_logout.clicked.connect(self.logoutSignal.emit)
+        layout.addWidget(self.btn_logout, alignment=Qt.AlignCenter)
+
+# ---------- VIEW 4: Dashboard (Dynamic & Isolated) ----------
 
 class DashboardView(QWidget):
     logoutSignal = pyqtSignal()
+    changeModeSignal = pyqtSignal()
 
     def __init__(self):
         super().__init__()
@@ -317,6 +405,7 @@ class DashboardView(QWidget):
         self.username = "Unknown"
         self.cfg = load_config()
         self.worker = None
+        self.current_mode = "network" 
         self.build_ui()
 
     def set_user(self, user_id, username):
@@ -324,11 +413,21 @@ class DashboardView(QWidget):
         self.username = username
         self.user_label.setText(f"User: {self.username}")
 
+    def set_mode(self, mode):
+        self.current_mode = mode
+        self.refresh_dropdown()
+        if mode == "network":
+            self.mode_label.setText("MODE: NETWORK SCAN")
+            self.mode_label.setStyleSheet("color: #2196F3; font-weight: bold; font-size: 14px;")
+        else:
+            self.mode_label.setText("MODE: WEB SCAN")
+            self.mode_label.setStyleSheet("color: #9C27B0; font-weight: bold; font-size: 14px;")
+
     def build_ui(self):
         root = QHBoxLayout(self)
         root.setContentsMargins(0, 0, 0, 0)
 
-        # --- LEFT SIDEBAR (Cleaned Up) ---
+        # --- SIDEBAR ---
         side = QFrame()
         side.setFixedWidth(260)
         side.setObjectName("sidebar")
@@ -342,19 +441,15 @@ class DashboardView(QWidget):
         logo.setObjectName("logo")
         s.addWidget(logo)
         
-        # Navigation Buttons Only
-        self.b_open_reports = QPushButton("Open Reports Folder")
+        self.b_open_reports = QPushButton("Open Reports")
         self.b_last = QPushButton("Last Report")
         self.b_logs = QPushButton("Logs")
-        self.b_settings = QPushButton("Settings")
+        self.b_settings = QPushButton("Settings (Advanced)")
         self.b_about = QPushButton("About")
+        self.b_change_mode = QPushButton("Change Mode") 
         self.b_logout = QPushButton("Logout")
         
-        buttons = [
-            self.b_open_reports, self.b_last, 
-            self.b_logs, self.b_settings, self.b_about
-        ]
-
+        buttons = [self.b_open_reports, self.b_last, self.b_logs, self.b_settings, self.b_about, self.b_change_mode]
         for b in buttons:
             b.setMinimumHeight(44)
             s.addWidget(b)
@@ -363,40 +458,32 @@ class DashboardView(QWidget):
         self.user_label = QLabel("User: ...")
         s.addWidget(self.user_label)
         s.addWidget(self.b_logout)
-        
         root.addWidget(side)
 
-        # --- MAIN CONTENT AREA ---
+        # --- CONTENT ---
         content = QWidget()
         v = QVBoxLayout(content)
         v.setContentsMargins(20, 20, 20, 20)
         v.setSpacing(12)
         
-        # --- NEW CONTROL BAR (Target | Mode | Start) ---
+        self.mode_label = QLabel("MODE: ...")
+        v.addWidget(self.mode_label, alignment=Qt.AlignRight)
+
+        # Control Bar
         ctrl_bar = QHBoxLayout()
         ctrl_bar.setSpacing(10)
 
-        # 1. Input Field
         self.target = QLineEdit()
-        self.target.setPlaceholderText("Enter Target IP or Hostname...")
+        self.target.setPlaceholderText("Enter Target IP (Network) or URL (Web)...")
         self.target.setMinimumHeight(45)
-        ctrl_bar.addWidget(self.target, 3) # Stretch factor 3 (takes up most space)
+        ctrl_bar.addWidget(self.target, 3) 
 
-        # 2. Mode Selector Dropdown
         self.scan_mode = QComboBox()
-        self.scan_mode.addItems([
-            "Quick Network Scan",
-            "Deep Network Scan",
-            "Quick Web Scan",
-            "Deep Web Scan",
-            "Full Assessment"
-        ])
         self.scan_mode.setMinimumHeight(45)
-        self.scan_mode.setFixedWidth(200)
+        self.scan_mode.setFixedWidth(240)
         self.scan_mode.setCursor(Qt.PointingHandCursor)
-        ctrl_bar.addWidget(self.scan_mode, 1) # Stretch factor 1
+        ctrl_bar.addWidget(self.scan_mode, 1)
 
-        # 3. Start Button
         self.start_btn = QPushButton("Start Scan")
         self.start_btn.setMinimumHeight(45)
         self.start_btn.setFixedWidth(120)
@@ -405,7 +492,6 @@ class DashboardView(QWidget):
         self.start_btn.clicked.connect(self.initiate_selected_scan)
         ctrl_bar.addWidget(self.start_btn, 0)
 
-        # 4. Cancel Button (Hidden by default or placed next to start)
         self.cancel = QPushButton("Stop")
         self.cancel.setMinimumHeight(45)
         self.cancel.setFixedWidth(80)
@@ -416,92 +502,92 @@ class DashboardView(QWidget):
 
         v.addLayout(ctrl_bar)
         
-        # Console Log
         self.console = QTextEdit()
         self.console.setReadOnly(True)
         self.console.setMinimumHeight(260)
         v.addWidget(self.console)
         
-        # Progress Bar
         self.progress = QProgressBar()
         self.progress.setFixedHeight(18)
         v.addWidget(self.progress)
         
-        # Results Table
         self.table = QTableWidget(0, 4)
-        self.table.setHorizontalHeaderLabels(
-            ["Severity", "Finding", "Evidence", "Remediation"])
-        self.table.setMinimumHeight(180)
+        self.table.setHorizontalHeaderLabels(["Severity", "Finding", "Evidence", "Remediation"])
         self.table.setEditTriggers(QTableWidget.NoEditTriggers)
         self.table.setSelectionBehavior(QTableWidget.SelectRows)
-        
         header = self.table.horizontalHeader()
-        header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(1, QHeaderView.Stretch)
-        header.setSectionResizeMode(2, QHeaderView.ResizeToContents)
         header.setSectionResizeMode(3, QHeaderView.Stretch)
-        
         v.addWidget(self.table)
         root.addWidget(content, 1)
 
-        # --- Connections for Sidebar ---
         self.b_open_reports.clicked.connect(self.open_reports_folder)
         self.b_last.clicked.connect(self.show_last_report_window)
         self.b_settings.clicked.connect(self.open_settings)
         self.b_logs.clicked.connect(self.open_logs)
         self.b_about.clicked.connect(self.show_about)
+        self.b_change_mode.clicked.connect(self.changeModeSignal.emit)
         self.b_logout.clicked.connect(self.logoutSignal.emit)
 
-    # ---------- Logic Functions ----------
+    def refresh_dropdown(self):
+        self.scan_mode.clear()
+        if self.current_mode == "network":
+            self.scan_mode.addItem("Quick Network Scan", "quick")
+            self.scan_mode.addItem("Deep Network Scan", "deep")
+        else:
+            self.scan_mode.addItem("Quick Web Scan", "web_quick")
+            self.scan_mode.addItem("Deep Web Scan", "web_deep")
+        
+        self.scan_mode.addItem("Full Assessment", "full")
+
+        core_scripts = ["scan_quick.sh", "scan_deep.sh", "scan_web_quick.sh", "scan_web_deep.sh", "run_full_assessment.sh"]
+        custom_files = glob.glob("./scripts/*.sh")
+        for f in custom_files:
+            fname = os.path.basename(f)
+            if fname not in core_scripts:
+                display_name = f"Custom: {fname.replace('.sh', '')}"
+                self.scan_mode.addItem(display_name, f) 
 
     def initiate_selected_scan(self):
-        """ Reads dropdown and calls start_scan with correct key """
-        mode_text = self.scan_mode.currentText()
-        
-        # Map User-Friendly Text to Config Keys
-        mapping = {
-            "Quick Network Scan": "quick",
-            "Deep Network Scan": "deep",
-            "Quick Web Scan": "web_quick",
-            "Deep Web Scan": "web_deep",
-            "Full Assessment": "full"
-        }
-        
-        key = mapping.get(mode_text)
-        if key:
-            self.start_scan(key)
-
-    def start_scan(self, kind):
         t = self.target.text().strip()
-        if not t:
-            StyledMessageBox.warning(self, "Missing Target", "Please enter a target IP or URL.")
-            return
-        
-        path = self.cfg["scan_paths"].get(kind)
-        if not path or not os.path.exists(path):
-            self.console.append(f"Script not found: {path}")
+        is_ok, msg = is_target_reachable(t)
+        if not is_ok:
+            StyledMessageBox.warning(self, "Validation Failed", msg)
+            self.console.append(f"Validation Failed: {msg}")
             return
 
+        selected_data = self.scan_mode.currentData()
+        script_path = ""
+        if selected_data in self.cfg["scan_paths"]:
+            script_path = self.cfg["scan_paths"][selected_data]
+        elif os.path.exists(selected_data):
+            script_path = selected_data
+        else:
+             self.console.append(f"Error: Script path not found for {selected_data}")
+             return
+
+        self.start_scan_process(t, script_path)
+
+    def start_scan_process(self, target, path):
         self.console.clear()
         self.table.setRowCount(0)
-
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        safe_t = t.replace(".", "-").replace("/", "_")
-        out_folder = os.path.abspath(f"results/{safe_t}_{ts}")
+        safe_t = target.replace(".", "-").replace("/", "_")
+        
+        # USER ISOLATION: Create subdirectory for username
+        user_folder = self.username if self.username else "default_user"
+        out_folder = os.path.abspath(f"results/{user_folder}/{safe_t}_{ts}")
         os.makedirs(out_folder, exist_ok=True)
         
-        cmd = f"{path} '{t}' '{out_folder}'"
-        self.console.append(f"Starting {kind.upper()} scan on {t} ...")
+        cmd = f"{path} '{target}' '{out_folder}'"
+        self.console.append(f"Starting scan on {target} ...")
         
-        # UI State Update
         self.start_btn.setDisabled(True)
         self.cancel.setDisabled(False)
-        self.scan_mode.setDisabled(True)
         self.target.setDisabled(True)
+        self.scan_mode.setDisabled(True)
         
-        self.current_scan_kind = kind
-        self.current_scan_target = t
-
+        self.current_scan_target = target
         self.worker = ScanWorker(cmd, out_folder)
         self.worker.output_line.connect(self.console.append)
         self.worker.progress.connect(self.progress.setValue)
@@ -515,119 +601,219 @@ class DashboardView(QWidget):
             self.cancel.setDisabled(True)
 
     def scan_done(self, code, out_folder):
-        # Reset UI State
         self.start_btn.setDisabled(False)
-        self.scan_mode.setDisabled(False)
         self.target.setDisabled(False)
+        self.scan_mode.setDisabled(False)
         self.cancel.setDisabled(True)
         self.progress.setValue(0)
 
         if code == 0:
-            database.log_scan(
-                self.user_id,
-                self.current_scan_target,
-                self.current_scan_kind,
-                out_folder
-            )
+            database.log_scan(self.user_id, self.current_scan_target, self.scan_mode.currentText(), out_folder)
             self.console.append(f"Scan logged to database.")
     
+        # Save last report globally for fallback, but main retrieval is via DB
         self.cfg["last_report"] = out_folder
         save_config(self.cfg)
         
         summary_file = os.path.join(out_folder, "summary.json")
-        findings_count = 0
+        findings = 0
         if code == 0 and os.path.exists(summary_file):
-            self.console.append(f"Parsing summary file: {summary_file}")
-            findings_count = self.load_results_to_table(summary_file)
-        elif code == 0:
-            self.console.append("Scan finished, but no 'summary.json' was found.")
-
-        if code != -15: # -15 is SIGTERM (Cancel)
-            msg = (f"Scan finished (exit code {code}).\n"
-                   f"Total Findings: {findings_count}")
+            findings = self.load_results_to_table(summary_file)
+        
+        if code != -15:
+            msg = f"Scan finished (exit code {code}).\nTotal Findings: {findings}"
             self.console.append(msg)
             StyledMessageBox.info(self, "Scan Summary", msg)
         
     def load_results_to_table(self, file_path):
         try:
-            with open(file_path, 'r') as f:
-                findings = json.load(f)
+            with open(file_path, 'r') as f: findings = json.load(f)
             if not isinstance(findings, list): return 0
-
             self.table.setRowCount(len(findings))
-            for row_idx, finding in enumerate(findings):
-                sev = finding.get("severity", "N/A")
-                fin = finding.get("finding", "No details")
-                evi = finding.get("evidence", "")
-                rem = finding.get("remediation", "N/A")
-                
-                sev_item = QTableWidgetItem(sev)
-                fin_item = QTableWidgetItem(fin)
-                evi_item = QTableWidgetItem(evi)
-                rem_item = QTableWidgetItem(rem)
-                
-                color = QColor("#E0E7FF")
-                s_up = sev.upper()
-                if "CRITICAL" in s_up: color = QColor("#F44336")
-                elif "HIGH" in s_up:   color = QColor("#FF9800")
-                elif "MEDIUM" in s_up: color = QColor("#FFC107")
-                elif "LOW" in s_up:    color = QColor("#4CAF50")
-                
-                sev_item.setForeground(QBrush(color))
-                self.table.setItem(row_idx, 0, sev_item)
-                self.table.setItem(row_idx, 1, fin_item)
-                self.table.setItem(row_idx, 2, evi_item)
-                self.table.setItem(row_idx, 3, rem_item)
+            for row_idx, f in enumerate(findings):
+                self.table.setItem(row_idx, 0, QTableWidgetItem(f.get("severity", "")))
+                self.table.setItem(row_idx, 1, QTableWidgetItem(f.get("finding", "")))
+                self.table.setItem(row_idx, 2, QTableWidgetItem(f.get("evidence", "")))
+                self.table.setItem(row_idx, 3, QTableWidgetItem(f.get("remediation", "")))
             return len(findings)
-        except Exception as e:
-            self.console.append(f"Error parsing results: {e}")
-            return 0
+        except: return 0
 
     def open_reports_folder(self):
-        d = os.path.abspath("./results")
-        os.makedirs(d, exist_ok=True)
-        QDesktopServices.openUrl(QUrl.fromLocalFile(d))
+        # USER ISOLATION: Open specific user folder if possible
+        user_folder = self.username if self.username else "default_user"
+        path = os.path.abspath(f"./results/{user_folder}")
+        if not os.path.exists(path):
+            path = os.path.abspath("./results")
+        QDesktopServices.openUrl(QUrl.fromLocalFile(path))
 
     def show_last_report_window(self):
-        self.cfg = load_config()
-        last_folder = self.cfg.get("last_report", "")
-        
-        if not last_folder or not os.path.exists(last_folder):
-            StyledMessageBox.warning(self, "Last Report", "No previous report found.")
-            return
-
-        report_file = os.path.join(last_folder, "report.txt")
-        if not os.path.exists(report_file):
-            StyledMessageBox.warning(self, "Last Report", "No 'report.txt' found in folder.")
-            return
-
+        # Retrieve LAST report for THIS user from Database (USER ISOLATION)
         try:
-            with open(report_file, "r", errors="ignore") as f:
-                content = f.read()
-            dialog = ReportViewerDialog(f"Report: {os.path.basename(last_folder)}", content, self)
-            dialog.exec_()
-        except Exception as e:
-            StyledMessageBox.warning(self, "Error", f"Could not read report: {e}")
+            conn = sqlite3.connect("vulnix.db")
+            c = conn.cursor()
+            # Assuming table scans has: id, user_id, target, scan_type, scan_path, timestamp
+            c.execute("SELECT scan_path FROM scans WHERE user_id=? ORDER BY id DESC LIMIT 1", (self.user_id,))
+            res = c.fetchone()
+            conn.close()
+            
+            if res and res[0] and os.path.exists(res[0]):
+                report_file = os.path.join(res[0], "report.txt")
+                if os.path.exists(report_file):
+                    with open(report_file, "r") as f:
+                        ReportViewerDialog(f"Report: {os.path.basename(res[0])}", f.read(), self).exec_()
+                    return
+        except Exception:
+            pass
 
-    def open_settings(self):
-        StyledMessageBox.info(self, "Settings", "Settings feature available in FYP-II.")
+        StyledMessageBox.warning(self, "Info", "No scan history found for this user.")
 
     def open_logs(self):
-        p, _ = QFileDialog.getOpenFileName(self, "Open Log", "./results")
-        if p:
-            try:
-                self.console.setText(open(p, "r", errors="ignore").read())
-            except Exception:
-                pass
+        user_folder = self.username if self.username else "default_user"
+        path = os.path.abspath(f"./results/{user_folder}")
+        p, _ = QFileDialog.getOpenFileName(self, "Open Log", path)
+        if p: self.console.setText(open(p, "r", errors="ignore").read())
 
     def show_about(self):
-        StyledMessageBox.info(self, "About Vulnix", 
-            "Vulnix — Automated Offensive Security Toolkit\n"
-            "Final Year Project (FYP-I) 2025\n"
-            "Developed by: Shahrukh Karim")
+        StyledMessageBox.info(self, "About", "Vulnix v1.0\nFYP-I Project")
 
+    def open_settings(self):
+        dlg = SettingsDialog(self.user_id, self.username, self) # Pass username/ID
+        dlg.accountDeleted.connect(lambda: self.logoutSignal.emit())
+        dlg.scriptSaved.connect(self.refresh_dropdown) 
+        dlg.exec_()
 
-# ---------- Report Viewer (Independent Window) ----------
+# ---------- NEW: Advanced Settings Dialog (Fixed) ----------
+
+class SettingsDialog(QDialog):
+    accountDeleted = pyqtSignal()
+    scriptSaved = pyqtSignal()
+
+    def __init__(self, user_id, username, parent=None):
+        super().__init__(parent)
+        self.user_id = user_id
+        self.username = username
+        self.setWindowTitle("Advanced Settings")
+        self.setMinimumSize(700, 500)
+        self.setWindowFlags(self.windowFlags() | Qt.WindowMinMaxButtonsHint)
+        self.build_ui()
+
+    def build_ui(self):
+        layout = QVBoxLayout(self)
+        self.tabs = QTabWidget()
+        
+        # Tab 1: Account Management (Improved UI)
+        self.tab_account = QWidget()
+        acc_layout = QVBoxLayout(self.tab_account)
+        acc_layout.setAlignment(Qt.AlignTop)
+        
+        acc_lbl = QLabel(f"Manage Account: {self.username}")
+        acc_lbl.setFont(QFont("Segoe UI", 14, QFont.Bold))
+        
+        warn_box = QFrame()
+        warn_box.setStyleSheet("background-color: #2E1A1A; border: 1px solid #D32F2F; border-radius: 6px; padding: 10px;")
+        wb_layout = QVBoxLayout(warn_box)
+        w_lbl = QLabel("⚠️ DANGER ZONE")
+        w_lbl.setStyleSheet("color: #FF5252; font-weight: bold;")
+        desc = QLabel("Deleting your account is permanent. All scan history will be lost.")
+        desc.setWordWrap(True)
+        wb_layout.addWidget(w_lbl)
+        wb_layout.addWidget(desc)
+        
+        self.btn_delete = QPushButton("Delete My Account")
+        self.btn_delete.setFixedSize(180, 40)
+        self.btn_delete.setStyleSheet("background-color: #D32F2F; color: white; border-radius: 6px; font-weight: bold;")
+        self.btn_delete.setCursor(Qt.PointingHandCursor)
+        self.btn_delete.clicked.connect(self.delete_account)
+        
+        acc_layout.addWidget(acc_lbl)
+        acc_layout.addWidget(warn_box)
+        acc_layout.addSpacing(20)
+        acc_layout.addWidget(self.btn_delete)
+        acc_layout.addStretch()
+        
+        # Tab 2: Custom Script Editor
+        self.tab_script = QWidget()
+        scr_layout = QVBoxLayout(self.tab_script)
+        
+        lbl = QLabel("Create Custom Scan Script")
+        lbl.setFont(QFont("Segoe UI", 11, QFont.Bold))
+        
+        self.script_name = QLineEdit()
+        self.script_name.setPlaceholderText("Script Name (e.g. custom_nmap_scan)")
+        
+        self.script_content = QTextEdit()
+        self.script_content.setPlaceholderText("#!/bin/bash\n# Write your shell script here...\n\necho 'Starting Custom Scan...'\n# Use $1 for target IP and $2 for output folder")
+        self.script_content.setFont(QFont("Monospace", 10))
+        self.script_content.setStyleSheet("background-color: #0F1724; color: #00FF00;")
+        
+        self.btn_save_script = QPushButton("Save and Add to Dropdown")
+        self.btn_save_script.setMinimumHeight(40)
+        self.btn_save_script.setStyleSheet("background-color: #4CAF50; font-weight: bold;")
+        self.btn_save_script.clicked.connect(self.save_custom_script)
+        
+        scr_layout.addWidget(lbl)
+        scr_layout.addWidget(self.script_name)
+        scr_layout.addWidget(self.script_content)
+        scr_layout.addWidget(self.btn_save_script)
+        
+        self.tabs.addTab(self.tab_account, "Account")
+        self.tabs.addTab(self.tab_script, "Custom Scripts")
+        layout.addWidget(self.tabs)
+
+    def delete_account(self):
+        pwd, ok = QInputDialog.getText(self, "Confirm Deletion", "Enter your password to confirm:", QLineEdit.Password)
+        if not ok or not pwd: return
+
+        # FIX: Check password using database logic directly
+        # This fixes the issue where local hashing didn't match DB hashing
+        is_valid, _ = database.check_user(self.username, pwd)
+
+        if is_valid:
+            confirm = QMessageBox.question(self, "Final Warning", "Are you absolutely sure?", QMessageBox.Yes | QMessageBox.No)
+            if confirm == QMessageBox.Yes:
+                try:
+                    conn = sqlite3.connect("vulnix.db")
+                    c = conn.cursor()
+                    c.execute("DELETE FROM users WHERE id=?", (self.user_id,))
+                    c.execute("DELETE FROM scans WHERE user_id=?", (self.user_id,))
+                    conn.commit()
+                    conn.close()
+                    StyledMessageBox.info(self, "Goodbye", "Account deleted.")
+                    self.accountDeleted.emit()
+                    self.close()
+                except Exception as e:
+                    StyledMessageBox.warning(self, "Error", str(e))
+        else:
+            StyledMessageBox.warning(self, "Error", "Incorrect password.")
+
+    def save_custom_script(self):
+        name = self.script_name.text().strip().replace(" ", "_")
+        if not name:
+            StyledMessageBox.warning(self, "Error", "Please enter a script name.")
+            return
+        
+        content = self.script_content.toPlainText()
+        if not content:
+            StyledMessageBox.warning(self, "Error", "Script content cannot be empty.")
+            return
+
+        filename = f"{name}.sh"
+        path = os.path.join("scripts", filename)
+        
+        try:
+            os.makedirs("scripts", exist_ok=True)
+            with open(path, "w") as f:
+                f.write(content)
+            st = os.stat(path)
+            os.chmod(path, st.st_mode | stat.S_IEXEC)
+            
+            StyledMessageBox.info(self, "Success", f"Script saved to {path}!\nIt is now available in the dropdown.")
+            self.scriptSaved.emit()
+        except Exception as e:
+            StyledMessageBox.warning(self, "Error", f"Could not save script: {e}")
+
+# ---------- Report Viewer (Unchanged) ----------
+
 class ReportViewerDialog(QDialog):
     def __init__(self, title, content, parent=None):
         super().__init__(parent)
@@ -643,8 +829,8 @@ class ReportViewerDialog(QDialog):
         btn.rejected.connect(self.reject)
         layout.addWidget(btn)
 
+# ---------- Main Controller (Unchanged) ----------
 
-# ---------- Main Application Controller ----------
 class VulnixApp(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -661,23 +847,34 @@ class VulnixApp(QMainWindow):
 
         self.login_view = LoginView()
         self.signup_view = SignUpView()
-        self.dashboard_view = DashboardView()
+        self.mode_view = ModeSelectionView() 
+        self.dashboard_view = DashboardView() 
 
-        self.stack.addWidget(self.login_view)
-        self.stack.addWidget(self.signup_view)
-        self.stack.addWidget(self.dashboard_view)
+        self.stack.addWidget(self.login_view)      
+        self.stack.addWidget(self.signup_view)     
+        self.stack.addWidget(self.mode_view)       
+        self.stack.addWidget(self.dashboard_view)  
 
         self.login_view.loginSuccess.connect(self.handle_login_success)
         self.login_view.goToSignUp.connect(lambda: self.stack.setCurrentIndex(1))
         self.signup_view.goBack.connect(lambda: self.stack.setCurrentIndex(0))
+        
+        self.mode_view.modeSelected.connect(self.handle_mode_selection)
+        self.mode_view.logoutSignal.connect(self.handle_logout)
+
         self.dashboard_view.logoutSignal.connect(self.handle_logout)
+        self.dashboard_view.changeModeSignal.connect(lambda: self.stack.setCurrentIndex(2))
 
         self.setStyleSheet(VulnixApp.qss())
         self.stack.setCurrentIndex(0)
 
     def handle_login_success(self, user_id, username):
         self.dashboard_view.set_user(user_id, username)
-        self.stack.setCurrentIndex(2)
+        self.stack.setCurrentIndex(2) 
+
+    def handle_mode_selection(self, mode):
+        self.dashboard_view.set_mode(mode)
+        self.stack.setCurrentIndex(3) 
 
     def handle_logout(self):
         self.stack.setCurrentIndex(0)
@@ -685,7 +882,7 @@ class VulnixApp(QMainWindow):
     @staticmethod
     def qss():
         return """
-        QMainWindow, QWidget, QDialog, QMessageBox, QFileDialog { 
+        QMainWindow, QWidget, QDialog, QMessageBox, QFileDialog, QTabWidget::pane { 
             background-color: #131E2B; font-family: 'Segoe UI'; color: #E0E7FF;
         }
         #sidebar { 
@@ -711,6 +908,8 @@ class VulnixApp(QMainWindow):
         QHeaderView::section { background-color: #243447; color: #E0E7FF; padding: 4px; border: none; }
         QProgressBar { background-color: #1E293B; border: 1px solid #2E3A50; border-radius: 8px; text-align: center; color: #E0E7FF; }
         QProgressBar::chunk { background-color: #1E88E5; border-radius: 8px; }
+        QTabBar::tab { background: #2E3A50; color: #E0E7FF; padding: 10px; margin-right: 2px; border-top-left-radius: 6px; border-top-right-radius: 6px;}
+        QTabBar::tab:selected { background: #1E88E5; font-weight: bold; }
         QDialogButtonBox QPushButton { /* Inherit standard button */ }
         """
 
