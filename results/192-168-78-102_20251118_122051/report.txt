@@ -1,6 +1,0 @@
---- Vulnix Quick Assessment Report ---
-Target: 192.168.78.102
-Date: Tue Nov 18 12:20:51 PM EST 2025
-
---- Summary of Findings ---
-

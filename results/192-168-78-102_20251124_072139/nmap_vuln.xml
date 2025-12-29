@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE nmaprun>
-<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
-<!-- Nmap 7.95 scan initiated Mon Nov 24 07:21:40 2025 as: /usr/lib/nmap/nmap -sV -&#45;script=vuln -&#45;script-timeout 2m -&#45;max-retries 1 -p 21,22,23,25,53,80,111,139,445,512,513,514,1099,1524,2049,2121,3306,3632,5432,5900,6000,6667,8009,8180 -oN /home/kali/FYP-1/results/192-168-78-102_20251124_072139/nmap_vuln.txt -oX /home/kali/FYP-1/results/192-168-78-102_20251124_072139/nmap_vuln.xml 192.168.78.102 -->
-<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;script=vuln -&#45;script-timeout 2m -&#45;max-retries 1 -p 21,22,23,25,53,80,111,139,445,512,513,514,1099,1524,2049,2121,3306,3632,5432,5900,6000,6667,8009,8180 -oN /home/kali/FYP-1/results/192-168-78-102_20251124_072139/nmap_vuln.txt -oX /home/kali/FYP-1/results/192-168-78-102_20251124_072139/nmap_vuln.xml 192.168.78.102" start="1763986900" startstr="Mon Nov 24 07:21:40 2025" version="7.95" xmloutputversion="1.05">
-<scaninfo type="syn" protocol="tcp" numservices="24" services="21-23,25,53,80,111,139,445,512-514,1099,1524,2049,2121,3306,3632,5432,5900,6000,6667,8009,8180"/>
