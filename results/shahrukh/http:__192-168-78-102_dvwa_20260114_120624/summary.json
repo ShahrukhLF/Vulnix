@@ -1,0 +1,170 @@
+[
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-methods",
+    "evidence": "\\n  Supported Methods: GET HEAD POST OPTIONS",
+    "remediation": "Review web server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-headers",
+    "evidence": "\\n  Date: Wed, 14 Jan 2026 16:40:32 GMT\\n  Server: Apache/2.2.8 (Ubuntu) DAV/2\\n  X-Powered-By: PHP/5.2.4-2ubuntu5.10\\n  Connection: close\\n  Content-Type: text/html\\n  \\n  (Request type: HEAD)\\n",
+    "remediation": "Review web server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-server-header",
+    "evidence": "Apache/2.2.8 (Ubuntu) DAV/2",
+    "remediation": "Review web server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Apache/2...",
+    "evidence": "URL: http://192.168.78.102/dvwa/Apache/2.2.8 (Ubuntu) DAV/2\\nMethod: GET\\nDetails: Apache/2.2.8 (Ubuntu) DAV/2",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Cookie PHPSESSID created without the httponly flag...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: GET\\nDetails: Cookie PHPSESSID created without the httponly flag.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Cookie security created without the httponly flag...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: GET\\nDetails: Cookie security created without the httponly flag.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Retrieved x-powered-by header: PHP/5...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: GET\\nDetails: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "The anti-clickjacking X-Frame-Options header is not present...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: GET\\nDetails: The anti-clickjacking X-Frame-Options header is not present.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "The X-Content-Type-Options header is not set...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: GET\\nDetails: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Server may leak inodes via ETags, header found with file /dv...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/robots.txt\\nMethod: GET\\nDetails: Server may leak inodes via ETags, header found with file /dvwa/robots.txt, inode: 93164, size: 26, mtime: Tue Mar 16 01:56:22 2010.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Uncommon header 'tcn' found, with contents: list...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/index\\nMethod: GET\\nDetails: Uncommon header 'tcn' found, with contents: list.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/index: Apache mod_negotiation is enabled with MultiViews, w...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/index\\nMethod: GET\\nDetails: /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Apache/2...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: HEAD\\nDetails: Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRA...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: OPTIONS\\nDetails: OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/: HTTP TRACE method is active which suggests the host is vu...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/\\nMethod: TRACE\\nDetails: /: HTTP TRACE method is active which suggests the host is vulnerable to XST.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Directory indexing found...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/config/\\nMethod: GET\\nDetails: Directory indexing found.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Configuration information may be available remotely...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/config/\\nMethod: GET\\nDetails: Configuration information may be available remotely.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "PHP reveals potentially sensitive information via certain HT...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000\\nMethod: GET\\nDetails: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "PHP reveals potentially sensitive information via certain HT...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/?=PHPE9568F36-D428-11d2-A769-00AA001ACF42\\nMethod: GET\\nDetails: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "PHP reveals potentially sensitive information via certain HT...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/?=PHPE9568F34-D428-11d2-A769-00AA001ACF42\\nMethod: GET\\nDetails: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "PHP reveals potentially sensitive information via certain HT...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/?=PHPE9568F35-D428-11d2-A769-00AA001ACF42\\nMethod: GET\\nDetails: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "This might be interesting...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/login/\\nMethod: GET\\nDetails: This might be interesting.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Directory indexing found...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/docs/\\nMethod: GET\\nDetails: Directory indexing found.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "A changelog was found...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/CHANGELOG.txt\\nMethod: GET\\nDetails: A changelog was found.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "Admin login page/section found...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/login.php\\nMethod: GET\\nDetails: Admin login page/section found.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "PHP allows retrieval of the source code via the -s parameter...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/?-s\\nMethod: GET\\nDetails: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "PHP allows retrieval of the source code via the -s parameter...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/login.php?-s\\nMethod: GET\\nDetails: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Version number implies that there is a SQL Injection in Drup...",
+    "evidence": "URL: http://192.168.78.102/dvwa/dvwa/CHANGELOG.txt\\nMethod: GET\\nDetails: Version number implies that there is a SQL Injection in Drupal 7, which can be used for authentication bypass (Drupalgeddon).",
+    "remediation": "Check server configuration."
+  }
+]

@@ -1,0 +1,43 @@
+Vulnix Deep Web Report - Target: http://192.168.78.102/mutillidae
+Date: Tue Dec 30 12:25:31 PM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-server-header
+Evidence:
+Apache/2.2.8 (Ubuntu) DAV/2
+Remediation: Review server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-headers
+Evidence:
+
+  Date: Tue, 30 Dec 2025 16:42:55 GMT
+  Server: Apache/2.2.8 (Ubuntu) DAV/2
+  X-Powered-By: PHP/5.2.4-2ubuntu5.10
+  Connection: close
+  Content-Type: text/html
+  
+  (Request type: HEAD)
+
+Remediation: Review server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-methods
+Evidence:
+
+  Supported Methods: GET HEAD POST OPTIONS
+Remediation: Review server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-enum
+Evidence:
+
+  /tikiwiki/: Tikiwiki
+  /test/: Test page
+  /phpinfo.php: Possible information file
+  /phpMyAdmin/: phpMyAdmin
+  /doc/: Potentially interesting directory w/ listing on 'apache/2.2.8 (ubuntu) dav/2'
+  /icons/: Potentially interesting folder w/ directory listing
+  /index/: Potentially interesting fo
+Remediation: Review server config.
+

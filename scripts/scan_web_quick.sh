@@ -4,11 +4,10 @@
 # Vulnix - Quick Web Scan (scan_web_quick.sh)
 #
 # GOAL: Complete in < 2.5 minutes.
-# STRATEGY:
-#   1. Clean Target Parsing (Fixes Nmap crashes).
-#   2. Nmap: Version detection on common web ports.
-#   3. Searchsploit: Map versions to public exploits.
-#   4. Nikto: Tuned scan for XSS/SQLi + 2FA Endpoint Detection.
+# FIXES: 
+#   1. Clean Target Parsing.
+#   2. URL Fallback: Prevents blank URLs in the evidence section.
+#   3. 2FA/Auth Endpoint Detection logic.
 # ==============================================================================
 
 set -e
@@ -22,7 +21,7 @@ fi
 TARGET="$1"
 OUTPUT_DIR="$2"
 
-# FIX 1: Extract Clean Host for Nmap (Remove http://, https://, and :port)
+# FIX: Extract Clean Host for Nmap (Remove http://, https://, and :port)
 NMAP_HOST=$(echo "$TARGET" | sed 's#^.*://##' | cut -d':' -f1 | cut -d'/' -f1)
 
 # Output Files
@@ -47,11 +46,11 @@ add_finding() {
   echo "" >> "$USER_REPORT"
 
   if [ ! -s "$GUI_SUMMARY" ] || [ "$(cat "$GUI_SUMMARY")" == "[]" ]; then
-     jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
-        '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
+      jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
+         '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
   else
-     jq --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
-        '. + [{severity: $s, finding: $f, evidence: $e, remediation: $r}]' "$GUI_SUMMARY" > "$GUI_SUMMARY.tmp"
+      jq --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
+         '. + [{severity: $s, finding: $f, evidence: $e, remediation: $r}]' "$GUI_SUMMARY" > "$GUI_SUMMARY.tmp"
   fi
   mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
@@ -64,7 +63,6 @@ echo "-----------------------------------------------------------------" >> "$US
 
 # --- Phase 1: Service Version Detection (Nmap) ---
 echo "[*] Phase 1/3: Identifying Web Technologies on $NMAP_HOST..."
-# Scan standard web ports only for speed
 sudo nmap -sV --version-light -p 80,443,8080,8443,3000,8000,8008 -oX "$NMAP_XML" "$NMAP_HOST" > /dev/null
 
 # --- Phase 2: Exploit Mapping (Searchsploit) ---
@@ -88,7 +86,6 @@ try:
         version = service.get("version", "")
         
         if product and version:
-            # Clean query for Searchsploit
             query = f"{product} {version}".strip()
             cmd = ["searchsploit", "-j", query]
             res = subprocess.run(cmd, capture_output=True, text=True)
@@ -102,7 +99,7 @@ try:
                     if exploits:
                         count = len(exploits)
                         ev_list = []
-                        for e in exploits[:5]: # Top 5 only for Quick Scan
+                        for e in exploits[:5]:
                             title = e.get("Title", "")
                             cves = re.findall(r"CVE-\d{4}-\d+", e.get("Codes", ""))
                             cve = cves[0] if cves else "EDB-ID"
@@ -111,7 +108,6 @@ try:
                         ev_text = "\n".join(ev_list)
                         safe_ev = f"Found {count} exploits for {product} {version}:\n{ev_text}".replace("\n", "\\n")
                         print(f"HIGH|Vulnerable Software: {product} {version}|{safe_ev}|Upgrade {product} immediately.")
-
 except: pass
 ' | while IFS='|' read -r sev fin evi rem; do
     add_finding "$sev" "$fin" "$evi" "$rem"
@@ -119,13 +115,12 @@ done
 
 # --- Phase 3: Targeted Vulnerability Scan (Nikto) ---
 echo "[*] Phase 3/3: Scanning for Critical Flaws (Nikto)..."
-# -Tuning 489: XSS(4), Flash(8), SQL Injection(9) - Criticals Only
-# -maxtime 90s: Strict time limit
-nikto -h "$TARGET" -o "$NIKTO_JSON" -Format json -Tuning 489 -maxtime 90s -nointeractive > "$NIKTO_TXT" 2>&1 || true
+# Tuning for Speed: SQLi, XSS, and Shell tests only
+nikto -h "$TARGET" -o "$NIKTO_JSON" -Format json -Tuning 489 -maxtime 120s -nointeractive > "$NIKTO_TXT" 2>&1 || true
 
-# Parse Nikto JSON (With Noise Filtering & 2FA Detection)
+# Parse Nikto JSON (With Noise Filtering & URL Fallback Fix)
 python3 -c '
-import json, re
+import json, sys
 
 try:
     with open("'"$NIKTO_JSON"'", "r") as f:
@@ -135,13 +130,19 @@ try:
             data = json.loads(content[start:])
             
             backup_count = 0
+            base_target = "'"$TARGET"'"
             
             for item in data.get("vulnerabilities", []):
                 msg = item.get("msg", "Unknown")
-                url = item.get("url", "/")
+                
+                # FALLBACK FIX: If URL is empty, use the base target
+                url = item.get("url", "").strip()
+                if not url:
+                    url = base_target
+                
                 method = item.get("method", "GET")
                 
-                # FIX 2: Filter Noise (Soft 404s common in SPAs like Juice Shop)
+                # Filter Noise
                 if "backup" in msg or "cert" in msg:
                     backup_count += 1
                     if backup_count > 3: continue 
@@ -149,29 +150,28 @@ try:
                 # Severity Logic
                 severity = "MEDIUM"
                 title = msg.split(".")[0]
-                remediation = "Check application code."
+                remediation = "Check application code and server configuration."
 
                 if "SQL" in msg or "Injection" in msg: severity = "CRITICAL"
                 elif "XSS" in msg or "Scripting" in msg: severity = "HIGH"
                 elif "Travers" in msg or "shell" in msg: severity = "CRITICAL"
                 elif "cookie" in msg.lower(): severity = "LOW"
 
-                # 2FA / AUTH Logic (Requested by Evaluator)
-                msg_lower = msg.lower()
-                url_lower = url.lower()
-                if any(x in msg_lower for x in ["2fa", "otp", "mfa", "two-factor", "authenticator"]) or \
-                   any(x in url_lower for x in ["2fa", "otp", "mfa"]):
+                # 2FA / AUTH Logic
+                msg_l = msg.lower()
+                url_l = url.lower()
+                if any(x in msg_l for x in ["2fa", "otp", "mfa", "two-factor"]) or \
+                   any(x in url_l for x in ["2fa", "otp", "mfa"]):
                     severity = "HIGH"
                     title = "Potential 2FA/Auth Endpoint Exposed"
-                    remediation = "Manual Verification Required: Check for 2FA bypass vulnerabilities (Logic/Race Conditions)."
+                    remediation = "Verify 2FA implementation for bypass vulnerabilities."
 
-                # Clean Title
                 if len(title) > 60: title = title[:60] + "..."
                 
+                # Clean evidence string
                 evidence = f"URL: {url}\\nMethod: {method}\\nDetails: {msg}".replace("\n", "\\n")
                 
                 print(f"{severity}|{title}|{evidence}|{remediation}")
-
 except: pass
 ' | while IFS='|' read -r sev fin evi rem; do
     add_finding "$sev" "$fin" "$evi" "$rem"

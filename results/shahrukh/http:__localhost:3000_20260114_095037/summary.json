@@ -1,0 +1,92 @@
+[
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: fingerprint-strings",
+    "evidence": "\\n  GetRequest: \\n    HTTP/1.1 200 OK\\n    Access-Control-Allow-Origin: *\\n    X-Content-Type-Options: nosniff\\n    X-Frame-Options: SAMEORIGIN\\n    Feature-Policy: payment 'self'\\n    X-Recruiting: /#/jobs\\n    Accept-Ranges: bytes\\n    Cache-Control: public, max-age=0\\n    Last-Modified: Wed, 14 Jan 2026 14",
+    "remediation": "Review web server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/: Retrieved access-control-allow-origin header: *...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: /: Retrieved access-control-allow-origin header: *.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "/: Uncommon header 'x-recruiting' found, with contents: /#/j...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/robots...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200).",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/robots...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: /robots.txt: contains 1 entry which should be manually viewed.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "assets/public/favicon_js...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: assets/public/favicon_js.ico: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/backup...",
+    "evidence": "URL: http://localhost:3000\\nMethod: HEAD\\nDetails: /backup.tgz: Potentially interesting backup/cert file found. .",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/127...",
+    "evidence": "URL: http://localhost:3000\\nMethod: HEAD\\nDetails: /127.0.0.1.alz: Potentially interesting backup/cert file found. .",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/localhost...",
+    "evidence": "URL: http://localhost:3000\\nMethod: HEAD\\nDetails: /localhost.egg: Potentially interesting backup/cert file found. .",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/database...",
+    "evidence": "URL: http://localhost:3000\\nMethod: HEAD\\nDetails: /database.tar.lzma: Potentially interesting backup/cert file found. .",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/dump...",
+    "evidence": "URL: http://localhost:3000\\nMethod: HEAD\\nDetails: /dump.war: Potentially interesting backup/cert file found. .",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/ftp/: This might be interesting...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: /ftp/: This might be interesting.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/public/: This might be interesting...",
+    "evidence": "URL: http://localhost:3000\\nMethod: GET\\nDetails: /public/: This might be interesting.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/wp-content/plugins/nextgen-gallery/products/photocrati_next...",
+    "evidence": "URL: http://localhost:3000\\nMethod: POST\\nDetails: /wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/static/jquery.filetree/connectors/jqueryFileTree.php: NextGEN Gallery LFI.",
+    "remediation": "Check server configuration."
+  },
+  {
+    "severity": "LOW",
+    "finding": "/wordpress/wp-content/plugins/nextgen-gallery/products/photo...",
+    "evidence": "URL: http://localhost:3000\\nMethod: POST\\nDetails: /wordpress/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/static/jquery.filetree/connectors/jqueryFileTree.php: NextGEN Gallery LFI.",
+    "remediation": "Check server configuration."
+  }
+]

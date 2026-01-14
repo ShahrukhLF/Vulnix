@@ -1,0 +1,122 @@
+[
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-methods",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  Supported Methods: GET HEAD POST OPTIONS",
+    "finding": "Review server config.",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-headers",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  Date: Tue, 30 Dec 2025 16:52:17 GMT",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  Server: Apache/2.2.8 (Ubuntu) DAV/2",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  X-Powered-By: PHP/5.2.4-2ubuntu5.10",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  Connection: close",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  Content-Type: text/html",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  ",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  (Request type: HEAD)",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "",
+    "finding": "Review server config.",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-server-header",
+    "evidence": "Apache/2.2.8 (Ubuntu) DAV/2",
+    "remediation": "Review server config."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-enum",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /tikiwiki/: Tikiwiki",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /test/: Test page",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /phpinfo.php: Possible information file",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /phpMyAdmin/: phpMyAdmin",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /doc/: Potentially interesting directory w/ listing on 'apache/2.2.8 (ubuntu) dav/2'",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /icons/: Potentially interesting folder w/ directory listing",
+    "finding": "",
+    "evidence": "",
+    "remediation": ""
+  },
+  {
+    "severity": "  /index/: Potentially interesting fo",
+    "finding": "Review server config.",
+    "evidence": "",
+    "remediation": ""
+  }
+]

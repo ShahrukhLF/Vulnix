@@ -1,0 +1,20 @@
+[
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: dnsmasq 2.75",
+    "evidence": "Found 6 exploits for \"dnsmasq 2.75\":\n- Dnsmasq < 2.78 - 2-byte Heap Overflow [CVE-2017-14491]\n- Dnsmasq < 2.78 - Heap Overflow [CVE-2017-14492]\n- Dnsmasq < 2.78 - Information Leak [CVE-2017-14494]\n- Dnsmasq < 2.78 - Integer Underflow [CVE-2017-14496]\n- Dnsmasq < 2.78 - Lack of free() Denial of Service [CVE-2017-14495]\n- Dnsmasq < 2.78 - Stack Overflow [CVE-2017-14493]",
+    "remediation": "Update dnsmasq to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: Samba 3.X",
+    "evidence": "Found 2 exploits for \"Samba 3.X\":\n- Samba < 3.0.20 - Remote Heap Overflow [EDB-ID]\n- Samba < 3.6.2 (x86) - Denial of Service (PoC) [CVE-2015-0240]",
+    "remediation": "Update Samba smbd to the latest version."
+  },
+  {
+    "severity": "HIGH",
+    "finding": "Vulnerable Service: MySQL 5.7.12-0ubuntu1",
+    "evidence": "Found 2 exploits for \"MySQL 5.7.12-0ubuntu1\":\n- MySQL < 5.6.35 / < 5.7.17 - Integer Overflow [CVE-2017-3599]\n- MySQL < 5.6.35 / < 5.7.17 - Integer Overflow [CVE-2017-3599]",
+    "remediation": "Update MySQL to the latest version."
+  }
+]

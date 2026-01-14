@@ -1,0 +1,235 @@
+Vulnix Deep Web Report - Target: http://192.168.78.102/dvwa
+Date: Tue Dec 30 11:18:04 AM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-methods
+Evidence:
+
+  Supported Methods: GET HEAD POST OPTIONS
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-headers
+Evidence:
+
+  Date: Tue, 30 Dec 2025 16:18:10 GMT
+  Server: Apache/2.2.8 (Ubuntu) DAV/2
+  X-Powered-By: PHP/5.2.4-2ubuntu5.10
+  Connection: close
+  Content-Type: text/html
+  
+  (Request type: HEAD)
+
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-server-header
+Evidence:
+Apache/2.2.8 (Ubuntu) DAV/2
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-enum
+Evidence:
+
+  /tikiwiki/: Tikiwiki
+  /test/: Test page
+  /phpinfo.php: Possible information file
+  /phpMyAdmin/: phpMyAdmin
+  /doc/: Potentially interesting directory w/ listing on 'apache/2.2.8 (ubuntu) dav/2'
+  /icons/: Potentially interesting folder w/ directory listing
+  /index/: Potentially interesting fo
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/: Cookie PHPSESSID created without the httponly flag....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: Cookie PHPSESSID created without the httponly flag.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/: Cookie security created without the httponly flag....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: Cookie security created without the httponly flag.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/: The anti-clickjacking X-Frame-Options header is not ...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: The anti-clickjacking X-Frame-Options header is not present.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/: The X-Content-Type-Options header is not set. This c...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/robots.txt: Server may leak inodes via ETags, header f...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/robots.txt: Server may leak inodes via ETags, header found with file /dvwa/robots.txt, inode: 93164, size: 26, mtime: Tue Mar 16 01:56:22 2010.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/index: Uncommon header 'tcn' found, with contents: lis...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/index: Uncommon header 'tcn' found, with contents: list.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /index: Apache mod_negotiation is enabled with MultiViews, w...
+Evidence:
+URL: 
+Method: GET
+Details: /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] Apache/2.2.8 appears to be outdated (current is at least Apa...
+Evidence:
+URL: 
+Method: HEAD
+Details: Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRA...
+Evidence:
+URL: 
+Method: OPTIONS
+Details: OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /: HTTP TRACE method is active which suggests the host is vu...
+Evidence:
+URL: 
+Method: TRACE
+Details: /: HTTP TRACE method is active which suggests the host is vulnerable to XST.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/config/: Directory indexing found....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/config/: Directory indexing found.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /dvwa/config/: Configuration information may be available re...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/config/: Configuration information may be available remotely.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000: PHP reveals...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/?=PHPE9568F36-D428-11d2-A769-00AA001ACF42: PHP reveals...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/?=PHPE9568F36-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/?=PHPE9568F34-D428-11d2-A769-00AA001ACF42: PHP reveals...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/?=PHPE9568F34-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/?=PHPE9568F35-D428-11d2-A769-00AA001ACF42: PHP reveals...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/?=PHPE9568F35-D428-11d2-A769-00AA001ACF42: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/login/: This might be interesting....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/login/: This might be interesting.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/docs/: Directory indexing found....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/docs/: Directory indexing found.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/CHANGELOG.txt: A changelog was found....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/CHANGELOG.txt: A changelog was found.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/login.php: Admin login page/section found....
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/login.php: Admin login page/section found.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/?-s: PHP allows retrieval of the source code via the -...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[LOW     ] /dvwa/login.php?-s: PHP allows retrieval of the source code ...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/login.php?-s: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check server config.
+
+-----------------------------------------------------------------
+[HIGH    ] /dvwa/CHANGELOG.txt: Version number implies that there is a ...
+Evidence:
+URL: 
+Method: GET
+Details: /dvwa/CHANGELOG.txt: Version number implies that there is a SQL Injection in Drupal 7, which can be used for authentication bypass (Drupalgeddon).
+Remediation: Check server config.
+

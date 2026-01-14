@@ -1,0 +1,131 @@
+Vulnix Deep Web Report - Target: http://localhost:3000
+Date: Wed Jan 14 09:50:38 AM EST 2026
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: fingerprint-strings
+Evidence:
+
+  GetRequest: 
+    HTTP/1.1 200 OK
+    Access-Control-Allow-Origin: *
+    X-Content-Type-Options: nosniff
+    X-Frame-Options: SAMEORIGIN
+    Feature-Policy: payment 'self'
+    X-Recruiting: /#/jobs
+    Accept-Ranges: bytes
+    Cache-Control: public, max-age=0
+    Last-Modified: Wed, 14 Jan 2026 14
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: Retrieved access-control-allow-origin header: *...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: /: Retrieved access-control-allow-origin header: *.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: Uncommon header 'x-recruiting' found, with contents: /#/j...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /robots...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200).
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /robots...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: /robots.txt: contains 1 entry which should be manually viewed.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] assets/public/favicon_js...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: assets/public/favicon_js.ico: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /backup...
+Evidence:
+URL: http://localhost:3000
+Method: HEAD
+Details: /backup.tgz: Potentially interesting backup/cert file found. .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /127...
+Evidence:
+URL: http://localhost:3000
+Method: HEAD
+Details: /127.0.0.1.alz: Potentially interesting backup/cert file found. .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /localhost...
+Evidence:
+URL: http://localhost:3000
+Method: HEAD
+Details: /localhost.egg: Potentially interesting backup/cert file found. .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /database...
+Evidence:
+URL: http://localhost:3000
+Method: HEAD
+Details: /database.tar.lzma: Potentially interesting backup/cert file found. .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /dump...
+Evidence:
+URL: http://localhost:3000
+Method: HEAD
+Details: /dump.war: Potentially interesting backup/cert file found. .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /ftp/: This might be interesting...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: /ftp/: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /public/: This might be interesting...
+Evidence:
+URL: http://localhost:3000
+Method: GET
+Details: /public/: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /wp-content/plugins/nextgen-gallery/products/photocrati_next...
+Evidence:
+URL: http://localhost:3000
+Method: POST
+Details: /wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/static/jquery.filetree/connectors/jqueryFileTree.php: NextGEN Gallery LFI.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /wordpress/wp-content/plugins/nextgen-gallery/products/photo...
+Evidence:
+URL: http://localhost:3000
+Method: POST
+Details: /wordpress/wp-content/plugins/nextgen-gallery/products/photocrati_nextgen/modules/nextgen_addgallery_page/static/jquery.filetree/connectors/jqueryFileTree.php: NextGEN Gallery LFI.
+Remediation: Check server configuration.
+

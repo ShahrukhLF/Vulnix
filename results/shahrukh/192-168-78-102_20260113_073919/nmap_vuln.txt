@@ -1,0 +1,871 @@
+# Nmap 7.95 scan initiated Tue Jan 13 07:39:19 2026 as: /usr/lib/nmap/nmap -sV --version-intensity 5 "--script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast" --script-timeout 60s --max-retries 1 --min-rate 1500 -p 21,22,23,25,53,80,111,139,445,512,513,514,1099,1524,2049,2121,3306,3632,5432,5900,6000,6667,8009,8180 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-102_20260113_073919/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-102_20260113_073919/nmap_vuln.xml 192.168.78.102
+Pre-scan script results:
+|_multicast-profinet-discovery: 0
+Nmap scan report for 192.168.78.102
+Host is up (0.0036s latency).
+
+Bug in http-security-headers: no string output.
+Bug in http-security-headers: no string output.
+PORT     STATE SERVICE     VERSION
+21/tcp   open  ftp         vsftpd 2.3.4
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to 192.168.78.101
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      vsFTPd 2.3.4 - secure, fast, stable
+|_End of status
+| ftp-vsftpd-backdoor: 
+|   VULNERABLE:
+|   vsFTPd version 2.3.4 backdoor
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2011-2523  BID:48539
+|       vsFTPd version 2.3.4 backdoor, this was reported on 2011-07-04.
+|     Disclosure date: 2011-07-03
+|     Exploit results:
+|       Shell command: id
+|       Results: uid=0(root) gid=0(root)
+|     References:
+|       https://github.com/rapid7/metasploit-framework/blob/master/modules/exploits/unix/ftp/vsftpd_234_backdoor.rb
+|       https://www.securityfocus.com/bid/48539
+|       http://scarybeastsecurity.blogspot.com/2011/07/alert-vsftpd-download-backdoored.html
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2011-2523
+|_banner: 220 (vsFTPd 2.3.4)
+|_ftp-anon: Anonymous FTP login allowed (FTP code 230)
+22/tcp   open  ssh         OpenSSH 4.7p1 Debian 8ubuntu1 (protocol 2.0)
+| ssh-hostkey: 
+|   1024 60:0f:cf:e1:c0:5f:6a:74:d6:90:24:fa:c4:d5:6c:cd (DSA)
+|_  2048 56:56:24:0f:21:1d:de:a7:2b:ae:61:b1:24:3d:e8:f3 (RSA)
+| ssh2-enum-algos: 
+|   kex_algorithms: (4)
+|   server_host_key_algorithms: (2)
+|   encryption_algorithms: (13)
+|   mac_algorithms: (7)
+|_  compression_algorithms: (2)
+|_banner: SSH-2.0-OpenSSH_4.7p1 Debian-8ubuntu1
+| ssh-publickey-acceptance: 
+|_  Accepted Public Keys: No public keys accepted
+| ssh-auth-methods: 
+|   Supported authentication methods: 
+|     publickey
+|_    password
+23/tcp   open  telnet      Linux telnetd
+|_banner: \xFF\xFD\x18\xFF\xFD \xFF\xFD#\xFF\xFD'
+25/tcp   open  smtp        Postfix smtpd
+|_banner: 220 metasploitable.localdomain ESMTP Postfix (Ubuntu)
+| smtp-vuln-cve2010-4344: 
+|_  The SMTP server is not Exim: NOT VULNERABLE
+|_smtp-commands: metasploitable.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN
+53/tcp   open  domain      ISC BIND 9.4.2
+| dns-nsid: 
+|_  bind.version: 9.4.2
+|_dns-nsec-enum: Can't determine domain for host 192.168.78.102; use dns-nsec-enum.domains script arg.
+|_dns-nsec3-enum: Can't determine domain for host 192.168.78.102; use dns-nsec3-enum.domains script arg.
+80/tcp   open  http        Apache httpd 2.2.8 ((Ubuntu) DAV/2)
+| http-comments-displayer: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 488
+|     Comment: 
+|         <!-- Begin Content -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 51
+|     Comment: 
+|          //reference main menu UL
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 143
+|     Comment: 
+|          //ajax menu?
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=login.php
+|     Line number: 491
+|     Comment: 
+|         
+|         	var l_loggedIn = false;
+|         var l_failedLogInFlag = "0";
+|         var lValidateInput = "FALSE"
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|         //-->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 3
+|     Comment: 
+|         /*background of menu bar (default state)*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=login.php
+|     Line number: 496
+|     Comment: 
+|         /*HTMLFormElement*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 124
+|     Comment: 
+|          //construct CSS3 box-shadow value
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 33
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 47
+|     Comment: 
+|         /*background of menu items during onmouseover (hover state)*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 98
+|     Comment: 
+|         /* ######### CSS for shadow added to sub menus  ######### */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 33
+|     Comment: 
+|         /*IE6 hack to get sub menu links to behave correctly*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=dns-lookup.php
+|     Line number: 557
+|     Comment: 
+|         <!--
+|         
+|         
+|         
+|         
+|         	}// end try
+|         //-->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 65
+|     Comment: 
+|         /*All subsequent sub menu levels vertical offset after 1st level sub menu */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=dns-lookup.php
+|     Line number: 512
+|     Comment: 
+|         /*/;var lCrossSiteScriptingPattern = /*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 75
+|     Comment: 
+|          //store this shadow's offsets
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 113
+|     Comment: 
+|          //in WebKit browsers, set first child shadow's opacity to 0, as "overflow:hidden" doesn't work in them
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 9
+|     Comment: 
+|         
+|         //** May 1st, 09" (v1.3):
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 122
+|     Comment: 
+|          //if shadows enabled and browser supports CSS3 shadows
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 142
+|     Comment: 
+|          //in IE6, always disable shadow
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=dns-lookup.php
+|     Line number: 560
+|     Comment: 
+|         /*Exception*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 11
+|     Comment: 
+|         
+|         //** 2) In IE6, shadows are now always disabled
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 120
+|     Comment: 
+|          //end hover
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 23
+|     Comment: 
+|          //enable shadow?
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 41
+|     Comment: 
+|         /*CSS class that's dynamically added to the currently active menu items' LI A element*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 63
+|     Comment: 
+|          //reference current LI header
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 73
+|     Comment: 
+|         /*width of sub menus*/
+|     
+|     Path: http://192.168.78.102:80/dvwa/
+|     Line number: 57
+|     Comment: 
+|         <!-- <img src="dvwa/images/RandomStorm.png" /> -->
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/
+|     Line number: 13
+|     Comment: 
+|         
+|         //<![CDATA[
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 35
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 32
+|     Comment: 
+|          //function to fetch external page containing the panel DIVs
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 26
+|     Comment: 
+|         
+|         ///////Stop configuring beyond here///////////////////////////
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/bookmark-site.js
+|     Line number: 2
+|     Comment: 
+|         
+|         
+|         
+|         
+|         	***********************************************/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 30
+|     Comment: 
+|          //detect browsers that support CSS3 box shadows (ie9+ or FF3.5+, Safari3+, Chrome etc)
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 547
+|     Comment: 
+|         <!-- End Content -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/jquery.min.js
+|     Line number: 19
+|     Comment: 
+|         /*"}},lastModified:{},ajax:function(M){M=o.extend(true,M,o.extend(true,{},o.ajaxSettings,M));var W,F=/=\?(&|$)/g,R,V,G=M.type.toUpperCase();if(M.data&&M.processData&&typeof M.data!=="string"){M.data=o.param(M.data)}if(M.dataType=="jsonp"){if(G=="GET"){if(!M.url.match(F)){M.url+=(M.url.match(/\?/)?"&":"?")+(M.jsonp||"callback")+"=?"}}else{if(!M.data||!M.data.match(F)){M.data=(M.data?M.data+"&":"")+(M.jsonp||"callback")+"=?"}}M.dataType="json"}if(M.dataType=="json"&&(M.data&&M.data.match(F)||M.url.match(F))){W="jsonp"+r++;if(M.data){M.data=(M.data+"").replace(F,"="+W+"$1")}M.url=M.url.replace(F,"="+W+"$1");M.dataType="script";l[W]=function(X){V=X;I();L();l[W]=g;try{delete l[W]}catch(Y){}if(H){H.removeChild(T)}}}if(M.dataType=="script"&&M.cache==null){M.cache=false}if(M.cache===false&&G=="GET"){var E=e();var U=M.url.replace(/(\?|&)_=.*?(&|$)/,"$1_="+E+"$2");M.url=U+((U==M.url)?(M.url.match(/\?/)?"&":"?")+"_="+E:"")}if(M.data&&G=="GET"){M.url+=(M.url.match(/\?/)?"&":"?")+M.data;M.data=null}if(M.global&&!o.active++){o.event.trigger("ajaxStart")}var Q=/^(\w+:)?\/\/([^\/?#]+)/.exec(M.url);if(M.dataType=="script"&&G=="GET"&&Q&&(Q[1]&&Q[1]!=location.protocol||Q[2]!=location.host)){var H=document.getElementsByTagName("head")[0];var T=document.createElement("script");T.src=M.url;if(M.scriptCharset){T.charset=M.scriptCharset}if(!W){var O=false;T.onload=T.onreadystatechange=function(){if(!O&&(!this.readyState||this.readyState=="loaded"||this.readyState=="complete")){O=true;I();L();T.onload=T.onreadystatechange=null;H.removeChild(T)}}}H.appendChild(T);return g}var K=false;var J=M.xhr();if(M.username){J.open(G,M.url,M.async,M.username,M.password)}else{J.open(G,M.url,M.async)}try{if(M.data){J.setRequestHeader("Content-Type",M.contentType)}if(M.ifModified){J.setRequestHeader("If-Modified-Since",o.lastModified[M.url]||"Thu, 01 Jan 1970 00:00:00 GMT")}J.setRequestHeader("X-Requested-With","XMLHttpRequest");J.setRequestHeader("Accept",M.dataType&&M.accepts[M.dataType]?M.accepts[M.dataType]+", */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=login.php
+|     Line number: 519
+|     Comment: 
+|         
+|         //-->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 74
+|     Comment: 
+|          //if shadows enabled and browser doesn't support CSS3 box shadows
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/bookmark-site.js
+|     Line number: 8
+|     Comment: 
+|         /* Modified heavily by Jeremy Druin */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 36
+|     Comment: 
+|          //path to external menu file
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 24
+|     Comment: 
+|         /*background of menu items (default state)*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 82
+|     Comment: 
+|          //insert shadow DIV and set it to parent node for the next shadow div
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 32
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/jquery.min.js
+|     Line number: 1
+|     Comment: 
+|         /*
+|          * jQuery JavaScript Library v1.3.2
+|          * http://jquery.com/
+|          *
+|          * Copyright (c) 2009 John Resig
+|          * Dual licensed under the MIT and GPL licenses.
+|          * http://docs.jquery.com/License
+|          *
+|          * Date: 2009-02-19 17:34:21 -0500 (Thu, 19 Feb 2009)
+|          * Revision: 6246
+|          */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/
+|     Line number: 66
+|     Comment: 
+|         
+|         // <![CDATA[
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=dns-lookup.php
+|     Line number: 510
+|     Comment: 
+|         /* HTMLForm */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 81
+|     Comment: 
+|         /*Holly Hack for IE7 and below*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 14
+|     Comment: 
+|         /*Top level list items*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 153
+|     Comment: 
+|          //end ddsmoothmenu variable
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 147
+|     Comment: 
+|          //else if markup menu
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 144
+|     Comment: 
+|          //if external ajax menu
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 134
+|     Comment: 
+|          //override default menu colors (default/hover) with custom set?
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 92
+|     Comment: 
+|          //calculate this sub menu's offsets from its parent
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 125
+|     Comment: 
+|          //possible vendor specific CSS3 shadow properties
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 98
+|     Comment: 
+|          //in WebKit browsers, restore shadow's opacity to full
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 21
+|     Comment: 
+|         /*Top level menu link items style*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 87
+|     Comment: 
+|          //reference header LI as DOM object
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 109
+|     Comment: 
+|         /*shadow opacity for NON CSS3 capable browsers. Doesn't work in IE*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 16
+|     Comment: 
+|         
+|         //** Dec 17th, 10" (v1.5): Updated menu shadow to use CSS3 box shadows when the browser is FF3.5+, IE9+, Opera9.5+, or Safari3+/Chrome. Only .js file changed.
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 55
+|     Comment: 
+|         /*collapse all sub menus to begin with*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 59
+|     Comment: 
+|         /*Sub level menu list items (undo style from Top level List Items)*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 121
+|     Comment: 
+|          //end $headers.each()
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 13
+|     Comment: 
+|         
+|         //** July 27th, 09" (v1.31): Fixed bug so shadows can be disabled if desired.
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 86
+|     Comment: 
+|          //reference UL to reveal
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 69
+|     Comment: 
+|          //add arrow images
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 67
+|     Comment: 
+|          //is top level header?
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 31
+|     Comment: 
+|         
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 62
+|     Comment: 
+|          //loop through each LI header
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 33
+|     Comment: 
+|          //reference empty div on page that will hold menu
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=dns-lookup.php
+|     Line number: 508
+|     Comment: 
+|         <!-- BEGIN HTML OUTPUT  -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 100
+|     Comment: 
+|         /*shadow for NON CSS3 capable browsers*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 51
+|     Comment: 
+|         /*1st sub level menu*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 20
+|     Comment: 
+|         
+|         //Specify full URL to down and right arrow images (23 is padding-right added to top level LIs with drop downs):
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 28
+|     Comment: 
+|          //detect WebKit browsers (Safari, Chrome etc)
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 2
+|     Comment: 
+|         
+|         //** Script Download/ instructions page: http://www.dynamicdrive.com/dynamicindex1/ddlevelsmenu/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 80
+|     Comment: 
+|         /* Holly Hack for IE \*/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 22
+|     Comment: 
+|          //duration of slide in/ out animation, in milliseconds
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 23
+|     Comment: 
+|         
+|         
+|         
+|         
+|         		***********************************************/
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 84
+|     Comment: 
+|         /* ######### CSS classes applied to down and right arrow images  ######### */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/
+|     Line number: 44
+|     Comment: 
+|         <!-- Login form -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 93
+|     Comment: 
+|          //if 1 or less queued animations
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 5
+|     Comment: 
+|         
+|         //** Dec 12th, 08" (v1.01): Fixed Shadow issue when multiple LIs within the same UL (level) contain sub menus: http://www.dynamicdrive.com/forums/showthread.php?t=39177&highlight=smooth
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/
+|     Line number: 18
+|     Comment: 
+|         
+|         //]]>
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 24
+|     Comment: 
+|          //set delay in milliseconds before sub menus appear and disappear, respectively
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/jquery.min.js
+|     Line number: 13
+|     Comment: 
+|         /*
+|          * Sizzle CSS Selector Engine - v0.9.3
+|          *  Copyright 2009, The Dojo Foundation
+|          *  Released under the MIT, BSD, and GPL Licenses.
+|          *  More information: http://sizzlejs.com/
+|          */
+|     
+|     Path: http://192.168.78.102:80/mutillidae/javascript/ddsmoothmenu/ddsmoothmenu.js
+|     Line number: 7
+|     Comment: 
+|         
+|         //** Feb 11th, 09" (v1.02): The currently active main menu item (LI A) now gets a CSS class of ".selected", including sub menu items.
+|     
+|     Path: http://192.168.78.102:80/dvwa/
+|     Line number: 61
+|     Comment: 
+|         <!-- end align div -->
+|     
+|     Path: http://192.168.78.102:80/mutillidae/styles/ddsmoothmenu/ddsmoothmenu.css
+|     Line number: 70
+|     Comment: 
+|         /* Sub level menu links style */
+|     
+|     Path: http://192.168.78.102:80/phpMyAdmin/
+|     Line number: 79
+|     Comment: 
+|         
+|         // ]]>
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Line number: 2
+|     Comment: 
+|         
+|         
+|         
+|         
+|         
+|         
+|         
+|_        			security instructors are just making all this up. -->
+|_http-vuln-cve2017-1001000: ERROR: Script execution failed (use -d to debug)
+|_http-title: Metasploitable2 - Linux
+| http-php-version: Versions from logo query (less accurate): 5.1.3 - 5.1.6, 5.2.0 - 5.2.17
+| Versions from credits query (more accurate): 5.2.3 - 5.2.5, 5.2.6RC3
+|_Version from header x-powered-by: PHP/5.2.4-2ubuntu5.10
+|_http-chrono: Request times for /; avg: 736.36ms; min: 246.33ms; max: 2333.33ms
+| http-headers: 
+|   Date: Tue, 13 Jan 2026 12:40:05 GMT
+|   Server: Apache/2.2.8 (Ubuntu) DAV/2
+|   X-Powered-By: PHP/5.2.4-2ubuntu5.10
+|   Connection: close
+|   Content-Type: text/html
+|   
+|_  (Request type: HEAD)
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-vhosts: 
+|_128 names had status 200
+|_http-mobileversion-checker: No mobile version detected.
+| http-csrf: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102
+|   Found the following possible CSRF vulnerabilities: 
+|     
+|     Path: http://192.168.78.102:80/dvwa/
+|     Form id: 
+|     Form action: login.php
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=dns-lookup.php
+|     Form id: iddnslookupform
+|     Form action: index.php?page=dns-lookup.php
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=login.php
+|     Form id: idloginform
+|     Form action: index.php?page=login.php
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=user-poll.php
+|     Form id: idpollform
+|     Form action: index.php
+|     
+|     Path: http://192.168.78.102:80/mutillidae/index.php?page=register.php
+|     Form id: id-bad-cred-tr
+|     Form action: index.php?page=register.php
+|     
+|     Path: http://192.168.78.102:80/mutillidae/?page=user-info.php
+|     Form id: id-bad-cred-tr
+|_    Form action: ./index.php?page=user-info.php
+|_http-date: Tue, 13 Jan 2026 12:40:33 GMT; -3s from local time.
+| http-auth-finder: 
+| Spidering limited to: maxdepth=3; maxpagecount=20; withinhost=192.168.78.102
+|   url                                                              method
+|   http://192.168.78.102:80/phpMyAdmin/                             FORM
+|   http://192.168.78.102:80/dvwa/                                   FORM
+|   http://192.168.78.102:80/mutillidae/index.php?page=login.php     FORM
+|   http://192.168.78.102:80/mutillidae/index.php?page=register.php  FORM
+|_  http://192.168.78.102:80/mutillidae/?page=user-info.php          FORM
+|_http-referer-checker: Couldn't find any cross-domain scripts.
+|_http-trace: TRACE is enabled
+| http-sitemap-generator: 
+|   Directory structure:
+|     /
+|       Other: 1
+|     /dav/
+|       Other: 1
+|     /dvwa/
+|       Other: 1
+|     /mutillidae/
+|       Other: 1; php: 2
+|     /mutillidae/images/
+|       jpeg: 2; jpg: 3; png: 1
+|     /phpMyAdmin/
+|       Other: 1
+|     /twiki/
+|       Other: 1
+|   Longest directory structure:
+|     Depth: 2
+|     Dir: /mutillidae/images/
+|   Total files found (by extension):
+|_    Other: 6; jpeg: 2; jpg: 3; php: 2; png: 1
+|_http-apache-negotiation: mod_negotiation enabled.
+| http-grep: 
+|   (1) http://192.168.78.102:80/dav/: 
+|     (1) ip: 
+|_      + 192.168.78.102
+111/tcp  open  rpcbind
+| nfs-statfs: 
+|   Filesystem  1K-blocks  Used       Available  Use%  Maxfilesize  Maxlink
+|_  /           7282168.0  1566272.0  5348896.0  23%   2.0T         32000
+| nfs-showmount: 
+|_  / *
+| nfs-ls: Volume /
+|   access: Read Lookup Modify Extend Delete NoExecute
+| PERMISSION  UID  GID  SIZE   TIME                 FILENAME
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:33  bin
+| drwxr-xr-x  0    0    4096   2010-04-16T06:16:02  home
+| drwxr-xr-x  0    0    4096   2010-03-16T22:57:40  initrd
+| lrwxrwxrwx  0    0    32     2010-04-28T20:26:18  initrd.img
+| drwxr-xr-x  0    0    4096   2012-05-14T03:35:22  lib
+| drwx------  0    0    16384  2010-03-16T22:55:15  lost+found
+| drwxr-xr-x  0    0    4096   2010-03-16T22:55:52  media
+| drwxr-xr-x  0    0    4096   2010-04-28T20:16:56  mnt
+| drwxr-xr-x  0    0    4096   2012-05-14T01:54:53  sbin
+| drwxr-xr-x  0    0    4096   2010-04-28T04:06:37  usr
+|_
+139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open  netbios-ssn Samba smbd 3.0.20-Debian (workgroup: WORKGROUP)
+512/tcp  open  exec        netkit-rsh rexecd
+|_banner: \x01Where are you?
+513/tcp  open  login?
+514/tcp  open  shell       Netkit rshd
+|_banner: \x01getnameinfo: Temporary failure in name resolution
+1099/tcp open  java-rmi    GNU Classpath grmiregistry
+|_rmi-vuln-classloader: ERROR: Script execution failed (use -d to debug)
+1524/tcp open  bindshell   Metasploitable root shell
+|_banner: root@metasploitable:/#
+2049/tcp open  rpcbind
+2121/tcp open  ftp         ProFTPD 1.3.1
+|_banner: 220 ProFTPD 1.3.1 Server (Debian) [::ffff:192.168.78.102]
+3306/tcp open  mysql       MySQL 5.0.51a-3ubuntu5
+|_banner: >\x00\x00\x00\x0A5.0.51a-3ubuntu5\x00\x09\x00\x00\x00#QOx2-+...
+3632/tcp open  distccd     distccd v1 ((GNU) 4.2.4 (Ubuntu 4.2.4-1ubuntu4))
+| distcc-cve2004-2687: 
+|   VULNERABLE:
+|   distcc Daemon Command Execution
+|     State: VULNERABLE (Exploitable)
+|     IDs:  CVE:CVE-2004-2687
+|     Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+|       Allows executing of arbitrary commands on systems running distccd 3.1 and
+|       earlier. The vulnerability is the consequence of weak service configuration.
+|       
+|     Disclosure date: 2002-02-01
+|     Extra information:
+|       
+|     uid=1(daemon) gid=1(daemon) groups=1(daemon)
+|   
+|     References:
+|       https://distcc.github.io/security.html
+|       https://nvd.nist.gov/vuln/detail/CVE-2004-2687
+|_      https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2004-2687
+5432/tcp open  postgresql  PostgreSQL DB 8.3.0 - 8.3.7
+5900/tcp open  vnc         VNC (protocol 3.3)
+|_banner: RFB 003.003
+6000/tcp open  X11         (access denied)
+6667/tcp open  irc         UnrealIRCd
+|_banner: :irc.Metasploitable.LAN NOTICE AUTH :*** Looking up your hos...
+|_irc-unrealircd-backdoor: Looks like trojaned version of unrealircd. See http://seclists.org/fulldisclosure/2010/Jun/277
+8009/tcp open  ajp13       Apache Jserv (Protocol v1.3)
+|_ajp-methods: Failed to get a valid response for the OPTION request
+| ajp-request: 
+| AJP/1.3 200 OK
+| Content-Type: text/html;charset=ISO-8859-1
+| 
+| iguring and using Tomcat</li>
+|                <li><b><a href="mailto:dev@tomcat.apache.org">dev@tomcat.apache.org</a></b> for developers working on Tomcat</li>
+|            </ul>
+| 
+|             <p>Thanks for using Tomcat!</p>
+| 
+|             <p id="footer"><img src="tomcat-power.gif" width="77" height="80" alt="Powered by Tomcat"/><br/>
+| 	    &nbsp;
+| 
+| 	    Copyright &copy; 1999-2005 Apache Software Foundation<br/>
+|             All Rights Reserved
+|             </p>
+|         </td>
+| 
+|     </tr>
+| </table>
+| 
+| </body>
+|_</html>
+| ajp-headers: 
+|_  Content-Type: text/html;charset=ISO-8859-1
+8180/tcp open  http        Apache Tomcat/Coyote JSP engine 1.1
+|_http-comments-displayer: Couldn't find any comments.
+| http-default-accounts: 
+|   [Apache Tomcat] at /manager/html/
+|     tomcat:tomcat
+|   [Apache Tomcat Host Manager] at /host-manager/html/
+|_    tomcat:tomcat
+|_http-favicon: Apache Tomcat
+| http-vhosts: 
+|_128 names had status 200
+|_http-date: Tue, 13 Jan 2026 12:40:38 GMT; -5s from local time.
+|_http-dombased-xss: Couldn't find any DOM based XSS.
+| http-headers: 
+|   Server: Apache-Coyote/1.1
+|   Content-Type: text/html;charset=ISO-8859-1
+|   Date: Tue, 13 Jan 2026 12:40:50 GMT
+|   Connection: close
+|   
+|_  (Request type: HEAD)
+|_http-title: Apache Tomcat/5.5
+MAC Address: 08:00:27:08:B9:EA (PCS Systemtechnik/Oracle VirtualBox virtual NIC)
+Service Info: Hosts:  metasploitable.localdomain, irc.Metasploitable.LAN; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_dns-brute: Can't guess domain of "192.168.78.102"; use dns-brute.domain script argument.
+|_smb-enum-sessions: ERROR: Script execution failed (use -d to debug)
+|_fcrdns: FAIL (No PTR record)
+|_nbstat: NetBIOS name: METASPLOITABLE, NetBIOS user: <unknown>, NetBIOS MAC: <unknown> (unknown)
+|_smb-vuln-ms10-061: false
+| smb-enum-users: 
+|_  Domain: METASPLOITABLE; Users: backup, bin, bind, daemon, dhcp, distccd, ftp, games, gnats, irc, klog, libuuid, list, lp, mail, man, msfadmin, mysql, news, nobody, postfix, postgres, proftpd, proxy, root, service, sshd, sync, sys, syslog, telnetd, tomcat55, user, uucp, www-data
+| smb-enum-shares: 
+|   account_used: <blank>
+|   \\192.168.78.102\ADMIN$: 
+|     Type: STYPE_IPC
+|     Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: <none>
+|   \\192.168.78.102\IPC$: 
+|     Type: STYPE_IPC
+|     Comment: IPC Service (metasploitable server (Samba 3.0.20-Debian))
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: READ/WRITE
+|   \\192.168.78.102\opt: 
+|     Type: STYPE_DISKTREE
+|     Comment: 
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|     Anonymous access: <none>
+|   \\192.168.78.102\print$: 
+|     Type: STYPE_DISKTREE
+|     Comment: Printer Drivers
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\var\lib\samba\printers
+|     Anonymous access: <none>
+|   \\192.168.78.102\tmp: 
+|     Type: STYPE_DISKTREE
+|     Comment: oh noes!
+|     Users: 1
+|     Max Users: <unlimited>
+|     Path: C:\tmp
+|_    Anonymous access: READ/WRITE
+|_ipidseq: All zeros
+|_path-mtu: PMTU == 1500
+|_clock-skew: mean: 1h15m04s, deviation: 2h30m15s, median: -3s
+|_smb-system-info: ERROR: Script execution failed (use -d to debug)
+|_smb2-capabilities: SMB 2+ not supported
+|_smb2-time: Protocol negotiation failed (SMB2)
+|_msrpc-enum: NT_STATUS_OBJECT_NAME_NOT_FOUND
+| smb-ls: Volume \\192.168.78.102\tmp
+| SIZE   TIME                 FILENAME
+| <DIR>  2026-01-13T12:40:53  .
+| <DIR>  2012-05-20T19:36:12  ..
+| 0      2026-01-13T12:12:07  4607.jsvc_up
+|_
+| smb-protocols: 
+|   dialects: 
+|_    NT LM 0.12 (SMBv1) [dangerous, but default]
+| smb-security-mode: 
+|   account_used: <blank>
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+|_smb-mbenum: ERROR: Script execution failed (use -d to debug)
+| smb-os-discovery: 
+|   OS: Unix (Samba 3.0.20-Debian)
+|   Computer name: metasploitable
+|   NetBIOS computer name: 
+|   Domain name: localdomain
+|   FQDN: metasploitable.localdomain
+|_  System time: 2026-01-13T07:40:18-05:00
+
+Post-scan script results:
+| creds-summary: 
+|   192.168.78.102: 
+|     8180/http: 
+|       tomcat:tomcat - Valid credentials
+|_      tomcat:tomcat - Valid credentials
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Tue Jan 13 07:49:55 2026 -- 1 IP address (1 host up) scanned in 635.56 seconds

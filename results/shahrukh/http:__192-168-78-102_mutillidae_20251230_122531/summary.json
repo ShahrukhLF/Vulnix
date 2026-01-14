@@ -1,0 +1,26 @@
+[
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-server-header",
+    "evidence": "Apache/2.2.8 (Ubuntu) DAV/2",
+    "remediation": "Review server config."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-headers",
+    "evidence": "\\n  Date: Tue, 30 Dec 2025 16:42:55 GMT\\n  Server: Apache/2.2.8 (Ubuntu) DAV/2\\n  X-Powered-By: PHP/5.2.4-2ubuntu5.10\\n  Connection: close\\n  Content-Type: text/html\\n  \\n  (Request type: HEAD)\\n",
+    "remediation": "Review server config."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-methods",
+    "evidence": "\\n  Supported Methods: GET HEAD POST OPTIONS",
+    "remediation": "Review server config."
+  },
+  {
+    "severity": "MEDIUM",
+    "finding": "Nmap Script: http-enum",
+    "evidence": "\\n  /tikiwiki/: Tikiwiki\\n  /test/: Test page\\n  /phpinfo.php: Possible information file\\n  /phpMyAdmin/: phpMyAdmin\\n  /doc/: Potentially interesting directory w/ listing on 'apache/2.2.8 (ubuntu) dav/2'\\n  /icons/: Potentially interesting folder w/ directory listing\\n  /index/: Potentially interesting fo",
+    "remediation": "Review server config."
+  }
+]

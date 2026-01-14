@@ -4,8 +4,10 @@ Vulnix GUI — Automated Vulnerability Toolkit
 Author: Shahrukh Karim | Supervisor: Dr. Husnain Mansoor
 
 UPDATES:
-- CSS FIX: Reordered ':focus' and ':hover' rules. 
-  Now 'Network Scan' button correctly turns blue on hover even when focused.
+- UI CLEANUP: Removed redundant 'Logs' button.
+- UI UPDATE: Renamed 'Open Reports' to 'Open Reports and Logs'.
+- BUG FIX: 'Last Report' now has a filesystem fallback. If the DB fails,
+  it finds the most recent folder in 'results/username/' automatically.
 """
 
 import sys, os, json, subprocess, sqlite3, glob, stat, hashlib
@@ -447,15 +449,15 @@ class DashboardView(QWidget):
         logo.setObjectName("logo")
         s.addWidget(logo)
         
-        self.b_open_reports = QPushButton("Open Reports")
+        self.b_open_reports = QPushButton("Open Reports and Logs")
         self.b_last = QPushButton("Last Report")
-        self.b_logs = QPushButton("Logs")
+        # Log button removed as requested
         self.b_settings = QPushButton("Settings (Advanced)")
         self.b_about = QPushButton("About")
         self.b_change_mode = QPushButton("Change Mode") 
         self.b_logout = QPushButton("Logout")
         
-        buttons = [self.b_open_reports, self.b_last, self.b_logs, self.b_settings, self.b_about, self.b_change_mode]
+        buttons = [self.b_open_reports, self.b_last, self.b_settings, self.b_about, self.b_change_mode]
         for b in buttons:
             b.setMinimumHeight(44)
             s.addWidget(b)
@@ -530,7 +532,6 @@ class DashboardView(QWidget):
         self.b_open_reports.clicked.connect(self.open_reports_folder)
         self.b_last.clicked.connect(self.show_last_report_window)
         self.b_settings.clicked.connect(self.open_settings)
-        self.b_logs.clicked.connect(self.open_logs)
         self.b_about.clicked.connect(self.show_about)
         self.b_change_mode.clicked.connect(self.changeModeSignal.emit)
         self.b_logout.clicked.connect(self.logoutSignal.emit)
@@ -653,31 +654,51 @@ class DashboardView(QWidget):
         QDesktopServices.openUrl(QUrl.fromLocalFile(path))
 
     def show_last_report_window(self):
-        # Retrieve LAST report for THIS user from Database (USER ISOLATION)
+        # STRATEGY 1: Database (Preferred)
+        # We try to get the last scan from the DB.
         try:
             conn = sqlite3.connect("vulnix.db")
             c = conn.cursor()
-            # Assuming table scans has: id, user_id, target, scan_type, scan_path, timestamp
             c.execute("SELECT scan_path FROM scans WHERE user_id=? ORDER BY id DESC LIMIT 1", (self.user_id,))
             res = c.fetchone()
             conn.close()
             
             if res and res[0] and os.path.exists(res[0]):
-                report_file = os.path.join(res[0], "report.txt")
-                if os.path.exists(report_file):
-                    with open(report_file, "r") as f:
-                        ReportViewerDialog(f"Report: {os.path.basename(res[0])}", f.read(), self).exec_()
-                    return
-        except Exception:
-            pass
+                self._open_report_file(res[0])
+                return
+        except Exception as e:
+            # Only print for debug, don't show user popup yet
+            print(f"DB Error: {e}")
 
+        # STRATEGY 2: Filesystem Fallback (FIX for 'No scan history' error)
+        # If DB fails, look in results/username/ and find the most recently modified folder.
+        try:
+            user_folder = self.username if self.username else "default_user"
+            base_dir = os.path.abspath(f"results/{user_folder}")
+            if os.path.exists(base_dir):
+                # Get all subdirectories
+                subdirs = [os.path.join(base_dir, d) for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
+                # Sort by modification time (newest first)
+                subdirs.sort(key=os.path.getmtime, reverse=True)
+                
+                if subdirs:
+                    latest_scan_dir = subdirs[0]
+                    self._open_report_file(latest_scan_dir)
+                    return
+        except Exception as e:
+            print(f"FS Error: {e}")
+
+        # If both fail:
         StyledMessageBox.warning(self, "Info", "No scan history found for this user.")
 
-    def open_logs(self):
-        user_folder = self.username if self.username else "default_user"
-        path = os.path.abspath(f"./results/{user_folder}")
-        p, _ = QFileDialog.getOpenFileName(self, "Open Log", path)
-        if p: self.console.setText(open(p, "r", errors="ignore").read())
+    def _open_report_file(self, scan_folder):
+        """Helper to open the report.txt from a given scan folder"""
+        report_file = os.path.join(scan_folder, "report.txt")
+        if os.path.exists(report_file):
+            with open(report_file, "r") as f:
+                ReportViewerDialog(f"Report: {os.path.basename(scan_folder)}", f.read(), self).exec_()
+        else:
+            StyledMessageBox.warning(self, "Error", "Report file missing in scan folder.")
 
     def show_about(self):
         StyledMessageBox.info(self, "About", "Vulnix v1.0\nFYP-I Project")

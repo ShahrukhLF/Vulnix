@@ -1,0 +1,123 @@
+Vulnix Deep Web Report - Target: http://192.168.78.102/mutillidae
+Date: Tue Dec 30 12:34:53 PM EST 2025
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-methods
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  Supported Methods: GET HEAD POST OPTIONS] Review server config.
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-headers
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  Date: Tue, 30 Dec 2025 16:52:17 GMT] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  Server: Apache/2.2.8 (Ubuntu) DAV/2] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  X-Powered-By: PHP/5.2.4-2ubuntu5.10] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  Connection: close] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  Content-Type: text/html] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[        ] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  (Request type: HEAD)] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[        ] Review server config.
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-server-header
+Evidence:
+Apache/2.2.8 (Ubuntu) DAV/2
+Remediation: Review server config.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-enum
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /tikiwiki/: Tikiwiki] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /test/: Test page] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /phpinfo.php: Possible information file] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /phpMyAdmin/: phpMyAdmin] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /doc/: Potentially interesting directory w/ listing on 'apache/2.2.8 (ubuntu) dav/2'] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /icons/: Potentially interesting folder w/ directory listing] 
+Evidence:
+
+Remediation: 
+
+-----------------------------------------------------------------
+[  /index/: Potentially interesting fo] Review server config.
+Evidence:
+
+Remediation: 
+

