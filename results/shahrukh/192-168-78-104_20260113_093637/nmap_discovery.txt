@@ -1,4 +1,0 @@
-# Nmap 7.95 scan initiated Tue Jan 13 09:36:37 2026 as: /usr/lib/nmap/nmap -Pn -sS --top-ports 2000 --open -n --min-rate 1500 -oG /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260113_093637/nmap_discovery.txt 192.168.78.104
-Host: 192.168.78.104 ()	Status: Up
-Host: 192.168.78.104 ()	Ports: 21/open/tcp//ftp///, 22/open/tcp//ssh///, 53/open/tcp//domain///, 80/open/tcp//http///, 139/open/tcp//netbios-ssn///, 666/open/tcp//doom///, 3306/open/tcp//mysql///, 12380/open/tcp/////
-# Nmap done at Tue Jan 13 09:36:40 2026 -- 1 IP address (1 host up) scanned in 3.02 seconds

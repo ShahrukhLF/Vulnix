@@ -174,14 +174,6 @@ except Exception as e:
     add_finding "$sev" "$fin" "$evi_decoded" "$rem"
 done
 
-# --- Fallback for Critical Manual Checks ---
-# These ensure we NEVER miss the absolute criticals, even if searchsploit is offline
-if grep -q "21/tcp.*open" "$NMAP_TXT" && grep -q "vsftpd 2.3.4" "$NMAP_TXT"; then
-    add_finding "CRITICAL" "VSFTPD Backdoor" "vsftpd 2.3.4 detected on Port 21." "This is a known backdoor. Update immediately."
-fi
-if grep -q "1524/tcp.*open" "$NMAP_TXT"; then
-    add_finding "CRITICAL" "Root Shell Backdoor" "Port 1524 (Ingreslock) is open." "This is a direct root backdoor."
-fi
 
 echo "[+] Quick Scan Finished."
 exit 0
