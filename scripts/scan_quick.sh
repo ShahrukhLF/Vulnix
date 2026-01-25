@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# ==============================================================================
-# Vulnix - Quick Network Scan (scan_quick.sh)
-#
-# GOAL: Complete in < 2.5 minutes.
-# FIX: "Smart Fuzzing" Logic. If exact search fails, it cleans the service name
-#      (removes 'httpd', 'ubuntu', etc.) and retries to find ALL vulnerabilities.
-# ==============================================================================
+# Network vulnerability scanner wrapper.
+# Performs service detection, SMB enumeration, and exploit mapping via searchsploit.
 
 set -e
 set -o pipefail
 
+# Validate command line arguments
 if [ -z "$1" ] || [ -z "$2" ]; then
   echo "Usage: $0 <target_ip> <output_directory>" >&2
   exit 1
@@ -19,7 +15,7 @@ fi
 TARGET_IP="$1"
 OUTPUT_DIR="$2"
 
-# Output Files
+# Define output file paths
 NMAP_XML="$OUTPUT_DIR/nmap_quick.xml"
 NMAP_TXT="$OUTPUT_DIR/nmap_quick.txt"
 ENUM_JSON="$OUTPUT_DIR/enum4linux.json"
@@ -27,17 +23,17 @@ ENUM_JSON="$OUTPUT_DIR/enum4linux.json"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
-# Top ports list (Optimized for speed + coverage)
+# Define target ports for rapid scanning
 TARGET_PORTS="21,22,23,25,53,80,88,110,111,135,139,143,389,443,445,1099,1433,1521,1524,2049,2121,3306,3389,5432,5900,5985,6000,6379,6667,8000,8009,8080,8180,8443,9000"
 
-# --- Reporting Helper ---
+# Helper function to append findings to text report and JSON summary
 add_finding() {
   local severity="$1"
   local finding="$2"
   local evidence="$3"
   local remediation="$4"
 
-  # Text Report
+  # Update text report
   echo "-----------------------------------------------------------------" >> "$USER_REPORT"
   printf "[%-8s] %s\n" "$severity" "$finding" >> "$USER_REPORT"
   echo "Evidence:" >> "$USER_REPORT"
@@ -45,30 +41,30 @@ add_finding() {
   echo "Remediation: $remediation" >> "$USER_REPORT"
   echo "" >> "$USER_REPORT"
 
-  # JSON Summary (Safe Append)
+  # Update JSON summary safely
   if [ ! -s "$GUI_SUMMARY" ] || [ "$(cat "$GUI_SUMMARY")" == "[]" ]; then
-     jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
+      jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
         '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
   else
-     jq --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
+      jq --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
         '. + [{severity: $s, finding: $f, evidence: $e, remediation: $r}]' "$GUI_SUMMARY" > "$GUI_SUMMARY.tmp"
   fi
   mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
 
-# --- Initialization ---
+# Initialize report files
 echo "[]" > "$GUI_SUMMARY"
 echo "Vulnix Quick Scan Report - Target: $TARGET_IP" > "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-# --- Phase 1: Fast Nmap Scan ---
+# Phase 1: Service detection scan using Nmap
 echo "[*] Phase 1/3: Service Detection..."
 sudo nmap -Pn -sV --version-light --open -p "$TARGET_PORTS" -oX "$NMAP_XML" -oN "$NMAP_TXT" "$TARGET_IP"
 
 echo "[+] Nmap complete."
 
-# --- Phase 2: Enumeration ---
+# Phase 2: Conditional SMB enumeration based on Nmap results
 if grep -E "445/tcp.*open|139/tcp.*open" "$NMAP_TXT" > /dev/null; then
     echo "[*] Phase 2/3: SMB Open. Running Enum4linux..."
     timeout 60s enum4linux-ng -U -S -o -oJ "$ENUM_JSON" "$TARGET_IP" > /dev/null 2>&1 || true
@@ -79,13 +75,9 @@ else
     echo "[*] Phase 2/3: No SMB detected."
 fi
 
-# --- Phase 3: Smart Exploit Mapping ---
+# Phase 3: Map services to exploits using embedded Python logic
 echo "[*] Phase 3/3: Mapping Exploits (Smart Fuzzing Mode)..."
 
-# Python Logic:
-# 1. Parses Nmap XML.
-# 2. Tries EXACT search (e.g., "Apache httpd 2.2.8").
-# 3. If 0 results -> CLEANS string (e.g., "Apache 2.2.8") and RETRIES.
 python3 -c '
 import xml.etree.ElementTree as ET
 import subprocess
@@ -96,7 +88,7 @@ import re
 xml_file = "'"$NMAP_XML"'"
 
 def get_exploits(query):
-    """Runs searchsploit and returns list of dicts"""
+    """Query searchsploit and return results as a list of dictionaries."""
     try:
         cmd = ["searchsploit", "-j", query]
         result = subprocess.run(cmd, capture_output=True, text=True)
@@ -109,15 +101,15 @@ def get_exploits(query):
         return []
 
 def clean_query(product, version):
-    """Smart cleaning for better matches"""
+    """Normalize service strings to improve search match accuracy."""
     # Remove noise words
     p = re.sub(r" httpd| smbd| ftpd| daemon", "", product, flags=re.IGNORECASE)
-    # Remove content in parens (e.g., " (Ubuntu)")
+    # Remove parenthetical content
     v = re.sub(r"\(.*?\)", "", version)
-    # Remove trailing junk
+    # Trim whitespace
     v = v.strip()
     p = p.strip()
-    # Handle complex ranges like "3.X - 4.X" -> just take "3.X"
+    # Simplify version ranges
     if " - " in v:
         v = v.split(" - ")[0]
     return f"{p} {v}".strip()
@@ -138,16 +130,16 @@ try:
             version = service.get("version", "")
             if not product: continue
             
-            # Attempt 1: Exact Match
+            # Attempt 1: Search using exact product and version
             query = f"{product} {version}".strip()
             exploits = get_exploits(query)
             
-            # Attempt 2: Smart Fallback
+            # Attempt 2: Fallback to cleaned query if no results found
             if not exploits:
                 new_query = clean_query(product, version)
                 if new_query != query and len(new_query) > 3:
                     exploits = get_exploits(new_query)
-                    query = new_query # Update query name for report
+                    query = new_query # Update query for reporting
             
             if exploits:
                 count = len(exploits)
@@ -159,7 +151,7 @@ try:
                     cve_str = ", ".join(cves) if cves else "EDB-ID"
                     evidence_list.append(f"- {title} [{cve_str}]")
                 
-                # Format for Report
+                # Format findings for output
                 display_limit = 20
                 evidence_str = "\n".join(evidence_list[:display_limit])
                 if count > display_limit: evidence_str += f"\n...and {count - display_limit} more."
@@ -173,7 +165,6 @@ except Exception as e:
     evi_decoded=$(echo -e "$evi")
     add_finding "$sev" "$fin" "$evi_decoded" "$rem"
 done
-
 
 echo "[+] Quick Scan Finished."
 exit 0

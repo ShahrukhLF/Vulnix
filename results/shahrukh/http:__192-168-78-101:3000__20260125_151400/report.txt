@@ -1,0 +1,67 @@
+Vulnix Quick Web Report - Target: http://192.168.78.101:3000/
+Date: Sun Jan 25 03:14:00 PM EST 2026
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[MEDIUM  ] /: Retrieved access-control-allow-origin header: *
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: GET
+Details: /: Retrieved access-control-allow-origin header: *.
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /: Uncommon header 'x-recruiting' found, with contents: /#/j...
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: GET
+Details: /: Uncommon header 'x-recruiting' found, with contents: /#/jobs.
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /robots
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: GET
+Details: /robots.txt: Entry '/ftp/' is returned a non-forbidden or redirect HTTP code (200).
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /robots
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: GET
+Details: /robots.txt: contains 1 entry which should be manually viewed.
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] assets/public/favicon_js
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: GET
+Details: assets/public/favicon_js.ico: The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type.
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /192
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: HEAD
+Details: /192.168.78.101.sql: Potentially interesting backup/cert file found. .
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /site
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: HEAD
+Details: /site.tar.bz2: Potentially interesting backup/cert file found. .
+Remediation: Check application code and server configuration.
+
+-----------------------------------------------------------------
+[MEDIUM  ] /database
+Evidence:
+URL: http://192.168.78.101:3000/
+Method: HEAD
+Details: /database.tar.lzma: Potentially interesting backup/cert file found. .
+Remediation: Check application code and server configuration.
+

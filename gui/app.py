@@ -1,18 +1,13 @@
 #!/usr/bin/env python3
 """
-Vulnix GUI — Automated Vulnerability Toolkit
-Author: Shahrukh Karim | Supervisor: Dr. Husnain Mansoor
-
-UPDATES:
-- UI CLEANUP: Removed redundant 'Logs' button.
-- UI UPDATE: Renamed 'Open Reports' to 'Open Reports and Logs'.
-- BUG FIX: 'Last Report' now has a filesystem fallback. If the DB fails,
-  it finds the most recent folder in 'results/username/' automatically.
+Vulnix GUI — Automated Vulnerability Toolkit.
+Main entry point for the PyQt5 application handling user authentication,
+scan configuration, and reporting.
 """
 
 import sys, os, json, subprocess, sqlite3, glob, stat, hashlib
 from datetime import datetime
-import database  # Manages the SQLite database (for login/signup)
+import database  # Database management module
 
 from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl, QSize
 from PyQt5.QtWidgets import (
@@ -24,7 +19,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon
 
-# ---------- Config Functions ----------
+# ---------- Configuration Management ----------
 
 CONFIG_PATH = os.path.expanduser("~/.vulnix_config.json")
 
@@ -39,7 +34,7 @@ DEFAULT_CONFIG = {
 }
 
 def load_config():
-    """Loads configuration with fallback to defaults."""
+    """Load user configuration from JSON, falling back to defaults if missing."""
     cfg = DEFAULT_CONFIG.copy()
     if os.path.exists(CONFIG_PATH):
         try:
@@ -63,20 +58,18 @@ def save_config(cfg):
     except Exception as e:
         print(f"Error saving config: {e}")
 
-# ---------- Validation Helper ----------
+# ---------- Network Validation ----------
 
 def is_target_reachable(target):
     """
-    Checks reachability. 
-    UPDATED: If Ping fails, we still allow the scan to proceed 
-    because modern targets (like Stapler) often block Ping.
+    Verify target reachability via ICMP.
+    Returns True even on ping failure to account for firewalls blocking ICMP.
     """
     clean_target = target.replace("http://", "").replace("https://", "").split("/")[0].split(":")[0]
     
     if not clean_target:
         return False, "Target is empty."
 
-    # OPTIONAL: You can keep the ping just for logging, but don't block on it.
     try:
         ret_code = subprocess.call(
             ['ping', '-c', '1', '-W', '1', clean_target],
@@ -86,15 +79,13 @@ def is_target_reachable(target):
         if ret_code == 0:
             return True, "Target is reachable."
         else:
-            # THIS IS THE FIX: Return True even if ping fails.
-            # We let the Nmap script (with -Pn) handle the actual connection.
+            # Allow scan to proceed despite ping failure (assumes firewall)
             return True, f"Ping failed, but forcing scan (assuming firewall blocks Ping)."
             
     except Exception as e:
-        # Even if the ping command crashes, let's try to run the scan anyway.
         return True, f"Validation skipped: {str(e)}"
 
-# ---------- Scan Worker ----------
+# ---------- Background Scan Processor ----------
 
 class ScanWorker(QThread):
     output_line = pyqtSignal(str)
@@ -134,7 +125,7 @@ class ScanWorker(QThread):
         if self._p and self._p.poll() is None:
             self._p.terminate()
 
-# ---------- Helper: Styled Message Box ----------
+# ---------- UI Helper: Styled Message Box ----------
 
 class StyledMessageBox:
     @staticmethod
@@ -156,7 +147,7 @@ class StyledMessageBox:
         msg = StyledMessageBox._create_msg_box(QMessageBox.Warning, title, text)
         msg.exec_()
 
-# ---------- VIEW 1: Login Screen ----------
+# ---------- View: Login Screen ----------
 
 class LoginView(QWidget):
     loginSuccess = pyqtSignal(int, str)
@@ -229,7 +220,7 @@ class LoginView(QWidget):
             self.msg.setText("Invalid username or password.")
             self.msg.setStyleSheet("color:#EF5350;")
 
-# ---------- VIEW 2: Sign Up Screen ----------
+# ---------- View: Registration Screen ----------
 
 class SignUpView(QWidget):
     signUpSuccess = pyqtSignal()
@@ -315,12 +306,11 @@ class SignUpView(QWidget):
         else:
             self.msg.setText(message)
 
-# ---------- VIEW 3: Mode Selection (Corrected) ----------
+# ---------- View: Mode Selection ----------
 
 class ModeSelectionView(QWidget):
     """
-    Screen 2: Allows user to choose between Network Scan and Web Scan.
-    UPDATED: CSS Fixed so Hover works even when button is focused.
+    Selection screen for choosing between Network and Web scanning modes.
     """
     modeSelected = pyqtSignal(str) # Emits "network" or "web"
     logoutSignal = pyqtSignal()
@@ -345,9 +335,8 @@ class ModeSelectionView(QWidget):
         btn_layout.setSpacing(60) 
         btn_layout.setAlignment(Qt.AlignCenter)
 
-        # CSS Styling (FIXED):
-        # We define :focus BEFORE :hover. This way, if both are true (user hovers a focused button),
-        # the :hover rule wins because it comes later in the cascade.
+        # CSS Styling:
+        # Define focus state before hover to ensure correct precedence in the cascade.
         btn_style = """
             QPushButton {
                 background-color: #1E293B; 
@@ -401,7 +390,7 @@ class ModeSelectionView(QWidget):
         self.btn_logout.clicked.connect(self.logoutSignal.emit)
         layout.addWidget(self.btn_logout, alignment=Qt.AlignCenter)
 
-# ---------- VIEW 4: Dashboard (Dynamic & Isolated) ----------
+# ---------- View: Main Dashboard ----------
 
 class DashboardView(QWidget):
     logoutSignal = pyqtSignal()
@@ -451,7 +440,6 @@ class DashboardView(QWidget):
         
         self.b_open_reports = QPushButton("Open Reports and Logs")
         self.b_last = QPushButton("Last Report")
-        # Log button removed as requested
         self.b_settings = QPushButton("Settings (Advanced)")
         self.b_about = QPushButton("About")
         self.b_change_mode = QPushButton("Change Mode") 
@@ -468,7 +456,7 @@ class DashboardView(QWidget):
         s.addWidget(self.b_logout)
         root.addWidget(side)
 
-        # --- CONTENT ---
+        # --- CONTENT AREA ---
         content = QWidget()
         v = QVBoxLayout(content)
         v.setContentsMargins(20, 20, 20, 20)
@@ -581,7 +569,7 @@ class DashboardView(QWidget):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         safe_t = target.replace(".", "-").replace("/", "_")
         
-        # USER ISOLATION: Create subdirectory for username
+        # Create user-specific output directory for scan isolation
         user_folder = self.username if self.username else "default_user"
         out_folder = os.path.abspath(f"results/{user_folder}/{safe_t}_{ts}")
         os.makedirs(out_folder, exist_ok=True)
@@ -646,7 +634,7 @@ class DashboardView(QWidget):
         except: return 0
 
     def open_reports_folder(self):
-        # USER ISOLATION: Open specific user folder if possible
+        # Open specific user folder if possible
         user_folder = self.username if self.username else "default_user"
         path = os.path.abspath(f"./results/{user_folder}")
         if not os.path.exists(path):
@@ -654,8 +642,7 @@ class DashboardView(QWidget):
         QDesktopServices.openUrl(QUrl.fromLocalFile(path))
 
     def show_last_report_window(self):
-        # STRATEGY 1: Database (Preferred)
-        # We try to get the last scan from the DB.
+        # Strategy 1: Retrieve last scan from Database
         try:
             conn = sqlite3.connect("vulnix.db")
             c = conn.cursor()
@@ -667,18 +654,15 @@ class DashboardView(QWidget):
                 self._open_report_file(res[0])
                 return
         except Exception as e:
-            # Only print for debug, don't show user popup yet
             print(f"DB Error: {e}")
 
-        # STRATEGY 2: Filesystem Fallback (FIX for 'No scan history' error)
-        # If DB fails, look in results/username/ and find the most recently modified folder.
+        # Strategy 2: Fallback to filesystem if database record unavailable
         try:
             user_folder = self.username if self.username else "default_user"
             base_dir = os.path.abspath(f"results/{user_folder}")
             if os.path.exists(base_dir):
-                # Get all subdirectories
+                # Get all subdirectories and sort by modified time
                 subdirs = [os.path.join(base_dir, d) for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
-                # Sort by modification time (newest first)
                 subdirs.sort(key=os.path.getmtime, reverse=True)
                 
                 if subdirs:
@@ -688,7 +672,6 @@ class DashboardView(QWidget):
         except Exception as e:
             print(f"FS Error: {e}")
 
-        # If both fail:
         StyledMessageBox.warning(self, "Info", "No scan history found for this user.")
 
     def _open_report_file(self, scan_folder):
@@ -704,12 +687,12 @@ class DashboardView(QWidget):
         StyledMessageBox.info(self, "About", "Vulnix v1.0\nFYP-I Project")
 
     def open_settings(self):
-        dlg = SettingsDialog(self.user_id, self.username, self) # Pass username/ID
+        dlg = SettingsDialog(self.user_id, self.username, self) 
         dlg.accountDeleted.connect(lambda: self.logoutSignal.emit())
         dlg.scriptSaved.connect(self.refresh_dropdown) 
         dlg.exec_()
 
-# ---------- NEW: Advanced Settings Dialog (Fixed) ----------
+# ---------- View: Settings Dialog ----------
 
 class SettingsDialog(QDialog):
     accountDeleted = pyqtSignal()
@@ -728,7 +711,7 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout(self)
         self.tabs = QTabWidget()
         
-        # Tab 1: Account Management (Improved UI)
+        # Tab 1: Account Management
         self.tab_account = QWidget()
         acc_layout = QVBoxLayout(self.tab_account)
         acc_layout.setAlignment(Qt.AlignTop)
@@ -791,8 +774,7 @@ class SettingsDialog(QDialog):
         pwd, ok = QInputDialog.getText(self, "Confirm Deletion", "Enter your password to confirm:", QLineEdit.Password)
         if not ok or not pwd: return
 
-        # FIX: Check password using database logic directly
-        # This fixes the issue where local hashing didn't match DB hashing
+        # Validate password against database
         is_valid, _ = database.check_user(self.username, pwd)
 
         if is_valid:
@@ -839,7 +821,7 @@ class SettingsDialog(QDialog):
         except Exception as e:
             StyledMessageBox.warning(self, "Error", f"Could not save script: {e}")
 
-# ---------- Report Viewer (Unchanged) ----------
+# ---------- View: Report Details ----------
 
 class ReportViewerDialog(QDialog):
     def __init__(self, title, content, parent=None):
@@ -856,7 +838,7 @@ class ReportViewerDialog(QDialog):
         btn.rejected.connect(self.reject)
         layout.addWidget(btn)
 
-# ---------- Main Controller (Unchanged) ----------
+# ---------- Main Controller ----------
 
 class VulnixApp(QMainWindow):
     def __init__(self):

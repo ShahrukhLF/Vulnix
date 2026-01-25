@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sun Jan 25 15:14:00 2026 as: /usr/lib/nmap/nmap -sV -&#45;version-light -p 80,443,8080,8443,3000,8000,8008 -oX /home/kali/FYP-1/results/shahrukh/http:__192-168-78-101:3000__20260125_151400/nmap_web_quick.xml 192.168.78.101 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-light -p 80,443,8080,8443,3000,8000,8008 -oX /home/kali/FYP-1/results/shahrukh/http:__192-168-78-101:3000__20260125_151400/nmap_web_quick.xml 192.168.78.101" start="1769372040" startstr="Sun Jan 25 15:14:00 2026" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="7" services="80,443,3000,8000,8008,8080,8443"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<host starttime="1769372054" endtime="1769372055"><status state="up" reason="localhost-response" reason_ttl="0"/>
+<address addr="192.168.78.101" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<ports><port protocol="tcp" portid="80"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https" method="table" conf="3"/></port>
+<port protocol="tcp" portid="3000"><state state="filtered" reason="no-response" reason_ttl="0"/><service name="ppp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8000"><state state="closed" reason="reset" reason_ttl="64"/><service name="http-alt" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8008"><state state="closed" reason="reset" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8080"><state state="closed" reason="reset" reason_ttl="64"/><service name="http-proxy" method="table" conf="3"/></port>
+<port protocol="tcp" portid="8443"><state state="closed" reason="reset" reason_ttl="64"/><service name="https-alt" method="table" conf="3"/></port>
+</ports>
+<times srtt="76" rttvar="1255" to="100000"/>
+</host>
+<runstats><finished time="1769372055" timestr="Sun Jan 25 15:14:15 2026" summary="Nmap done at Sun Jan 25 15:14:15 2026; 1 IP address (1 host up) scanned in 14.64 seconds" elapsed="14.64" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>

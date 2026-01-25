@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.95 scan initiated Sun Jan 25 14:49:30 2026 as: /usr/lib/nmap/nmap -sV -&#45;version-intensity 5 &quot;-&#45;script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast&quot; -&#45;script-timeout 60s -&#45;max-retries 1 -&#45;min-rate 1500 -p 21,22,53,80,139,666,3306,12380 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260125_144927/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260125_144927/nmap_vuln.xml 192.168.78.104 -->
+<nmaprun scanner="nmap" args="/usr/lib/nmap/nmap -sV -&#45;version-intensity 5 &quot;-&#45;script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast&quot; -&#45;script-timeout 60s -&#45;max-retries 1 -&#45;min-rate 1500 -p 21,22,53,80,139,666,3306,12380 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260125_144927/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260125_144927/nmap_vuln.xml 192.168.78.104" start="1769370570" startstr="Sun Jan 25 14:49:30 2026" version="7.95" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="8" services="21-22,53,80,139,666,3306,12380"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<prescript><script id="multicast-profinet-discovery" output="0">0</script></prescript><hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.78.104" addrtype="ipv4"/>
+<address addr="08:00:27:6E:E2:A6" addrtype="mac" vendor="PCS Systemtechnik/Oracle VirtualBox virtual NIC"/>
+<hostnames>
+</hostnames>
+</hosthint>

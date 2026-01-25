@@ -1,16 +1,12 @@
 #!/bin/bash
 
-# ==============================================================================
-# Vulnix - Deep Web Scan (scan_web_deep.sh)
-#
-# GOAL: Deep Enumeration ~5-10 Minutes.
-# TARGETS: OWASP Juice Shop, Mutillidae, DVWA.
-# FIX: Added URL "Sanity Check" to prevent descriptions from appearing in URL field.
-# ==============================================================================
+# Deep web application vulnerability scanner.
+# Performs extensive enumeration using Nmap scripts and Nikto with deep tuning.
 
 set -e
 set -o pipefail
 
+# Validate command line arguments
 if [ -z "$1" ] || [ -z "$2" ]; then
   echo "Usage: $0 <target_url_or_ip> <output_directory>" >&2
   exit 1
@@ -19,27 +15,27 @@ fi
 TARGET="$1"
 OUTPUT_DIR="$2"
 
-# FIX: Extract Clean Host for Nmap
+# Parse hostname from target URL for Nmap compatibility
 NMAP_HOST=$(echo "$TARGET" | sed 's#^.*://##' | cut -d':' -f1 | cut -d'/' -f1)
 
-# FIX: Calculate Root URL (Protocol + Host + Port)
+# Derive root URL (Protocol + Host + Port) for absolute path construction
 ROOT_URL=$(echo "$TARGET" | awk -F/ '{print $1"//"$3}')
 
-# Output Files
+# Define output file paths
 NMAP_XML="$OUTPUT_DIR/nmap_web_deep.xml"
 NIKTO_CSV="$OUTPUT_DIR/nikto_deep.csv"
 NIKTO_TXT="$OUTPUT_DIR/nikto_raw.txt"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
-# --- Reporting Helper ---
+# Helper function to append findings to text report and JSON summary
 add_finding() {
   local severity="$1"
   local finding="$2"
   local evidence="$3"
   local remediation="$4"
 
-  # Text Report
+  # Update text report
   echo "-----------------------------------------------------------------" >> "$USER_REPORT"
   printf "[%-8s] %s\n" "$severity" "$finding" >> "$USER_REPORT"
   echo "Evidence:" >> "$USER_REPORT"
@@ -47,25 +43,25 @@ add_finding() {
   echo "Remediation: $remediation" >> "$USER_REPORT"
   echo "" >> "$USER_REPORT"
 
-  # JSON Summary
+  # Update JSON summary safely
   jq --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
       '. += [{severity: $s, finding: $f, evidence: $e, remediation: $r}]' "$GUI_SUMMARY" > "$GUI_SUMMARY.tmp" && mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
 
-# --- Initialization ---
+# Initialize report files
 echo "[]" > "$GUI_SUMMARY"
 echo "Vulnix Deep Web Report - Target: $TARGET" > "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-# --- Phase 1: Deep Nmap Enumeration (Limit: 3 Mins) ---
+# Phase 1: Deep enumeration via Nmap scripts (timeout enforced)
 echo "[*] Phase 1/3: Deep Script Scanning on $NMAP_HOST (Limit: 3m)..."
 sudo nmap -sV -T4 --host-timeout 3m \
   --script="http-config-backup,http-passwd,http-headers,http-methods,http-git,http-svn-enum" \
   -p 80,443,8080,8443,3000,8000,8008 \
   -oX "$NMAP_XML" "$NMAP_HOST" > /dev/null || true
 
-# Parse Nmap Scripts & Searchsploit
+# Process Nmap output and map exploits
 python3 -c '
 import xml.etree.ElementTree as ET
 import subprocess, json, re
@@ -89,6 +85,7 @@ try:
             sid = script.get("id")
             output = script.get("output", "")
             
+            # Determine severity based on script ID and output keywords
             sev = "MEDIUM"
             if "passwd" in sid: sev = "CRITICAL"
             if "backup" in sid or "git" in sid: sev = "HIGH"
@@ -120,11 +117,11 @@ except: pass
     add_finding "$sev" "$fin" "$evi" "$rem"
 done
 
-# --- Phase 2: Nikto Deep Scan (Limit: 6 Mins) ---
+# Phase 2: Comprehensive Nikto scan
 echo "[*] Phase 2/3: Nikto Deep Scan (Limit: 6m)..."
 nikto -h "$TARGET" -o "$NIKTO_CSV" -Format csv -Tuning x6 -maxtime 360s -nointeractive > "$NIKTO_TXT" 2>&1 || true
 
-# Parse Nikto CSV (With URL Sanity Check)
+# Parse and normalize Nikto CSV results
 python3 -c '
 import csv, sys, os
 
@@ -144,12 +141,12 @@ try:
         for row in reader:
             if len(row) < 7: continue
             
-            # SMART COLUMN DETECTION
+            # Heuristic column detection
             uri = "/"
             msg = row[-2] if len(row) > 8 else row[-1]
             method = "GET"
 
-            # Find the URI column
+            # Locate URI column based on path structure
             found_uri = False
             for i in range(4, len(row)-1):
                 if row[i].startswith("/"):
@@ -164,11 +161,11 @@ try:
 
             if "Description" in msg or "URI" in uri: continue
 
-            # --- SANITY CHECK: If URI has spaces, it is NOT a URL ---
+            # Validate URI format; reject invalid strings
             if " " in uri:
                 uri = ""
 
-            # --- URL CONSTRUCTION ---
+            # Construct full URL
             if uri.startswith("http"):
                  url = uri
             elif not uri or uri == "/":
@@ -176,12 +173,12 @@ try:
             else:
                  url = f"{root_url}{uri}"
 
-            # Noise Filtering
+            # Filter repetitive noise (e.g., backup files)
             if "backup" in msg or "cert" in msg:
                 backup_count += 1
                 if backup_count > 5: continue
 
-            # Severity Logic
+            # Determine severity based on vulnerability keywords
             sev = "LOW"
             remediation = "Check server configuration."
             title = msg.split(".")[0][:60] + "..."
@@ -192,7 +189,7 @@ try:
             if "Configuration" in msg or "header" in msg: sev = "MEDIUM"
             if "include" in msg or "Inclusion" in msg: sev = "HIGH"
 
-            # 2FA Detection
+            # Detect potential 2FA/MFA endpoints
             keywords = ["2fa", "otp", "mfa", "two-factor"]
             if any(x in msg.lower() for x in keywords):
                 sev = "HIGH"
@@ -200,7 +197,6 @@ try:
 
             evidence = f"URL: {url}\\nMethod: {method}\\nDetails: {msg}".replace("\n", "\\n")
             
-            # Prevent printing empty findings
             if len(msg) > 5:
                 print(f"{sev}|{title}|{evidence}|{remediation}")
 except Exception as e:
