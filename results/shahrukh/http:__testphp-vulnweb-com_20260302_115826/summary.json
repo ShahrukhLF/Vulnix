@@ -1,0 +1,8 @@
+[
+  {
+    "severity": "CRITICAL",
+    "finding": "SQL Injection Vulnerability on searchFor (POST)",
+    "evidence": "Type: MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)\nPayload: searchFor=SNmT' AND EXTRACTVALUE(5264,CASE WHEN (5264=5264) THEN 5264 ELSE 0x3A END) AND 'uCZW'='uCZW&goButton=go",
+    "remediation": "Implement parameterized queries (prepared statements). Sanitize and validate all user inputs."
+  }
+]

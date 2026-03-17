@@ -1,0 +1,10 @@
+Vulnix SQLMap Quick Assessment - Target: http://testphp.vulnweb.com
+Date: Mon Mar  2 11:58:26 AM EST 2026
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[CRITICAL] SQL Injection Vulnerability on searchFor (POST)
+Evidence:
+Type: MySQL AND boolean-based blind - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)
+Payload: searchFor=SNmT' AND EXTRACTVALUE(5264,CASE WHEN (5264=5264) THEN 5264 ELSE 0x3A END) AND 'uCZW'='uCZW&goButton=go
+Remediation: Implement parameterized queries (prepared statements). Sanitize and validate all user inputs.
+

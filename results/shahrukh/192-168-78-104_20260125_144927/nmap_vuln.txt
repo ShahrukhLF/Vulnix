@@ -1,3 +1,0 @@
-# Nmap 7.95 scan initiated Sun Jan 25 14:49:30 2026 as: /usr/lib/nmap/nmap -sV --version-intensity 5 "--script=(default or vuln or discovery or auth) and not dos and not brute and not external and not broadcast and not multicast" --script-timeout 60s --max-retries 1 --min-rate 1500 -p 21,22,53,80,139,666,3306,12380 -oN /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260125_144927/nmap_vuln.txt -oX /home/kali/FYP-1/results/shahrukh/192-168-78-104_20260125_144927/nmap_vuln.xml 192.168.78.104
-Pre-scan script results:
-|_multicast-profinet-discovery: 0
