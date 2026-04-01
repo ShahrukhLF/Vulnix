@@ -8,7 +8,7 @@
 set -e
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <target_url> <output_directory>" >&2
+  echo "Usage: $0 <target_url> <output_directory> [username] [password]" >&2
   exit 1
 fi
 
@@ -32,13 +32,33 @@ echo -e "=================================================================\n" >>
 START_TIME=$(date +%s)
 
 # =========================================================================
+# PHASE 0: Authentication Handshake (Optional)
+# =========================================================================
+AUTH_COOKIE=""
+if [ ! -z "$3" ] && [ ! -z "$4" ]; then
+    echo "[*] Credentials detected. Initiating Auto-Login Sequence..."
+    LOGIN_URL="$TARGET" 
+    USERNAME="$3"
+    PASSWORD="$4"
+    
+    LOGIN_OUTPUT=$(python3 ./scripts/auto_login.py "$LOGIN_URL" "$USERNAME" "$PASSWORD")
+    
+    if [[ "$LOGIN_OUTPUT" == SUCCESS* ]]; then
+        AUTH_COOKIE=$(echo "$LOGIN_OUTPUT" | cut -d'|' -f2)
+        echo "[+] Auto-Login Successful! Session captured invisibly."
+    else
+        echo "[-] Auto-Login Failed. Proceeding with unauthenticated scan..."
+    fi
+fi
+
+# =========================================================================
 # PHASE 1: Active Vulnerability Scanning (OWASP ZAP NATIVE)
 # =========================================================================
 echo ""
 echo "[*] ============================================================="
 echo "[*] STAGE 1: Launching OWASP ZAP DEEP (The Heavy Artillery)..."
 echo "[*] ============================================================="
-sudo ./scripts/scan_zap_deep.sh "$TARGET" "$OUTPUT_DIR" || true
+sudo ./scripts/scan_zap_deep.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
 echo "[+] Stage 1 Complete. Deep vulnerability mapping finished."
 
 # =========================================================================
@@ -48,7 +68,7 @@ echo ""
 echo "[*] ============================================================="
 echo "[*] STAGE 2: Launching SQLMap DEEP (Full Crawl & Time-Based)..."
 echo "[*] ============================================================="
-sudo ./scripts/scan_sqlmap_deep.sh "$TARGET" "$OUTPUT_DIR" || true
+sudo ./scripts/scan_sqlmap_deep.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
 echo "[+] Stage 2 Complete. Database integrity deeply tested."
 
 # =========================================================================

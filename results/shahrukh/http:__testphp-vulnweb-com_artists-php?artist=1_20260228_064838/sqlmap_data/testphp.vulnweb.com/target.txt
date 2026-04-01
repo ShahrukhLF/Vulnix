@@ -1,3 +1,0 @@
-http://testphp.vulnweb.com/search.php?test=query (POST)  # /usr/bin/sqlmap -u http://testphp.vulnweb.com/artists.php?artist=1 --batch --crawl=2 --forms --smart --level=2 --risk=2 --output-dir=/home/kali/FYP-1/results/shahrukh/http:__testphp-vulnweb-com_artists-php?artist=1_20260228_064838/sqlmap_data --flush-session
-
-searchFor=gugN&goButton=go

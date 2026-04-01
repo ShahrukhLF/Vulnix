@@ -7,12 +7,13 @@ set -e
 set -o pipefail
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <target_url> <output_directory>" >&2
+  echo "Usage: $0 <target_url> <output_directory> [optional_cookie]" >&2
   exit 1
 fi
 
 TARGET="$1"
 OUTPUT_DIR="$2"
+COOKIE="$3"
 SQLMAP_RAW="$OUTPUT_DIR/sqlmap_quick_raw.txt"
 SQLMAP_DATA_DIR="$OUTPUT_DIR/sqlmap_data"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
@@ -47,7 +48,13 @@ echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
 echo "[*] Phase 1/2: Running SQLMap Fast Scan on $TARGET..."
-# Tuning for Speed: --threads=5, --crawl=1 (only 1 link deep), --level=1, --risk=1
+
+COOKIE_FLAG=""
+if [ ! -z "$COOKIE" ]; then
+    echo "    -> Using Authenticated Session Cookie!"
+    COOKIE_FLAG="--cookie=$COOKIE"
+fi
+
 sqlmap -u "$TARGET" \
   --batch \
   --crawl=1 \
@@ -55,9 +62,12 @@ sqlmap -u "$TARGET" \
   --smart \
   --level=1 \
   --risk=1 \
-  --threads=5 \
-  --output-dir="$SQLMAP_DATA_DIR" \
+  --threads=2 \
+  --random-agent \
   --flush-session \
+  --fresh-queries \
+  $COOKIE_FLAG \
+  --output-dir="$SQLMAP_DATA_DIR" \
   > "$SQLMAP_RAW" 2>&1 || true
 
 echo "[*] Phase 2/2: Extracting Vulnerability Signatures..."

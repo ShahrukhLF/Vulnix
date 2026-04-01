@@ -1,3 +1,0 @@
-Vulnix OWASP ZAP Assessment - Target: http://testphp.vulnweb.com
-Date: Sat Feb 28 07:56:13 AM EST 2026
------------------------------------------------------------------

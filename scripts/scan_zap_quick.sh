@@ -7,12 +7,13 @@ set -e
 set -o pipefail
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <target_url> <output_directory>" >&2
+  echo "Usage: $0 <target_url> <output_directory> [optional_cookie]" >&2
   exit 1
 fi
 
 TARGET="$1"
 OUTPUT_DIR="$2"
+COOKIE="$3"
 ZAP_PORT=8081
 ZAP_JSON="$OUTPUT_DIR/zap_quick_alerts.json"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
@@ -46,18 +47,15 @@ echo "Vulnix OWASP ZAP Quick Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-# STEP 1: CLEANUP
 echo "[*] Phase 1/3: Preparing Environment (Killing zombie processes)..."
 pkill -f "zaproxy" > /dev/null 2>&1 || true
 sleep 2
 
-# STEP 2: BOOT DAEMON
 echo "[*] Starting ZAP Engine in background on Port $ZAP_PORT..."
 zaproxy -daemon -port $ZAP_PORT -config api.disablekey=true > /dev/null 2>&1 &
 ZAP_PID=$!
 
 echo "[+] Waiting for ZAP API to come online (This can take up to 45 seconds)..."
-# Dynamic wait loop (polls every 2 seconds until curl succeeds)
 MAX_WAIT=60
 WAIT_COUNT=0
 while ! curl -s "http://localhost:$ZAP_PORT/" > /dev/null; do
@@ -71,10 +69,17 @@ while ! curl -s "http://localhost:$ZAP_PORT/" > /dev/null; do
 done
 echo "[+] ZAP Engine is fully booted!"
 
-# STEP 3: EXECUTE SCAN
-echo "[*] Phase 2/3: Running Fast Spider & Passive Scan..."
+if [ ! -z "$COOKIE" ]; then
+    echo "[*] Injecting Authenticated Session Cookie into ZAP API..."
+    curl -s --data-urlencode "description=auth_cookie" \
+            --data-urlencode "enabled=true" \
+            --data-urlencode "matchType=REQ_HEADER" \
+            --data-urlencode "matchString=Cookie" \
+            --data-urlencode "replacement=$COOKIE" \
+            "http://localhost:$ZAP_PORT/JSON/replacer/action/addRule/" > /dev/null
+fi
 
-# We temporarily disable set -e here so a minor curl network glitch doesn't crash everything
+echo "[*] Phase 2/3: Running Fast Spider & Passive Scan..."
 set +e
 
 curl -s "http://localhost:$ZAP_PORT/JSON/spider/action/scan/?url=$TARGET" > /dev/null
@@ -85,7 +90,6 @@ echo "[*] Phase 3/3: Extracting Vulnerabilities & Shutting Down..."
 curl -s "http://localhost:$ZAP_PORT/JSON/core/view/alerts/?baseurl=$TARGET" > "$ZAP_JSON"
 curl -s "http://localhost:$ZAP_PORT/JSON/core/action/shutdown/" > /dev/null
 
-# Turn strict error checking back on for the Python parser
 set -e 
 
 python3 -c '
@@ -100,7 +104,6 @@ try:
         
     alerts = data.get("alerts", [])
     
-    # Deduplicate alerts by name to keep the quick report clean
     unique_alerts = {}
     for alert in alerts:
         name = alert.get("alert", "Unknown Vulnerability")

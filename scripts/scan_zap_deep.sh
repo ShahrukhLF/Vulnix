@@ -6,28 +6,24 @@
 set -e
 set -o pipefail
 
-# Validate command line arguments
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <target_url> <output_directory>" >&2
+  echo "Usage: $0 <target_url> <output_directory> [optional_cookie]" >&2
   exit 1
 fi
 
 TARGET="$1"
 OUTPUT_DIR="$2"
-
-# Define output file paths
+COOKIE="$3"
 ZAP_JSON="$OUTPUT_DIR/zap_report.json"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
-# Helper function to append findings to text report and JSON summary
 add_finding() {
   local severity="$1"
   local finding="$2"
   local evidence="$3"
   local remediation="$4"
 
-  # Update text report
   echo "-----------------------------------------------------------------" >> "$USER_REPORT"
   printf "[%-8s] %s\n" "$severity" "$finding" >> "$USER_REPORT"
   echo "Evidence:" >> "$USER_REPORT"
@@ -35,7 +31,6 @@ add_finding() {
   echo "Remediation: $remediation" >> "$USER_REPORT"
   echo "" >> "$USER_REPORT"
 
-  # Update JSON summary safely
   if [ ! -s "$GUI_SUMMARY" ] || [ "$(cat "$GUI_SUMMARY")" == "[]" ]; then
       jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
         '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
@@ -46,20 +41,26 @@ add_finding() {
   mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
 
-# Initialize report files
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
 echo "Vulnix OWASP ZAP Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-# Phase 1: Native ZAP Headless Scan
 echo "[*] Phase 1/2: Running Native OWASP ZAP Active Scan on $TARGET..."
 echo "    -> Spidering and testing generalized vulnerabilities. This may take a few minutes..."
 
-# Run ZAP in command-line mode (-cmd), scan the target (-quickurl), and output JSON (-quickout)
-zaproxy -cmd -quickurl "$TARGET" -quickprogress -quickout "$ZAP_JSON" > /dev/null 2>&1 || true
+# Base ZAP command
+ZAP_OPTS="-cmd -quickurl \"$TARGET\" -quickprogress -quickout \"$ZAP_JSON\""
 
-# Phase 2: Python-based Log Parsing
+if [ ! -z "$COOKIE" ]; then
+    echo "    -> Using Authenticated Session Cookie!"
+    # Injects the cookie using ZAP's internal replacer config
+    ZAP_OPTS="$ZAP_OPTS -config replacer.full_list(0).description=auth -config replacer.full_list(0).enabled=true -config replacer.full_list(0).matchtype=REQ_HEADER -config replacer.full_list(0).matchstr=Cookie -config replacer.full_list(0).regex=false -config replacer.full_list(0).replacement=\"$COOKIE\""
+fi
+
+# Execute ZAP with eval so bash reads the quotes correctly
+eval zaproxy $ZAP_OPTS > /dev/null 2>&1 || true
+
 echo "[*] Phase 2/2: Parsing ZAP Vulnerability Data..."
 
 python3 -c '
@@ -80,23 +81,19 @@ try:
         alerts = site.get("alerts", [])
         
         for alert in alerts:
-            # Native ZAP JSON uses "alert" instead of "name" for the vulnerability title
             name = alert.get("alert", alert.get("name", "Unknown Vulnerability"))
             risk_desc = alert.get("riskdesc", "Low")
             
-            # Clean HTML tags out of the solution string
             raw_solution = alert.get("solution", "Review security best practices.")
             solution = re.sub(r"<[^>]+>", "", raw_solution).replace("\n", " ").strip()
             
             instances = alert.get("instances", [])
             
-            # Map ZAP risk levels to Vulnix severities
             severity = "LOW"
             if "High" in risk_desc: severity = "HIGH"
             elif "Medium" in risk_desc: severity = "MEDIUM"
             elif "Informational" in risk_desc: severity = "INFO"
             
-            # Extract evidence from the first instance to keep the report clean
             evidence = ""
             if instances:
                 first_instance = instances[0]
@@ -106,11 +103,9 @@ try:
                 
                 evidence = f"URL: {uri}\\nMethod: {method}\\nParameter: {param}"
                 
-                # If there are multiple instances, add a note
                 if len(instances) > 1:
                     evidence += f"\\n...and {len(instances) - 1} other vulnerable endpoints found."
             
-            # Print in standard Vulnix pipe-delimited format
             print(f"{severity}|{name}|{evidence}|{solution}")
             
 except Exception as e:
