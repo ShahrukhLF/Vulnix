@@ -59,7 +59,7 @@ if [ ! -z "$COOKIE" ]; then
 fi
 
 # Execute ZAP with eval so bash reads the quotes correctly
-eval zaproxy $ZAP_OPTS > /dev/null 2>&1 || true
+eval timeout 900 zaproxy $ZAP_OPTS > /dev/null 2>&1 || true
 
 echo "[*] Phase 2/2: Parsing ZAP Vulnerability Data..."
 

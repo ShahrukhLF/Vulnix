@@ -1,0 +1,147 @@
+=================================================================
+             VULNIX AUTOMATED FULL ASSESSMENT REPORT             
+=================================================================
+Target: http://192.168.78.102/mutillidae/
+Date: Thu Apr  2 12:06:39 PM EDT 2026
+Mode: Quick Scan (Live Demo)
+=================================================================
+
+Vulnix OWASP ZAP Quick Assessment - Target: http://192.168.78.102/mutillidae/
+Date: Thu Apr  2 12:06:39 PM EDT 2026
+-----------------------------------------------------------------
+-----------------------------------------------------------------
+[INFO    ] Session Management Response Identified
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: PHPSESSID
+Remediation: This is an informational alert rather than a vulnerability and so there is nothing to fix.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Missing Anti-clickjacking Header
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: x-frame-options
+Remediation: Modern Web browsers support the Content-Security-Policy and X-Frame-Options HTTP headers. Ensure one of them is set on all web pages returned by your site/app. If you expect the page to be framed only by pages on your server (e.g. it's part of a FRAMESET) then you'll want to use SAMEORIGIN, otherwise if you never expect the page to be framed, you should use DENY. Alternatively consider implementing Content Security Policy's "frame-ancestors" directive.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Content Security Policy (CSP) Header Not Set
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: 
+Remediation: Ensure that your web server, application server, load balancer, etc. is configured to set the Content-Security-Policy header.
+
+-----------------------------------------------------------------
+[LOW     ] Cookie No HttpOnly Flag
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: PHPSESSID
+Remediation: Ensure that the HttpOnly flag is set for all cookies.
+
+-----------------------------------------------------------------
+[LOW     ] Cookie without SameSite Attribute
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: PHPSESSID
+Remediation: Ensure that the SameSite attribute is set to either 'lax' or ideally 'strict' for all cookies.
+
+-----------------------------------------------------------------
+[LOW     ] Information Disclosure - Debug Error Messages
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: 
+Remediation: Disable debugging messages before pushing to production.
+
+-----------------------------------------------------------------
+[INFO    ] Information Disclosure - Suspicious Comments
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: 
+Remediation: Remove all comments that return information that may help an attacker and fix any underlying problems they refer to.
+
+-----------------------------------------------------------------
+[INFO    ] Modern Web Application
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: 
+Remediation: This is an informational alert and so no changes are required.
+
+-----------------------------------------------------------------
+[LOW     ] Server Leaks Version Information via "Server" HTTP Response Header Field
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: 
+Remediation: Ensure that your web server, application server, load balancer, etc. is configured to suppress the "Server" header or provide generic details.
+
+-----------------------------------------------------------------
+[LOW     ] X-Content-Type-Options Header Missing
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: x-content-type-options
+Remediation: Ensure that the application/web server sets the Content-Type header appropriately, and that it sets the X-Content-Type-Options header to 'nosniff' for all web pages. If possible, ensure that the end user uses a standards-compliant and modern web browser that does not perform MIME-sniffing at all, or that can be directed by the web application/web server to not perform MIME-sniffing.
+
+-----------------------------------------------------------------
+[LOW     ] Server Leaks Information via "X-Powered-By" HTTP Response Header Field(s)
+Evidence:
+URL: http://192.168.78.102/mutillidae/
+Parameter: 
+Remediation: Ensure that your web server, application server, load balancer, etc. is configured to suppress "X-Powered-By" headers.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Absence of Anti-CSRF Tokens
+Evidence:
+URL: http://192.168.78.102/mutillidae/index.php?page=login.php
+Parameter: 
+Remediation: Phase: Architecture and Design Use a vetted library or framework that does not allow this weakness to occur or provides constructs that make this weakness easier to avoid. For example, use anti-CSRF packages such as the OWASP CSRFGuard.  Phase: Implementation Ensure that your application is free of cross-site scripting issues, because most CSRF defenses can be bypassed using attacker-controlled script.  Phase: Architecture and Design Generate a unique nonce for each form, place the nonce into the form, and verify the nonce upon receipt of the form. Be sure that the nonce is not predictable (CWE-330). Note that this can be bypassed using XSS.  Identify especially dangerous operations. When the user performs a dangerous operation, send a separate confirmation request to ensure that the user intended to perform that operation. Note that this can be bypassed using XSS.  Use the ESAPI Session Management control. This control includes a component for CSRF.  Do not use the GET method for any request that triggers a state change.  Phase: Implementation Check the HTTP Referer header to see if the request originated from an expected page. This could break legitimate functionality, because users or proxies may have disabled sending the Referer for privacy reasons.
+
+-----------------------------------------------------------------
+[INFO    ] User Controllable HTML Element Attribute (Potential XSS)
+Evidence:
+URL: http://192.168.78.102/mutillidae/index.php?page=user-info.php
+Parameter: page
+Remediation: Validate all input and sanitize output it before writing to any HTML attributes.
+
+-----------------------------------------------------------------
+[LOW     ] Private IP Disclosure
+Evidence:
+URL: http://192.168.78.102/mutillidae/index.php?page=view-someones-blog.php
+Parameter: 
+Remediation: Remove the private IP address from the HTTP response body. For comments, use JSP/ASP/PHP comment instead of HTML/JavaScript comment which can be seen by client browsers.
+
+-----------------------------------------------------------------
+[INFO    ] Information Disclosure - Sensitive Information in URL
+Evidence:
+URL: http://192.168.78.102/mutillidae/index.php?page=password-generator.php&username=anonymous
+Parameter: username
+Remediation: Do not pass sensitive information in URIs.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Application Error Disclosure
+Evidence:
+URL: http://192.168.78.102/mutillidae/index.php?page=browser-info.php
+Parameter: 
+Remediation: Review the source code of this page. Implement custom error pages. Consider implementing a mechanism to provide a unique error reference/identifier to the client (browser) while logging the details on the server side and not exposing them to the user.
+
+-----------------------------------------------------------------
+[MEDIUM  ] Vulnerable JS Library
+Evidence:
+URL: http://192.168.78.102/mutillidae/javascript/ddsmoothmenu/jquery.min.js
+Parameter: 
+Remediation: Upgrade to the latest version of the affected library.
+
+-----------------------------------------------------------------
+[INFO    ] Authentication Request Identified
+Evidence:
+URL: http://192.168.78.102/mutillidae/index.php?page=login.php
+Parameter: login-php-submit-button
+Remediation: This is an informational alert rather than a vulnerability and so there is nothing to fix.
+
+-----------------------------------------------------------------
+[LOW     ] In Page Banner Information Leak
+Evidence:
+URL: http://192.168.78.102/mutillidae/function.fsockopen
+Parameter: 
+Remediation: Configure the server to prevent such information leaks. For example: Under Tomcat this is done via the "server" directive and implementation of custom error pages. Under Apache this is done via the "ServerSignature" and "ServerTokens" directives.
+
+Vulnix SQLMap Quick Assessment - Target: http://192.168.78.102/mutillidae/
+Date: Thu Apr  2 12:07:40 PM EDT 2026
+-----------------------------------------------------------------

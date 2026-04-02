@@ -55,7 +55,7 @@ if [ ! -z "$COOKIE" ]; then
     COOKIE_FLAG="--cookie=$COOKIE"
 fi
 
-sqlmap -u "$TARGET" \
+timeout 900 sqlmap -u "$TARGET" \
   --batch \
   --crawl=2 \
   --forms \

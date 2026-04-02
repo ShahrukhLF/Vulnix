@@ -1,0 +1,1 @@
+http://zero.webappsecurity.com/search.html?searchTerm=dPQg (GET)  # /usr/bin/sqlmap -u http://zero.webappsecurity.com --batch --crawl=1 --forms --smart --level=1 --risk=1 --threads=2 --random-agent --flush-session --fresh-queries --output-dir=/home/kali/FYP-1/results/shahrukh/http:__zero-webappsecurity-com_20260402_115454/sqlmap_data

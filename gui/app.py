@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import (
     QPushButton, QLabel, QLineEdit, QTextEdit, QProgressBar, QTableWidget,
     QTableWidgetItem, QMessageBox, QDialog, QFormLayout, QFileDialog, QFrame,
     QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox, QTabWidget,
-    QInputDialog, QSizePolicy
+    QInputDialog, QSizePolicy, QCheckBox
 )
 from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon
 
@@ -416,9 +416,11 @@ class DashboardView(QWidget):
         if mode == "network":
             self.mode_label.setText("MODE: NETWORK SCAN")
             self.mode_label.setStyleSheet("color: #2196F3; font-weight: bold; font-size: 14px;")
+            self.auth_bar.setVisible(False) # Hide auth panel for Network Scans
         else:
             self.mode_label.setText("MODE: WEB SCAN")
             self.mode_label.setStyleSheet("color: #9C27B0; font-weight: bold; font-size: 14px;")
+            self.auth_bar.setVisible(True)  # Show auth panel for Web Scans
 
     def build_ui(self):
         root = QHBoxLayout(self)
@@ -498,6 +500,34 @@ class DashboardView(QWidget):
 
         v.addLayout(ctrl_bar)
         
+        # --- NEW: Authentication Bar (For Web Scans) ---
+        self.auth_bar = QWidget()
+        auth_layout = QHBoxLayout(self.auth_bar)
+        auth_layout.setContentsMargins(0, 0, 0, 0)
+        auth_layout.setSpacing(10)
+        
+        self.login_checkbox = QCheckBox("Target requires login (Gray-Box)")
+        self.login_checkbox.setStyleSheet("color: #94A3B8; font-weight: bold;")
+        self.login_checkbox.stateChanged.connect(self.toggle_auth_fields)
+        auth_layout.addWidget(self.login_checkbox)
+        
+        self.auth_user = QLineEdit()
+        self.auth_user.setPlaceholderText("Web App Username")
+        self.auth_user.setMinimumHeight(35)
+        self.auth_user.setVisible(False)
+        auth_layout.addWidget(self.auth_user)
+        
+        self.auth_pwd = QLineEdit()
+        self.auth_pwd.setEchoMode(QLineEdit.Password)
+        self.auth_pwd.setPlaceholderText("Web App Password")
+        self.auth_pwd.setMinimumHeight(35)
+        self.auth_pwd.setVisible(False)
+        auth_layout.addWidget(self.auth_pwd)
+        
+        auth_layout.addStretch()
+        v.addWidget(self.auth_bar)
+        
+        # Output Console & Progress
         self.console = QTextEdit()
         self.console.setReadOnly(True)
         self.console.setMinimumHeight(260)
@@ -523,6 +553,15 @@ class DashboardView(QWidget):
         self.b_about.clicked.connect(self.show_about)
         self.b_change_mode.clicked.connect(self.changeModeSignal.emit)
         self.b_logout.clicked.connect(self.logoutSignal.emit)
+
+    def toggle_auth_fields(self, state):
+        """Hides or shows the web credential boxes cleanly."""
+        is_checked = state == Qt.Checked
+        self.auth_user.setVisible(is_checked)
+        self.auth_pwd.setVisible(is_checked)
+        if not is_checked:
+            self.auth_user.clear()
+            self.auth_pwd.clear()
 
     def refresh_dropdown(self):
         self.scan_mode.clear()
@@ -551,6 +590,16 @@ class DashboardView(QWidget):
             self.console.append(f"Validation Failed: {msg}")
             return
 
+        # Check for web credentials
+        web_user = None
+        web_pwd = None
+        if self.current_mode == "web" and self.login_checkbox.isChecked():
+            web_user = self.auth_user.text().strip()
+            web_pwd = self.auth_pwd.text()
+            if not web_user or not web_pwd:
+                StyledMessageBox.warning(self, "Auth Error", "Please provide both Username and Password to perform an authenticated scan.")
+                return
+
         selected_data = self.scan_mode.currentData()
         script_path = ""
         if selected_data in self.cfg["scan_paths"]:
@@ -561,9 +610,9 @@ class DashboardView(QWidget):
              self.console.append(f"Error: Script path not found for {selected_data}")
              return
 
-        self.start_scan_process(t, script_path)
+        self.start_scan_process(t, script_path, web_user, web_pwd)
 
-    def start_scan_process(self, target, path):
+    def start_scan_process(self, target, path, web_user=None, web_pwd=None):
         self.console.clear()
         self.table.setRowCount(0)
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -574,13 +623,21 @@ class DashboardView(QWidget):
         out_folder = os.path.abspath(f"results/{user_folder}/{safe_t}_{ts}")
         os.makedirs(out_folder, exist_ok=True)
         
-        cmd = f"{path} '{target}' '{out_folder}'"
-        self.console.append(f"Starting scan on {target} ...")
+        # Construct the command with optional credentials
+        if web_user and web_pwd:
+            cmd = f"{path} '{target}' '{out_folder}' '{web_user}' '{web_pwd}'"
+            self.console.append(f"Starting Authenticated (Gray-Box) scan on {target} as '{web_user}' ...")
+        else:
+            cmd = f"{path} '{target}' '{out_folder}'"
+            self.console.append(f"Starting Unauthenticated scan on {target} ...")
         
         self.start_btn.setDisabled(True)
         self.cancel.setDisabled(False)
         self.target.setDisabled(True)
         self.scan_mode.setDisabled(True)
+        self.login_checkbox.setDisabled(True)
+        self.auth_user.setDisabled(True)
+        self.auth_pwd.setDisabled(True)
         
         self.current_scan_target = target
         self.worker = ScanWorker(cmd, out_folder)
@@ -600,6 +657,9 @@ class DashboardView(QWidget):
         self.target.setDisabled(False)
         self.scan_mode.setDisabled(False)
         self.cancel.setDisabled(True)
+        self.login_checkbox.setDisabled(False)
+        self.auth_user.setDisabled(False)
+        self.auth_pwd.setDisabled(False)
         self.progress.setValue(0)
 
         if code == 0:
@@ -920,6 +980,7 @@ class VulnixApp(QMainWindow):
         QTabBar::tab { background: #2E3A50; color: #E0E7FF; padding: 10px; margin-right: 2px; border-top-left-radius: 6px; border-top-right-radius: 6px;}
         QTabBar::tab:selected { background: #1E88E5; font-weight: bold; }
         QDialogButtonBox QPushButton { /* Inherit standard button */ }
+        QCheckBox { color: #E0E7FF; font-weight: bold; }
         """
 
 def main():
