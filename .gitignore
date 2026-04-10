@@ -1,0 +1,13 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore Vulnix Scan Results and Logs
+results/
+sqlmap_data/
+*.log
+*.txt
+*.json
+
+# Ignore OS generated files
+.DS_Store

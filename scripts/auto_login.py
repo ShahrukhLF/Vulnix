@@ -33,13 +33,17 @@ def get_authenticated_cookie(login_url, username, password):
             if not input_name:
                 continue
             
-            # Smart Heuristics: Guess which field is which
-            if input_type in ['text', 'email'] and 'user' in input_name.lower() or 'email' in input_name.lower():
+            # Smart Heuristics: Catch 'login', 'uid', 'user', and 'email'
+            name_lower = input_name.lower()
+            
+            # Check for username field
+            if input_type in ['text', 'email'] and any(keyword in name_lower for keyword in ['user', 'email', 'login', 'uid']):
                 data[input_name] = username
-            elif input_type == 'password':
+            # Check for password field
+            elif input_type == 'password' or 'pass' in name_lower:
                 data[input_name] = password
+            # Keep everything else (like submit buttons and CSRF tokens)
             else:
-                # Keep hidden tokens (like CSRF tokens) intact
                 data[input_name] = input_value
 
         # Step 3: Determine where the form submits to (action attribute)
@@ -63,8 +67,8 @@ def get_authenticated_cookie(login_url, username, password):
             print("ERROR: Authentication failed. No session cookies received.")
             sys.exit(1)
 
-        # Format it exactly how bash scripts need it: "cookie1=value1; cookie2=value2"
-        cookie_string = "; ".join([f"{k}={v}" for k, v in cookies.items()])
+        # CRITICAL FIX: Removed the space after the semicolon to prevent Bash word-splitting
+        cookie_string = ";".join([f"{k}={v}" for k, v in cookies.items()])
         print(f"SUCCESS|{cookie_string}")
         sys.exit(0)
 

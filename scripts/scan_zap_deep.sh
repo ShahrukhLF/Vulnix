@@ -46,22 +46,35 @@ echo "Vulnix OWASP ZAP Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-echo "[*] Phase 1/2: Running Native OWASP ZAP Active Scan on $TARGET..."
+echo "[*] Phase 1/3: Preparing Environment (Killing zombie processes)..."
+pkill -f zaproxy || true
+sleep 2
+
+echo "[*] Phase 2/3: Running Native OWASP ZAP Active Scan on $TARGET..."
 echo "    -> Spidering and testing generalized vulnerabilities. This may take a few minutes..."
 
-# Base ZAP command
-ZAP_OPTS="-cmd -quickurl \"$TARGET\" -quickprogress -quickout \"$ZAP_JSON\""
+# CRITICAL FIX: Using Native Bash Arrays to completely prevent syntax crashes
+ZAP_ARGS=(-cmd -port 8081 -quickurl "$TARGET" -quickprogress -quickout "$ZAP_JSON")
+
+# Force ZAP to crawl aggressively and take its time
+ZAP_ARGS+=(-config "spider.maxDepth=5")
+ZAP_ARGS+=(-config "spider.maxDuration=3")
+ZAP_ARGS+=(-config "scanner.maxScanDurationInMins=10")
 
 if [ ! -z "$COOKIE" ]; then
     echo "    -> Using Authenticated Session Cookie!"
-    # Injects the cookie using ZAP's internal replacer config
-    ZAP_OPTS="$ZAP_OPTS -config replacer.full_list(0).description=auth -config replacer.full_list(0).enabled=true -config replacer.full_list(0).matchtype=REQ_HEADER -config replacer.full_list(0).matchstr=Cookie -config replacer.full_list(0).regex=false -config replacer.full_list(0).replacement=\"$COOKIE\""
+    ZAP_ARGS+=(-config "replacer.full_list(0).description=auth")
+    ZAP_ARGS+=(-config "replacer.full_list(0).enabled=true")
+    ZAP_ARGS+=(-config "replacer.full_list(0).matchtype=REQ_HEADER")
+    ZAP_ARGS+=(-config "replacer.full_list(0).matchstr=Cookie")
+    ZAP_ARGS+=(-config "replacer.full_list(0).regex=false")
+    ZAP_ARGS+=(-config "replacer.full_list(0).replacement=$COOKIE")
 fi
 
-# Execute ZAP with eval so bash reads the quotes correctly
-eval timeout 900 zaproxy $ZAP_OPTS > /dev/null 2>&1 || true
+# Launch ZAP using the array (immune to word-splitting)
+timeout 900 zaproxy "${ZAP_ARGS[@]}" > /dev/null 2>&1 || true
 
-echo "[*] Phase 2/2: Parsing ZAP Vulnerability Data..."
+echo "[*] Phase 3/3: Parsing ZAP Vulnerability Data..."
 
 python3 -c '
 import json, sys, os

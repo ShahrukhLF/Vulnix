@@ -55,11 +55,13 @@ if [ ! -z "$COOKIE" ]; then
     COOKIE_FLAG="--cookie=$COOKIE"
 fi
 
+# Removed --smart to force exhaustive testing and added --threads=2 for speed
 timeout 900 sqlmap -u "$TARGET" \
   --batch \
   --crawl=2 \
+  --crawl-exclude="logout|logoff|exit|quit|disconnect" \
   --forms \
-  --smart \
+  --threads=2 \
   --level=2 \
   --risk=2 \
   --random-agent \
