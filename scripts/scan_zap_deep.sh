@@ -1,7 +1,7 @@
 #!/bin/bash
-
-# Vulnix OWASP ZAP Automated Wrapper (The "Shotgun")
-# Uses native ZAP headless mode for generalized web application scanning.
+# Vulnix DAST Orchestrator
+# Module: OWASP ZAP Deep Assessment
+# Utilizes native ZAP headless mode for exhaustive web application spidering and active scanning.
 
 set -e
 set -o pipefail
@@ -18,6 +18,7 @@ ZAP_JSON="$OUTPUT_DIR/zap_report.json"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
+# --- Report Formatting Module ---
 add_finding() {
   local severity="$1"
   local finding="$2"
@@ -41,28 +42,32 @@ add_finding() {
   mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
 
+# --- Initialization ---
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
 echo "Vulnix OWASP ZAP Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-echo "[*] Phase 1/3: Preparing Environment (Killing zombie processes)..."
+# --- Phase 1: Environment Preparation ---
+echo "[*] Phase 1/3: Preparing Environment (Terminating stray processes)..."
 pkill -f zaproxy || true
 sleep 2
 
-echo "[*] Phase 2/3: Running Native OWASP ZAP Active Scan on $TARGET..."
-echo "    -> Spidering and testing generalized vulnerabilities. This may take a few minutes..."
+# --- Phase 2: Active Scanning ---
+echo "[*] Phase 2/3: Executing Native OWASP ZAP Active Scan on $TARGET..."
+echo "    -> Spidering and testing generalized vulnerabilities. This may take several minutes..."
 
-# CRITICAL FIX: Using Native Bash Arrays to completely prevent syntax crashes
+# Utilize Bash arrays for robust parameter expansion and syntax safety
 ZAP_ARGS=(-cmd -port 8081 -quickurl "$TARGET" -quickprogress -quickout "$ZAP_JSON")
 
-# Force ZAP to crawl aggressively and take its time
+# Apply aggressive spidering and scanning heuristics
 ZAP_ARGS+=(-config "spider.maxDepth=5")
 ZAP_ARGS+=(-config "spider.maxDuration=3")
 ZAP_ARGS+=(-config "scanner.maxScanDurationInMins=10")
 
+# Authenticated Session Injection
 if [ ! -z "$COOKIE" ]; then
-    echo "    -> Using Authenticated Session Cookie!"
+    echo "    -> Session cookie injected."
     ZAP_ARGS+=(-config "replacer.full_list(0).description=auth")
     ZAP_ARGS+=(-config "replacer.full_list(0).enabled=true")
     ZAP_ARGS+=(-config "replacer.full_list(0).matchtype=REQ_HEADER")
@@ -71,14 +76,17 @@ if [ ! -z "$COOKIE" ]; then
     ZAP_ARGS+=(-config "replacer.full_list(0).replacement=$COOKIE")
 fi
 
-# Launch ZAP using the array (immune to word-splitting)
+# Launch ZAP via array (SLA Timer: 15 Minutes / 900s)
 timeout 900 zaproxy "${ZAP_ARGS[@]}" > /dev/null 2>&1 || true
 
-echo "[*] Phase 3/3: Parsing ZAP Vulnerability Data..."
+# --- Phase 3: Data Extraction & Pipeline Integration ---
+echo "[*] Phase 3/3: Extracting Vulnerability Signatures..."
 
 python3 -c '
-import json, sys, os
-import re
+import json, sys, os, re, base64
+
+def b64(text):
+    return base64.b64encode(str(text).encode("utf-8")).decode("utf-8")
 
 report_file = "'"$ZAP_JSON"'"
 
@@ -119,14 +127,21 @@ try:
                 if len(instances) > 1:
                     evidence += f"\\n...and {len(instances) - 1} other vulnerable endpoints found."
             
-            print(f"{severity}|{name}|{evidence}|{solution}")
+            # Base64 encoding prevents bash word-splitting on complex outputs
+            print(f"{b64(severity)}|{b64(name)}|{b64(evidence)}|{b64(solution)}")
             
 except Exception as e:
     pass
 ' | while IFS='|' read -r sev fin evi rem; do
-    evi_decoded=$(echo -e "$evi")
-    add_finding "$sev" "$fin" "$evi_decoded" "$rem"
+    # Decode Base64 payloads securely back into strings
+    sev_dec=$(echo "$sev" | base64 -d)
+    fin_dec=$(echo "$fin" | base64 -d)
+    evi_dec=$(echo "$evi" | base64 -d)
+    rem_dec=$(echo "$rem" | base64 -d)
+    
+    evi_decoded=$(echo -e "$evi_dec")
+    add_finding "$sev_dec" "$fin_dec" "$evi_decoded" "$rem_dec"
 done
 
-echo "[+] OWASP ZAP Scan Finished."
+echo "[+] OWASP ZAP Scan finalized."
 exit 0

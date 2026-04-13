@@ -1,7 +1,7 @@
 #!/bin/bash
-
-# Vulnix SQLMap Automated Wrapper
-# Performs automated SQL injection detection, crawling, and form testing.
+# Vulnix DAST Orchestrator
+# Module: SQLMap Deep Assessment (Level 2 / Risk 2)
+# Performs exhaustive, time-boxed SQL injection detection, crawling, and form testing.
 
 set -e
 set -o pipefail
@@ -19,6 +19,7 @@ SQLMAP_DATA_DIR="$OUTPUT_DIR/sqlmap_data"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
+# --- Report Formatting Module ---
 add_finding() {
   local severity="$1"
   local finding="$2"
@@ -42,20 +43,22 @@ add_finding() {
   mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
 
+# --- Initialization ---
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
 echo "Vulnix SQLMap Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-echo "[*] Phase 1/2: Running SQLMap Automated Scan on $TARGET..."
+# --- Phase 1: Vulnerability Scanning ---
+echo "[*] Phase 1/2: Executing SQLMap Exhaustive Scan on $TARGET..."
 
 COOKIE_FLAG=""
 if [ ! -z "$COOKIE" ]; then
-    echo "    -> Using Authenticated Session Cookie!"
+    echo "    -> Session cookie injected."
     COOKIE_FLAG="--cookie=$COOKIE"
 fi
 
-# Removed --smart to force exhaustive testing and added --threads=2 for speed
+# SLA Timer: 15 Minutes (900 seconds)
 timeout 900 sqlmap -u "$TARGET" \
   --batch \
   --crawl=2 \
@@ -71,11 +74,16 @@ timeout 900 sqlmap -u "$TARGET" \
   --output-dir="$SQLMAP_DATA_DIR" \
   > "$SQLMAP_RAW" 2>&1 || true
 
-echo "[+] SQLMap execution complete. Processing results..."
+echo "[+] SQLMap execution complete. Processing artifacts..."
+
+# --- Phase 2: Data Extraction & Pipeline Integration ---
 echo "[*] Phase 2/2: Extracting Vulnerability Signatures..."
 
 python3 -c '
-import re, sys, os
+import re, sys, os, base64
+
+def b64(text):
+    return base64.b64encode(str(text).encode("utf-8")).decode("utf-8")
 
 raw_file = "'"$SQLMAP_RAW"'"
 
@@ -86,7 +94,6 @@ with open(raw_file, "r") as f:
     content = f.read()
 
 blocks = content.split("---")
-
 findings_count = 0
 
 for block in blocks:
@@ -104,16 +111,23 @@ for block in blocks:
             evidence = f"Type: {title}\\nPayload: {payload}"
             remediation = "Implement parameterized queries (prepared statements). Sanitize and validate all user inputs."
             
-            print(f"CRITICAL|{finding}|{evidence}|{remediation}")
+            # Base64 encoding prevents bash word-splitting on complex SQL payloads
+            print(f"{b64(\"CRITICAL\")}|{b64(finding)}|{b64(evidence)}|{b64(remediation)}")
             findings_count += 1
 
 if findings_count == 0 and "sqlmap identified the following injection point(s)" in content:
-    print("CRITICAL|Potential SQL Injection Detected|Review SQLMap raw logs for payload details.|Implement parameterized queries.")
+    print(f"{b64(\"CRITICAL\")}|{b64(\"Potential SQL Injection Detected\")}|{b64(\"Review SQLMap raw logs for payload details.\")}|{b64(\"Implement parameterized queries.\")}")
 
 ' | while IFS='|' read -r sev fin evi rem; do
-    evi_decoded=$(echo -e "$evi")
-    add_finding "$sev" "$fin" "$evi_decoded" "$rem"
+    # Decode Base64 payloads securely back into strings
+    sev_dec=$(echo "$sev" | base64 -d)
+    fin_dec=$(echo "$fin" | base64 -d)
+    evi_dec=$(echo "$evi" | base64 -d)
+    rem_dec=$(echo "$rem" | base64 -d)
+    
+    evi_decoded=$(echo -e "$evi_dec")
+    add_finding "$sev_dec" "$fin_dec" "$evi_decoded" "$rem_dec"
 done
 
-echo "[+] SQLMap Scan Finished."
+echo "[+] SQLMap Deep Scan finalized."
 exit 0

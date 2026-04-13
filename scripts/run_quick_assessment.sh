@@ -1,9 +1,7 @@
 #!/bin/bash
-
-# =========================================================================
-# Vulnix Orchestrator (Quick Assessment Mode)
-# Chaining ZAP and SQLMap for a single-click, non-technical user experience.
-# =========================================================================
+# Vulnix DAST Orchestrator
+# Module: Quick Assessment Orchestration
+# Chains ZAP (Passive Mapping) and SQLMap (Fast Injection) in a unified workflow.
 
 set -e
 
@@ -17,26 +15,25 @@ OUTPUT_DIR="$2"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
+# --- Workspace Initialization ---
 echo "[*] Initializing Vulnix Assessment Workspace..."
 mkdir -p "$OUTPUT_DIR"
 
 echo "[]" > "$GUI_SUMMARY"
 echo "=================================================================" > "$USER_REPORT"
-echo "             VULNIX AUTOMATED FULL ASSESSMENT REPORT             " >> "$USER_REPORT"
+echo "             VULNIX AUTOMATED QUICK ASSESSMENT REPORT            " >> "$USER_REPORT"
 echo "=================================================================" >> "$USER_REPORT"
 echo "Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
-echo "Mode: Quick Scan (Live Demo)" >> "$USER_REPORT"
+echo "Mode: Quick Scan (Perimeter & Fast Heuristics)" >> "$USER_REPORT"
 echo -e "=================================================================\n" >> "$USER_REPORT"
 
 START_TIME=$(date +%s)
 
-# =========================================================================
-# PHASE 0: Authentication Handshake (Optional)
-# =========================================================================
+# --- Phase 0: Authentication Handshake ---
 AUTH_COOKIE=""
 if [ ! -z "$3" ] && [ ! -z "$4" ]; then
-    echo "[*] Credentials detected. Initiating Auto-Login Sequence..."
+    echo "[*] Credentials detected. Initiating Authentication Sequence..."
     LOGIN_URL="$TARGET" 
     USERNAME="$3"
     PASSWORD="$4"
@@ -45,38 +42,30 @@ if [ ! -z "$3" ] && [ ! -z "$4" ]; then
     
     if [[ "$LOGIN_OUTPUT" == SUCCESS* ]]; then
         AUTH_COOKIE=$(echo "$LOGIN_OUTPUT" | cut -d'|' -f2)
-        echo "[+] Auto-Login Successful! Session captured invisibly."
+        echo "[+] Authentication Successful. Session cookie captured."
     else
-        echo "[-] Auto-Login Failed. Proceeding with unauthenticated scan..."
+        echo "[-] Authentication Failed. Proceeding with unauthenticated perimeter scan."
         echo "    Reason: $LOGIN_OUTPUT"
     fi
 fi
 
-# =========================================================================
-# PHASE 1: Generalized Vulnerability Mapping (OWASP ZAP)
-# =========================================================================
+# --- Phase 1: Perimeter & Structure Mapping (OWASP ZAP) ---
 echo ""
 echo "[*] ============================================================="
-echo "[*] STAGE 1: Launching OWASP ZAP (The Scout)..."
+echo "[*] STAGE 1: Launching OWASP ZAP (Passive Perimeter Scan)..."
 echo "[*] ============================================================="
 sudo ./scripts/scan_zap_quick.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
-echo "[+] Stage 1 Complete. Generalized vulnerabilities mapped."
+echo "[+] Stage 1 Complete. Structural vulnerabilities mapped."
 
-
-# =========================================================================
-# PHASE 2: Deep Database Injection Testing (SQLMap)
-# =========================================================================
+# --- Phase 2: Database Integrity Testing (SQLMap) ---
 echo ""
 echo "[*] ============================================================="
-echo "[*] STAGE 2: Launching SQLMap (The Sniper)..."
+echo "[*] STAGE 2: Launching SQLMap (Fast Heuristics Validation)..."
 echo "[*] ============================================================="
 sudo ./scripts/scan_sqlmap_quick.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
-echo "[+] Stage 2 Complete. Database integrity tested."
+echo "[+] Stage 2 Complete. Database integrity validated."
 
-
-# =========================================================================
-# PHASE 3: Wrap-up & Output Generation
-# =========================================================================
+# --- Phase 3: Telemetry & Finalization ---
 echo ""
 echo "[*] ============================================================="
 echo "[*] ASSESSMENT COMPLETE"
@@ -96,6 +85,6 @@ fi
 echo "[+] Total Scan Time: ${MINUTES}m ${SECONDS}s"
 echo "[+] Total Vulnerabilities Found: $TOTAL_VULNS"
 echo "[+] Unified Report saved to: $GUI_SUMMARY"
-echo "[*] Ready for GUI ingestion!"
+echo "[*] Ready for GUI ingestion."
 
 exit 0

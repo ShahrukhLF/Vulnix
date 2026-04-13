@@ -1,9 +1,7 @@
 #!/bin/bash
-
-# =========================================================================
-# Vulnix Orchestrator (DEEP Assessment Mode)
-# Chaining ZAP Active Scan and SQLMap Full Crawl for production-grade testing.
-# =========================================================================
+# Vulnix DAST Orchestrator
+# Module: Deep Assessment Orchestration
+# Chains ZAP (Active Scan) and SQLMap (Exhaustive Crawl) for production-grade testing.
 
 set -e
 
@@ -17,6 +15,7 @@ OUTPUT_DIR="$2"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
+# --- Workspace Initialization ---
 echo "[*] Initializing Vulnix DEEP Assessment Workspace..."
 mkdir -p "$OUTPUT_DIR"
 
@@ -31,12 +30,10 @@ echo -e "=================================================================\n" >>
 
 START_TIME=$(date +%s)
 
-# =========================================================================
-# PHASE 0: Authentication Handshake (Optional)
-# =========================================================================
+# --- Phase 0: Authentication Handshake ---
 AUTH_COOKIE=""
 if [ ! -z "$3" ] && [ ! -z "$4" ]; then
-    echo "[*] Credentials detected. Initiating Auto-Login Sequence..."
+    echo "[*] Credentials detected. Initiating Authentication Sequence..."
     LOGIN_URL="$TARGET" 
     USERNAME="$3"
     PASSWORD="$4"
@@ -45,35 +42,30 @@ if [ ! -z "$3" ] && [ ! -z "$4" ]; then
     
     if [[ "$LOGIN_OUTPUT" == SUCCESS* ]]; then
         AUTH_COOKIE=$(echo "$LOGIN_OUTPUT" | cut -d'|' -f2)
-        echo "[+] Auto-Login Successful! Session captured invisibly."
+        echo "[+] Authentication Successful. Session cookie captured."
     else
-        echo "[-] Auto-Login Failed. Proceeding with unauthenticated scan..."
+        echo "[-] Authentication Failed. Proceeding with unauthenticated scan..."
+        echo "    Reason: $LOGIN_OUTPUT"
     fi
 fi
 
-# =========================================================================
-# PHASE 1: Active Vulnerability Scanning (OWASP ZAP NATIVE)
-# =========================================================================
+# --- Phase 1: Active Vulnerability Scanning (OWASP ZAP) ---
 echo ""
 echo "[*] ============================================================="
-echo "[*] STAGE 1: Launching OWASP ZAP DEEP (The Heavy Artillery)..."
+echo "[*] STAGE 1: Launching OWASP ZAP (Deep Active Scan)..."
 echo "[*] ============================================================="
 sudo ./scripts/scan_zap_deep.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
 echo "[+] Stage 1 Complete. Deep vulnerability mapping finished."
 
-# =========================================================================
-# PHASE 2: Deep Database Injection Testing (SQLMap)
-# =========================================================================
+# --- Phase 2: Database Integrity Testing (SQLMap) ---
 echo ""
 echo "[*] ============================================================="
-echo "[*] STAGE 2: Launching SQLMap DEEP (Full Crawl & Time-Based)..."
+echo "[*] STAGE 2: Launching SQLMap (Exhaustive Crawl & Injection)..."
 echo "[*] ============================================================="
 sudo ./scripts/scan_sqlmap_deep.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
 echo "[+] Stage 2 Complete. Database integrity deeply tested."
 
-# =========================================================================
-# PHASE 3: Wrap-up & Output Generation
-# =========================================================================
+# --- Phase 3: Telemetry & Finalization ---
 echo ""
 echo "[*] ============================================================="
 echo "[*] DEEP ASSESSMENT COMPLETE"
@@ -93,6 +85,6 @@ fi
 echo "[+] Total Deep Scan Time: ${MINUTES}m ${SECONDS}s"
 echo "[+] Total Vulnerabilities Found: $TOTAL_VULNS"
 echo "[+] Unified Report saved to: $GUI_SUMMARY"
-echo "[*] Ready for GUI ingestion!"
+echo "[*] Ready for GUI ingestion."
 
 exit 0

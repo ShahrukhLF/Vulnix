@@ -2,7 +2,7 @@
 """
 Vulnix GUI — Automated Vulnerability Toolkit.
 Main entry point for the PyQt5 application handling user authentication,
-scan configuration, and reporting.
+scan configuration, and reporting orchestration.
 """
 
 import sys, os, json, subprocess, sqlite3, glob, stat, hashlib
@@ -17,10 +17,9 @@ from PyQt5.QtWidgets import (
     QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox, QTabWidget,
     QInputDialog, QSizePolicy, QCheckBox
 )
-# Imported QPixmap and QIcon for native image handling
 from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon, QPixmap
 
-# ---------- Configuration Management ----------
+# --- Configuration Management ---
 
 CONFIG_PATH = os.path.expanduser("~/.vulnix_config.json")
 
@@ -59,7 +58,7 @@ def save_config(cfg):
     except Exception as e:
         print(f"Error saving config: {e}")
 
-# ---------- Network Validation ----------
+# --- Network Validation ---
 
 def is_target_reachable(target):
     """
@@ -80,13 +79,12 @@ def is_target_reachable(target):
         if ret_code == 0:
             return True, "Target is reachable."
         else:
-            # Allow scan to proceed despite ping failure (assumes firewall)
-            return True, f"Ping failed, but forcing scan (assuming firewall blocks Ping)."
+            return True, "Ping failed, but forcing scan (assuming firewall blocks ICMP)."
             
     except Exception as e:
         return True, f"Validation skipped: {str(e)}"
 
-# ---------- Background Scan Processor ----------
+# --- Background Scan Processor ---
 
 class ScanWorker(QThread):
     output_line = pyqtSignal(str)
@@ -126,7 +124,7 @@ class ScanWorker(QThread):
         if self._p and self._p.poll() is None:
             self._p.terminate()
 
-# ---------- UI Helper: Styled Message Box ----------
+# --- UI Helper: Styled Message Box ---
 
 class StyledMessageBox:
     @staticmethod
@@ -148,7 +146,7 @@ class StyledMessageBox:
         msg = StyledMessageBox._create_msg_box(QMessageBox.Warning, title, text)
         msg.exec_()
 
-# ---------- View: Login Screen ----------
+# --- View: Login Screen ---
 
 class LoginView(QWidget):
     loginSuccess = pyqtSignal(int, str)
@@ -221,7 +219,7 @@ class LoginView(QWidget):
             self.msg.setText("Invalid username or password.")
             self.msg.setStyleSheet("color:#EF5350;")
 
-# ---------- View: Registration Screen ----------
+# --- View: Registration Screen ---
 
 class SignUpView(QWidget):
     signUpSuccess = pyqtSignal()
@@ -307,13 +305,13 @@ class SignUpView(QWidget):
         else:
             self.msg.setText(message)
 
-# ---------- View: Mode Selection ----------
+# --- View: Mode Selection ---
 
 class ModeSelectionView(QWidget):
     """
     Selection screen for choosing between Network and Web scanning modes.
     """
-    modeSelected = pyqtSignal(str) # Emits "network" or "web"
+    modeSelected = pyqtSignal(str)
     logoutSignal = pyqtSignal()
 
     def __init__(self):
@@ -325,18 +323,15 @@ class ModeSelectionView(QWidget):
         layout.setAlignment(Qt.AlignCenter)
         layout.setSpacing(50)
 
-        # Header
         title = QLabel("Select Vulnerability Assessment Mode")
         title.setFont(QFont("Segoe UI", 24, QFont.Bold))
         title.setAlignment(Qt.AlignCenter)
         layout.addWidget(title)
 
-        # Buttons Container
         btn_layout = QHBoxLayout()
         btn_layout.setSpacing(60) 
         btn_layout.setAlignment(Qt.AlignCenter)
 
-        # CSS Styling:
         btn_style = """
             QPushButton {
                 background-color: #1E293B; 
@@ -361,7 +356,6 @@ class ModeSelectionView(QWidget):
             }
         """
 
-        # Network Scan Button
         self.btn_net = QPushButton("Network Scan")
         self.btn_net.setFixedSize(280, 160) 
         self.btn_net.setFont(QFont("Segoe UI", 18, QFont.Bold))
@@ -370,7 +364,6 @@ class ModeSelectionView(QWidget):
         self.btn_net.clicked.connect(lambda: self.modeSelected.emit("network"))
         btn_layout.addWidget(self.btn_net)
 
-        # Web Scan Button
         self.btn_web = QPushButton("Web Scan")
         self.btn_web.setFixedSize(280, 160) 
         self.btn_web.setFont(QFont("Segoe UI", 18, QFont.Bold))
@@ -381,14 +374,13 @@ class ModeSelectionView(QWidget):
 
         layout.addLayout(btn_layout)
 
-        # Logout option at bottom
         self.btn_logout = QPushButton("Logout")
         self.btn_logout.setFixedSize(120, 40)
         self.btn_logout.setStyleSheet("background-color: #546E7A; border-radius: 6px; border: none; outline: none;")
         self.btn_logout.clicked.connect(self.logoutSignal.emit)
         layout.addWidget(self.btn_logout, alignment=Qt.AlignCenter)
 
-# ---------- View: Main Dashboard ----------
+# --- View: Main Dashboard ---
 
 class DashboardView(QWidget):
     logoutSignal = pyqtSignal()
@@ -414,17 +406,17 @@ class DashboardView(QWidget):
         if mode == "network":
             self.mode_label.setText("MODE: NETWORK SCAN")
             self.mode_label.setStyleSheet("color: #2196F3; font-weight: bold; font-size: 14px;")
-            self.auth_bar.setVisible(False) # Hide auth panel for Network Scans
+            self.auth_bar.setVisible(False)
         else:
             self.mode_label.setText("MODE: WEB SCAN")
             self.mode_label.setStyleSheet("color: #9C27B0; font-weight: bold; font-size: 14px;")
-            self.auth_bar.setVisible(True)  # Show auth panel for Web Scans
+            self.auth_bar.setVisible(True)
 
     def build_ui(self):
         root = QHBoxLayout(self)
         root.setContentsMargins(0, 0, 0, 0)
 
-        # --- SIDEBAR ---
+        # Sidebar Configuration
         side = QFrame()
         side.setFixedWidth(260)
         side.setObjectName("sidebar")
@@ -432,20 +424,16 @@ class DashboardView(QWidget):
         s.setContentsMargins(20, 20, 20, 20)
         s.setSpacing(14)
         
-        # --- LOGO INTEGRATION ---
+        # Load Application Logo
         self.logo_img_lbl = QLabel()
         self.logo_img_lbl.setAlignment(Qt.AlignCenter)
         logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vulnix_logo.png")
         
         if os.path.exists(logo_path):
             pixmap = QPixmap(logo_path)
-            # Resize smoothly to 80x80 pixels
             pixmap = pixmap.scaled(80, 80, Qt.KeepAspectRatio, Qt.SmoothTransformation)
             self.logo_img_lbl.setPixmap(pixmap)
             s.addWidget(self.logo_img_lbl)
-        else:
-            print(f"DEBUG: Could not find logo at {logo_path}")
-        # ------------------------
 
         logo_text = QLabel("VULNIX")
         logo_text.setFont(QFont("Segoe UI", 20, QFont.Bold))
@@ -472,7 +460,7 @@ class DashboardView(QWidget):
         s.addWidget(self.b_logout)
         root.addWidget(side)
 
-        # --- CONTENT AREA ---
+        # Content Area Configuration
         content = QWidget()
         v = QVBoxLayout(content)
         v.setContentsMargins(20, 20, 20, 20)
@@ -481,7 +469,7 @@ class DashboardView(QWidget):
         self.mode_label = QLabel("MODE: ...")
         v.addWidget(self.mode_label, alignment=Qt.AlignRight)
 
-        # Control Bar
+        # Scan Controls
         ctrl_bar = QHBoxLayout()
         ctrl_bar.setSpacing(10)
 
@@ -514,7 +502,7 @@ class DashboardView(QWidget):
 
         v.addLayout(ctrl_bar)
         
-        # --- Authentication Bar (For Web Scans) ---
+        # Web Authentication Parameters
         self.auth_bar = QWidget()
         auth_layout = QHBoxLayout(self.auth_bar)
         auth_layout.setContentsMargins(0, 0, 0, 0)
@@ -541,7 +529,7 @@ class DashboardView(QWidget):
         auth_layout.addStretch()
         v.addWidget(self.auth_bar)
         
-        # Output Console & Progress
+        # Diagnostics Console & Progress
         self.console = QTextEdit()
         self.console.setReadOnly(True)
         self.console.setMinimumHeight(260)
@@ -609,7 +597,7 @@ class DashboardView(QWidget):
             web_user = self.auth_user.text().strip()
             web_pwd = self.auth_pwd.text()
             if not web_user or not web_pwd:
-                StyledMessageBox.warning(self, "Auth Error", "Please provide both Username and Password to perform an authenticated scan.")
+                StyledMessageBox.warning(self, "Auth Error", "Both Username and Password are required for authenticated scanning.")
                 return
 
         selected_data = self.scan_mode.currentData()
@@ -710,6 +698,7 @@ class DashboardView(QWidget):
         QDesktopServices.openUrl(QUrl.fromLocalFile(path))
 
     def show_last_report_window(self):
+        # Retrieve scan state from database
         try:
             conn = sqlite3.connect("vulnix.db")
             c = conn.cursor()
@@ -721,8 +710,9 @@ class DashboardView(QWidget):
                 self._open_report_file(res[0])
                 return
         except Exception as e:
-            print(f"DB Error: {e}")
+            pass
 
+        # Fallback to filesystem validation
         try:
             user_folder = self.username if self.username else "default_user"
             base_dir = os.path.abspath(f"results/{user_folder}")
@@ -735,7 +725,7 @@ class DashboardView(QWidget):
                     self._open_report_file(latest_scan_dir)
                     return
         except Exception as e:
-            print(f"FS Error: {e}")
+            pass
 
         StyledMessageBox.warning(self, "Info", "No scan history found for this user.")
 
@@ -756,7 +746,7 @@ class DashboardView(QWidget):
         dlg.scriptSaved.connect(self.refresh_dropdown) 
         dlg.exec_()
 
-# ---------- View: Settings Dialog ----------
+# --- View: Settings Dialog ---
 
 class SettingsDialog(QDialog):
     accountDeleted = pyqtSignal()
@@ -882,7 +872,7 @@ class SettingsDialog(QDialog):
         except Exception as e:
             StyledMessageBox.warning(self, "Error", f"Could not save script: {e}")
 
-# ---------- View: Report Details ----------
+# --- View: Report Details ---
 
 class ReportViewerDialog(QDialog):
     def __init__(self, title, content, parent=None):
@@ -899,7 +889,7 @@ class ReportViewerDialog(QDialog):
         btn.rejected.connect(self.reject)
         layout.addWidget(btn)
 
-# ---------- Main Controller ----------
+# --- Main Controller ---
 
 class VulnixApp(QMainWindow):
     def __init__(self):
@@ -907,11 +897,10 @@ class VulnixApp(QMainWindow):
         self.setWindowTitle("Vulnix — Automated Vulnerability Toolkit")
         self.setMinimumSize(1100, 720)
         
-        # --- NEW: Set the Top-Left Window Icon ---
+        # Set application icon
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vulnix_logo.png")
         if os.path.exists(icon_path):
             self.setWindowIcon(QIcon(icon_path))
-        # -----------------------------------------
         
         try:
             database.create_tables()

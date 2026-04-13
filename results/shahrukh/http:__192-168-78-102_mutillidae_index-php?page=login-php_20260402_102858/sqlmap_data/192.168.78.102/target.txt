@@ -1,3 +1,0 @@
-http://192.168.78.102/mutillidae/index.php?page=login.php (POST)  # /usr/bin/sqlmap -u http://192.168.78.102/mutillidae/index.php?page=login.php --batch --crawl=1 --forms --smart --level=1 --risk=1 --threads=2 --random-agent --flush-session --fresh-queries --cookie=PHPSESSID=f5ef62a3bc0eeb63e592ef60b1de4ff1; username=testuser; uid=17 --output-dir=/home/kali/FYP-1/results/shahrukh/http:__192-168-78-102_mutillidae_index-php?page=login-php_20260402_102858/sqlmap_data
-
-username=IloH&password=cblT&login-php-submit-button=Login

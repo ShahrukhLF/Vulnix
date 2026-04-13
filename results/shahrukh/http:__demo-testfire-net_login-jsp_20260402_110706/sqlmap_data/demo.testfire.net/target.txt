@@ -1,3 +1,0 @@
-http://demo.testfire.net/doLogin (POST)  # /usr/bin/sqlmap -u http://demo.testfire.net/login.jsp --batch --crawl=1 --forms --smart --level=1 --risk=1 --threads=2 --random-agent --flush-session --fresh-queries --cookie=JSESSIONID=4BDA2622D94A0A465F72060F010669A7 --output-dir=/home/kali/FYP-1/results/shahrukh/http:__demo-testfire-net_login-jsp_20260402_110706/sqlmap_data
-
-uid=hNrz&passw=LDkH&btnSubmit=Login

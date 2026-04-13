@@ -1,1 +1,0 @@
-http://demo.testfire.net/default.jsp?content=security.htm (GET)  # /usr/bin/sqlmap -u http://demo.testfire.net --batch --crawl=1 --forms --smart --level=1 --risk=1 --threads=2 --random-agent --flush-session --fresh-queries --output-dir=/home/kali/FYP-1/results/shahrukh/http:__demo-testfire-net_20260402_120003/sqlmap_data

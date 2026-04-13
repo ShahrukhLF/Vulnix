@@ -1,7 +1,7 @@
 #!/bin/bash
-
-# Vulnix OWASP ZAP (Quick Passive Scan)
-# Performs generalized spidering and passive vulnerability detection in under 2 minutes.
+# Vulnix DAST Orchestrator
+# Module: OWASP ZAP Quick Assessment
+# Performs generalized spidering and passive vulnerability detection via ZAP API.
 
 set -e
 set -o pipefail
@@ -19,6 +19,7 @@ ZAP_JSON="$OUTPUT_DIR/zap_quick_alerts.json"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
 
+# --- Report Formatting Module ---
 add_finding() {
   local severity="$1"
   local finding="$2"
@@ -42,12 +43,14 @@ add_finding() {
   mv "$GUI_SUMMARY.tmp" "$GUI_SUMMARY"
 }
 
+# --- Initialization ---
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
 echo "Vulnix OWASP ZAP Quick Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
-echo "[*] Phase 1/3: Preparing Environment (Killing zombie processes)..."
+# --- Phase 1: Environment Preparation & API Boot ---
+echo "[*] Phase 1/3: Preparing Environment (Terminating stray processes)..."
 pkill -f "zaproxy" > /dev/null 2>&1 || true
 sleep 2
 
@@ -55,20 +58,21 @@ echo "[*] Starting ZAP Engine in background on Port $ZAP_PORT..."
 zaproxy -daemon -port $ZAP_PORT -config api.disablekey=true > /dev/null 2>&1 &
 ZAP_PID=$!
 
-echo "[+] Waiting for ZAP API to come online (This can take up to 45 seconds)..."
+echo "[+] Waiting for ZAP API to initialize (Timeout: 60s)..."
 MAX_WAIT=60
 WAIT_COUNT=0
 while ! curl -s "http://localhost:$ZAP_PORT/" > /dev/null; do
   sleep 2
   WAIT_COUNT=$((WAIT_COUNT + 2))
   if [ $WAIT_COUNT -ge $MAX_WAIT ]; then
-    echo "[!] CRITICAL: ZAP failed to start in time. Aborting."
+    echo "[!] CRITICAL: ZAP API failed to start in time. Aborting."
     kill $ZAP_PID 2>/dev/null || true
     exit 1
   fi
 done
-echo "[+] ZAP Engine is fully booted!"
+echo "[+] ZAP Engine initialized successfully."
 
+# Authenticated Session Injection via API Replacer
 if [ ! -z "$COOKIE" ]; then
     echo "[*] Injecting Authenticated Session Cookie into ZAP API..."
     curl -s --data-urlencode "description=auth_cookie" \
@@ -79,24 +83,30 @@ if [ ! -z "$COOKIE" ]; then
             "http://localhost:$ZAP_PORT/JSON/replacer/action/addRule/" > /dev/null
 fi
 
-echo "[*] Phase 2/3: Running Fast Spider & Passive Scan..."
+# --- Phase 2: Vulnerability Scanning ---
+echo "[*] Phase 2/3: Executing Spider & Passive Scan..."
 set +e
 
 curl -s "http://localhost:$ZAP_PORT/JSON/spider/action/scan/?url=$TARGET" > /dev/null
-echo "    -> Spider running for 45 seconds to gather passive vulnerabilities..."
+echo "    -> Spider running for 45 seconds to map passive attack surface..."
 sleep 45
 
-echo "[*] Phase 3/3: Extracting Vulnerabilities & Shutting Down..."
+# --- Phase 3: Data Extraction & Pipeline Integration ---
+echo "[*] Phase 3/3: Extracting Vulnerabilities & Terminating Engine..."
 curl -s "http://localhost:$ZAP_PORT/JSON/core/view/alerts/?baseurl=$TARGET" > "$ZAP_JSON"
 curl -s "http://localhost:$ZAP_PORT/JSON/core/action/shutdown/" > /dev/null
 
 set -e 
 
 python3 -c '
-import json, sys, os, re
+import json, sys, os, re, base64
+
+def b64(text):
+    return base64.b64encode(str(text).encode("utf-8")).decode("utf-8")
 
 report_file = "'"$ZAP_JSON"'"
-if not os.path.exists(report_file): sys.exit(0)
+if not os.path.exists(report_file): 
+    sys.exit(0)
 
 try:
     with open(report_file, "r") as f:
@@ -104,6 +114,7 @@ try:
         
     alerts = data.get("alerts", [])
     
+    # Deduplicate alerts by name
     unique_alerts = {}
     for alert in alerts:
         name = alert.get("alert", "Unknown Vulnerability")
@@ -124,13 +135,21 @@ try:
         param = alert.get("param", "N/A")
         evidence = f"URL: {uri}\\nParameter: {param}"
         
-        print(f"{severity}|{name}|{evidence}|{solution}")
+        # Base64 encoding prevents bash word-splitting on complex outputs
+        print(f"{b64(severity)}|{b64(name)}|{b64(evidence)}|{b64(solution)}")
         
-except Exception as e: pass
+except Exception as e: 
+    pass
 ' | while IFS='|' read -r sev fin evi rem; do
-    evi_decoded=$(echo -e "$evi")
-    add_finding "$sev" "$fin" "$evi_decoded" "$rem"
+    # Decode Base64 payloads securely back into strings
+    sev_dec=$(echo "$sev" | base64 -d)
+    fin_dec=$(echo "$fin" | base64 -d)
+    evi_dec=$(echo "$evi" | base64 -d)
+    rem_dec=$(echo "$rem" | base64 -d)
+    
+    evi_decoded=$(echo -e "$evi_dec")
+    add_finding "$sev_dec" "$fin_dec" "$evi_decoded" "$rem_dec"
 done
 
-echo "[+] ZAP Quick Scan Finished."
+echo "[+] ZAP Quick Scan finalized."
 exit 0
