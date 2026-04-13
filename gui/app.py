@@ -17,7 +17,8 @@ from PyQt5.QtWidgets import (
     QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox, QTabWidget,
     QInputDialog, QSizePolicy, QCheckBox
 )
-from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon
+# Imported QPixmap and QIcon for native image handling
+from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon, QPixmap
 
 # ---------- Configuration Management ----------
 
@@ -336,7 +337,6 @@ class ModeSelectionView(QWidget):
         btn_layout.setAlignment(Qt.AlignCenter)
 
         # CSS Styling:
-        # Define focus state before hover to ensure correct precedence in the cascade.
         btn_style = """
             QPushButton {
                 background-color: #1E293B; 
@@ -347,12 +347,10 @@ class ModeSelectionView(QWidget):
                 text-align: center;
                 outline: none; 
             }
-            /* Focus rule comes FIRST */
             QPushButton:focus {
                 border: 3px solid #1E88E5; 
                 background-color: #1E293B;
             }
-            /* Hover rule comes AFTER to override focus color */
             QPushButton:hover {
                 background-color: #1E88E5;
                 color: white;
@@ -434,12 +432,28 @@ class DashboardView(QWidget):
         s.setContentsMargins(20, 20, 20, 20)
         s.setSpacing(14)
         
-        logo = QLabel("VULNIX")
-        logo.setFont(QFont("Segoe UI", 20, QFont.Bold))
-        logo.setAlignment(Qt.AlignCenter)
-        logo.setObjectName("logo")
-        s.addWidget(logo)
+        # --- LOGO INTEGRATION ---
+        self.logo_img_lbl = QLabel()
+        self.logo_img_lbl.setAlignment(Qt.AlignCenter)
+        logo_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vulnix_logo.png")
         
+        if os.path.exists(logo_path):
+            pixmap = QPixmap(logo_path)
+            # Resize smoothly to 80x80 pixels
+            pixmap = pixmap.scaled(80, 80, Qt.KeepAspectRatio, Qt.SmoothTransformation)
+            self.logo_img_lbl.setPixmap(pixmap)
+            s.addWidget(self.logo_img_lbl)
+        else:
+            print(f"DEBUG: Could not find logo at {logo_path}")
+        # ------------------------
+
+        logo_text = QLabel("VULNIX")
+        logo_text.setFont(QFont("Segoe UI", 20, QFont.Bold))
+        logo_text.setAlignment(Qt.AlignCenter)
+        logo_text.setObjectName("logo")
+        s.addWidget(logo_text)
+        s.addSpacing(10)
+
         self.b_open_reports = QPushButton("Open Reports and Logs")
         self.b_last = QPushButton("Last Report")
         self.b_settings = QPushButton("Settings (Advanced)")
@@ -500,7 +514,7 @@ class DashboardView(QWidget):
 
         v.addLayout(ctrl_bar)
         
-        # --- NEW: Authentication Bar (For Web Scans) ---
+        # --- Authentication Bar (For Web Scans) ---
         self.auth_bar = QWidget()
         auth_layout = QHBoxLayout(self.auth_bar)
         auth_layout.setContentsMargins(0, 0, 0, 0)
@@ -555,7 +569,6 @@ class DashboardView(QWidget):
         self.b_logout.clicked.connect(self.logoutSignal.emit)
 
     def toggle_auth_fields(self, state):
-        """Hides or shows the web credential boxes cleanly."""
         is_checked = state == Qt.Checked
         self.auth_user.setVisible(is_checked)
         self.auth_pwd.setVisible(is_checked)
@@ -590,7 +603,6 @@ class DashboardView(QWidget):
             self.console.append(f"Validation Failed: {msg}")
             return
 
-        # Check for web credentials
         web_user = None
         web_pwd = None
         if self.current_mode == "web" and self.login_checkbox.isChecked():
@@ -618,12 +630,10 @@ class DashboardView(QWidget):
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
         safe_t = target.replace(".", "-").replace("/", "_")
         
-        # Create user-specific output directory for scan isolation
         user_folder = self.username if self.username else "default_user"
         out_folder = os.path.abspath(f"results/{user_folder}/{safe_t}_{ts}")
         os.makedirs(out_folder, exist_ok=True)
         
-        # Construct the command with optional credentials
         if web_user and web_pwd:
             cmd = f"{path} '{target}' '{out_folder}' '{web_user}' '{web_pwd}'"
             self.console.append(f"Starting Authenticated (Gray-Box) scan on {target} as '{web_user}' ...")
@@ -666,7 +676,6 @@ class DashboardView(QWidget):
             database.log_scan(self.user_id, self.current_scan_target, self.scan_mode.currentText(), out_folder)
             self.console.append(f"Scan logged to database.")
     
-        # Save last report globally for fallback, but main retrieval is via DB
         self.cfg["last_report"] = out_folder
         save_config(self.cfg)
         
@@ -694,7 +703,6 @@ class DashboardView(QWidget):
         except: return 0
 
     def open_reports_folder(self):
-        # Open specific user folder if possible
         user_folder = self.username if self.username else "default_user"
         path = os.path.abspath(f"./results/{user_folder}")
         if not os.path.exists(path):
@@ -702,7 +710,6 @@ class DashboardView(QWidget):
         QDesktopServices.openUrl(QUrl.fromLocalFile(path))
 
     def show_last_report_window(self):
-        # Strategy 1: Retrieve last scan from Database
         try:
             conn = sqlite3.connect("vulnix.db")
             c = conn.cursor()
@@ -716,12 +723,10 @@ class DashboardView(QWidget):
         except Exception as e:
             print(f"DB Error: {e}")
 
-        # Strategy 2: Fallback to filesystem if database record unavailable
         try:
             user_folder = self.username if self.username else "default_user"
             base_dir = os.path.abspath(f"results/{user_folder}")
             if os.path.exists(base_dir):
-                # Get all subdirectories and sort by modified time
                 subdirs = [os.path.join(base_dir, d) for d in os.listdir(base_dir) if os.path.isdir(os.path.join(base_dir, d))]
                 subdirs.sort(key=os.path.getmtime, reverse=True)
                 
@@ -735,7 +740,6 @@ class DashboardView(QWidget):
         StyledMessageBox.warning(self, "Info", "No scan history found for this user.")
 
     def _open_report_file(self, scan_folder):
-        """Helper to open the report.txt from a given scan folder"""
         report_file = os.path.join(scan_folder, "report.txt")
         if os.path.exists(report_file):
             with open(report_file, "r") as f:
@@ -771,7 +775,6 @@ class SettingsDialog(QDialog):
         layout = QVBoxLayout(self)
         self.tabs = QTabWidget()
         
-        # Tab 1: Account Management
         self.tab_account = QWidget()
         acc_layout = QVBoxLayout(self.tab_account)
         acc_layout.setAlignment(Qt.AlignTop)
@@ -801,7 +804,6 @@ class SettingsDialog(QDialog):
         acc_layout.addWidget(self.btn_delete)
         acc_layout.addStretch()
         
-        # Tab 2: Custom Script Editor
         self.tab_script = QWidget()
         scr_layout = QVBoxLayout(self.tab_script)
         
@@ -834,7 +836,6 @@ class SettingsDialog(QDialog):
         pwd, ok = QInputDialog.getText(self, "Confirm Deletion", "Enter your password to confirm:", QLineEdit.Password)
         if not ok or not pwd: return
 
-        # Validate password against database
         is_valid, _ = database.check_user(self.username, pwd)
 
         if is_valid:
@@ -905,6 +906,12 @@ class VulnixApp(QMainWindow):
         super().__init__()
         self.setWindowTitle("Vulnix — Automated Vulnerability Toolkit")
         self.setMinimumSize(1100, 720)
+        
+        # --- NEW: Set the Top-Left Window Icon ---
+        icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vulnix_logo.png")
+        if os.path.exists(icon_path):
+            self.setWindowIcon(QIcon(icon_path))
+        # -----------------------------------------
         
         try:
             database.create_tables()
