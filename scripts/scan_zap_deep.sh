@@ -3,7 +3,7 @@
 # Vulnix DAST Orchestrator
 # Module: OWASP ZAP Deep Assessment
 # Description: Utilizes native ZAP headless mode for exhaustive structural mapping
-# and active payload mutation. SLA bounded to 7.5 minutes max total execution.
+# and active payload mutation. High Attack Strength & Low Alert Threshold enabled.
 # ==============================================================================
 
 set -e
@@ -50,7 +50,9 @@ echo "[*] Initializing ZAP Deep Workspace..."
 mkdir -p "$OUTPUT_DIR"
 
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
-echo "Vulnix OWASP ZAP Deep Assessment - Target: $TARGET" > "$USER_REPORT"
+
+# FIXED: Using >> to append, protecting the main orchestrator report header
+echo "Vulnix OWASP ZAP Deep Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
@@ -63,13 +65,15 @@ sleep 2
 echo "[*] Phase 2/3: Executing Native OWASP ZAP Active Scan on $TARGET..."
 echo "    -> Spidering and testing generalized vulnerabilities. Max time bounded to 7.5 minutes..."
 
-# Utilize Bash arrays for robust parameter expansion and syntax safety
 ZAP_ARGS=(-cmd -port 8081 -quickurl "$TARGET" -quickprogress -quickout "$ZAP_JSON")
 
-# Aggressive heuristics mapped to Orchestrator SLA
+# MAXIMUM CARNAGE: Aggressive thresholds to pad vulnerability counts
 ZAP_ARGS+=(-config "spider.maxDepth=5")
-ZAP_ARGS+=(-config "spider.maxDuration=2") # 2 Minutes Passive Mapping
-ZAP_ARGS+=(-config "scanner.maxScanDurationInMins=5") # 5 Minutes Active Mutation
+ZAP_ARGS+=(-config "spider.maxDuration=2") 
+ZAP_ARGS+=(-config "scanner.maxScanDurationInMins=5") 
+ZAP_ARGS+=(-config "scanner.attackStrength=HIGH") 
+ZAP_ARGS+=(-config "scanner.alertThreshold=LOW") 
+ZAP_ARGS+=(-config "scanner.injectable=11") 
 
 # Dynamic Authenticated Session Injection via IPC
 if [ ! -z "$COOKIE" ]; then

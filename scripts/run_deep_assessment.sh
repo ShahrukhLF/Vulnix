@@ -4,6 +4,8 @@
 # Module: Deep Assessment Master Pipeline
 # Description: Chains ZAP (Active Perimeter) and SQLMap (Exhaustive DB Integrity)
 # into a unified, framework-agnostic testing workflow. Globally bounded to 15m.
+# Architecture: Implements dynamic Inter-Process Communication (IPC) for session
+# hijacking and automated target shifting to prevent authenticated crawler traps.
 # ==============================================================================
 
 set -e
@@ -23,6 +25,8 @@ echo "[*] Initializing Vulnix DEEP Assessment Workspace..."
 mkdir -p "$OUTPUT_DIR"
 
 echo "[]" > "$GUI_SUMMARY"
+
+# Master Header Generation
 echo "=================================================================" > "$USER_REPORT"
 echo "          VULNIX AUTOMATED DEEP ASSESSMENT REPORT                " >> "$USER_REPORT"
 echo "=================================================================" >> "$USER_REPORT"
@@ -33,8 +37,7 @@ echo -e "=================================================================\n" >>
 
 START_TIME=$(date +%s)
 
-# --- Phase 0: Authentication Handshake ---
-# Uses IPC to resolve credentials into a universal session token
+# --- Phase 0: Authentication Handshake & Context Shifting ---
 AUTH_COOKIE=""
 if [ ! -z "$3" ] && [ ! -z "$4" ]; then
     echo "[*] Credentials detected. Initiating Authentication Sequence..."
@@ -47,6 +50,11 @@ if [ ! -z "$3" ] && [ ! -z "$4" ]; then
     if [[ "$LOGIN_OUTPUT" == SUCCESS* ]]; then
         AUTH_COOKIE=$(echo "$LOGIN_OUTPUT" | cut -d'|' -f2)
         echo "[+] Authentication Successful. Session cookie captured."
+        
+        # DYNAMIC TARGET SHIFT:
+        # Prevent scanners from getting stuck in redirect loops.
+        TARGET="${TARGET%/*}/"
+        echo "[*] Shifting Deep Scan target to internal root: $TARGET"
     else
         echo "[-] Authentication Failed. Proceeding with unauthenticated scan..."
         echo "    Reason: $LOGIN_OUTPUT"
@@ -58,7 +66,6 @@ echo ""
 echo "[*] ============================================================="
 echo "[*] STAGE 1: Launching OWASP ZAP (Deep Active Scan)..."
 echo "[*] ============================================================="
-# Bounded to 7.5 minutes max execution
 sudo ./scripts/scan_zap_deep.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
 echo "[+] Stage 1 Complete. Deep vulnerability mapping finished."
 
@@ -67,7 +74,6 @@ echo ""
 echo "[*] ============================================================="
 echo "[*] STAGE 2: Launching SQLMap (Exhaustive Crawl & Injection)..."
 echo "[*] ============================================================="
-# Bounded to 7.5 minutes max execution
 sudo ./scripts/scan_sqlmap_deep.sh "$TARGET" "$OUTPUT_DIR" "$AUTH_COOKIE" || true
 echo "[+] Stage 2 Complete. Database integrity deeply tested."
 

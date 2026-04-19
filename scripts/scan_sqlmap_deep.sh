@@ -1,9 +1,10 @@
 #!/bin/bash
 # ==============================================================================
 # Vulnix DAST Orchestrator
-# Module: SQLMap Deep Assessment (Level 3 / Risk 3)
+# Module: SQLMap Deep Assessment (Level 5 / Risk 3)
 # Description: Performs exhaustive database integrity testing. Utilizes aggressive
-# heuristics (Time-based, Union, Boolean Blind) with a strict 7.5-minute SLA bound.
+# heuristics (Time-based, Union, Boolean Blind) and tests all HTTP headers.
+# SLA bound strictly to 7.5 minutes.
 # ==============================================================================
 
 set -e
@@ -36,7 +37,6 @@ add_finding() {
   echo "Remediation: $remediation" >> "$USER_REPORT"
   echo "" >> "$USER_REPORT"
 
-  # Dynamic JSON Injection for GUI rendering
   if [ ! -s "$GUI_SUMMARY" ] || [ "$(cat "$GUI_SUMMARY")" == "[]" ]; then
       jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
         '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
@@ -53,7 +53,9 @@ mkdir -p "$OUTPUT_DIR"
 mkdir -p "$SQLMAP_DATA_DIR"
 
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
-echo "Vulnix SQLMap Deep Assessment - Target: $TARGET" > "$USER_REPORT"
+
+# FIXED: Using >> to append, preventing the overwrite bug that erased ZAP's findings
+echo "Vulnix SQLMap Deep Assessment - Target: $TARGET" >> "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
@@ -66,15 +68,15 @@ if [ ! -z "$COOKIE" ]; then
     COOKIE_FLAG="--cookie=$COOKIE"
 fi
 
-# SLA Timer: 7.5 Minutes (450 seconds) hard limit to ensure Orchestrator meets 15m global SLA.
-# --level=3 & --risk=3: Forces deep HTTP header and OR-based blind injections.
+# SLA Timer: 7.5 Minutes (450 seconds)
+# MAXIMUM CARNAGE: Threads=10, Level=5 (attacks headers), Risk=3, Crawl=5
 timeout 450 sqlmap -u "$TARGET" \
   --batch \
-  --crawl=3 \
+  --crawl=5 \
   --crawl-exclude="logout|logoff|exit|quit|disconnect" \
   --forms \
-  --threads=5 \
-  --level=3 \
+  --threads=10 \
+  --level=5 \
   --risk=3 \
   --random-agent \
   --flush-session \
@@ -120,12 +122,21 @@ for block in blocks:
             evidence = f"Type: {title}\\nPayload: {payload}"
             remediation = "Implement parameterized queries (prepared statements). Sanitize and validate all user inputs."
             
-            # B64 Encoded to prevent bash word-splitting on complex SQL payloads
-            print(f"{b64(\"CRITICAL\")}|{b64(finding)}|{b64(evidence)}|{b64(remediation)}")
+            # FIXED: Variable assignment prevents Python 3 syntax errors on f-strings
+            sev_enc = b64("CRITICAL")
+            fin_enc = b64(finding)
+            evi_enc = b64(evidence)
+            rem_enc = b64(remediation)
+            
+            print(f"{sev_enc}|{fin_enc}|{evi_enc}|{rem_enc}")
             findings_count += 1
 
 if findings_count == 0 and "sqlmap identified the following injection point(s)" in content:
-    print(f"{b64(\"CRITICAL\")}|{b64(\"Potential SQL Injection Detected\")}|{b64(\"Review SQLMap raw logs for payload details.\")}|{b64(\"Implement parameterized queries.\")}")
+    s_enc = b64("CRITICAL")
+    f_enc = b64("Potential SQL Injection Detected")
+    e_enc = b64("Review SQLMap raw logs for payload details.")
+    r_enc = b64("Implement parameterized queries.")
+    print(f"{s_enc}|{f_enc}|{e_enc}|{r_enc}")
 
 ' | while IFS='|' read -r sev fin evi rem; do
     sev_dec=$(echo "$sev" | base64 -d)
