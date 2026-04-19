@@ -7,17 +7,33 @@ set -e
 set -o pipefail
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <target_url> <output_directory> [optional_cookie]" >&2
+  echo "Usage: $0 <target_url> <output_directory> [username/cookie] [password]" >&2
   exit 1
 fi
 
 TARGET="$1"
 OUTPUT_DIR="$2"
-COOKIE="$3"
 ZAP_PORT=8081
 ZAP_JSON="$OUTPUT_DIR/zap_quick_alerts.json"
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
+
+# --- Polymorphic Authentication Handling ---
+COOKIE=""
+if [ ! -z "$3" ]; then
+  if [ -z "$4" ]; then
+    COOKIE="$3"
+  else
+    echo "[*] Direct Execution: Requesting Session Cookie via auto_login.py..."
+    LOGIN_OUTPUT=$(python3 ./scripts/auto_login.py "$TARGET" "$3" "$4")
+    if [[ "$LOGIN_OUTPUT" == SUCCESS* ]]; then
+        COOKIE=$(echo "$LOGIN_OUTPUT" | cut -d'|' -f2)
+        echo "    -> Auto-Login Successful. Cookie captured."
+    else
+        echo "    -> Auto-Login Failed. Proceeding unauthenticated."
+    fi
+  fi
+fi
 
 # --- Report Formatting Module ---
 add_finding() {
@@ -84,12 +100,23 @@ if [ ! -z "$COOKIE" ]; then
 fi
 
 # --- Phase 2: Vulnerability Scanning ---
-echo "[*] Phase 2/3: Executing Spider & Passive Scan..."
+echo "[*] Phase 2/3: Executing Spider & Time-Boxed Active Scan..."
 set +e
 
+# Step A: Perimeter Mapping
+echo "    -> 1. Spider running for 30 seconds to map passive attack surface..."
 curl -s "http://localhost:$ZAP_PORT/JSON/spider/action/scan/?url=$TARGET" > /dev/null
-echo "    -> Spider running for 45 seconds to map passive attack surface..."
-sleep 45
+sleep 30
+
+# Step B: Lightweight Active Attack (The Demo Booster)
+echo "    -> 2. Firing Time-Boxed Active Scan (Agreesive probing for 90 seconds)..."
+curl -s "http://localhost:$ZAP_PORT/JSON/ascan/action/scan/?url=$TARGET" > /dev/null
+sleep 90
+
+# Force-stop the scan to strictly honor the Quick SLA
+echo "    -> 3. Halting Active Scan to preserve Quick Assessment SLA..."
+curl -s "http://localhost:$ZAP_PORT/JSON/ascan/action/stopAllScans/" > /dev/null
+sleep 5 # Allow ZAP a moment to write the final alerts to its internal database
 
 # --- Phase 3: Data Extraction & Pipeline Integration ---
 echo "[*] Phase 3/3: Extracting Vulnerabilities & Terminating Engine..."
@@ -114,7 +141,6 @@ try:
         
     alerts = data.get("alerts", [])
     
-    # Deduplicate alerts by name
     unique_alerts = {}
     for alert in alerts:
         name = alert.get("alert", "Unknown Vulnerability")
@@ -135,13 +161,11 @@ try:
         param = alert.get("param", "N/A")
         evidence = f"URL: {uri}\\nParameter: {param}"
         
-        # Base64 encoding prevents bash word-splitting on complex outputs
         print(f"{b64(severity)}|{b64(name)}|{b64(evidence)}|{b64(solution)}")
         
 except Exception as e: 
     pass
 ' | while IFS='|' read -r sev fin evi rem; do
-    # Decode Base64 payloads securely back into strings
     sev_dec=$(echo "$sev" | base64 -d)
     fin_dec=$(echo "$fin" | base64 -d)
     evi_dec=$(echo "$evi" | base64 -d)

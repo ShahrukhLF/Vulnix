@@ -7,17 +7,37 @@ set -e
 set -o pipefail
 
 if [ -z "$1" ] || [ -z "$2" ]; then
-  echo "Usage: $0 <target_url> <output_directory> [optional_cookie]" >&2
+  echo "Usage: $0 <target_url> <output_directory> [username/cookie] [password]" >&2
   exit 1
 fi
 
 TARGET="$1"
 OUTPUT_DIR="$2"
-COOKIE="$3"
+# --- RESTORED VARIABLES ---
 SQLMAP_RAW="$OUTPUT_DIR/sqlmap_quick_raw.txt"
 SQLMAP_DATA_DIR="$OUTPUT_DIR/sqlmap_data"
+# --------------------------
 GUI_SUMMARY="$OUTPUT_DIR/summary.json"
 USER_REPORT="$OUTPUT_DIR/report.txt"
+
+# --- Polymorphic Authentication Handling ---
+COOKIE=""
+if [ ! -z "$3" ]; then
+  if [ -z "$4" ]; then
+    # Mode A: Called by Orchestrator (Arg 3 is the Cookie)
+    COOKIE="$3"
+  else
+    # Mode B: Called by GUI directly (Arg 3 is User, Arg 4 is Pass)
+    echo "[*] GUI Direct Execution: Requesting Session Cookie from auto_login.py..."
+    LOGIN_OUTPUT=$(python3 ./scripts/auto_login.py "$TARGET" "$3" "$4")
+    if [[ "$LOGIN_OUTPUT" == SUCCESS* ]]; then
+        COOKIE=$(echo "$LOGIN_OUTPUT" | cut -d'|' -f2)
+        echo "    -> Auto-Login Successful. Cookie captured."
+    else
+        echo "    -> Auto-Login Failed. Proceeding unauthenticated."
+    fi
+  fi
+fi
 
 # --- Report Formatting Module ---
 add_finding() {
@@ -54,7 +74,7 @@ echo "[*] Initiating SQLMap Fast Heuristics Scan on $TARGET..."
 
 COOKIE_FLAG=""
 if [ ! -z "$COOKIE" ]; then
-    echo "    -> Session cookie injected."
+    echo "    -> Session cookie injected into SQLMap."
     COOKIE_FLAG="--cookie=$COOKIE"
 fi
 
@@ -109,14 +129,17 @@ for block in blocks:
             evidence = f"Type: {title}\\nPayload: {payload}"
             remediation = "Implement parameterized queries (prepared statements). Sanitize and validate all user inputs."
             
-            # Base64 encoding prevents bash word-splitting on complex SQL payloads
-            print(f"{b64(\"CRITICAL\")}|{b64(finding)}|{b64(evidence)}|{b64(remediation)}")
+            crit_sev = "CRITICAL"
+            print(f"{b64(crit_sev)}|{b64(finding)}|{b64(evidence)}|{b64(remediation)}")
             findings_count += 1
 
 if findings_count == 0 and "sqlmap identified the following injection point(s)" in content:
-    print(f"{b64(\"CRITICAL\")}|{b64(\"Potential SQL Injection Detected\")}|{b64(\"Review SQLMap raw logs for payload details.\")}|{b64(\"Implement parameterized queries.\")}")
+    crit_sev = "CRITICAL"
+    msg1 = "Potential SQL Injection Detected"
+    msg2 = "Review SQLMap raw logs for payload details."
+    msg3 = "Implement parameterized queries."
+    print(f"{b64(crit_sev)}|{b64(msg1)}|{b64(msg2)}|{b64(msg3)}")
 ' | while IFS='|' read -r sev fin evi rem; do
-    # Decode Base64 payloads securely back into strings
     sev_dec=$(echo "$sev" | base64 -d)
     fin_dec=$(echo "$fin" | base64 -d)
     evi_dec=$(echo "$evi" | base64 -d)

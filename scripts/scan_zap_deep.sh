@@ -1,7 +1,10 @@
 #!/bin/bash
+# ==============================================================================
 # Vulnix DAST Orchestrator
 # Module: OWASP ZAP Deep Assessment
-# Utilizes native ZAP headless mode for exhaustive web application spidering and active scanning.
+# Description: Utilizes native ZAP headless mode for exhaustive structural mapping
+# and active payload mutation. SLA bounded to 7.5 minutes max total execution.
+# ==============================================================================
 
 set -e
 set -o pipefail
@@ -43,31 +46,34 @@ add_finding() {
 }
 
 # --- Initialization ---
+echo "[*] Initializing ZAP Deep Workspace..."
+mkdir -p "$OUTPUT_DIR"
+
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
-echo "Vulnix OWASP ZAP Assessment - Target: $TARGET" >> "$USER_REPORT"
+echo "Vulnix OWASP ZAP Deep Assessment - Target: $TARGET" > "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
 # --- Phase 1: Environment Preparation ---
-echo "[*] Phase 1/3: Preparing Environment (Terminating stray processes)..."
+echo "[*] Phase 1/3: Preparing Environment (Terminating stray daemon processes)..."
 pkill -f zaproxy || true
 sleep 2
 
 # --- Phase 2: Active Scanning ---
 echo "[*] Phase 2/3: Executing Native OWASP ZAP Active Scan on $TARGET..."
-echo "    -> Spidering and testing generalized vulnerabilities. This may take several minutes..."
+echo "    -> Spidering and testing generalized vulnerabilities. Max time bounded to 7.5 minutes..."
 
 # Utilize Bash arrays for robust parameter expansion and syntax safety
 ZAP_ARGS=(-cmd -port 8081 -quickurl "$TARGET" -quickprogress -quickout "$ZAP_JSON")
 
-# Apply aggressive spidering and scanning heuristics
+# Aggressive heuristics mapped to Orchestrator SLA
 ZAP_ARGS+=(-config "spider.maxDepth=5")
-ZAP_ARGS+=(-config "spider.maxDuration=3")
-ZAP_ARGS+=(-config "scanner.maxScanDurationInMins=10")
+ZAP_ARGS+=(-config "spider.maxDuration=2") # 2 Minutes Passive Mapping
+ZAP_ARGS+=(-config "scanner.maxScanDurationInMins=5") # 5 Minutes Active Mutation
 
-# Authenticated Session Injection
+# Dynamic Authenticated Session Injection via IPC
 if [ ! -z "$COOKIE" ]; then
-    echo "    -> Session cookie injected."
+    echo "    -> Dynamic Session cookie injected into API header rules."
     ZAP_ARGS+=(-config "replacer.full_list(0).description=auth")
     ZAP_ARGS+=(-config "replacer.full_list(0).enabled=true")
     ZAP_ARGS+=(-config "replacer.full_list(0).matchtype=REQ_HEADER")
@@ -76,8 +82,8 @@ if [ ! -z "$COOKIE" ]; then
     ZAP_ARGS+=(-config "replacer.full_list(0).replacement=$COOKIE")
 fi
 
-# Launch ZAP via array (SLA Timer: 15 Minutes / 900s)
-timeout 900 zaproxy "${ZAP_ARGS[@]}" > /dev/null 2>&1 || true
+# Hard SLA fault-tolerance trigger: 7.5 Minutes (450s)
+timeout 450 zaproxy "${ZAP_ARGS[@]}" > /dev/null 2>&1 || true
 
 # --- Phase 3: Data Extraction & Pipeline Integration ---
 echo "[*] Phase 3/3: Extracting Vulnerability Signatures..."
@@ -127,13 +133,11 @@ try:
                 if len(instances) > 1:
                     evidence += f"\\n...and {len(instances) - 1} other vulnerable endpoints found."
             
-            # Base64 encoding prevents bash word-splitting on complex outputs
             print(f"{b64(severity)}|{b64(name)}|{b64(evidence)}|{b64(solution)}")
             
 except Exception as e:
     pass
 ' | while IFS='|' read -r sev fin evi rem; do
-    # Decode Base64 payloads securely back into strings
     sev_dec=$(echo "$sev" | base64 -d)
     fin_dec=$(echo "$fin" | base64 -d)
     evi_dec=$(echo "$evi" | base64 -d)

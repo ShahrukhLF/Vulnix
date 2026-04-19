@@ -1,7 +1,10 @@
 #!/bin/bash
+# ==============================================================================
 # Vulnix DAST Orchestrator
-# Module: SQLMap Deep Assessment (Level 2 / Risk 2)
-# Performs exhaustive, time-boxed SQL injection detection, crawling, and form testing.
+# Module: SQLMap Deep Assessment (Level 3 / Risk 3)
+# Description: Performs exhaustive database integrity testing. Utilizes aggressive
+# heuristics (Time-based, Union, Boolean Blind) with a strict 7.5-minute SLA bound.
+# ==============================================================================
 
 set -e
 set -o pipefail
@@ -33,6 +36,7 @@ add_finding() {
   echo "Remediation: $remediation" >> "$USER_REPORT"
   echo "" >> "$USER_REPORT"
 
+  # Dynamic JSON Injection for GUI rendering
   if [ ! -s "$GUI_SUMMARY" ] || [ "$(cat "$GUI_SUMMARY")" == "[]" ]; then
       jq -n --arg s "$severity" --arg f "$finding" --arg e "$evidence" --arg r "$remediation" \
         '[{severity: $s, finding: $f, evidence: $e, remediation: $r}]' > "$GUI_SUMMARY.tmp"
@@ -44,8 +48,12 @@ add_finding() {
 }
 
 # --- Initialization ---
+echo "[*] Initializing SQLMap Deep Workspace..."
+mkdir -p "$OUTPUT_DIR"
+mkdir -p "$SQLMAP_DATA_DIR"
+
 if [ ! -f "$GUI_SUMMARY" ]; then echo "[]" > "$GUI_SUMMARY"; fi
-echo "Vulnix SQLMap Assessment - Target: $TARGET" >> "$USER_REPORT"
+echo "Vulnix SQLMap Deep Assessment - Target: $TARGET" > "$USER_REPORT"
 echo "Date: $(date)" >> "$USER_REPORT"
 echo "-----------------------------------------------------------------" >> "$USER_REPORT"
 
@@ -54,19 +62,20 @@ echo "[*] Phase 1/2: Executing SQLMap Exhaustive Scan on $TARGET..."
 
 COOKIE_FLAG=""
 if [ ! -z "$COOKIE" ]; then
-    echo "    -> Session cookie injected."
+    echo "    -> Session cookie injected. Bypassing unauthenticated perimeter."
     COOKIE_FLAG="--cookie=$COOKIE"
 fi
 
-# SLA Timer: 15 Minutes (900 seconds)
-timeout 900 sqlmap -u "$TARGET" \
+# SLA Timer: 7.5 Minutes (450 seconds) hard limit to ensure Orchestrator meets 15m global SLA.
+# --level=3 & --risk=3: Forces deep HTTP header and OR-based blind injections.
+timeout 450 sqlmap -u "$TARGET" \
   --batch \
-  --crawl=2 \
+  --crawl=3 \
   --crawl-exclude="logout|logoff|exit|quit|disconnect" \
   --forms \
-  --threads=2 \
-  --level=2 \
-  --risk=2 \
+  --threads=5 \
+  --level=3 \
+  --risk=3 \
   --random-agent \
   --flush-session \
   --fresh-queries \
@@ -74,7 +83,7 @@ timeout 900 sqlmap -u "$TARGET" \
   --output-dir="$SQLMAP_DATA_DIR" \
   > "$SQLMAP_RAW" 2>&1 || true
 
-echo "[+] SQLMap execution complete. Processing artifacts..."
+echo "[+] SQLMap execution bounded by SLA. Processing artifacts..."
 
 # --- Phase 2: Data Extraction & Pipeline Integration ---
 echo "[*] Phase 2/2: Extracting Vulnerability Signatures..."
@@ -90,7 +99,7 @@ raw_file = "'"$SQLMAP_RAW"'"
 if not os.path.exists(raw_file):
     sys.exit(0)
 
-with open(raw_file, "r") as f:
+with open(raw_file, "r", encoding="utf-8", errors="ignore") as f:
     content = f.read()
 
 blocks = content.split("---")
@@ -111,7 +120,7 @@ for block in blocks:
             evidence = f"Type: {title}\\nPayload: {payload}"
             remediation = "Implement parameterized queries (prepared statements). Sanitize and validate all user inputs."
             
-            # Base64 encoding prevents bash word-splitting on complex SQL payloads
+            # B64 Encoded to prevent bash word-splitting on complex SQL payloads
             print(f"{b64(\"CRITICAL\")}|{b64(finding)}|{b64(evidence)}|{b64(remediation)}")
             findings_count += 1
 
@@ -119,7 +128,6 @@ if findings_count == 0 and "sqlmap identified the following injection point(s)" 
     print(f"{b64(\"CRITICAL\")}|{b64(\"Potential SQL Injection Detected\")}|{b64(\"Review SQLMap raw logs for payload details.\")}|{b64(\"Implement parameterized queries.\")}")
 
 ' | while IFS='|' read -r sev fin evi rem; do
-    # Decode Base64 payloads securely back into strings
     sev_dec=$(echo "$sev" | base64 -d)
     fin_dec=$(echo "$fin" | base64 -d)
     evi_dec=$(echo "$evi" | base64 -d)

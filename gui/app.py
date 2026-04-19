@@ -5,19 +5,19 @@ Main entry point for the PyQt5 application handling user authentication,
 scan configuration, and reporting orchestration.
 """
 
-import sys, os, json, subprocess, sqlite3, glob, stat, hashlib
+import sys, os, json, subprocess, sqlite3, glob, stat
 from datetime import datetime
 import database  # Database management module
 
-from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl, QSize
+from PyQt5.QtCore import Qt, QThread, pyqtSignal, QUrl
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget, QVBoxLayout, QHBoxLayout,
     QPushButton, QLabel, QLineEdit, QTextEdit, QProgressBar, QTableWidget,
-    QTableWidgetItem, QMessageBox, QDialog, QFormLayout, QFileDialog, QFrame,
+    QTableWidgetItem, QMessageBox, QDialog, QFormLayout, QFrame,
     QHeaderView, QDialogButtonBox, QStackedWidget, QComboBox, QTabWidget,
-    QInputDialog, QSizePolicy, QCheckBox
+    QInputDialog, QCheckBox
 )
-from PyQt5.QtGui import QFont, QColor, QBrush, QDesktopServices, QIcon, QPixmap
+from PyQt5.QtGui import QFont, QDesktopServices, QIcon, QPixmap
 
 # --- Configuration Management ---
 
@@ -62,29 +62,15 @@ def save_config(cfg):
 
 def is_target_reachable(target):
     """
-    Verify target reachability via ICMP.
-    Returns True even on ping failure to account for firewalls blocking ICMP.
+    Verify target reachability. 
+    Modified for FYP: Instantly returns True to prevent synchronous ICMP timeouts 
+    from freezing the Main PyQt Thread during live demonstrations.
     """
-    clean_target = target.replace("http://", "").replace("https://", "").split("/")[0].split(":")[0]
-    
-    if not clean_target:
+    if not target:
         return False, "Target is empty."
+    return True, "Validation bypassed for DAST execution."
 
-    try:
-        ret_code = subprocess.call(
-            ['ping', '-c', '1', '-W', '1', clean_target],
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL
-        )
-        if ret_code == 0:
-            return True, "Target is reachable."
-        else:
-            return True, "Ping failed, but forcing scan (assuming firewall blocks ICMP)."
-            
-    except Exception as e:
-        return True, f"Validation skipped: {str(e)}"
-
-# --- Background Scan Processor ---
+# --- Background Scan Processor (Fixed Threading) ---
 
 class ScanWorker(QThread):
     output_line = pyqtSignal(str)
@@ -99,25 +85,31 @@ class ScanWorker(QThread):
 
     def run(self):
         full_cmd = f"sudo {self.cmd}"
-        self.output_line.emit(f"Running: {full_cmd}")
+        self.output_line.emit(f"[*] Dispatching Background Thread: {full_cmd}")
+        
         try:
+            # Using shell=True and iter() prevents GUI freezing and IOT crashes
             self._p = subprocess.Popen(
-                ["/bin/bash", "-lc", full_cmd],
+                full_cmd, shell=True, executable="/bin/bash",
                 stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                bufsize=1, universal_newlines=True
+                text=True, bufsize=1
             )
+            
             count = 0
-            for line in self._p.stdout:
-                txt = line.rstrip("\n")
-                self.output_line.emit(txt)
-                count += 1
-                if count % 10 == 0:
-                    self.progress.emit(min(95, count // 3))
+            for line in iter(self._p.stdout.readline, ''):
+                if line:
+                    txt = line.strip()
+                    self.output_line.emit(txt)
+                    count += 1
+                    if count % 10 == 0:
+                        self.progress.emit(min(95, count // 3))
+                        
             self._p.wait()
             self.progress.emit(100)
-            self.finished_signal.emit(self._p.returncode or 0)
+            self.finished_signal.emit(self._p.returncode)
+            
         except Exception as e:
-            self.output_line.emit(f"CRITICAL SCRIPT ERROR: {e}")
+            self.output_line.emit(f"CRITICAL THREAD ERROR: {e}")
             self.finished_signal.emit(-1)
 
     def stop(self):
@@ -308,9 +300,6 @@ class SignUpView(QWidget):
 # --- View: Mode Selection ---
 
 class ModeSelectionView(QWidget):
-    """
-    Selection screen for choosing between Network and Web scanning modes.
-    """
     modeSelected = pyqtSignal(str)
     logoutSignal = pyqtSignal()
 
@@ -616,7 +605,7 @@ class DashboardView(QWidget):
         self.console.clear()
         self.table.setRowCount(0)
         ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-        safe_t = target.replace(".", "-").replace("/", "_")
+        safe_t = target.replace(".", "-").replace("/", "_").replace(":", "_")
         
         user_folder = self.username if self.username else "default_user"
         out_folder = os.path.abspath(f"results/{user_folder}/{safe_t}_{ts}")
@@ -698,7 +687,6 @@ class DashboardView(QWidget):
         QDesktopServices.openUrl(QUrl.fromLocalFile(path))
 
     def show_last_report_window(self):
-        # Retrieve scan state from database
         try:
             conn = sqlite3.connect("vulnix.db")
             c = conn.cursor()
@@ -712,7 +700,6 @@ class DashboardView(QWidget):
         except Exception as e:
             pass
 
-        # Fallback to filesystem validation
         try:
             user_folder = self.username if self.username else "default_user"
             base_dir = os.path.abspath(f"results/{user_folder}")
@@ -897,7 +884,6 @@ class VulnixApp(QMainWindow):
         self.setWindowTitle("Vulnix — Automated Vulnerability Toolkit")
         self.setMinimumSize(1100, 720)
         
-        # Set application icon
         icon_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "vulnix_logo.png")
         if os.path.exists(icon_path):
             self.setWindowIcon(QIcon(icon_path))
@@ -982,7 +968,6 @@ class VulnixApp(QMainWindow):
 def main():
     app = QApplication(sys.argv)
     app.setStyle("Fusion")
-    app.setQuitOnLastWindowClosed(False)
     w = VulnixApp()
     w.show()
     sys.exit(app.exec_())
